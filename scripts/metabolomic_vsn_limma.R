@@ -5,8 +5,10 @@ library(vsn)
 setwd("~/Dropbox/COSMOS/")
 source("scripts/limma_functions.R")
 
-targets_1 <- as.data.frame(read_csv("data/metabolomic_targets.csv"))
+targets_1 <- as.data.frame(read_csv("support/metabolomic_targets.csv"))
 raw_metabolomic <- as.data.frame(read_csv("data/raw_metabolomic.csv"))
+row.names(raw_metabolomic) <- raw_metabolomic[,1]
+raw_metabolomic <- raw_metabolomic[,-1]
 
 fit <- vsnMatrix(as.matrix(raw_metabolomic))
 meanSdPlot(fit)
