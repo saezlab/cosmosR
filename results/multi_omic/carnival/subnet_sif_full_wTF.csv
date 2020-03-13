@@ -1,0 +1,76 @@
+Node1,Sign,Node2,Weight
+NOS1, 1,L-Citrulline_c_,100
+PRKCA,-1,NOS1,100
+STAT3, 1,PIM1,100
+TP53,-1,SLC38A2,100
+CAMK2A,-1,NOS1,100
+L-Citrulline_c_, 1,SLC25A15,100
+SLC25A15, 1,L-Citrulline_m_,100
+L-Citrulline_c_, 1,SLC7A6,100
+SLC7A6, 1,L-Citrulline_e_,100
+SLC38A2, 1,L-Glutamine_c_,100
+L-Glutamine_c_, 1,HMR_5101,100
+HMR_5101, 1,L-Glutamine_m_,100
+Propanoyl Coenzyme A_x_, 1,CRAT,100
+CRAT, 1,O-Propanoylcarnitine_x_,100
+5-Methylthioadenosine_c_, 1,MTAP,100
+MTAP, 1,Adenine_c_,100
+ACPP, 1,Uridine_l_,100
+SCP2, 1,Propanoyl Coenzyme A_x_,100
+SMS, 1,5-Methylthioadenosine_c_,100
+Isovaleryl Coenzyme A_c_, 1,CPT1B,100
+CPT1B, 1,Isovaleryl Carnitine_c_,100
+PNP, 1,Inosine_c_,100
+Hypoxanthine_c_, 1,PNP,100
+PLD1, 1,Ethanolamine_c_,100
+P4HA2, 1,Succinate_m_,100
+Adenine_c_, 1,HMR_9797,100
+HMR_9797, 1,Hypoxanthine_c_,100
+PRKCA, 1,PLD1,100
+PDPK1, 1,PRKCA,100
+AURKB,-1,TP53,100
+NFYA, 1,SP1,100
+EGR1, 1,TP53,100
+PIM1,-1,FOXO3,100
+FOXO3, 1,SCP2,100
+ESR1, 1,AR,100
+AR, 1,ACPP,100
+SP1, 1,SLC47A1,100
+AR, 1,SMS,100
+TP53, 1,P4HA2,100
+AR, 1,DBI,100
+CDK7,-1,AR,100
+CSNK2A1,-1,SP1,100
+TFAP4, 1,SP1,100
+SLC29A2, 1,Adenine_e_,100
+Adenine_c_, 1,SLC29A2,100
+O-Propanoylcarnitine_x_, 1,CRNCAR3tp,100
+CRNCAR3tp, 1,O-Propanoylcarnitine_c_,100
+Hypoxanthine_c_, 1,HXANtx,100
+HXANtx, 1,Hypoxanthine_x_,100
+SLC29A2, 1,Inosine_e_,100
+Inosine_c_, 1,SLC29A2,100
+SLC13A2, 1,Succinate_e_,100
+Succinate_c_, 1,SLC13A2,100
+Succinate_c_, 1,SUCCtp,100
+SUCCtp, 1,Succinate_x_,100
+SLC29A2, 1,Uridine_e_,100
+Uridine_c_, 1,SLC29A2,100
+Uridine_l_, 1,SLC29A3,100
+SLC29A3, 1,Uridine_c_,100
+Uridine_c_, 1,Uritn,100
+Uritn, 1,Uridine_n_,100
+SLC25A1, 1,Succinate_c_,100
+Succinate_m_, 1,SLC25A1,100
+O-Propanoylcarnitine_c_, 1,SLC25A20,100
+SLC25A20, 1,O-Propanoylcarnitine_m_,100
+DBI, 1,Isovaleryl Coenzyme A_c_,100
+Isovaleryl Carnitine_c_, 1,IVCRNe,100
+IVCRNe, 1,Isovaleryl Carnitine_e_,100
+O-Propanoylcarnitine_c_, 1,HC02149td,100
+HC02149td, 1,O-Propanoylcarnitine_e_,100
+ETHAt, 1,Ethanolamine_e_,100
+Ethanolamine_c_, 1,ETHAt,100
+SLC29A2, 1,Hypoxanthine_e_,100
+Hypoxanthine_c_, 1,SLC29A2,100
+SLC47A1, 1,Creatinine_c_,100
