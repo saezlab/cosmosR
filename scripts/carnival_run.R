@@ -32,11 +32,11 @@ CARNIVAL_Result2 <- runCARNIVAL(CplexPath="~/Documents/cplex",
 )# 2.44
 
 signaling_input_carnival <- as.data.frame(
-  read_delim("results/phospho/signaling_input_carnival.tsv", 
+  read_delim("results/phospho/signaling_input_carnival.tsv",
              "\t", escape_double = FALSE, trim_ws = TRUE))
 
 metab_input_carnival <- as.data.frame(
-  read_delim("results/metabolomic/metab_input_carnival.tsv", 
+  read_delim("results/metabolomic/metab_input_carnival.tsv",
              "\t", escape_double = FALSE, trim_ws = TRUE))
 
 sif <- as.data.frame(CARNIVAL_Result[[1]]$weightedSIF)

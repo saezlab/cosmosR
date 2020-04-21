@@ -36,7 +36,7 @@ TPR_restricted <- c()
 n_all <- c()
 n_restricted <- c()
 baseline <- c()
-for( i in seq(1,2,0.1))
+for( i in seq(0,2,0.01))
 {
   TF_carnival_net <- subnet_sif_full_att[subnet_sif_full_att$type == "TF",]
   TF_targets_carnival_net <- subnet_sif_full_att[subnet_sif_full_att$Nodes %in% dorothea$target_genesymbol,]
@@ -80,9 +80,9 @@ for( i in seq(1,2,0.1))
   baseline <- c(baseline,(sum(sign(tvals) == 1)/length(tvals) + sum(sign(tvals) == -1)/length(tvals))/2)
 }
 
-TPR_all <- as.data.frame(cbind(seq(1,2,0.1),TPR_all))
+TPR_all <- as.data.frame(cbind(seq(0,2,0.01),TPR_all))
 TPR_all$group <- "all"
-TPR_restricted <- as.data.frame(cbind(seq(1,2,0.1),TPR_restricted))
+TPR_restricted <- as.data.frame(cbind(seq(0,2,0.01),TPR_restricted))
 TPR_restricted$group <- "CARNIVAL"
 names(TPR_all)[2] <- "TPR" 
 names(TPR_restricted)[2] <- "TPR"
@@ -92,7 +92,7 @@ names(TPR)[1] <- "threshold"
 TPR$n <- n_restricted
 
 baseline <- as.data.frame(baseline)
-baseline$threshold <- seq(1,2,0.1)
+baseline$threshold <- seq(0,2,0.01)
 baseline$n <- n_restricted
 baseline$group <- "baseline"
 names(baseline)[1]  <- "TPR"
@@ -154,7 +154,7 @@ mean(abs(comparison_regnets[(sign(comparison_regnets$correlation) != sign(compar
 TPR_coreg <- list()
 baseline_coreg <- list()
 j <- 1
-for( i in seq(0.1,0.9,0.1))
+for( i in seq(0,1,0.01))
 {
   comparison_regnets <- merge(cor_net[,c(4,3)], corregs_carnival[c(4,3)], by = "ID")
   names(comparison_regnets) <- c("ID","correlation","carnival_correlation")
