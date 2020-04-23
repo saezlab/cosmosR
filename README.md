@@ -25,4 +25,3 @@ If you use cosmos for your research please cite the original publication:
 ## License
 
 The code is distributed under the GNU General Public License v3.0. The meta PKN is distributed under the Attribution-NonCommercial 4.0 International (CC-BY-NC 4.0) License.
-In its current form, COSMOS relies on DoRothEA’s resources. Thus it falls under the same commercial limitations. More information here : https://saezlab.github.io/dorothea/
