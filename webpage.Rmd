@@ -1,9 +1,33 @@
 ---
-title: "metaPKN"
+title: "COSMOS tutorial"
 author: "Aurelien Dugourd"
 date: "4/14/2020"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
+
+Copyright (C) 2019  Aurelien Dugourd
+Contact : aurelien.dugourd@bioquant.uni-heidelberg.de
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Overview
+
+This script is a tutorial to run the COSMOS pipeline. You will need to manually set the 
+working directory to the root COSMOS folder. Then, you may run the script with the 
+provided data or your own if you format it as the same way as the data presented here.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -184,6 +208,14 @@ meta_network_with_X <- unique(meta_network_with_X)
 write_tsv(meta_network_with_X, "support/meta_network_with_X_nobadchar.tsv")
 ```
 
+Once the inputs are ready, we can run CARNIVAL. Here we already ran it a priori and 
+saved the output as it can take a significant amount of time. You sohuld decomment this 
+chunk of code in order to run it with your data. For more information on the CARNIVAL 
+paramters, please check the carnival page :https://saezlab.github.io/CARNIVAL/.
+Briefly, the time limit can be adjusted if the gap is still to high at the end of the 
+run, and you sohuld make sure that the gap is smaller than the mipGAP parameter at the 
+end of the run.
+
 ```{r, message=FALSE, warning=FALSE,results='hide',fig.keep='all', fig.height=4, fig.width=12}
 # CARNIVAL_Result <- runCARNIVAL(CplexPath="~/Documents/cplex",
 #                                Result_dir="results/multi_omic/carnival/",
@@ -213,10 +245,18 @@ write_tsv(meta_network_with_X, "support/meta_network_with_X_nobadchar.tsv")
 # save(CARNIVAL_Result2,file = "results/multi_omic/CARNIVAL_result_backward.RData")
 ```
 
+IF you run with you own data, you should skip this chunk.
+
 ```{r, message=FALSE, warning=FALSE,results='hide',fig.keep='all', fig.height=4, fig.width=12}
 load("results/multi_omic/CARNIVAL_result_forward.RData")
 load("results/multi_omic/CARNIVAL_result_backward.RData")
 ```
+
+Once the carnival results are avalaible, we can map them back to user friendly 
+identifiers and annotate the nodes with appropriate infromations. You need to use again 
+your own metabolite name to pubchem mapping table (same you used when preparing the 
+inputs). This should lead to a sif and attribute dataframes that are ready to be 
+imported by cytoscape in csv format.
 
 ```{r, message=FALSE, warning=FALSE,results='hide',fig.keep='all', fig.height=4, fig.width=12}
 signaling_input_carnival <- as.data.frame(
