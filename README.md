@@ -12,10 +12,13 @@ COSMOS (Causal Oriented Search of Multi-Omic Space) is a method that integrates 
 
 COSMOS uses CARNIVAL’s Integer Linear Programming (ILP) optimization strategy to find the smallest coherent subnetwork causally connecting as many deregulated TFs, kinases/phosphatases and metabolites as possible. The subnetwork is extracted from a novel integrated PKN (available here) spanning signaling, transcriptional regulation and metabolism.  Transcription factors activities are inferred from gene expression with DoRothEA, a meta resource of TF/target links. Kinase activities are inferred from phosphoproteomic with a kinase/substrate network of Omnipath, a meta resource of protein-protein. CARNIVAL was adapted to find mechanistic hypotheses connecting the TF and kinase activities with metabolites from a signaling/metabolic prior knowledge network combining Omnipath, STITCHdb and Recon3D. 
 
+## Tutorial
+
+Check the Tutorial.pdf file in the root github folder to have an example of running COSMOS with from TF, kinase, phosphatase activities and metabolite abundances.
+
 ## Access
 
-The integrated PKN used with COSMOS is available here.
-
+The integrated PKN used with COSMOS is available [here](http://metapkn.omnipathdb.org/).
 
 ## Citation
 If you use cosmos for your research please cite the original publication: 
