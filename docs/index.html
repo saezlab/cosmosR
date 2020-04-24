@@ -98,13 +98,18 @@
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
 <p>COSMOS (Causal Oriented Search of Multi-Omic Space) is a method that integrates phosphoproteomics, transcriptomics, and metabolomics data sets. COSMOS leverages extensive prior knowledge of signaling pathways, metabolic networks, and gene regulation with computational methods to estimate activities of transcription factors and kinases as well as network-level causal reasoning. This pipeline can provide mechanistic explanations for experimental observations across multiple omic data sets.</p>
-<p><img src="reference/figures/graphical_abstract.png" align="center" width="400"></p>
-<p>COSMOS uses CARNIVAL’s Integer Linear Programming (ILP) optimization strategy to find the smallest coherent subnetwork causally connecting as many deregulated TFs, kinases/phosphatases and metabolites as possible. The subnetwork is extracted from a novel integrated PKN (available here) spanning signaling, transcriptional regulation and metabolism. Transcription factors activities are inferred from gene expression with DoRothEA, a meta resource of TF/target links. Kinase activities are inferred from phosphoproteomic with a kinase/substrate network of Omnipath, a meta resource of protein-protein. CARNIVAL was adapted to find mechanistic hypotheses connecting the TF and kinase activities with metabolites from a signaling/metabolic prior knowledge network combining Omnipath, STITCHdb and Recon3D.</p>
+<p><img src="reference/figures/graphical_abstract.png" align="center" width="800"></p>
+<p>COSMOS uses <a href="https://saezlab.github.io/CARNIVAL/">CARNIVAL</a>’s Integer Linear Programming (ILP) optimization strategy to find the smallest coherent subnetwork causally connecting as many deregulated TFs, kinases/phosphatases and metabolites as possible. The subnetwork is extracted from a novel integrated PKN (available <a href="http://metapkn.omnipathdb.org/">here</a>) spanning signaling, transcriptional regulation and metabolism. Transcription factors activities are inferred from gene expression with <a href="https://saezlab.github.io/dorothea/">DoRothEA</a>, a meta resource of TF/target links. Kinase activities are inferred from phosphoproteomic with a kinase/substrate network of <a href="http://omnipathdb.org/">Omnipath</a>, a meta resource of protein-protein. <a href="https://saezlab.github.io/CARNIVAL/">CARNIVAL</a> was adapted to find mechanistic hypotheses connecting the TF and kinase activities with metabolites from a signaling/metabolic prior knowledge network combining <a href="http://omnipathdb.org/">Omnipath</a>, <a href="http://stitch.embl.de/">STITCHdb</a> and <a href="https://www.vmh.life/">Recon3D</a>.</p>
+</div>
+<div id="tutorial" class="section level2">
+<h2 class="hasAnchor">
+<a href="#tutorial" class="anchor"></a>Tutorial</h2>
+<p>Check the Tutorial.pdf (or click <a href="https://github.com/saezlab/COSMOS/blob/master/Tutorial.pdf">here</a>) file in the root github folder to have an example of running COSMOS with from TF, kinase, phosphatase activities and metabolite abundances. You need to download the github cosmos folder to run the tutorial.</p>
 </div>
 <div id="access" class="section level2">
 <h2 class="hasAnchor">
 <a href="#access" class="anchor"></a>Access</h2>
-<p>The integrated PKN used with COSMOS is available here.</p>
+<p>The integrated PKN used with COSMOS is available <a href="http://metapkn.omnipathdb.org/">here</a>.</p>
 </div>
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
@@ -117,7 +122,7 @@
 <div id="license" class="section level2">
 <h2 class="hasAnchor">
 <a href="#license" class="anchor"></a>License</h2>
-<p>The code is distributed under the GNU General Public License v3.0. The meta PKN is distributed under the Attribution-NonCommercial 4.0 International (CC-BY-NC 4.0) License. In its current form, COSMOS relies on DoRothEA’s resources. Thus it falls under the same commercial limitations. More information here : <a href="https://saezlab.github.io/dorothea/" class="uri">https://saezlab.github.io/dorothea/</a></p>
+<p>The code is distributed under the GNU General Public License v3.0. The meta PKN is distributed under the Attribution-NonCommercial 4.0 International (CC-BY-NC 4.0) License.</p>
 </div>
 </div>
   </div>
