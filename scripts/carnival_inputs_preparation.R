@@ -118,3 +118,24 @@ meta_network_with_X <- meta_network_with_X[!isdup,]
 meta_network_with_X <- unique(meta_network_with_X)
 
 write_tsv(meta_network_with_X, "support/meta_network_with_X_nobadchar.tsv")
+
+sif_for_tiedie <- meta_network_with_X
+sif_for_tiedie$interaction <- as.character(sif_for_tiedie$interaction)
+sif_for_tiedie$interaction <- ifelse(sif_for_tiedie$interaction == "1","activates>","inhibits>")
+
+write_tsv(sif_for_tiedie,"~/Documents/TieDIE/examples/kidney_cancer/pathway.sif",col_names = F)
+
+tiedie_up <- as.data.frame(t(signaling_input_carnival))
+tiedie_up$node <- row.names(tiedie_up)
+tiedie_up$weight <- abs(tiedie_up$V1)*100
+tiedie_up$effect <- ifelse(tiedie_up$V1 > 0,"+","-")
+tiedie_up <- tiedie_up[,-1]
+
+tiedie_down <- as.data.frame(t(metab_input_carnival))
+tiedie_down$node <- row.names(tiedie_down)
+tiedie_down$weight <- abs(tiedie_down$V1)*100
+tiedie_down$effect <- ifelse(tiedie_down$V1 > 0, "+", "-")
+tiedie_down <- tiedie_down[,-1]
+
+write_tsv(tiedie_up,"~/Documents/TieDIE/examples/kidney_cancer/upstream.input",col_names = F)
+write_tsv(tiedie_down,"~/Documents/TieDIE/examples/kidney_cancer/downstream.input",col_names = F)
