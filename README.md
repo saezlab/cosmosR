@@ -21,9 +21,9 @@ Check the Tutorial.pdf (or click [here](https://github.com/saezlab/COSMOS/blob/m
 The integrated PKN used with COSMOS is available [here](http://metapkn.omnipathdb.org/).
 
 ## Citation
-If you use cosmos for your research please cite the original publication: 
+If you use cosmos for your research please cite the [original publication](https://www.biorxiv.org/content/10.1101/2020.04.23.057893v1): 
 
-> Aurelien Dugourd, Christoph Kuppe, Marco Sciacovelli, Enio Gjerga, Kristina B. Emdal, Dorte B. Bekker-Jensen, Jennifer Kranz, Eric. M. J. Bindels, Ana S. H. Costa, Jesper V. Olsen, Christian Frezza, Rafael Kramann, Julio Saez-Rodriguez. Causal integration of multi-omics data with prior knowledge to generate mechanistic hypotheses. 2020.
+> Aurelien dugourd, Christoph Kuppe, Marco Sciacovelli, Enio Gjerga, Kristina Bennet Emdal, Dorte Breinholdt Bekker-Jensen, Jennifer Kranz, Eric J.M. Bindels, Sofia Costa, Jesper V Olsen, Christian Frezza, Rafael Kramann, Julio Saez-Rodriguez. Causal integration of multi-omics data with prior knowledge to generate mechanistic hypotheses. bioRxiv 2020.04.23.057893 (2020) doi:10.1101/2020.04.23.057893.
 
 ## License
 
