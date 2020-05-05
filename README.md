@@ -16,6 +16,8 @@ COSMOS uses [CARNIVAL](https://saezlab.github.io/CARNIVAL/)’s Integer Linear P
 
 Check the Tutorial.pdf (or click [here](https://github.com/saezlab/COSMOS/blob/master/Tutorial.pdf)) file in the root github folder to have an example of running COSMOS with from TF, kinase, phosphatase activities and metabolite abundances. You need to download the github cosmos folder to run the tutorial.
 
+//!\\ The tutorial is curently based on the paper version of CARNIVAL : https://github.com/saezlab/CARNIVAL/tree/package_paper_version
+
 ## Access
 
 The integrated PKN used with COSMOS is available [here](http://metapkn.omnipathdb.org/).
