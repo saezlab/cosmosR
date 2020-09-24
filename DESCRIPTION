@@ -1,19 +1,33 @@
 Package: cosmos
 Type: Package
-Title: TODO
-Version: 0.99.0
+Title: COSMOS (Causal Oriented Search of Multi-Omic Space)
+Version: 0.1.0
 Authors@R: c(
     person(given = "Aurélien",
            family = "Dugourd",
            role = c("cre", "aut"),
            email = "dugourdaurelien@gmail.com",
-           comment = c(ORCID = "0000-0002-0714-028X")))
-Description: TODO
+           comment = c(ORCID = "0000-0002-0714-028X")),
+    person(given = "Attila",
+           family = "Gabor",
+           role = c("aut"),
+           email = "attila.gabor@uni-heidelberg.de"))
+Description: COSMOS (Causal Oriented Search of Multi-Omic Space) is a method 
+    that integrates phosphoproteomics, transcriptomics, and metabolomics data sets
+    based on prior knowledge.
 URL: https://github.com/saezlab/COSMOS
 BugReports: https://github.com/saezlab/COSMOS/issues
 Depends: R (>= 3.6)
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 VignetteBuilder: knitr
+Imports:
+    CARNIVAL,
+    dorothea,
+    biomaRt,
+    igraph,
+    dplyr
+Suggests: 
+    testthat
