@@ -27,7 +27,9 @@ filter_transcriptional_regulations <- function(network,
     # map the TF values and gene expression levels on the PKN
     annotated_network <- network %>% 
         # add the gene expression data: (non-genes will be filled with NA)
-        left_join(enframe(gene_expression_binarized, name = "gene", value="target_sign"), by=c(target="gene")) %>%
+        left_join(
+            enframe(gene_expression_binarized, name = "gene", value="target_sign"),
+            by=c(target="gene")) %>%
         # add the TF data (non-TFs will be filled with NAs)
         left_join(
             enframe(signaling_data, name = "TF", value="TF_sign") %>%
@@ -43,15 +45,19 @@ filter_transcriptional_regulations <- function(network,
         # genes didn't change
         mutate(target_gene_unchanged = target_sign==0) %>%
         # gene didnt change and the source is a TF (it is a transcriptional regulation)
-        mutate(TF_target_unchanged = source_is_TF & (target_gene_unchanged | is.na(target_gene_unchanged))) %>%
+        mutate(TF_target_unchanged = source_is_TF &
+                   (target_gene_unchanged | is.na(target_gene_unchanged))) %>%
         # gene changed, but not consistently with TF activity
-        mutate(inconsistent_TF_gene_sign = sign(TF_sign) != interaction * sign(target_sign) ) 
+        mutate(inconsistent_TF_gene_sign = 
+                   sign(TF_sign) != interaction * sign(target_sign) ) 
     
     # TODO: option to return these interactions
     removed_interactions <- annotated_network %>%
         filter(TF_target_unchanged | inconsistent_TF_gene_sign)
     
-    print(paste("COSMOS: ", nrow(removed_interactions), "interactions removed based on consistency check between TF activity and gene expression"))
+    print(paste("COSMOS: ", nrow(removed_interactions), 
+                "interactions are removed from the PKN based on",
+                "consistency check between TF activity and gene expression"))
     
     
     kept_interactions <-  annotated_network %>%
