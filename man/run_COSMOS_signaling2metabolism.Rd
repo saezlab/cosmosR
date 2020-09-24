@@ -2,7 +2,7 @@
 % Please edit documentation in R/run_COSMOS.R
 \name{run_COSMOS_signaling2metabolism}
 \alias{run_COSMOS_signaling2metabolism}
-\title{run_COSMOS_s2m}
+\title{run_COSMOS_signaling2metabolism}
 \usage{
 run_COSMOS_signaling2metabolism(
   meta_network = load_meta_pkn(),
