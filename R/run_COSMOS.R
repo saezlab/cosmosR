@@ -63,14 +63,15 @@ run_COSMOS_signaling2metabolism <- function(meta_network = load_meta_pkn(),
     # run CARNIVAL from signaling to metabolism,
     # this may estimate the activity of other TF-s.
     if(!test_run){
-    CARNIVAL_results = runCARNIVAL_wrapper(network = meta_network,
-                        input_data = sign(signaling_data),
-                        measured_data = measured_data,
-                        solver_path = solver_path,
-                        solver = solver,
-                        timelimit = timelimit,
-                        mipGAP = 0.2)
+        CARNIVAL_results = runCARNIVAL_wrapper(network = meta_network,
+                                               input_data = sign(signaling_data),
+                                               measured_data = measured_data,
+                                               solver_path = solver_path,
+                                               solver = solver,
+                                               timelimit = timelimit,
+                                               mipGAP = 0.2)
     
+        
     }else(
         return(TRUE)
     )
