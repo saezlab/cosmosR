@@ -7,7 +7,7 @@
 #' - expression data genes overlap with TF targets
 #' Stops if a check fails
 #' @param meta_network contains the PKN
-#' @param tf_regulon tf-target network with EntrezID
+#' @param tf_regulon (optional) tf-target network with EntrezID
 #' @param signaling_data numerical vector, where names are signaling nodes 
 #' in the PKN and values are from \{1,-1\}
 #' @param metabolic_data numerical vector, where names are metabolic nodes 
@@ -17,10 +17,10 @@
 #' and values are from \{1,-1\}
 #' 
 check_network_data_coverage <- function(meta_network,
-                           tf_regulon,
-                           signaling_data,
-                           metabolic_data,
-                           expression_data){
+                                        tf_regulon = NULL,
+                                        signaling_data,
+                                        metabolic_data,
+                                        expression_data = NULL){
     
     # signaling should be in PKN
     signaling_nodes = names(signaling_data)
@@ -28,8 +28,7 @@ check_network_data_coverage <- function(meta_network,
                                                              meta_network$target)]
     if(length(missing_nodes)>0){
         stop(paste("The following signaling nodes are not found in the PKN:",
-                   paste(head(missing_nodes),collapse = ", "), "and",
-                   length(missing_nodes) - length(head(missing_nodes), " more.") ))
+                   limit_string_vec(missing_nodes)))
     }else{
         print(paste("COSMOS: all", length(signaling_nodes),
                     "signaling nodes from data were found in the meta PKN"))
@@ -41,8 +40,7 @@ check_network_data_coverage <- function(meta_network,
                                                              meta_network$target)]
     if(length(missing_nodes)>0){
         stop(paste("The following metabolic nodes are not found in the PKN:",
-                   paste(head(missing_nodes),collapse = ", "), "and",
-                   length(missing_nodes) - length(head(missing_nodes), " more.") ))
+                   limit_string_vec(missing_nodes)))
     }else{
         print(paste("COSMOS: all",length(metabolic_nodes) ,
                     "metabolic nodes from data were found in the meta PKN"))
@@ -50,18 +48,20 @@ check_network_data_coverage <- function(meta_network,
     }
     
     # the expression data should overlap with the TF targets
-    genes = names(expression_data)
-    genes_as_tf_target <- sum(genes %in% tf_regulon$target)
-    
-    print(paste0("COSMOS: ", genes_as_tf_target,
-                  " of the ",length(genes),
-                  " genes in expression data was found as transcription factor target"))
-    print(paste0("COSMOS: ", sum( unique(tf_regulon$target) %in% genes),
-                  " of the ",length(unique(tf_regulon$target)),
-                  " transcription factor target was found in expression data"))
-    if(genes_as_tf_target==0){
-        stop("Expression data contains no gene that appear as transcription factor target.
+    if(!is.null(tf_regulon)){
+        genes = names(expression_data)
+        genes_as_tf_target <- sum(genes %in% tf_regulon$target)
+        
+        print(paste0("COSMOS: ", genes_as_tf_target,
+                     " of the ",length(genes),
+                     " genes in expression data were found as transcription factor target"))
+        print(paste0("COSMOS: ", sum( unique(tf_regulon$target) %in% genes),
+                     " of the ",length(unique(tf_regulon$target)),
+                     " transcription factor targets were found in expression data"))
+        if(genes_as_tf_target==0){
+            stop("Expression data contains no gene that appear as transcription factor target.
              The expression_data must be a named vector using EntrezIDs.")
+        }
     }
     
 }

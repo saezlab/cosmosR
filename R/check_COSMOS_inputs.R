@@ -13,6 +13,13 @@ check_COSMOS_inputs <- function(meta_network = NULL,
     if(!is.null(metabolic_data))  stopifnot(is.vector(metabolic_data))
     if(!is.null(expression_data))  stopifnot(is.vector(expression_data))
     
+    if(!is.null(signaling_data) & !all(grepl("^X",names(signaling_data)))) {
+        stop("gene names in signaling_data should be entrezID with a prefix character X. eg: X5062")
+        }
+    if(!is.null(expression_data) & !all(grepl("^X",names(expression_data)))) {
+        stop("gene names in expression_data should be entrezID with a prefix character X. eg: X5062")
+        }
+    
     # checking the networks
     if(!is.null(meta_network)){
         stopifnot(is.data.frame(meta_network))
