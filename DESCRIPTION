@@ -28,6 +28,7 @@ Imports:
     dorothea,
     biomaRt,
     igraph,
-    dplyr
+    dplyr,
+    Biobase
 Suggests: 
     testthat
