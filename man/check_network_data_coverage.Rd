@@ -6,16 +6,16 @@
 \usage{
 check_network_data_coverage(
   meta_network,
-  tf_regulon,
+  tf_regulon = NULL,
   signaling_data,
   metabolic_data,
-  expression_data
+  expression_data = NULL
 )
 }
 \arguments{
 \item{meta_network}{contains the PKN}
 
-\item{tf_regulon}{tf-target network with EntrezID}
+\item{tf_regulon}{(optional) tf-target network with EntrezID}
 
 \item{signaling_data}{numerical vector, where names are signaling nodes 
 in the PKN and values are from \{1,-1\}}

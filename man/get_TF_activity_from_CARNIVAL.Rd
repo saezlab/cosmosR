@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_TF_activity_from_CARNIVAL.R
 \name{get_TF_activity_from_CARNIVAL}
 \alias{get_TF_activity_from_CARNIVAL}
-\title{get_TF_sign_from_CARNIVAL}
+\title{get_TF_activity_from_CARNIVAL}
 \usage{
 get_TF_activity_from_CARNIVAL(carnival_result, TFs)
 }
@@ -12,7 +12,7 @@ get_TF_activity_from_CARNIVAL(carnival_result, TFs)
 \item{TFs}{character vector of transcription factors using EntrezIDs}
 }
 \value{
-named numerical vectors with TF activity found in CARNIVAL results.
+named numerical vector with TF activity found in CARNIVAL results.
 }
 \description{
 screens the CARNIVAL results and obtains the activity of transcription factors
