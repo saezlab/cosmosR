@@ -6,8 +6,8 @@
 #' gene symbols to EntrezID using biomart
 #' 
 #' @param toEntrez if TRUE (default), converts gene symbols to EntrezID
-#' @import dorothea biomaRt dplyr
-#' 
+#' @import dorothea
+#' @importFrom biomaRt getBM useEnsembl
 load_tf_regulon_dorothea <- function(toEntrez = TRUE, confidence = c("A","B","C")){
     
     # load regulon from dorothea:
@@ -16,20 +16,33 @@ load_tf_regulon_dorothea <- function(toEntrez = TRUE, confidence = c("A","B","C"
     
     # transform names to EntrezID
     if(toEntrez){
-        ensembl = biomaRt::useEnsembl(biomart="ensembl", dataset="hsapiens_gene_ensembl") 
-        # TODO: implement a cache to be available in offline session. 
         
-        tf_entrez <- biomaRt::getBM(filters = "hgnc_symbol",
-                                    attributes = c('hgnc_symbol','entrezgene_id'),
-                                    values = unique(regulon$tf), mart = ensembl)
+        
+        if(!dir.exists("./cosmos_cache")) dir.create("./cosmos_cache")
+
+        
+        Biobase::cache(
+            ensembl <- biomaRt::useEnsembl(biomart="ensembl",
+                                           dataset="hsapiens_gene_ensembl"),
+            dir = "./cosmos_cache")
+        Biobase::cache(
+            tf_entrez <- biomaRt::getBM(filters = "hgnc_symbol",
+                                        attributes = c('hgnc_symbol',
+                                                       'entrezgene_id'),
+                                        values = unique(regulon$tf)[1:4],
+                                        mart = ensembl),
+            dir = "./cosmos_cache")
+        
+        
         
         regulon <- regulon %>% dplyr::left_join(tf_entrez, by=c("tf"="hgnc_symbol" )) %>%
             mutate(tf = paste0("X",entrezgene_id)) %>% 
             dplyr::select(-entrezgene_id)
         
-        target_entrez <- biomaRt::getBM(filters = "hgnc_symbol",
+        Biobase::cache( target_entrez <- biomaRt::getBM(filters = "hgnc_symbol",
                                         attributes = c('hgnc_symbol','entrezgene_id'),
-                                        values = unique(regulon$target), mart = ensembl)
+                                        values = unique(regulon$target), mart = ensembl),
+                        dir = "./cosmos_cache")
         
         regulon <- regulon %>% dplyr::left_join(target_entrez, by=c("target"="hgnc_symbol" )) %>%
             mutate(target = paste0("X",entrezgene_id)) %>% 
