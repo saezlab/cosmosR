@@ -37,7 +37,7 @@ runCARNIVAL_wrapper <- function(network,
                                              timelimit = timelimit,
                                              mipGAP = minGap)
     
+    if(!validate_CARNIVAL_results(CARNIVAL_Result)) warning("we failed to validate CARNIVAL results.")
     
-    
-    
+    return(CARNIVAL_Result)
 }
