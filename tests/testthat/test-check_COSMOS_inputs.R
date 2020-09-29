@@ -1,17 +1,12 @@
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
-})
-
-
 
 test_that("test data", {
     
+    # should not work with dataframe
     test_data = tibble(ID = c("A","B"),activity = c(0.1,5))
-    
     expect_error(check_COSMOS_inputs(signaling_data = test_data))
     
-    
-    test_data = c(A=4,B=4)
+    # should pass with named vector
+    test_data = c(X0125=4,X123684=-4)
     expect_true(check_COSMOS_inputs(signaling_data = test_data))
     
 })
