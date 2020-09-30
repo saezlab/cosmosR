@@ -13,7 +13,7 @@
 #' \cite{\code{load_meta_pkn}}
 #' @param signaling_data numerical vector, where names are signaling nodes 
 #' in the PKN and values are from \{1, 0, -1\}. Continuous data will be 
-#' discretized using the \link\code{sign} function.  
+#' discretized using the \code{\link{sign}} function.  
 #' @param metabolic_data numerical vector, where names are metabolic nodes 
 #' in the PKN and values are continuous values that represents log2 fold change 
 #' or t values from a differential analysis. These values are compared to 
@@ -30,7 +30,7 @@
 #' than `maximum_network_depth` steps from the signaling nodes on the directed
 #' graph of the PKN are considered non-reachable and are removed. 
 #' @param remove_unexpressed_nodes if TRUE (default) removes nodes from the PKN 
-#' that are not expressed, see input \code{expressed_genes}.
+#' that are not expressed, see input `expressed_genes`.
 #' @param expressed_genes character vector. Names of nodes that are expressed. By 
 #' default we consider all the nodes that appear in \code{diff_expression_data} with
 #' a numeric value (i.e. nodes with NA are removed) 
@@ -38,11 +38,11 @@
 #' a network optimization that estimates TF activity not included in the inputs
 #' and checks the consistency between the estimated activity and change in gene 
 #' expression. Removes interactions where TF and gene expression are inconsistent 
-#' @param solver_path argument passed to \link\code{CARNIVAL::runCARNIVAL}. 
+#' @param solver_path argument passed to \code{\link{CARNIVAL::runCARNIVAL}}. 
 #' used if filter_tf_gene_interaction_by_optimization is TRUE
-#' @param solver argument passed to \link\code{CARNIVAL::runCARNIVAL}
+#' @param solver argument passed to \code{\link{CARNIVAL::runCARNIVAL}}
 #' used if filter_tf_gene_interaction_by_optimization is TRUE
-#' @param time_limit argument passed to \link\code{CARNIVAL::runCARNIVAL}
+#' @param time_limit argument passed to \code{\link{CARNIVAL::runCARNIVAL}}
 #' used if filter_tf_gene_interaction_by_optimization is TRUE
 #' @export
 #' @import dplyr

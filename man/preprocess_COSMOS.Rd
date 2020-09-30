@@ -27,7 +27,7 @@ derived from Omnipath, STITCHdb and Recon3D. See details on the function
 
 \item{signaling_data}{numerical vector, where names are signaling nodes 
 in the PKN and values are from \{1, 0, -1\}. Continuous data will be 
-discretized using the \link\code{sign} function.}
+discretized using the \link{\code{sign}} function.}
 
 \item{metabolic_data}{numerical vector, where names are metabolic nodes 
 in the PKN and values are continuous values that represents log2 fold change 
@@ -53,20 +53,20 @@ default we consider all the nodes that appear in \code{diff_expression_data} wit
 a numeric value (i.e. nodes with NA are removed)}
 
 \item{remove_unexpressed_nodes}{if TRUE (default) removes nodes from the PKN 
-that are not expressed, see input \code{expressed_genes}.}
+that are not expressed, see input `expressed_genes`.}
 
 \item{filter_tf_gene_interaction_by_optimization}{(default:TRUE), if TRUE then runs 
 a network optimization that estimates TF activity not included in the inputs
 and checks the consistency between the estimated activity and change in gene 
 expression. Removes interactions where TF and gene expression are inconsistent}
 
-\item{solver_path}{argument passed to \link\code{CARNIVAL::runCARNIVAL}. 
+\item{solver_path}{argument passed to \link{\code{CARNIVAL::runCARNIVAL}}. 
 used if filter_tf_gene_interaction_by_optimization is TRUE}
 
-\item{solver}{argument passed to \link\code{CARNIVAL::runCARNIVAL}
+\item{solver}{argument passed to \link{\code{CARNIVAL::runCARNIVAL}}
 used if filter_tf_gene_interaction_by_optimization is TRUE}
 
-\item{time_limit}{argument passed to \link\code{CARNIVAL::runCARNIVAL}
+\item{time_limit}{argument passed to \link{\code{CARNIVAL::runCARNIVAL}}
 used if filter_tf_gene_interaction_by_optimization is TRUE}
 }
 \value{

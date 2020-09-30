@@ -8,6 +8,6 @@
 #' @export
 load_meta_pkn <- function(){
     
-    cosmos:::meta_network
+    meta_network
     
 }

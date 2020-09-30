@@ -29,6 +29,9 @@ Imports:
     biomaRt,
     igraph,
     dplyr,
-    Biobase
+    Biobase,
+    AnnotationDbi,
+    org.Hs.eg.db,
+    knitr
 Suggests: 
     testthat

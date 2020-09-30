@@ -2,7 +2,11 @@
 #' 
 #' checks the format of the main data inputs. Checks only the data that was 
 #' passed (not NULL). 
-#' 
+#' @param meta_network  prior knowledge network
+#' @param tf_regulon transcription factor regulon
+#' @param signaling_data named numerical vector
+#' @param metabolic_data named numerical vector
+#' @param expression_data named numerical vector
 check_COSMOS_inputs <- function(meta_network = NULL,
                                 tf_regulon = NULL,
                                 signaling_data = NULL,

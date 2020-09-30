@@ -25,16 +25,19 @@ filter_transcriptional_regulations <- function(network,
                         expression_data = gene_expression_binarized)
     
     # map the TF values and gene expression levels on the PKN
+    
+    gene_exp_df = data.frame(gene =names(gene_expression_binarized),
+                             target_sign = gene_expression_binarized)
+
+    signaling_df = data.frame(TF =names(signaling_data),
+                              TF_sign = signaling_data) %>%
+        filter(TF %in% tf_regulon$tf)
+    
     annotated_network <- network %>% 
         # add the gene expression data: (non-genes will be filled with NA)
-        left_join(
-            enframe(gene_expression_binarized, name = "gene", value="target_sign"),
-            by=c(target="gene")) %>%
+        left_join(gene_exp_df, by=c(target="gene")) %>%
         # add the TF data (non-TFs will be filled with NAs)
-        left_join(
-            enframe(signaling_data, name = "TF", value="TF_sign") %>%
-                filter(TF %in% tf_regulon$tf),
-            by=c(source="TF")) %>%
+        left_join( signaling_df, by=c(source="TF")) %>%
         mutate(source_is_TF = source %in% tf_regulon$tf)
     
     # find interactions where TF regulates a gene, but target 

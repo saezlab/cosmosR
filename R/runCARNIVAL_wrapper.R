@@ -9,9 +9,9 @@
 #' @param measured_data numerical vector, where names are measured nodes 
 #' in the PKN and values are continuous values. These values are compared to 
 #' with the the simulation
-#' @param solver_path argument passed to \link\code{CARNIVAL::runCARNIVAL}
-#' @param solver argument passed to \link\code{CARNIVAL::runCARNIVAL}
-#' @param time_limit argument passed to \link\code{CARNIVAL::runCARNIVAL}
+#' @param solver_path argument passed to \code{\link{CARNIVAL::runCARNIVAL}}
+#' @param solver argument passed to \code{\link{CARNIVAL::runCARNIVAL}}
+#' @param time_limit argument passed to \code{\link{CARNIVAL::runCARNIVAL}}
 #' @import CARNIVAL
 runCARNIVAL_wrapper <- function(network, 
                                 input_data,
@@ -19,7 +19,7 @@ runCARNIVAL_wrapper <- function(network,
                                 solver_path,
                                 solver,
                                 timelimit,
-                                minGap){
+                                mipGAP){
     
     check_inputs_for_CARNIVAL(meta_network = network,
                               input_data = input_data,
@@ -35,7 +35,7 @@ runCARNIVAL_wrapper <- function(network,
                                              solverPath = solver_path,
                                              solver = solver,
                                              timelimit = timelimit,
-                                             mipGAP = minGap)
+                                             mipGAP = mipGAP)
     
     if(!validate_CARNIVAL_results(CARNIVAL_Result)) warning("we failed to validate CARNIVAL results.")
     
