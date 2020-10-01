@@ -55,7 +55,7 @@
 #'  - `optimized_network` initial optimized network if filter_tf_gene_interaction_by_optimization is TRUE. 
 #' @seealso [load_meta_pkn()] for meta PKN, 
 #' [load_tf_regulon_dorothea()] for tf regulon,
-#' [genesymbols_to_entrezid()] for gene conversion. 
+#' [convert_genesymbols_to_entrezid()] for gene conversion. 
 preprocess_COSMOS <- function(meta_network = load_meta_pkn(),
                               tf_regulon = load_tf_regulon_dorothea(),
                               signaling_data,

@@ -90,5 +90,5 @@ the interactions between TF and genes are filtered again.
 \seealso{
 [load_meta_pkn()] for meta PKN, 
 [load_tf_regulon_dorothea()] for tf regulon,
-[genesymbols_to_entrezid()] for gene conversion.
+[convert_genesymbols_to_entrezid()] for gene conversion.
 }

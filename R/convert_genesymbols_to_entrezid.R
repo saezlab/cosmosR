@@ -4,7 +4,8 @@
 #' @importFrom AnnotationDbi mapIds
 #' @importFrom org.Hs.eg.db org.Hs.eg.db
 #' @export
-genesymbols_to_entrezid <- function(symbols){
+#' @seealso [convert_ensembl_to_entrezid()]
+convert_genesymbols_to_entrezid <- function(symbols){
 
     map_table <- AnnotationDbi::mapIds(org.Hs.eg.db::org.Hs.eg.db, symbols, 'ENTREZID', 'SYMBOL')
     
