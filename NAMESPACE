@@ -3,6 +3,7 @@
 export(convert_ensembl_to_entrezid)
 export(convert_genesymbols_to_entrezid)
 export(load_meta_pkn)
+export(load_tf_regulon_dorothea)
 export(preprocess_COSMOS)
 export(run_COSMOS_signaling_to_metabolism)
 import(CARNIVAL)

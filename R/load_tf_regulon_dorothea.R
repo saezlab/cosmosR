@@ -6,8 +6,18 @@
 #' gene symbols to EntrezID using biomart
 #' 
 #' @param toEntrez if TRUE (default), converts gene symbols to EntrezID
+#' @param confidence strong vector (by default: c("A","B","C")). Subset of \{A, B,
+#'  C, D, E\}. See the `dorothea` for the meaning of confidence levels. 
+#' package for further details. 
 #' @import dorothea
 #' @importFrom biomaRt getBM useEnsembl
+#' @return returns a PKN of a form of a data table. Each row is an interaction.
+#' Columns names are:
+#' - `tf` transcription factor
+#' - `confidence` class of confidence
+#' - `target` target gene
+#' - `sign` indicates if interaction is up (1) or down-regulation (-1). 
+#' @export
 load_tf_regulon_dorothea <- function(toEntrez = TRUE, confidence = c("A","B","C")){
     
     # load regulon from dorothea:
