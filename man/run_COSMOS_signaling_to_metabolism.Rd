@@ -19,20 +19,20 @@ run_COSMOS_signaling_to_metabolism(
 
 \item{signaling_data}{numerical vector, where names are signaling nodes 
 in the PKN and values are from \{1, 0, -1\}. Continuous data will be 
-discretized using the \link{\code{sign}} function.}
+discretized using the \code{\link{sign}} function.}
 
 \item{metabolic_data}{numerical vector, where names are metabolic nodes 
 in the PKN and values are continuous values that represents log2 fold change 
 or t values from a differential analysis. These values are compared to 
 the simulation results (simulated nodes can take value -1, 0 or 1)}
 
-\item{solver_path}{argument passed to \link{\code{CARNIVAL::runCARNIVAL}}. 
+\item{solver_path}{argument passed to \code{\link{CARNIVAL::runCARNIVAL}}. 
 used if filter_tf_gene_interaction_by_optimization is TRUE}
 
-\item{solver}{argument passed to \link{\code{CARNIVAL::runCARNIVAL}}
+\item{solver}{argument passed to \code{\link{CARNIVAL::runCARNIVAL}}
 used if filter_tf_gene_interaction_by_optimization is TRUE}
 
-\item{time_limit}{argument passed to \link{\code{CARNIVAL::runCARNIVAL}}
+\item{time_limit}{argument passed to \code{\link{CARNIVAL::runCARNIVAL}}
 used if filter_tf_gene_interaction_by_optimization is TRUE}
 }
 \value{
@@ -47,6 +47,6 @@ named list with the following members:
 runs COSMOS from signaling to metabolism. This function finds a subset of the
 prior knowledge network based on optimisation that (1) includes the most 
 measured and input nodes and (2) which is in agreement with the data. 
-Use \link{\code{preprocess_COSMOS}} to prepare the prior knowledge network or 
+Use \code{\link{preprocess_COSMOS}} to prepare the prior knowledge network or 
 load the one in the toolbox.
 }

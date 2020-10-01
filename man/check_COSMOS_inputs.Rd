@@ -12,6 +12,17 @@ check_COSMOS_inputs(
   expression_data = NULL
 )
 }
+\arguments{
+\item{meta_network}{prior knowledge network}
+
+\item{tf_regulon}{transcription factor regulon}
+
+\item{signaling_data}{named numerical vector}
+
+\item{metabolic_data}{named numerical vector}
+
+\item{expression_data}{named numerical vector}
+}
 \description{
 checks the format of the main data inputs. Checks only the data that was 
 passed (not NULL).

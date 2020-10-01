@@ -27,7 +27,7 @@ derived from Omnipath, STITCHdb and Recon3D. See details on the function
 
 \item{signaling_data}{numerical vector, where names are signaling nodes 
 in the PKN and values are from \{1, 0, -1\}. Continuous data will be 
-discretized using the \link{\code{sign}} function.}
+discretized using the \code{\link{sign}} function.}
 
 \item{metabolic_data}{numerical vector, where names are metabolic nodes 
 in the PKN and values are continuous values that represents log2 fold change 
@@ -60,13 +60,13 @@ a network optimization that estimates TF activity not included in the inputs
 and checks the consistency between the estimated activity and change in gene 
 expression. Removes interactions where TF and gene expression are inconsistent}
 
-\item{solver_path}{argument passed to \link{\code{CARNIVAL::runCARNIVAL}}. 
+\item{solver_path}{argument passed to \code{\link{CARNIVAL::runCARNIVAL}}. 
 used if filter_tf_gene_interaction_by_optimization is TRUE}
 
-\item{solver}{argument passed to \link{\code{CARNIVAL::runCARNIVAL}}
+\item{solver}{argument passed to \code{\link{CARNIVAL::runCARNIVAL}}
 used if filter_tf_gene_interaction_by_optimization is TRUE}
 
-\item{time_limit}{argument passed to \link{\code{CARNIVAL::runCARNIVAL}}
+\item{time_limit}{argument passed to \code{\link{CARNIVAL::runCARNIVAL}}
 used if filter_tf_gene_interaction_by_optimization is TRUE}
 }
 \value{
