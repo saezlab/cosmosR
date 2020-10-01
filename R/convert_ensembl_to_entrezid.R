@@ -8,9 +8,6 @@
 #' @seealso [convert_genesymbols_to_entrezid()]
 convert_ensembl_to_entrezid <- function(ensembl){
     
-    require(org.Hs.eg.db)
-    require(AnnotationDbi)
-    
     map_table <- AnnotationDbi::mapIds(org.Hs.eg.db::org.Hs.eg.db, ensembl, 'ENTREZID', 'ENSEMBL')
     
     stopifnot(length(map_table) == length(ensembl))
