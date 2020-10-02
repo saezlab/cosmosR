@@ -6,6 +6,6 @@
 #' @param threshold threshold used to binarise the data
 binarize_with_sign <- function(data,threshold){
     
-    out = sign(data) * as.numeric(abs(data) > threshold)
+    out = sign(data) * as.numeric(abs(data) >= threshold)
     return(out)
 }
