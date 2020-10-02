@@ -35,4 +35,4 @@ Imports:
     knitr
 Suggests: 
     testthat
-biocViews:
+biocViews: CellBiology, Proteomics, Pathways, Network
