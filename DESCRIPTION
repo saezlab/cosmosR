@@ -35,4 +35,4 @@ Imports:
     knitr
 Suggests: 
     testthat
-BiocViews:
+biocViews:
