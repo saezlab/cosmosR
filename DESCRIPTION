@@ -1,7 +1,7 @@
 Package: cosmos
 Type: Package
 Title: COSMOS (Causal Oriented Search of Multi-Omic Space)
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
     person(given = "Aurélien",
            family = "Dugourd",
@@ -35,3 +35,4 @@ Imports:
     knitr
 Suggests: 
     testthat
+BiocViews:
