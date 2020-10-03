@@ -22,7 +22,19 @@ check_COSMOS_inputs <- function(meta_network = NULL,
         }
     if(!is.null(expression_data) & !all(grepl("^X",names(expression_data)))) {
         stop("gene names in expression_data should be entrezID with a prefix character X. eg: X5062")
-        }
+    }
+    
+    # check duplicated names
+    if(!is.null(signaling_data) & anyDuplicated(names(signaling_data))) {
+        stop("duplicated gene names in signaling data detected. ")
+    }
+    if(!is.null(expression_data) & anyDuplicated(names(expression_data))) {
+        stop("duplicated gene names in expression_data detected. ")
+    }
+    if(!is.null(metabolic_data) & anyDuplicated(names(metabolic_data))) {
+        stop("duplicated gene names in metabolic_data detected. ")
+    }
+    
     
     # checking the networks
     if(!is.null(meta_network)){

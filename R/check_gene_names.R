@@ -12,6 +12,15 @@ check_gene_names <- function(...){
         TRUE
     }
     )
+    
+    res = lapply(list(...),function(x){
+        if(any(duplicated(x))){
+            stop("Duplicated gene names detected. Gene names in inputs should be unique.")
+        }
+        TRUE
+    }
+    )
+    
     return(unlist(res))
     
 }
