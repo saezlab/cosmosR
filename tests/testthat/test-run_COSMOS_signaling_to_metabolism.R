@@ -17,7 +17,7 @@ test_that("test run COSMOS signaling to metabolism", {
   
   signaling_data <- res$signaling_data_bin
   meta_network <- res$meta_network
-  diff_expression_data <- res$expression_data
+  diff_expression_data <- res$diff_expression_data_bin
   metabolic_data <- res$metabolic_data
   
   
