@@ -10,7 +10,7 @@ runCARNIVAL_wrapper(
   measured_data,
   solver_path,
   solver,
-  timelimit,
+  time_limit,
   mipGAP
 )
 }

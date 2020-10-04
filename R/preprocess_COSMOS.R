@@ -136,7 +136,7 @@ preprocess_COSMOS <- function(meta_network = load_meta_pkn(),
                                                measured_data = metabolic_data,
                                                solver_path = solver_path,
                                                solver = solver,
-                                               timelimit = time_limit,
+                                               time_limit = time_limit,
                                                mipGAP = 0.2)
         
         # get the estimated activity of TFs from CARNIVAL results

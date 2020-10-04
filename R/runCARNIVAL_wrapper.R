@@ -18,7 +18,7 @@ runCARNIVAL_wrapper <- function(network,
                                 measured_data,
                                 solver_path,
                                 solver,
-                                timelimit,
+                                time_limit,
                                 mipGAP){
     
     check_inputs_for_CARNIVAL(meta_network = network,
@@ -34,7 +34,7 @@ runCARNIVAL_wrapper <- function(network,
                                              netObj = netObj,
                                              solverPath = solver_path,
                                              solver = solver,
-                                             timelimit = timelimit,
+                                             timelimit = time_limit,
                                              mipGAP = mipGAP)
     
     if(!validate_CARNIVAL_results(CARNIVAL_Result)) warning("we failed to validate CARNIVAL results.")

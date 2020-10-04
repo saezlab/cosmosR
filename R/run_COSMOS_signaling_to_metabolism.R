@@ -56,7 +56,7 @@ run_COSMOS_signaling_to_metabolism <- function(meta_network,
                                                measured_data = measured_data,
                                                solver_path = solver_path,
                                                solver = solver,
-                                               timelimit = timelimit,
+                                               time_limit = time_limit,
                                                mipGAP = 0.2)
         
     }else{
