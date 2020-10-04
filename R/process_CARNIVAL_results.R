@@ -11,9 +11,8 @@
 #' - `aggregated_network_node_attributes`: estimated node properties
 #' - `individual_networks`: list of optimial networks found
 #' - `individual_networks_node_attributes`: node activity in each network.
-#' 
+#' @importFrom purrr map
 process_CARNIVAL_results <- function(CARNIVAL_results){
-    
     
     network_output = list()
     
@@ -36,7 +35,7 @@ process_CARNIVAL_results <- function(CARNIVAL_results){
                ) 
     
     network_output$individual_networks = 
-        map(CARNIVAL_results$sifAll,function(Net){
+        purrr::map(CARNIVAL_results$sifAll,function(Net){
             as_tibble(Net) %>%
                 rename(source = "Node1",
                        target = "Node2",
@@ -47,8 +46,8 @@ process_CARNIVAL_results <- function(CARNIVAL_results){
     
     
     network_output$individual_networks_node_attributes = 
-        map(CARNIVAL_results$attributesAll,function(Net){
-            as_tibble(Net) %>%
+        purrr::map(CARNIVAL_results$attributesAll,function(Net){
+            tibble::as_tibble(Net) %>%
                 rename(node = "Nodes",
                        activity = "Activity") %>%
                 mutate(activity = as.numeric(activity))
