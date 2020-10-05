@@ -29,6 +29,7 @@ Imports:
     biomaRt,
     igraph,
     dplyr,
+    stringr,
     tidyr,
     tibble,
     purrr,
