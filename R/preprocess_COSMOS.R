@@ -96,21 +96,29 @@ preprocess_COSMOS <- function(meta_network = load_meta_pkn(),
                                                        data = metabolic_data)
     }
     
-    # - cut unreachable nodes from inputs
-    meta_network <- keep_downstream_neighbours(
+    # - cut non-reachable nodes from inputs
+    meta_network <- keep_controllable_neighbours(
         network = meta_network,
         n_steps =  maximum_network_depth, 
-        starting_nodes = names(signaling_data))
-    # report the number of steps. Make it as a user input. 
-    
-    
+        input_nodes = names(signaling_data))
+
     # After modifying the PKN, inputs/measured nodes might get lost, we remove
     signaling_data = filter_input_nodes_not_in_pkn(pkn = meta_network,
                                                   data = signaling_data)
     metabolic_data = filter_input_nodes_not_in_pkn(pkn = meta_network,
                                                    data = metabolic_data)
-
+    # - cut non-observable nodes from inputs
+    meta_network <- keep_observable_neighbours(
+        network = meta_network,
+        n_steps =  maximum_network_depth, 
+        observed_nodes = names(metabolic_data))
     
+    
+    # After modifying the PKN, inputs/measured nodes might get lost, we remove
+    signaling_data = filter_input_nodes_not_in_pkn(pkn = meta_network,
+                                                   data = signaling_data)
+    metabolic_data = filter_input_nodes_not_in_pkn(pkn = meta_network,
+                                                   data = metabolic_data)
     
     # Filter TF -> target interaction from PKN if target expression not changing
     diff_expression_data_bin <- binarize_with_sign(diff_expression_data,

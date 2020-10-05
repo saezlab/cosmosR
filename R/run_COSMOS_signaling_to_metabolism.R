@@ -51,7 +51,7 @@ run_COSMOS_signaling_to_metabolism <- function(meta_network,
         
         CARNIVAL_results = runCARNIVAL_wrapper(network = meta_network,
                                                input_data = sign(signaling_data),
-                                               measured_data = measured_data,
+                                               measured_data = metabolic_data,
                                                options = CARNIVAL_options)
         
     }else{

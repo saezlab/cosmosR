@@ -24,7 +24,7 @@ test_that("test run COSMOS", {
     
     # checking network
     expect_equal(ncol(res$meta_network), 3)
-    expect_equal(nrow(res$meta_network), 58322)
+    expect_equal(nrow(res$meta_network), 40348)
     expect_true(all(colnames(res$meta_network) %in% c("source","interaction","target")))
     
     # checking tf_regulon
@@ -32,8 +32,8 @@ test_that("test run COSMOS", {
     
     # checking signaling
     expect_true(is.vector(res$signaling_data_bin))
-    expect_equal(length(res$signaling_data_bin),117)
-    expect_equal(sum(grepl("^X",names(res$signaling_data_bin))),117)
+    expect_equal(length(res$signaling_data_bin),103)
+    expect_equal(sum(grepl("^X",names(res$signaling_data_bin))),103)
     expect_true(all(res$signaling_data_bin %in% c(-1,0,1)))
     
     # checking metabolic
