@@ -14,12 +14,8 @@
 #' in the PKN and values are continuous values that represents log2 fold change 
 #' or t values from a differential analysis. These values are compared to 
 #' the simulation results (simulated nodes can take value -1, 0 or 1)
-#' @param solver_path argument passed to \code{\link{CARNIVAL::runCARNIVAL}}. 
-#' used if filter_tf_gene_interaction_by_optimization is TRUE
-#' @param solver argument passed to \code{\link{CARNIVAL::runCARNIVAL}}
-#' used if filter_tf_gene_interaction_by_optimization is TRUE
-#' @param time_limit argument passed to \code{\link{CARNIVAL::runCARNIVAL}}
-#' used if filter_tf_gene_interaction_by_optimization is TRUE
+#' @param CARNIVAL_options list that controls the options of CARNIVAL. See details 
+#'  in \code{\link{default_CARNIVAL_options()}}. 
 #' @export
 #' @import dplyr
 #' @return named list with the following members: 
@@ -33,12 +29,12 @@
 run_COSMOS_signaling_to_metabolism <- function(meta_network,
                                                signaling_data,
                                                metabolic_data,
-                                               solver_path = NULL, 
-                                               solver = "cplex",
-                                               time_limit = 7200,
+                                               CARNIVAL_options = default_CARNIVAL_options(),
                                                test_run = FALSE){
     
     ## Checking COSMOS input format
+
+    
     check_COSMOS_inputs(meta_network = meta_network,
                         signaling_data = signaling_data,
                         metabolic_data = metabolic_data)
@@ -51,13 +47,12 @@ run_COSMOS_signaling_to_metabolism <- function(meta_network,
                                 metabolic_data = metabolic_data)
     
     if(!test_run){
+        check_CARNIVAL_options(CARNIVAL_options)
+        
         CARNIVAL_results = runCARNIVAL_wrapper(network = meta_network,
                                                input_data = sign(signaling_data),
                                                measured_data = measured_data,
-                                               solver_path = solver_path,
-                                               solver = solver,
-                                               time_limit = time_limit,
-                                               mipGAP = 0.2)
+                                               options = CARNIVAL_options)
         
     }else{
         CARNIVAL_results <- CARNIVAL_results_up_down
