@@ -4,15 +4,7 @@
 \alias{runCARNIVAL_wrapper}
 \title{runCARNIVAL_wrapper}
 \usage{
-runCARNIVAL_wrapper(
-  network,
-  input_data,
-  measured_data,
-  solver_path,
-  solver,
-  time_limit,
-  mipGAP
-)
+runCARNIVAL_wrapper(network, input_data, measured_data, options)
 }
 \arguments{
 \item{network}{prior knowledge network. data.frame object with source, sign and 

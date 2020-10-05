@@ -16,14 +16,14 @@
 runCARNIVAL_wrapper <- function(network, 
                                 input_data,
                                 measured_data,
-                                solver_path,
-                                solver,
-                                time_limit,
-                                mipGAP){
+                                options
+                                ){
     
+    check_CARNIVAL_options(options)
     check_inputs_for_CARNIVAL(meta_network = network,
                               input_data = input_data,
                               measured_data = measured_data)
+    
     
     inputObj = dplyr::bind_rows(input_data)
     measObj  = dplyr::bind_rows(measured_data)
@@ -32,10 +32,19 @@ runCARNIVAL_wrapper <- function(network,
     CARNIVAL_Result <- CARNIVAL::runCARNIVAL(inputObj = inputObj,
                                              measObj = measObj,
                                              netObj = netObj,
-                                             solverPath = solver_path,
-                                             solver = solver,
-                                             timelimit = time_limit,
-                                             mipGAP = mipGAP)
+                                             poolrelGAP = options$poolrelGAP,
+                                             limitPop = options$limitPop,
+                                             poolCap = options$poolCap,
+                                             poolIntensity = options$poolIntensity,
+                                             alphaWeight = options$alphaWeight,
+                                             betaWeight = options$betaWeight,
+                                             poolReplace = options$poolReplace,
+                                             threads = options$threads,
+                                             solverPath = options$solverPath,
+                                             solver = options$solver,
+                                             timelimit = options$timelimit,
+                                             mipGAP = options$mipGAP,
+                                             dir_name = options$dir_name)
     
     if(!validate_CARNIVAL_results(CARNIVAL_Result)) warning("we failed to validate CARNIVAL results.")
     

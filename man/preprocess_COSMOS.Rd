@@ -15,9 +15,7 @@ preprocess_COSMOS(
   expressed_genes = names(diff_expression_data)[!is.na(diff_expression_data)],
   remove_unexpressed_nodes = TRUE,
   filter_tf_gene_interaction_by_optimization = TRUE,
-  solver_path = NULL,
-  solver = "cplex",
-  time_limit = 3600
+  CARNIVAL_options = default_CARNIVAL_options()
 )
 }
 \arguments{
@@ -60,14 +58,8 @@ a network optimization that estimates TF activity not included in the inputs
 and checks the consistency between the estimated activity and change in gene 
 expression. Removes interactions where TF and gene expression are inconsistent}
 
-\item{solver_path}{argument passed to \code{\link{CARNIVAL::runCARNIVAL}}. 
-used if filter_tf_gene_interaction_by_optimization is TRUE}
-
-\item{solver}{argument passed to \code{\link{CARNIVAL::runCARNIVAL}}
-used if filter_tf_gene_interaction_by_optimization is TRUE}
-
-\item{time_limit}{argument passed to \code{\link{CARNIVAL::runCARNIVAL}}
-used if filter_tf_gene_interaction_by_optimization is TRUE}
+\item{CARNIVAL_options}{list that controls the options of CARNIVAL. See details 
+in \code{\link{default_CARNIVAL_options()}}.}
 }
 \value{
 named list with the following members: 

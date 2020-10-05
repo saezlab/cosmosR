@@ -8,9 +8,7 @@ run_COSMOS_signaling_to_metabolism(
   meta_network,
   signaling_data,
   metabolic_data,
-  solver_path = NULL,
-  solver = "cplex",
-  time_limit = 7200,
+  CARNIVAL_options = default_CARNIVAL_options(),
   test_run = FALSE
 )
 }
@@ -26,14 +24,8 @@ in the PKN and values are continuous values that represents log2 fold change
 or t values from a differential analysis. These values are compared to 
 the simulation results (simulated nodes can take value -1, 0 or 1)}
 
-\item{solver_path}{argument passed to \code{\link{CARNIVAL::runCARNIVAL}}. 
-used if filter_tf_gene_interaction_by_optimization is TRUE}
-
-\item{solver}{argument passed to \code{\link{CARNIVAL::runCARNIVAL}}
-used if filter_tf_gene_interaction_by_optimization is TRUE}
-
-\item{time_limit}{argument passed to \code{\link{CARNIVAL::runCARNIVAL}}
-used if filter_tf_gene_interaction_by_optimization is TRUE}
+\item{CARNIVAL_options}{list that controls the options of CARNIVAL. See details 
+in \code{\link{default_CARNIVAL_options()}}.}
 }
 \value{
 named list with the following members: 

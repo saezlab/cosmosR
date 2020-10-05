@@ -38,12 +38,8 @@
 #' a network optimization that estimates TF activity not included in the inputs
 #' and checks the consistency between the estimated activity and change in gene 
 #' expression. Removes interactions where TF and gene expression are inconsistent 
-#' @param solver_path argument passed to \code{\link{CARNIVAL::runCARNIVAL}}. 
-#' used if filter_tf_gene_interaction_by_optimization is TRUE
-#' @param solver argument passed to \code{\link{CARNIVAL::runCARNIVAL}}
-#' used if filter_tf_gene_interaction_by_optimization is TRUE
-#' @param time_limit argument passed to \code{\link{CARNIVAL::runCARNIVAL}}
-#' used if filter_tf_gene_interaction_by_optimization is TRUE
+#' @param CARNIVAL_options list that controls the options of CARNIVAL. See details 
+#'  in \code{\link{default_CARNIVAL_options()}}. 
 #' @export
 #' @import dplyr
 #' @return named list with the following members: 
@@ -66,9 +62,7 @@ preprocess_COSMOS <- function(meta_network = load_meta_pkn(),
                               expressed_genes =  names(diff_expression_data)[!is.na(diff_expression_data)],
                               remove_unexpressed_nodes = TRUE,
                               filter_tf_gene_interaction_by_optimization = TRUE,
-                              solver_path = NULL, 
-                              solver = "cplex",
-                              time_limit = 3600){
+                              CARNIVAL_options = default_CARNIVAL_options()){
     
     ## Checking COSMOS input format
     check_COSMOS_inputs(meta_network,
@@ -78,6 +72,8 @@ preprocess_COSMOS <- function(meta_network = load_meta_pkn(),
                         diff_expression_data)
     
     check_gene_names(signaling_data,diff_expression_data,expressed_genes)
+    
+    
     
     # Check overlap among node names in the inputs
     check_network_data_coverage(meta_network,
@@ -131,13 +127,13 @@ preprocess_COSMOS <- function(meta_network = load_meta_pkn(),
     # this may estimate the activity of other TF-s.
     if(filter_tf_gene_interaction_by_optimization){
         
+        check_CARNIVAL_options(CARNIVAL_options)
+        
         CARNIVAL_results = runCARNIVAL_wrapper(network = meta_network,
                                                input_data = sign(signaling_data),
                                                measured_data = metabolic_data,
                                                solver_path = solver_path,
-                                               solver = solver,
-                                               time_limit = time_limit,
-                                               mipGAP = 0.2)
+                                               options = CARNIVAL_options)
         
         # get the estimated activity of TFs from CARNIVAL results
         estimated_TF_activity <- get_TF_activity_from_CARNIVAL(CARNIVAL_results,
