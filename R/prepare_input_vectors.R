@@ -14,7 +14,12 @@
 prepare_metab_data <- function(metabolic_data, meta_network) {
     
     # if required, format PUBCHEM IDs to match COSMOS nodes
-    if( ! all( grepl("XMetab__", names(metabolic_data) ))) names(metabolic_data) <- paste0("XMetab__", names(metabolic_data))
+    if( ! all( grepl("XMetab__", names(metabolic_data) ))) {
+        
+        message("COSMOS: Adding `XMetab__` label to metabolic data names", length(metabolic_data))
+        names(metabolic_data) <- paste0("XMetab__", names(metabolic_data))
+        
+    }
     
     # collect all nodes in the PKN
     allPknNodes <- unique( c(dplyr::pull(meta_network, source),dplyr::pull(meta_network, target)) ) %>%
@@ -29,17 +34,15 @@ prepare_metab_data <- function(metabolic_data, meta_network) {
     nameToId <- expand.grid(names(metabolic_data), compartments, stringsAsFactors = FALSE) %>%
         as.data.frame() %>%
         dplyr::rename(name = Var1, compartment = Var2) %>%
-        dplyr::mutate(nodeId = paste0(name, compartment)) %>%
-        subset(nodeId %in% allPknNodes)
+        dplyr::mutate(nodeId = paste0(name, compartment)) 
     
     # create the expanded version of the inputs
     expandedInputs <- metabolic_data[nameToId$name]
     names(expandedInputs) <- nameToId$nodeId
     
     # message mapping info
-    message("COSMOS: Original number of inputs: ", length(metabolic_data))
-    message("COSMOS: Number of inputs in the network: ", length(unique(nameToId$name)))
-    message("COSMOS: Number of inputs in the expanded version across compartments: ", length(expandedInputs))
+    message("COSMOS: Original number of metabolic inputs = ", length(metabolic_data) )
+    message("COSMOS: Resulting number of expanded metabolic inputs: ", length(expandedInputs) )
     
     return(expandedInputs)
     

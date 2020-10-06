@@ -6,6 +6,7 @@
 #' - metabolic data nodes are in PKN
 #' - expression data genes overlap with TF targets
 #' Stops if a check fails
+#'
 #' @param meta_network contains the PKN
 #' @param tf_regulon (optional) tf-target network with EntrezID
 #' @param signaling_data numerical vector, where names are signaling nodes 
@@ -15,12 +16,16 @@
 #' with the the simulation [? range of values]
 #' @param expression_data (optional) numerical vector, where names are gene names  
 #' and values are from \{1,-1\}
+#' @param expand_metabolic_data format metabolic data to match meta_network nodes?
+#' It will add "XMetab__" before the pubchem IDs and all the possible compartments 
+#' after it. (e.g, "1150" will become "Xmetab__1150___c____" and "Xmetab__1150___e____")
 #' 
 check_network_data_coverage <- function(meta_network,
                                         tf_regulon = NULL,
                                         signaling_data,
                                         metabolic_data,
-                                        expression_data = NULL){
+                                        expression_data = NULL,
+                                        expand_metabolic_data = FALSE){
     
     # signaling should be in PKN
     signaling_nodes = names(signaling_data)
@@ -34,13 +39,23 @@ check_network_data_coverage <- function(meta_network,
                     "signaling nodes from data were found in the meta PKN"))
     }
     
+    # expand metabolic input to all compartments in PKN
+    if(expand_metabolic_data) {
+        metabolic_data <- prepare_metab_data(metabolic_data = metabolic_data, meta_network = meta_network)
+    }
+    
+    
     # metabolic nodes should be in PKN
     metabolic_nodes = names(metabolic_data)
     missing_nodes <- metabolic_nodes[!metabolic_nodes %in% c(meta_network$source,
                                                              meta_network$target)]
     if(length(missing_nodes)>0){
-        stop(paste("The following metabolic nodes are not found in the PKN:",
+        message(paste("The following metabolic nodes are not found in the PKN and will be removed from input:",
                    limit_string_vec(missing_nodes)))
+        
+        # remove metabolic inputs not matching into the meta_network
+        metabolic_data <- metabolic_data[metabolic_nodes != missing_nodes]
+        
     }else{
         print(paste("COSMOS: all",length(metabolic_nodes) ,
                     "metabolic nodes from data were found in the meta PKN"))
