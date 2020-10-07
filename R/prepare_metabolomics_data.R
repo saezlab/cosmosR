@@ -10,8 +10,8 @@
 #' 
 #' @import dplyr 
 #' @importFrom stringr str_extract
-#'
-prepare_metab_data <- function(metabolic_data, meta_network) {
+#' @export
+prepare_metabolomics_data <- function(metabolic_data, meta_network) {
     
     # if required, format PUBCHEM IDs to match COSMOS nodes
     if( ! all( grepl("XMetab__", names(metabolic_data) ))) {
