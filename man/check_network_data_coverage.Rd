@@ -9,8 +9,7 @@ check_network_data_coverage(
   tf_regulon = NULL,
   signaling_data,
   metabolic_data,
-  expression_data = NULL,
-  expand_metabolic_data = FALSE
+  expression_data = NULL
 )
 }
 \arguments{
