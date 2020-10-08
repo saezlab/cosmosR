@@ -9,6 +9,10 @@ convert_ensembl_to_entrezid(ensembl)
 \arguments{
 \item{ensembl}{vector of genes with ensembl id}
 }
+\value{
+named vector, where names are the old ensemblIDs and values are the 
+entrezIDs
+}
 \description{
 convert gene ensembl to entrez id
 }

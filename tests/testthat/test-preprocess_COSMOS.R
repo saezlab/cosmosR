@@ -24,7 +24,7 @@ test_that("test run COSMOS", {
     
     # checking network
     expect_equal(ncol(res$meta_network), 3)
-    expect_equal(nrow(res$meta_network), 40348)
+    expect_equal(nrow(res$meta_network), 39084)
     expect_true(all(colnames(res$meta_network) %in% c("source","interaction","target")))
     
     # checking tf_regulon

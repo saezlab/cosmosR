@@ -23,5 +23,5 @@ Columns names are:
 }
 \description{
 load the transcription factors from \code{DOROTHEA} package and converts 
-gene symbols to EntrezID using biomart
+gene symbols to EntrezID using org.Hs.eg.db
 }

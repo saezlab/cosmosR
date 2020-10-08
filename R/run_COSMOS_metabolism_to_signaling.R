@@ -49,8 +49,10 @@ run_COSMOS_metabolism_to_signaling <- function(meta_network,
     if(!test_run){
         check_CARNIVAL_options(CARNIVAL_options)
         
+        disc_metabolic_data <- discretize_input(metabolic_data)
+        
         CARNIVAL_results = runCARNIVAL_wrapper(network = meta_network,
-                                               input_data = sign(metabolic_data),
+                                               input_data = disc_metabolic_data,
                                                measured_data = signaling_data,
                                                options = CARNIVAL_options)
         
