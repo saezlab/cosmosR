@@ -13,6 +13,7 @@ test_that("test run COSMOS signaling to metabolism", {
                            meta_network = meta_network,
                            metabolic_data = metabolic_data,
                            diff_expression_data = expression_data,
+                           remove_unexpressed_nodes = TRUE,
                            filter_tf_gene_interaction_by_optimization = FALSE)
   
   signaling_data <- res$signaling_data_bin
@@ -20,10 +21,13 @@ test_that("test run COSMOS signaling to metabolism", {
   diff_expression_data <- res$diff_expression_data_bin
   metabolic_data <- res$metabolic_data
   
+  CARNIVAL_options = cosmos::default_CARNIVAL_options()
+  CARNIVAL_options$solverPath = "/Applications/CPLEX_Studio128/cplex/bin/x86-64_osx/cplex"
   
   res_network = run_COSMOS_signaling_to_metabolism(meta_network = meta_network,
                                      metabolic_data = metabolic_data,
                                      signaling_data = signaling_data,
+                                     CARNIVAL_options = CARNIVAL_options,
                                      test_run=TRUE)
   
                                         
