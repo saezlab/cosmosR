@@ -33,8 +33,6 @@ run_COSMOS_signaling_to_metabolism <- function(meta_network,
                                                test_run = FALSE){
     
     ## Checking COSMOS input format
-
-    
     check_COSMOS_inputs(meta_network = meta_network,
                         signaling_data = signaling_data,
                         metabolic_data = metabolic_data)

@@ -19,23 +19,27 @@
 #' @param expand_metabolic_data format metabolic data to match meta_network nodes?
 #' It will add "XMetab__" before the pubchem IDs and all the possible compartments 
 #' after it. (e.g, "1150" will become "Xmetab__1150___c____" and "Xmetab__1150___e____")
-#' 
+#' @param verbose (default: TRUE) reports coverage
 check_network_data_coverage <- function(meta_network,
                                         tf_regulon = NULL,
                                         signaling_data,
                                         metabolic_data,
-                                        expression_data = NULL){
+                                        expression_data = NULL,
+                                        verbose = TRUE){
     
     # signaling should be in PKN
     signaling_nodes = names(signaling_data)
     missing_nodes <- signaling_nodes[!signaling_nodes %in% c(meta_network$source,
                                                              meta_network$target)]
     if(length(missing_nodes)>0){
+        
         stop(paste("The following signaling nodes are not found in the PKN:",
-                   limit_string_vec(missing_nodes)))
+                   limit_string_vec(missing_nodes)))    
+        
+        
     }else{
-        print(paste("COSMOS: all", length(signaling_nodes),
-                    "signaling nodes from data were found in the meta PKN"))
+        if(verbose) print(paste("COSMOS: all", length(signaling_nodes),
+                                "signaling nodes from data were found in the meta PKN"))
     }
     
     # metabolic nodes should be in PKN
@@ -43,15 +47,16 @@ check_network_data_coverage <- function(meta_network,
     missing_nodes <- metabolic_nodes[!metabolic_nodes %in% c(meta_network$source,
                                                              meta_network$target)]
     if(length(missing_nodes)>0){
-        message("COSMOS: ", paste("The following metabolic nodes are not found in the PKN and will be removed from input:",
-                   limit_string_vec(missing_nodes)))
         
-        # remove metabolic inputs not matching into the meta_network
-        metabolic_data <- metabolic_data[metabolic_nodes != missing_nodes]
+        stop(paste("The following metabolic nodes are not found in the PKN:",
+                   limit_string_vec(missing_nodes)))    
+        
+        
+        
         
     }else{
-        print(paste("COSMOS: all",length(metabolic_nodes) ,
-                    "metabolic nodes from data were found in the meta PKN"))
+        if(verbose) print(paste("COSMOS: all",length(metabolic_nodes) ,
+                                "metabolic nodes from data were found in the meta PKN"))
         
     }
     
@@ -60,17 +65,23 @@ check_network_data_coverage <- function(meta_network,
         genes = names(expression_data)
         genes_as_tf_target <- sum(genes %in% tf_regulon$target)
         
-        print(paste0("COSMOS: ", genes_as_tf_target,
-                     " of the ",length(genes),
-                     " genes in expression data were found as transcription factor target"))
-        print(paste0("COSMOS: ", sum( unique(tf_regulon$target) %in% genes),
-                     " of the ",length(unique(tf_regulon$target)),
-                     " transcription factor targets were found in expression data"))
+        if(verbose) print(paste0("COSMOS: ", genes_as_tf_target,
+                                 " of the ",length(genes),
+                                 " genes in expression data were found as transcription factor target"))
+        if(verbose) print(paste0("COSMOS: ", sum( unique(tf_regulon$target) %in% genes),
+                                 " of the ",length(unique(tf_regulon$target)),
+                                 " transcription factor targets were found in expression data"))
         if(genes_as_tf_target==0){
             stop("Expression data contains no gene that appear as transcription factor target.
              The expression_data must be a named vector using EntrezIDs.")
         }
     }
+    
+    invisible(cosmos_data(meta_network = meta_network,
+                          signaling_data = signaling_data,
+                          metabolic_data = metabolic_data,
+                          expression_data = expression_data))
+    
     
 }
 
