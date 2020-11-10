@@ -37,5 +37,7 @@ Imports:
     org.Hs.eg.db,
     knitr
 Suggests: 
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
 biocViews: CellBiology, Proteomics, Pathways, Network
