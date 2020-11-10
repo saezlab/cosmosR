@@ -7,7 +7,7 @@
 #' @param confidence strong vector (by default: c("A","B","C")). Subset of \{A, B,
 #'  C, D, E\}. See the `dorothea` for the meaning of confidence levels. 
 #' package for further details. 
-#' @importFrom dorothea dorothea_hs
+#' @import dorothea
 #' @importFrom AnnotationDbi mapIds 
 #' @importFrom org.Hs.eg.db org.Hs.eg.db
 #' @return returns a PKN of a form of a data table. Each row is an interaction.

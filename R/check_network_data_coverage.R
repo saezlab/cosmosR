@@ -77,11 +77,6 @@ check_network_data_coverage <- function(meta_network,
         }
     }
     
-    invisible(cosmos_data(meta_network = meta_network,
-                          signaling_data = signaling_data,
-                          metabolic_data = metabolic_data,
-                          expression_data = expression_data))
-    
     
 }
 

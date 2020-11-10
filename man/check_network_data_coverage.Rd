@@ -9,7 +9,8 @@ check_network_data_coverage(
   tf_regulon = NULL,
   signaling_data,
   metabolic_data,
-  expression_data = NULL
+  expression_data = NULL,
+  verbose = TRUE
 )
 }
 \arguments{
@@ -26,6 +27,8 @@ with the the simulation [? range of values]}
 
 \item{expression_data}{(optional) numerical vector, where names are gene names
 and values are from \{1,-1\}}
+
+\item{verbose}{(default: TRUE) reports coverage}
 
 \item{expand_metabolic_data}{format metabolic data to match meta_network nodes?
 It will add "XMetab__" before the pubchem IDs and all the possible compartments 

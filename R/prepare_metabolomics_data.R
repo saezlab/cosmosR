@@ -1,10 +1,16 @@
 #' format COSMOS metabolic input
 #'
-#' This function prepares the metabolic data to be used in the COSMOS optimization steps. It takes as input a vector with the metabolic data (e.g, limma t values)
-#' named with PUBCHEM IDs and expand it to the multi-compartment COSMOS format. It also messages the number of final inputs in the meta network.
+#' This function prepares the metabolic data to be used in the COSMOS 
+#' optimization steps. It takes as input a vector with the metabolic
+#'  data (e.g, limma t values) named with PUBCHEM IDs and expand it to the 
+#'  multi-compartment COSMOS format. 
+#'  It also messages the number of final inputs in the meta network.
 #'
-#' @param metabolic_data A named numeric vector, containing the values to be used for the metabolic layer in COSMOS. The names of the vector should be PUBCHEM IDs.
-#' @param meta_network Prior knowledge network created with \code{\link{load_meta_pkn()}}.
+#' @param metabolic_data A named numeric vector, containing the values to be
+#'  used for the metabolic layer in COSMOS. The names of the vector 
+#'  should be PUBCHEM IDs.
+#' @param meta_network Prior knowledge network
+#'  created with \code{\link{load_meta_pkn()}}.
 #'
 #' @return A new vector ready to be used as COSMOS input.
 #' 
