@@ -36,9 +36,9 @@ load_tf_regulon_dorothea <- function(toEntrez = TRUE, confidence = c("A","B","C"
         regulon$target_entrez = target_table
        
         regulon <- regulon %>% filter(complete.cases(.)) %>%
-            mutate(tf = paste0("X",tf_entrez),
+            dplyr::mutate(tf = paste0("X",tf_entrez),
                    target = paste0("X",target_entrez)) %>%
-            select(tf,sign,target)
+            dplyr::select(tf,sign,target)
 
     }
     

@@ -5,24 +5,14 @@
 \title{run_COSMOS_signaling2metabolism}
 \usage{
 run_COSMOS_signaling_to_metabolism(
-  meta_network,
-  signaling_data,
-  metabolic_data,
+  data,
   CARNIVAL_options = default_CARNIVAL_options(),
   test_run = FALSE
 )
 }
 \arguments{
-\item{meta_network}{prior knowledge network.}
-
-\item{signaling_data}{numerical vector, where names are signaling nodes 
-in the PKN and values are from \{1, 0, -1\}. Continuous data will be 
-discretized using the \code{\link{sign}} function.}
-
-\item{metabolic_data}{numerical vector, where names are metabolic nodes 
-in the PKN and values are continuous values that represents log2 fold change 
-or t values from a differential analysis. These values are compared to 
-the simulation results (simulated nodes can take value -1, 0 or 1)}
+\item{data}{\link{\code{cosmos_data}} object. Use the \link{\code{preprocess_COSMOS_signaling_to_metabolism}}
+function to create one.}
 
 \item{CARNIVAL_options}{list that controls the options of CARNIVAL. See details 
 in \code{\link{default_CARNIVAL_options()}}.}

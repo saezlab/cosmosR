@@ -5,55 +5,35 @@
 #' measured and input nodes and (2) which is in agreement with the data. 
 #' Use \code{\link{preprocess_COSMOS}} to prepare the prior knowledge network or 
 #' load the one in the toolbox.  
-#'  
-#' @param meta_network prior knowledge network. 
-#' @param signaling_data numerical vector, where names are signaling nodes 
-#' in the PKN and values are from \{1, 0, -1\}. Continuous data will be 
-#' discretized using the \code{\link{sign}} function.  
-#' @param metabolic_data numerical vector, where names are metabolic nodes 
-#' in the PKN and values are continuous values that represents log2 fold change 
-#' or t values from a differential analysis. These values are compared to 
-#' the simulation results (simulated nodes can take value -1, 0 or 1)
+#' @param data \link{\code{cosmos_data}} object. Use the \link{\code{preprocess_COSMOS_signaling_to_metabolism}}
+#' function to create one. 
 #' @param CARNIVAL_options list that controls the options of CARNIVAL. See details 
 #'  in \code{\link{default_CARNIVAL_options()}}. 
 #' @export
 #' @import dplyr
-#' @return named list with the following members: 
-#'  - `meta_network`  filtered PKN
-#'  - `tf_regulon`  TF - target regulatory network
-#'  - `signaling_data_bin` binarised signaling data 
-#'  - `metabolic_data`  metabolomics data
-#'  - `optimized_network` initial optimized network if filter_tf_gene_interaction_by_optimization is TRUE. 
+#' @return list with the following elements:
+#' - `aggregated_network` the averaged networks found by optimization in a 
+#' format of a Simple Interaction network, i.e. each row codes an edge
+#' - `N_networks`: number of solutions found by the optimization
+#' - `aggregated_network_node_attributes`: estimated node properties
+#' - `individual_networks`: list of optimial networks found
+#' - `individual_networks_node_attributes`: node activity in each network.
 
-
-run_COSMOS_signaling_to_metabolism <- function(meta_network,
-                                               signaling_data,
-                                               metabolic_data,
+run_COSMOS_signaling_to_metabolism <- function(data,
                                                CARNIVAL_options = default_CARNIVAL_options(),
                                                test_run = FALSE){
     
-    ## Checking COSMOS input format
-
-    
-    check_COSMOS_inputs(meta_network = meta_network,
-                        signaling_data = signaling_data,
-                        metabolic_data = metabolic_data)
-    
-    check_gene_names(signaling_data)
-    
-    # Check overlap among node names in the inputs
-    check_network_data_coverage(meta_network = meta_network,
-                                signaling_data = signaling_data,
-                                metabolic_data = metabolic_data)
+    validate_cosmos_data_signaling_to_metabolism(data)
+   
     
     if(!test_run){
         check_CARNIVAL_options(CARNIVAL_options)
         
-        disc_signaling_data <- discretize_input(signaling_data)
+        disc_signaling_data <- discretize_input(data$signaling_data)
         
-        CARNIVAL_results = runCARNIVAL_wrapper(network = meta_network,
+        CARNIVAL_results = runCARNIVAL_wrapper(network = data$meta_network,
                                                input_data = disc_signaling_data,
-                                               measured_data = metabolic_data,
+                                               measured_data = data$metabolic_data,
                                                options = CARNIVAL_options)
         
     }else{
@@ -65,4 +45,13 @@ run_COSMOS_signaling_to_metabolism <- function(meta_network,
     
 }
 
+
+validate_cosmos_data_signaling_to_metabolism <- function(data){
+    
+    validate_cosmos_data(data)
+    
+    if(!all(c("signaling_data_bin", "diff_expression_data_bin") %in% names(data)))
+        stop("missing inputs detected. Input data should be obtained by running preprocess_cosmos_signaling_to_metabolism.")
+    
+}
 

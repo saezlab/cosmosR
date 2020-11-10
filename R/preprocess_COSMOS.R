@@ -1,5 +1,6 @@
 #' preprocess_COSMOS
 #' 
+#' core function for preprocessing. 
 #' runs checks on the input data and simplifies the prior knowledge network.
 #' Simplification includes the removal of (1) nodes that are not reachable from 
 #' signaling nodes and  (2) interactions between transcription factors and target
@@ -40,9 +41,13 @@
 #' expression. Removes interactions where TF and gene expression are inconsistent 
 #' @param CARNIVAL_options list that controls the options of CARNIVAL. See details 
 #'  in \code{\link{default_CARNIVAL_options()}}. 
+#' @param input_layer either signaling_data or metabolic_data. Influences the way
+#' network pruning and CARNIVAL is ran. 
+#' @param output_layer either signaling_data or metabolic_data. Influences the way
+#' network pruning and CARNIVAL is ran.
 #' @export
 #' @import dplyr
-#' @return named list with the following members: 
+#' @return cosmos_data object with the following fields:
 #'  - `meta_network`  filtered PKN
 #'  - `tf_regulon`  TF - target regulatory network
 #'  - `signaling_data_bin` binarised signaling data 
@@ -52,17 +57,19 @@
 #' @seealso [load_meta_pkn()] for meta PKN, 
 #' [load_tf_regulon_dorothea()] for tf regulon,
 #' [convert_genesymbols_to_entrezid()] for gene conversion. 
-preprocess_COSMOS <- function(meta_network = load_meta_pkn(),
-                              tf_regulon = load_tf_regulon_dorothea(),
-                              signaling_data,
-                              metabolic_data,
-                              diff_expression_data, 
-                              diff_exp_threshold  = 1,
-                              maximum_network_depth = 8,
-                              expressed_genes =  names(diff_expression_data)[!is.na(diff_expression_data)],
-                              remove_unexpressed_nodes = TRUE,
-                              filter_tf_gene_interaction_by_optimization = TRUE,
-                              CARNIVAL_options = default_CARNIVAL_options()){
+preprocess_COSMOS_core <- function(meta_network,
+                                   tf_regulon,
+                                   signaling_data,
+                                   metabolic_data,
+                                   input_layer = c("signaling_data","metabolic_data"),
+                                   output_layer = c("metabolic_data","signaling_data"),
+                                   diff_expression_data, 
+                                   diff_exp_threshold,
+                                   maximum_network_depth,
+                                   expressed_genes,
+                                   remove_unexpressed_nodes,
+                                   filter_tf_gene_interaction_by_optimization,
+                                   CARNIVAL_options){
     
     ## Checking COSMOS input format
     check_COSMOS_inputs(meta_network,
@@ -72,8 +79,6 @@ preprocess_COSMOS <- function(meta_network = load_meta_pkn(),
                         diff_expression_data)
     
     check_gene_names(signaling_data,diff_expression_data,expressed_genes)
-    
-    
     
     # Check overlap among node names in the inputs
     check_network_data_coverage(meta_network,
@@ -87,8 +92,8 @@ preprocess_COSMOS <- function(meta_network = load_meta_pkn(),
     # filter nodes that do not appear in Gene-expression data. 
     # if the gene has a t-value --> it is expressed. 
     if(remove_unexpressed_nodes){
-        meta_network <- filter_pkn_expressed_genes(expressed_genes_entrez=expressed_genes,
-                                                   meta_pkn=meta_network)
+        meta_network <- filter_pkn_expressed_genes(expressed_genes_entrez = expressed_genes,
+                                                   meta_pkn = meta_network)
         # After modifying the PKN, inputs/measured nodes might get lost, we remove
         signaling_data = filter_input_nodes_not_in_pkn(pkn = meta_network,
                                                        data = signaling_data)
@@ -96,34 +101,62 @@ preprocess_COSMOS <- function(meta_network = load_meta_pkn(),
                                                        data = metabolic_data)
     }
     
-    # - cut non-reachable nodes from inputs
-    meta_network <- keep_controllable_neighbours(
-        network = meta_network,
-        n_steps =  maximum_network_depth, 
-        input_nodes = names(signaling_data))
-
-    # After modifying the PKN, inputs/measured nodes might get lost, we remove
-    signaling_data = filter_input_nodes_not_in_pkn(pkn = meta_network,
-                                                  data = signaling_data)
-    metabolic_data = filter_input_nodes_not_in_pkn(pkn = meta_network,
-                                                   data = metabolic_data)
-    # - cut non-observable nodes from inputs
-    meta_network <- keep_observable_neighbours(
-        network = meta_network,
-        n_steps =  maximum_network_depth, 
-        observed_nodes = names(metabolic_data))
+    if(input_layer == "signaling_data" & output_layer == "metabolic_data"){
+        # Cut non-reachable nodes from inputs
+        meta_network <- keep_controllable_neighbours(
+            network = meta_network,
+            n_steps =  maximum_network_depth, 
+            input_nodes = names(signaling_data))
+        
+        # After modifying the PKN, inputs/measured nodes might get lost, we remove
+        signaling_data = filter_input_nodes_not_in_pkn(pkn = meta_network,
+                                                       data = signaling_data)
+        metabolic_data = filter_input_nodes_not_in_pkn(pkn = meta_network,
+                                                       data = metabolic_data)
+        # Cut non-observable nodes from inputs
+        meta_network <- keep_observable_neighbours(
+            network = meta_network,
+            n_steps =  maximum_network_depth, 
+            observed_nodes = names(metabolic_data))
+        
+        # After modifying the PKN, inputs/measured nodes might get lost, we remove
+        signaling_data = filter_input_nodes_not_in_pkn(pkn = meta_network,
+                                                       data = signaling_data)
+        metabolic_data = filter_input_nodes_not_in_pkn(pkn = meta_network,
+                                                       data = metabolic_data)
+        
+    }else if(input_layer == "metabolic_data" & output_layer == "signaling_data"){
+        # Cut non-reachable nodes from inputs
+        meta_network <- keep_controllable_neighbours(
+            network = meta_network,
+            n_steps =  maximum_network_depth, 
+            input_nodes = names(metabolic_data))
+        
+        # After modifying the PKN, inputs/measured nodes might get lost, we remove
+        signaling_data = filter_input_nodes_not_in_pkn(pkn = meta_network,
+                                                       data = signaling_data)
+        metabolic_data = filter_input_nodes_not_in_pkn(pkn = meta_network,
+                                                       data = metabolic_data)
+        # Cut non-observable nodes from inputs
+        meta_network <- keep_observable_neighbours(
+            network = meta_network,
+            n_steps =  maximum_network_depth, 
+            observed_nodes = names(signaling_data))
+        
+        # After modifying the PKN, inputs/measured nodes might get lost, we remove
+        signaling_data = filter_input_nodes_not_in_pkn(pkn = meta_network,
+                                                       data = signaling_data)
+        metabolic_data = filter_input_nodes_not_in_pkn(pkn = meta_network,
+                                                       data = metabolic_data)
+    }else {
+        stop("invalida input_layer and output_layer combination")
+    }
     
-    
-    # After modifying the PKN, inputs/measured nodes might get lost, we remove
-    signaling_data = filter_input_nodes_not_in_pkn(pkn = meta_network,
-                                                   data = signaling_data)
-    metabolic_data = filter_input_nodes_not_in_pkn(pkn = meta_network,
-                                                   data = metabolic_data)
     
     # Filter TF -> target interaction from PKN if target expression not changing
     diff_expression_data_bin <- binarize_with_sign(diff_expression_data,
-                                                    threshold = diff_exp_threshold)
-    # make this threshold accessible for the user. by default should be 1. 
+                                                   threshold = diff_exp_threshold)
+    
     
     filtered_meta_network <- filter_transcriptional_regulations(
         network = meta_network, 
@@ -137,31 +170,56 @@ preprocess_COSMOS <- function(meta_network = load_meta_pkn(),
         
         check_CARNIVAL_options(CARNIVAL_options)
         
-        CARNIVAL_results = runCARNIVAL_wrapper(network = meta_network,
-                                               input_data = sign(signaling_data),
-                                               measured_data = metabolic_data,
-                                               options = CARNIVAL_options)
-        
-        # get the estimated activity of TFs from CARNIVAL results
-        estimated_TF_activity <- get_TF_activity_from_CARNIVAL(CARNIVAL_results,
-                                                               tf_regulon$tf)
-        
-        filtered_meta_network <- filter_transcriptional_regulations(
-            network = filtered_meta_network, 
-            gene_expression_binarized = binarize_with_sign(diff_expression_data,
-                                                           threshold = 1),
-            signaling_data  = estimated_TF_activity,
-            tf_regulon=tf_regulon[,c("tf","sign","target")])
-        
+        if(input_layer == "signaling_data" & output_layer == "metabolic_data"){
+            
+            CARNIVAL_results = runCARNIVAL_wrapper(network = meta_network,
+                                                   input_data = sign(signaling_data),
+                                                   measured_data = metabolic_data,
+                                                   options = CARNIVAL_options)
+            
+            # get the estimated activity of TFs from CARNIVAL results
+            estimated_TF_activity <- get_TF_activity_from_CARNIVAL(CARNIVAL_results,
+                                                                   tf_regulon$tf)
+            
+            filtered_meta_network <- filter_transcriptional_regulations(
+                network = filtered_meta_network, 
+                gene_expression_binarized = diff_expression_data_bin,
+                signaling_data  = estimated_TF_activity,
+                tf_regulon=tf_regulon[,c("tf","sign","target")])
+            
+        }else if(input_layer == "metabolic_data" & output_layer == "signaling_data"){
+            
+            CARNIVAL_results = runCARNIVAL_wrapper(network = meta_network,
+                                                   input_data = sign(metabolic_data),
+                                                   measured_data = signaling_data,
+                                                   options = CARNIVAL_options)
+            
+            # get the estimated activity of TFs from CARNIVAL results
+            estimated_TF_activity <- get_TF_activity_from_CARNIVAL(CARNIVAL_results,
+                                                                   tf_regulon$tf)
+            
+            filtered_meta_network <- filter_transcriptional_regulations(
+                network = filtered_meta_network, 
+                gene_expression_binarized = diff_expression_data_bin,
+                signaling_data  = estimated_TF_activity,
+                tf_regulon=tf_regulon[,c("tf","sign","target")])
+            
+        }
         
     }else{
         CARNIVAL_results = list()
     }
     
-    results <- list(meta_network = filtered_meta_network,
-                    tf_regulon = tf_regulon,
-                    signaling_data_bin = sign(signaling_data),
-                    metabolic_data = metabolic_data,
-                    diff_expression_data_bin = diff_expression_data_bin,
-                    optimized_network = CARNIVAL_results)
+    out_data <-  cosmos_data(meta_network = filtered_meta_network,
+                             tf_regulon = tf_regulon,
+                             signaling_data = signaling_data,
+                             metabolic_data = metabolic_data,
+                             expression_data = diff_expression_data)
+    
+    out_data$signaling_data_bin = sign(signaling_data)
+    out_data$metabolic_data_bin = sign(metabolic_data)
+    out_data$diff_expression_data_bin = diff_expression_data_bin
+    out_data$optimized_network = CARNIVAL_results
+    
+    return(out_data)
 }
