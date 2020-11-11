@@ -23,7 +23,9 @@ Check the Tutorial.pdf (or click [here](https://github.com/saezlab/COSMOS/blob/m
 
 ## Access
 
-The integrated PKN used with COSMOS is available [here](http://metapkn.omnipathdb.org/).
+The meta PKN used with the biorXiv version of COSMOS is available [here](http://metapkn.omnipathdb.org/).
+
+An updated meta PKN will be integrated to paper soon.
 
 ## Citation
 If you use cosmos for your research please cite the [original publication](https://www.biorxiv.org/content/10.1101/2020.04.23.057893v1): 
