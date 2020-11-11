@@ -1,4 +1,4 @@
-#' preprocess_COSMOS
+#' preprocess COSMOS inputs
 #' 
 #' runs checks on the input data and simplifies the prior knowledge network.
 #' Simplification includes the removal of (1) nodes that are not reachable from 

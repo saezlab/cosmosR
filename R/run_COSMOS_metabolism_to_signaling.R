@@ -1,18 +1,19 @@
-#'  COSMOS metabolism to signaling 
+#' run COSMOS metabolism to signaling 
 #' 
 #' runs COSMOS from metabolism to signaling. This function finds a subset of the
-#' prior knowledge network based on optimisation that (1) includes the most 
+#' prior knowledge network based on optimization that (1) includes the most 
 #' measured and input nodes and (2) which is in agreement with the data. 
-#' Use \code{\link{preprocess_COSMOS}} to prepare the prior knowledge network or 
-#' load the one in the toolbox.  
+#' Use \code{\link{preprocess_COSMOS_metabolism_to_signaling}} to prepare the
+#' the inputs, measurements and the prior knowledge network.
 #'  
-#' @param data \link{\code{cosmos_data}} object. Use the \link{\code{preprocess_COSMOS_metaboism_to_signaling()}}
+#' @param data \code{\link{cosmos_data}} object. Use the \code{\link{preprocess_COSMOS_metabolism_to_signaling}}
 #' function to create one.   
 #' @param CARNIVAL_options list that controls the options of CARNIVAL. See details 
 #'  in \code{\link{default_CARNIVAL_options()}}. 
 #' @export
 #' @import dplyr
 #' @return list with the following elements:
+#' 
 #' - `aggregated_network` the averaged networks found by optimization in a 
 #' format of a Simple Interaction network, i.e. each row codes an edge
 #' - `N_networks`: number of solutions found by the optimization

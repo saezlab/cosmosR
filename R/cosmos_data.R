@@ -74,10 +74,9 @@ validate_cosmos_data <- function(x){
 # helper -----------------------------------------------------------------------
 #' create cosmos data
 #' 
-#' user-friendly interface to create cosmos data.
-#' Based on the check_cosmos_inputs, but this function removes the non-overlapping
-#' nodes rather than reporting error. 
-#' 
+#' An S3 class that combines the required data into a comprehensive list. 
+#' Use the \code{\link{prepare_cosmos_signaling_to_metabolism}} or 
+#' \code{\link{prepare_cosmos_metabolism_to_signaling}} to create an instance. 
 cosmos_data <- function(meta_network,
                         tf_regulon = NULL,
                         signaling_data,

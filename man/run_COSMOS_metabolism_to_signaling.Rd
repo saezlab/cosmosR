@@ -2,43 +2,35 @@
 % Please edit documentation in R/run_COSMOS_metabolism_to_signaling.R
 \name{run_COSMOS_metabolism_to_signaling}
 \alias{run_COSMOS_metabolism_to_signaling}
-\title{COSMOS metabolism to signaling}
+\title{run COSMOS metabolism to signaling}
 \usage{
 run_COSMOS_metabolism_to_signaling(
-  meta_network,
-  signaling_data,
-  metabolic_data,
+  data,
   CARNIVAL_options = default_CARNIVAL_options(),
   test_run = FALSE
 )
 }
 \arguments{
-\item{meta_network}{prior knowledge network.}
-
-\item{signaling_data}{numerical vector, where names are signaling nodes 
-in the PKN and values are continuous values that represents log2 fold change 
-or t values from a differential analysis. These values are compared to 
-the simulation results (simulated nodes can take value -1, 0 or 1)}
-
-\item{metabolic_data}{numerical vector, where names are metabolic nodes 
-in the PKN and values are from \{1, 0, -1\}. Continuous data will be 
-discretized using the \code{\link{sign}} function.}
+\item{data}{\code{\link{cosmos_data}} object. Use the \code{\link{preprocess_COSMOS_metabolism_to_signaling}}
+function to create one.}
 
 \item{CARNIVAL_options}{list that controls the options of CARNIVAL. See details 
 in \code{\link{default_CARNIVAL_options()}}.}
 }
 \value{
-named list with the following members: 
- - `meta_network`  filtered PKN
- - `tf_regulon`  TF - target regulatory network
- - `signaling_data_bin` binarised signaling data 
- - `metabolic_data`  metabolomics data
- - `optimized_network` initial optimized network if filter_tf_gene_interaction_by_optimization is TRUE.
+list with the following elements:
+
+- `aggregated_network` the averaged networks found by optimization in a 
+format of a Simple Interaction network, i.e. each row codes an edge
+- `N_networks`: number of solutions found by the optimization
+- `aggregated_network_node_attributes`: estimated node properties
+- `individual_networks`: list of optimial networks found
+- `individual_networks_node_attributes`: node activity in each network.
 }
 \description{
 runs COSMOS from metabolism to signaling. This function finds a subset of the
-prior knowledge network based on optimisation that (1) includes the most 
+prior knowledge network based on optimization that (1) includes the most 
 measured and input nodes and (2) which is in agreement with the data. 
-Use \code{\link{preprocess_COSMOS}} to prepare the prior knowledge network or 
-load the one in the toolbox.
+Use \code{\link{preprocess_COSMOS_metabolism_to_signaling}} to prepare the
+the inputs, measurements and the prior knowledge network.
 }

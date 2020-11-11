@@ -8,7 +8,7 @@ default_CARNIVAL_options()
 }
 \value{
 returns a list with all possible options implemented in CARNIVAL.
-see the documentation on \code{\link{CARNIVAL::runCARNIVAL}}.
+see the documentation on \code{\link[CARNIVAL]{runCARNIVAL}}.
 }
 \description{
 generates default CARNIVAL options.

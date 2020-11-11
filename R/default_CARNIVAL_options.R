@@ -3,7 +3,7 @@
 #' generates default CARNIVAL options.  
 #' 
 #' @return returns a list with all possible options implemented in CARNIVAL.
-#' see the documentation on \code{\link{CARNIVAL::runCARNIVAL}}.
+#' see the documentation on \code{\link[CARNIVAL]{runCARNIVAL}}.
 #' @export
 #' 
 default_CARNIVAL_options = function(){
