@@ -14,6 +14,17 @@ COSMOS uses [CARNIVAL](https://saezlab.github.io/CARNIVAL/)’s Integer Linear P
 
 ## Tutorial
 
+Instal the package (from github with devtools) :
+
+```r
+## If needed instal devtool package
+install.packages("devtools")
+
+## instal COSMOS
+library(devtools)
+install_github("saezlab/COSMOS")
+```
+
 //!\\ The updated tutorial for the package version is arriving soon.
 For an early draft see : https://github.com/saezlab/COSMOS/tree/master/vignettes
 
