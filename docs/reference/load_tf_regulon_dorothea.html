@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • cosmos</title>
+<title>load transcription factor regulon — load_tf_regulon_dorothea • cosmos</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,9 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="load transcription factor regulon — load_tf_regulon_dorothea" />
+<meta property="og:description" content="load the transcription factors from DOROTHEA package and converts 
+gene symbols to EntrezID using org.Hs.eg.db" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -66,7 +68,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -136,18 +138,47 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>load transcription factor regulon</h1>
+    <small class="dont-index">Source: <a href='https://github.com/saezlab/COSMOS/blob/master/R/load_tf_regulon_dorothea.R'><code>R/load_tf_regulon_dorothea.R</code></a></small>
+    <div class="hidden name"><code>load_tf_regulon_dorothea.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <dl>
-        <dt><a href="tutorial.html">UNKNOWN TITLE</a></dt>
-        <dd></dt>
-      </dl>
+    <div class="ref-description">
+    <p>load the transcription factors from <code>DOROTHEA</code> package and converts 
+gene symbols to EntrezID using org.Hs.eg.db</p>
     </div>
+
+    <pre class="usage"><span class='fu'>load_tf_regulon_dorothea</span><span class='op'>(</span>toEntrez <span class='op'>=</span> <span class='cn'>TRUE</span>, confidence <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"C"</span><span class='op'>)</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>toEntrez</th>
+      <td><p>if TRUE (default), converts gene symbols to EntrezID</p></td>
+    </tr>
+    <tr>
+      <th>confidence</th>
+      <td><p>strong vector (by default: c("A","B","C")). Subset of {A, B,
+ C, D, E}. See the `dorothea` for the meaning of confidence levels. 
+package for further details.</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>returns a PKN of a form of a data table. Each row is an interaction.
+Columns names are:
+- `tf` transcription factor
+- `confidence` class of confidence
+- `target` target gene
+- `sign` indicates if interaction is up (1) or down-regulation (-1).</p>
+
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

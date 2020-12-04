@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • cosmos</title>
+<title>filter_transcriptional_regulations — filter_transcriptional_regulations • cosmos</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,19 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="filter_transcriptional_regulations — filter_transcriptional_regulations" />
+<meta property="og:description" content="Filters interactions between TFs and genes in the PKN by the following points
+- finds the TF target genes that change strongly (threshold)
+- finds TFs from the inputs (known TF activity)
+- remove interactions if the target gene expression doesn't change (regulation 
+should not go through this node )
+- remove interactions if the TF activity is not in agreement with the change
+ in the target gene expression (other factors influence these genes) 
+@param network meta PKN
+ @param gene_expression_binarized named vector of -1,0,1 difnining which genes changed
+ @param signaling_data named vector containing known activity of signaling nodes (kinases, TFs)
+ @param tf_regulon transcription factor regulon, e.g. from dorothea
+ @return a filtered version of the network" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -66,7 +78,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -136,18 +148,40 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>filter_transcriptional_regulations</h1>
+    <small class="dont-index">Source: <a href='https://github.com/saezlab/COSMOS/blob/master/R/filter_transcriptional_regulations.R'><code>R/filter_transcriptional_regulations.R</code></a></small>
+    <div class="hidden name"><code>filter_transcriptional_regulations.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <dl>
-        <dt><a href="tutorial.html">UNKNOWN TITLE</a></dt>
-        <dd></dt>
-      </dl>
+    <div class="ref-description">
+    <p>Filters interactions between TFs and genes in the PKN by the following points
+- finds the TF target genes that change strongly (threshold)
+- finds TFs from the inputs (known TF activity)
+- remove interactions if the target gene expression doesn't change (regulation 
+should not go through this node )
+- remove interactions if the TF activity is not in agreement with the change
+ in the target gene expression (other factors influence these genes)</p> 
+<p>@param network meta PKN
+ @param gene_expression_binarized named vector of -1,0,1 difnining which genes changed
+ @param signaling_data named vector containing known activity of signaling nodes (kinases, TFs)
+ @param tf_regulon transcription factor regulon, e.g. from dorothea
+ @return a filtered version of the network</p>
     </div>
+
+    <pre class="usage"><span class='fu'>filter_transcriptional_regulations</span><span class='op'>(</span>
+  <span class='va'>network</span>,
+  <span class='va'>gene_expression_binarized</span>,
+  <span class='va'>signaling_data</span>,
+  <span class='va'>tf_regulon</span>
+<span class='op'>)</span></pre>
+
+
+
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
