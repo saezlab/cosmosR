@@ -10,3 +10,6 @@ navbar:
      homepage:
        icon: "fas fa-university"
        href: www.saezlab.org
+template:
+  params:
+    ganalytics: G-PV71G2Q3SF
