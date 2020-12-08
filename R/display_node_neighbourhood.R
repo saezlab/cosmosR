@@ -9,7 +9,7 @@ display_node_neighbourhood <- function(central_node,sif, att, n = 100)
     
     ig_net <- graph_from_data_frame(full_sif) 
     
-    ig_net <- make_ego_graph(ig_net, nodes = central_node, order = n, mode = "all")
+    ig_net <- igraph::make_ego_graph(ig_net, nodes = central_node, order = n, mode = "all")
     
     to_keep <- unlist(sapply(ig_net,function(x){V(x)$name}))
     
