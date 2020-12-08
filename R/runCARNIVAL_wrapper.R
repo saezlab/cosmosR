@@ -27,7 +27,8 @@ runCARNIVAL_wrapper <- function(network,
     
     inputObj = dplyr::bind_rows(input_data)
     measObj  = dplyr::bind_rows(measured_data)
-    netObj = meta_network
+    # netObj = meta_network
+    netObj = network
     
     CARNIVAL_Result <- CARNIVAL::runCARNIVAL(inputObj = inputObj,
                                              measObj = measObj,
