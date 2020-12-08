@@ -26,7 +26,7 @@ install_github("saezlab/COSMOS")
 ```
 
 //!\\ The updated tutorial FOR THE PACKAGE VERSION is arriving soon.
-For an early draft see : https://github.com/saezlab/COSMOS/blob/master/R/tutorial.R
+For an early draft see : https://github.com/saezlab/COSMOS/blob/master/tutorial.R
 
 //!\\ The tutorial.pdf is curently based on the paper version of CARNIVAL : https://github.com/saezlab/CARNIVAL/tree/package_paper_version
 Check the Tutorial.pdf (or click [here](https://github.com/saezlab/COSMOS/blob/master/Tutorial.pdf)) file in the root github folder to have an example of running COSMOS with from TF, kinase, phosphatase activities and metabolite abundances. You need to download [this](https://github.com/saezlab/COSMOS/releases/tag/v0.1) release to run the current version of the tutorial. 
