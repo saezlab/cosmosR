@@ -6,9 +6,11 @@
 #' @param att df; attributes of the nodes of the COMSOS network solution, as returned by the format_cosmos_res function
 #' @param n numeric; maximum number of steps in the network to look for inputs and measurments
 #' @return a visnetwork object
+#' @export
+#' @import visNetwork
 display_node_neighboorhood <- function(central_node,sif, att, n = 100)
 {
-  requires(visNetwork)
+  # require(igraph)
   full_sif <- sif
   full_att <- att
   

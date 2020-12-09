@@ -110,14 +110,18 @@ translate_sif <- function(sif,
 #' @param gene_mapping by default, use the 'org.Hs.eg.db' to map gene names. Can also be a named vector with entrez gene id as names and desired gene names as values.
 #' @param measured_nodes vector of nodes that are measured or inputs
 #' @param omnipath_ptm ptms database from OmnipathR
+#' @export
+#' @import dorothea
+#' @import stringr
 format_COSMOS_res <- function(cosmos_res,
                               metab_mapping,
                               gene_mapping = 'org.Hs.eg.db',
                               measured_nodes,
                               omnipath_ptm)
 {
-  require(dorothea)
+  # require(dorothea)
   require('org.Hs.eg.db')
+  # require(stringr)
   sif <- as.data.frame(cosmos_res$weightedSIF)
   sif$Node1 <- gsub("^X","",sif$Node1)
   sif$Node2 <- gsub("^X","",sif$Node2)
