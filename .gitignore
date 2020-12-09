@@ -5,11 +5,6 @@
 .Rprofile
 vignettes/.Rhistory
 vignettes/.Rhistory
-<<<<<<< HEAD
-./send_to_cluster.sh
-.DS_Store
-=======
 
 ./send_to_cluster.sh
 .DS_Store
->>>>>>> 3d7cb1fce7666171562cdb6b9fb1822db328dcc8
