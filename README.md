@@ -25,7 +25,7 @@ library(devtools)
 install_github("saezlab/COSMOS")
 ```
 
-//!\\ Curently avalaible tutorial is available a self contain R script: https://github.com/saezlab/COSMOS/blob/master/tutorial.R
+//!\\ Curently avalaible tutorial is available as self contain R script: https://github.com/saezlab/COSMOS/blob/master/tutorial.R
 A markdown version is in preparation and arriving soon. 
 
 
