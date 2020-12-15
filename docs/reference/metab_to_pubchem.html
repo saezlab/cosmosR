@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>filter_pkn_expressed_genes — filter_pkn_expressed_genes • cosmos</title>
+<title>mapping between metabolite names and pubchem CIDs — metab_to_pubchem • cosmos</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="filter_pkn_expressed_genes — filter_pkn_expressed_genes" />
-<meta property="og:description" content="filters the non-expressed genes from the prior knowledge network" />
+<meta property="og:title" content="mapping between metabolite names and pubchem CIDs — metab_to_pubchem" />
+<meta property="og:description" content="mapping between metabolite names and pubchem CIDs" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -147,31 +147,26 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>filter_pkn_expressed_genes</h1>
-    <small class="dont-index">Source: <a href='https://github.com/saezlab/COSMOS/blob/master/R/filter_pkn_expressed_genes.R'><code>R/filter_pkn_expressed_genes.R</code></a></small>
-    <div class="hidden name"><code>filter_pkn_expressed_genes.Rd</code></div>
+    <h1>mapping between metabolite names and pubchem CIDs</h1>
+    <small class="dont-index">Source: <a href='https://github.com/saezlab/COSMOS/blob/master/R/metab_to_pubchem.R'><code>R/metab_to_pubchem.R</code></a></small>
+    <div class="hidden name"><code>metab_to_pubchem.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>filters the non-expressed genes from the prior knowledge network</p>
+    <p>mapping between metabolite names and pubchem CIDs</p>
     </div>
 
-    <pre class="usage"><span class='fu'>filter_pkn_expressed_genes</span><span class='op'>(</span><span class='va'>expressed_genes_entrez</span>, <span class='va'>meta_pkn</span><span class='op'>)</span></pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>expressed_genes_entrez</th>
-      <td><p>EntrezID of expressed genes</p></td>
-    </tr>
-    <tr>
-      <th>meta_pkn</th>
-      <td><p>COSMOS prior knowledge network</p></td>
-    </tr>
-    </table>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>metab_to_pubchem</span><span class='op'>)</span></pre>
 
 
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>An object of class <code>"data.frame"</code>;</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>metab_to_pubchem</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/View.html'>View</a></span><span class='op'>(</span><span class='va'>metab_to_pubchem</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

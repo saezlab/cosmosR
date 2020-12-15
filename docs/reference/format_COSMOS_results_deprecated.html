@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>filter_pkn_expressed_genes — filter_pkn_expressed_genes • cosmos</title>
+<title>graphs from COSMOS results — format_COSMOS_results_deprecated • cosmos</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="filter_pkn_expressed_genes — filter_pkn_expressed_genes" />
-<meta property="og:description" content="filters the non-expressed genes from the prior knowledge network" />
+<meta property="og:title" content="graphs from COSMOS results — format_COSMOS_results_deprecated" />
+<meta property="og:description" content="formats the network with readable names" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -147,27 +147,46 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>filter_pkn_expressed_genes</h1>
-    <small class="dont-index">Source: <a href='https://github.com/saezlab/COSMOS/blob/master/R/filter_pkn_expressed_genes.R'><code>R/filter_pkn_expressed_genes.R</code></a></small>
-    <div class="hidden name"><code>filter_pkn_expressed_genes.Rd</code></div>
+    <h1>graphs from COSMOS results</h1>
+    <small class="dont-index">Source: <a href='https://github.com/saezlab/COSMOS/blob/master/R/format_COSMOS_results.R'><code>R/format_COSMOS_results.R</code></a></small>
+    <div class="hidden name"><code>format_COSMOS_results_deprecated.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>filters the non-expressed genes from the prior knowledge network</p>
+    <p>formats the network with readable names</p>
     </div>
 
-    <pre class="usage"><span class='fu'>filter_pkn_expressed_genes</span><span class='op'>(</span><span class='va'>expressed_genes_entrez</span>, <span class='va'>meta_pkn</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>format_COSMOS_results_deprecated</span><span class='op'>(</span>
+  <span class='va'>cosmos_res</span>,
+  <span class='va'>metab_mapping</span>,
+  gene_mapping <span class='op'>=</span> <span class='st'>"ensembl"</span>,
+  <span class='va'>measured_nodes</span>,
+  <span class='va'>omnipath_ptm</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>expressed_genes_entrez</th>
-      <td><p>EntrezID of expressed genes</p></td>
+      <th>cosmos_res</th>
+      <td><p>results of CARNIVAL run</p></td>
     </tr>
     <tr>
-      <th>meta_pkn</th>
-      <td><p>COSMOS prior knowledge network</p></td>
+      <th>metab_mapping</th>
+      <td><p>mapping table between metabolite naming conventions,
+a two column dataframe with names: c("name","pubchem")</p></td>
+    </tr>
+    <tr>
+      <th>gene_mapping</th>
+      <td><p>-- not sure !!!</p></td>
+    </tr>
+    <tr>
+      <th>measured_nodes</th>
+      <td><p>vector of nodes that are measured or inputs</p></td>
+    </tr>
+    <tr>
+      <th>omnipath_ptm</th>
+      <td><p>ptms database from OmnipathR</p></td>
     </tr>
     </table>
 

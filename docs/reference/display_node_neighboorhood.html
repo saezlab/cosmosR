@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>filter_pkn_expressed_genes — filter_pkn_expressed_genes • cosmos</title>
+<title>display_node_neighboorhood — display_node_neighboorhood • cosmos</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="filter_pkn_expressed_genes — filter_pkn_expressed_genes" />
-<meta property="og:description" content="filters the non-expressed genes from the prior knowledge network" />
+<meta property="og:title" content="display_node_neighboorhood — display_node_neighboorhood" />
+<meta property="og:description" content="display input and measurements within n steps of a given set of nodes" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -147,30 +147,41 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>filter_pkn_expressed_genes</h1>
-    <small class="dont-index">Source: <a href='https://github.com/saezlab/COSMOS/blob/master/R/filter_pkn_expressed_genes.R'><code>R/filter_pkn_expressed_genes.R</code></a></small>
-    <div class="hidden name"><code>filter_pkn_expressed_genes.Rd</code></div>
+    <h1>display_node_neighboorhood</h1>
+    <small class="dont-index">Source: <a href='https://github.com/saezlab/COSMOS/blob/master/R/display_node_neighboorhood.R'><code>R/display_node_neighboorhood.R</code></a></small>
+    <div class="hidden name"><code>display_node_neighboorhood.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>filters the non-expressed genes from the prior knowledge network</p>
+    <p>display input and measurements within n steps of a given set of nodes</p>
     </div>
 
-    <pre class="usage"><span class='fu'>filter_pkn_expressed_genes</span><span class='op'>(</span><span class='va'>expressed_genes_entrez</span>, <span class='va'>meta_pkn</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>display_node_neighboorhood</span><span class='op'>(</span><span class='va'>central_node</span>, <span class='va'>sif</span>, <span class='va'>att</span>, n <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>expressed_genes_entrez</th>
-      <td><p>EntrezID of expressed genes</p></td>
+      <th>central_node</th>
+      <td><p>character or character vector; node ID(s) around which a network will be branched out untill meansurments and input are reached</p></td>
     </tr>
     <tr>
-      <th>meta_pkn</th>
-      <td><p>COSMOS prior knowledge network</p></td>
+      <th>sif</th>
+      <td><p>df; COSMOS network solution in sif format, as returned by the format_cosmos_res function</p></td>
+    </tr>
+    <tr>
+      <th>att</th>
+      <td><p>df; attributes of the nodes of the COMSOS network solution, as returned by the format_cosmos_res function</p></td>
+    </tr>
+    <tr>
+      <th>n</th>
+      <td><p>numeric; maximum number of steps in the network to look for inputs and measurments</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a visnetwork object</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -23,7 +23,13 @@
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-PV71G2Q3SF"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PV71G2Q3SF');
+</script>
 </head>
 <body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
@@ -154,8 +160,8 @@
 <pre><code>## 'select()' returned 1:many mapping between keys and columns</code></pre>
 <pre><code>## [1] "COSMOS: all 118 signaling nodes from data were found in the meta PKN"
 ## [1] "COSMOS: all 40 metabolic nodes from data were found in the meta PKN"
-## [1] "COSMOS: 4714 of the 15919 genes in expression data were found as transcription factor target"
-## [1] "COSMOS: 4714 of the 5355 transcription factor targets were found in expression data"
+## [1] "COSMOS: 4666 of the 15919 genes in expression data were found as transcription factor target"
+## [1] "COSMOS: 4666 of the 5318 transcription factor targets were found in expression data"
 ## [1] "COSMOS: removing unexpressed nodes from PKN..."
 ## [1] "COSMOS: 25739 interactions removed"
 ## [1] "COSMOS: removing nodes that are not reachable from inputs within 8 steps"
@@ -165,11 +171,11 @@
 ## [1] "COSMOS: removing nodes that are not observable by measurements within 8 steps"
 ## [1] "COSMOS: 17976 from  58331 interactions are removed from the PKN"
 ## [1] "COSMOS: 14 input/measured nodes are not in PKN any more: X4137, X26298, X79977, X51621, X7975, X4211 and 8 more."
-## [1] "COSMOS:  1271 interactions are removed from the PKN based on consistency check between TF activity and gene expression"
+## [1] "COSMOS:  1247 interactions are removed from the PKN based on consistency check between TF activity and gene expression"
 ## [1] "COSMOS: all 103 signaling nodes from data were found in the meta PKN"
 ## [1] "COSMOS: all 27 metabolic nodes from data were found in the meta PKN"
-## [1] "COSMOS: 4714 of the 15919 genes in expression data were found as transcription factor target"
-## [1] "COSMOS: 4714 of the 5355 transcription factor targets were found in expression data"</code></pre>
+## [1] "COSMOS: 4666 of the 15919 genes in expression data were found as transcription factor target"
+## [1] "COSMOS: 4666 of the 5318 transcription factor targets were found in expression data"</code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">CARNIVAL_options</span> <span class="op">=</span> <span class="fu">cosmos</span><span class="fu">::</span><span class="fu"><a href="../reference/default_CARNIVAL_options.html">default_CARNIVAL_options</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">CARNIVAL_options</span><span class="op">$</span><span class="va">solverPath</span> <span class="op">=</span> <span class="st">"/Applications/CPLEX_Studio128/cplex/bin/x86-64_osx/cplex"</span>
@@ -197,8 +203,8 @@
 <pre><code>## 'select()' returned 1:many mapping between keys and columns</code></pre>
 <pre><code>## [1] "COSMOS: all 118 signaling nodes from data were found in the meta PKN"
 ## [1] "COSMOS: all 40 metabolic nodes from data were found in the meta PKN"
-## [1] "COSMOS: 4714 of the 15919 genes in expression data were found as transcription factor target"
-## [1] "COSMOS: 4714 of the 5355 transcription factor targets were found in expression data"
+## [1] "COSMOS: 4666 of the 15919 genes in expression data were found as transcription factor target"
+## [1] "COSMOS: 4666 of the 5318 transcription factor targets were found in expression data"
 ## [1] "COSMOS: removing unexpressed nodes from PKN..."
 ## [1] "COSMOS: 25739 interactions removed"
 ## [1] "COSMOS: removing nodes that are not reachable from inputs within 8 steps"
@@ -208,11 +214,11 @@
 ## [1] "COSMOS: removing nodes that are not observable by measurements within 8 steps"
 ## [1] "COSMOS: 17281 from  56754 interactions are removed from the PKN"
 ## [1] "COSMOS: 12 input/measured nodes are not in PKN any more: XMetab__190___e____, XMetab__6132___m____, XMetab__6132___e____, XMetab__6021___e____, XMetab__6426851___c____, XMetab__107738___c____ and 6 more."
-## [1] "COSMOS:  1279 interactions are removed from the PKN based on consistency check between TF activity and gene expression"
+## [1] "COSMOS:  1257 interactions are removed from the PKN based on consistency check between TF activity and gene expression"
 ## [1] "COSMOS: all 107 signaling nodes from data were found in the meta PKN"
 ## [1] "COSMOS: all 26 metabolic nodes from data were found in the meta PKN"
-## [1] "COSMOS: 4714 of the 15919 genes in expression data were found as transcription factor target"
-## [1] "COSMOS: 4714 of the 5355 transcription factor targets were found in expression data"</code></pre>
+## [1] "COSMOS: 4666 of the 15919 genes in expression data were found as transcription factor target"
+## [1] "COSMOS: 4666 of the 5318 transcription factor targets were found in expression data"</code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">CARNIVAL_options</span> <span class="op">=</span> <span class="fu">cosmos</span><span class="fu">::</span><span class="fu"><a href="../reference/default_CARNIVAL_options.html">default_CARNIVAL_options</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">CARNIVAL_options</span><span class="op">$</span><span class="va">solverPath</span> <span class="op">=</span> <span class="st">"/Applications/CPLEX_Studio128/cplex/bin/x86-64_osx/cplex"</span>
