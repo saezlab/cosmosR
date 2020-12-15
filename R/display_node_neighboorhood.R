@@ -8,10 +8,20 @@
 #' @return a visnetwork object
 #' @export
 #' @import visNetwork
+#' @importFrom igraph make_ego_graph
+#' @importFrom igraph graph_from_data_frame
+#' @importFrom igraph V
+#' @importFrom igraph get.shortest.paths
 display_node_neighboorhood <- function(central_node,sif, att, n = 100)
 {
   # require(igraph)
   full_sif <- sif
+  if(sum(names(full_sif) %in% c("Node1", "Node2", "Sign", "Weight")) != 4)
+  {
+    print('sif should be a dataframe with 4 column named "Node1", "Node2", "Sign" and "Weight"')
+    return('Error:bad sif')
+  }
+  full_sif <- full_sif[,c("Node1", "Node2", "Sign", "Weight")]
   full_att <- att
   
   ig_net <- graph_from_data_frame(full_sif) 
