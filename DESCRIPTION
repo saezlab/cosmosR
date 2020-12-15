@@ -34,7 +34,8 @@ Imports:
     purrr,
     Biobase,
     AnnotationDbi,
-    org.Hs.eg.db
+    org.Hs.eg.db,
+    visNetwork
 Suggests: 
     testthat,
     knitr,
