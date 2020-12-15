@@ -25,18 +25,19 @@ library(devtools)
 install_github("saezlab/COSMOS")
 ```
 
-//!\\ The updated tutorial FOR THE PACKAGE VERSION is arriving soon.
-For an early draft see : https://github.com/saezlab/COSMOS/blob/master/tutorial.R
+//!\\ Curently avalaible tutorial is available a self contain R script: https://github.com/saezlab/COSMOS/blob/master/tutorial.R
+A markdown version is in preparation and arriving soon. 
 
-//!\\ The tutorial.pdf is curently based on the paper version of CARNIVAL : https://github.com/saezlab/CARNIVAL/tree/package_paper_version
-Check the Tutorial.pdf (or click [here](https://github.com/saezlab/COSMOS/blob/master/Tutorial.pdf)) file in the root github folder to have an example of running COSMOS with from TF, kinase, phosphatase activities and metabolite abundances. You need to download [this](https://github.com/saezlab/COSMOS/releases/tag/v0.1) release to run the current version of the tutorial. 
+
+//!\\ The tutorial.pdf is curently based on the paper version of CARNIVAL, which is the preprint version: https://github.com/saezlab/CARNIVAL/tree/package_paper_version
+Check the Tutorial.pdf (or click [here](https://github.com/saezlab/COSMOS/blob/master/Tutorial.pdf)) file in the root github folder to have an example of running COSMOS with from TF, kinase, phosphatase activities and metabolite abundances. You need to download [this](https://github.com/saezlab/COSMOS/releases/tag/v0.1) release to run the current version of the tutorial. This version is obsolete.
 
 
 ## Access
 
 The meta PKN used with the biorXiv version of COSMOS is available [here](http://metapkn.omnipathdb.org/).
 
-An updated meta PKN will be integrated to paper soon.
+An updated meta PKN is available with the package (using load_meta_pkn() in R)
 
 ## Citation
 If you use cosmos for your research please cite the [original publication](https://www.biorxiv.org/content/10.1101/2020.04.23.057893v1): 
