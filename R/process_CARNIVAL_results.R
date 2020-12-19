@@ -16,17 +16,17 @@ process_CARNIVAL_results <- function(CARNIVAL_results){
     
     network_output = list()
     
-    network_output$aggregated_network <- as_tibble(CARNIVAL_results$weightedSIF) %>%
-        rename(source = "Node1",
-               target = "Node2",
-               interaction = "Sign",
-               weight = "Weight") %>%
-        mutate(interaction = as.numeric(interaction),
-               weight = as.numeric(weight)/100)
+    network_output$weightedSIF <- as_tibble(CARNIVAL_results$weightedSIF) %>%
+        rename(Node1 = "Node1",
+               Node2 = "Node2",
+               Sign = "Sign",
+               Weight = "Weight") %>%
+        mutate(Sign = as.numeric(Sign),
+               Weight = as.numeric(Weight)/100)
     
     network_output$N_networks = length(CARNIVAL_results$sifAll)
     
-    network_output$aggregated_network_node_attributes = 
+    network_output$nodesAttributes = 
         as_tibble(CARNIVAL_results$nodesAttributes) %>%
         mutate(ZeroAct = as.numeric(ZeroAct)/100,
                UpAct = as.numeric(UpAct)/100,

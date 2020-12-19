@@ -9,6 +9,9 @@ my_options$solverPath <- "~/Documents/cplex"
 
 #### FORWARD run of COSMOS, to connect signaling to metabolism
 
+#The signaling inputs are the result of footprint based TF and kinase activity estiamtion
+#For more info on TF activity estiamtion from transcriptomic data, see:https://github.com/saezlab/transcriptutorial (Especially chapter 4)
+
 test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_sif,
                                                       signaling_data = toy_signaling_input_carnival_vec,
                                                       metabolic_data = toy_metab_input_carnival_vec,
@@ -21,11 +24,6 @@ test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_sif,
 
 test_result_for <- run_COSMOS_signaling_to_metabolism(data = test_for,
                                                       CARNIVAL_options = my_options)
-
-#give standard CARNIVAL output names (will be removed in futur update)
-names(test_result_for)[1] <- 'weightedSIF'
-names(test_result_for$weightedSIF) <- c("Node1","Sign","Node2","Weight")
-names(test_result_for)[3] <- 'nodesAttributes'
 
 metab_to_pubchem_vec <- metab_to_pubchem$name
 names(metab_to_pubchem_vec) <- metab_to_pubchem$pubchem
@@ -53,10 +51,6 @@ test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_sif,
 test_result_back <- run_COSMOS_metabolism_to_signaling(data = test_back,
                                                        CARNIVAL_options = my_options)
 
-#give standard CARNIVAL output names (will be removed in futur update)
-names(test_result_back)[1] <- 'weightedSIF'
-names(test_result_back$weightedSIF) <- c("Node1","Sign","Node2","Weight")
-names(test_result_back)[3] <- 'nodesAttributes'
 
 test_result_back <- format_COSMOS_res(test_result_back,
                                       metab_mapping = metab_to_pubchem_vec,
