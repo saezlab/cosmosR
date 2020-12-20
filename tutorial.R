@@ -12,6 +12,13 @@ my_options$solverPath <- "~/Documents/cplex"
 #The signaling inputs are the result of footprint based TF and kinase activity estiamtion
 #For more info on TF activity estiamtion from transcriptomic data, see:https://github.com/saezlab/transcriptutorial (Especially chapter 4)
 
+#Here we use of toy PKN, to see the full meta PKN, you can load it with load_meta_pkn()
+
+#The metabolites in the prior knowledge network are identified as XMetab__PUBCHEMid___compartment____ or XMetab__BIGGid___compartment____
+#for example “XMetab__6804___m____”. The compartment code is the BIGG model standard (r, c, e, x, m, l, n, g). 
+#Thus we will first need to map whatever identifer for metabolite the data has to the one of the network.
+#Genes are identified as XENTREZid (in the signaling part of network) or XGene####__ENTREZid (in the reaction network part of network)
+
 test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_sif,
                                                       signaling_data = toy_signaling_input_carnival_vec,
                                                       metabolic_data = toy_metab_input_carnival_vec,
