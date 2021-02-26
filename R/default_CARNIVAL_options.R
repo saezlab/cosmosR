@@ -56,7 +56,8 @@ check_CARNIVAL_options <- function(opts){
     }
     
     
-    if(opts$solver!="cplex") stop("current version supports only the CPLEX solver")
+    if(!(opts$solver %in% c("cplex","cbc"))) stop("current version supports only the CPLEX or cbc solver")
+    if(opts$solver == "cbc") print("COSMOS wasn't tested thoroughly with the cbc solver. We recommend the users to use CPLEX if possible, and use cbc as a backup solution.")
     if(is.null(opts$solverPath)) stop("path to CPLEX solver must be provided")
     
     
