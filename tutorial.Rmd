@@ -1,0 +1,213 @@
+---
+title: "COSMOS tutorial"
+author: "Aurelien Dugourd"
+date: "2/26/2021"
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### License Info
+
+This program is free software: you can redistribute it and/or modify it under 
+the terms of the GNU General Public License as published by the Free Software 
+Foundation, either version 3 of the License, or (at your option) any later 
+version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY 
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR 
+A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+Please check http://www.gnu.org/licenses/.
+
+## Getting Started
+
+In order to adapt options to users specification we can load them into a variable 
+that will then be passed to preprocess_COSMOS_signaling_to_metabolism CARNIVAL_options parameter
+
+```{r, warning=FALSE, message=FALSE}
+library(cosmos)
+my_options <- default_CARNIVAL_options()
+```
+
+Here the user should provide a path to its CPLEX or cbc executable. (other sovers will be available in the future)
+
+```{r, warning=FALSE, message=FALSE}
+my_options$solverPath <- "~/Documents/cplex" #or cbc solver executable
+my_options$solver <- "cplex" #or cbc
+```
+
+## FORWARD run of COSMOS, to connect signaling to metabolism
+
+COSMOS (Causal Oriented Search of Multi-Omics Space) is an
+approach that builds on CARNIVAL to connect TF and kinase/phosphatases activities as
+well as metabolite abundances with a novel PKN spanning across multiple omics layers. 
+COSMOS uses CARNIVAL’s Integer Linear Programming (ILP) optimization
+strategy to find the smallest coherent subnetwork causally connecting as many deregulated
+TFs, kinases/phosphatases and metabolites as possible. The subnetwork is extracted from a
+novel integrated PKN spanning signaling, transcriptional regulation and metabolism. 
+CARNIVAL’s ILP formulation effectively allows to evaluate the entire network's
+causal coherence given a set of known TF, kinases/phosphatases activities and metabolite
+abundances.
+
+Cosmos may also be used without metabolomic data, to search for connections between TF 
+and kinases. To do so, follow the same tutorial but use only TF activities as signaling 
+inputs (instead of TF and kinase activities together) and replace the metabolite inputs 
+with kinase activities.
+
+# Meta PKN introduction
+
+In this tutorial, we use a toy PKN (so that the optimization can be run in seconds). 
+The toy PKN is a subset of the  full meta PKN, which you can load with load_meta_pkn()
+
+The metabolites in the prior knowledge network are identified as XMetab__PUBCHEMid___compartment____ 
+or XMetab__BIGGid___compartment____for example “XMetab__6804___m____”. 
+The compartment code is the BIGG model standard (r, c, e, x, m, l, n, g).
+
+Genes are identified as XENTREZid (in the signaling part of network) 
+or XGene####__ENTREZid (in the reaction network part of network)
+
+The directed, signed network is a dataframe with three column:
+
+source: the source node ID
+interaction: the sign of the directed interaction (1 = activation; -1 = inhibition)
+target: the target node ID
+
+```{r, warning=FALSE, message=FALSE, error=FALSE}
+toy_sif
+```
+
+# COSMOS input introduction
+
+The signaling inputs are the result of footprint based TF and kinase activity estiamtion
+For more info on TF activity estimation from transcriptomic data, 
+see:https://github.com/saezlab/transcriptutorial (Especially chapter 4)
+
+```{r, warning=FALSE, message=FALSE, error=FALSE}
+head(toy_signaling_input_carnival_vec)
+```
+
+```{r, warning=FALSE, message=FALSE, error=FALSE}
+head(toy_metab_input_carnival_vec)
+```
+```{r, warning=FALSE, message=FALSE, error=FALSE}
+head(toy_RNA)
+```
+
+```{r, warning=FALSE, message=FALSE, error=FALSE}
+test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_sif,  
+                                                      signaling_data = toy_signaling_input_carnival_vec,
+                                                      metabolic_data = toy_metab_input_carnival_vec,
+                                                      diff_expression_data = toy_RNA,
+                                                      maximum_network_depth = 15,
+                                                      remove_unexpressed_nodes = T,
+                                                      filter_tf_gene_interaction_by_optimization = T,
+                                                      CARNIVAL_options = my_options)
+```
+
+```{r, warning=FALSE, message=FALSE, error=FALSE}
+test_result_for <- run_COSMOS_signaling_to_metabolism(data = test_for,
+                                                      CARNIVAL_options = my_options)
+```
+
+```{r, warning=FALSE, message=FALSE}
+metab_to_pubchem_vec <- metab_to_pubchem$name
+names(metab_to_pubchem_vec) <- metab_to_pubchem$pubchem
+
+test_result_for <- format_COSMOS_res(test_result_for,
+                                     metab_mapping = metab_to_pubchem_vec,
+                                     measured_nodes = unique(c(names(toy_metab_input_carnival_vec),
+                                                               names(toy_signaling_input_carnival_vec))),
+                                     omnipath_ptm = omnipath_ptm)
+```
+
+```{r, warning=FALSE, message=FALSE}
+# View(test_result_for[[1]]) #SIF
+# View(test_result_for[[2]]) #ATTRIBUTES
+```
+
+## BACKWARD run of COSMOS, to connect metabolism to signaling
+
+```{r, warning=FALSE, message=FALSE, error=FALSE}
+test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_sif,
+                                                       signaling_data = toy_signaling_input_carnival_vec,
+                                                       metabolic_data = toy_metab_input_carnival_vec,
+                                                       diff_expression_data = toy_RNA,
+                                                       maximum_network_depth = 15,
+                                                       remove_unexpressed_nodes = F,
+                                                       CARNIVAL_options = my_options)
+```
+
+```{r, warning=FALSE, message=FALSE, error=FALSE}
+test_result_back <- run_COSMOS_metabolism_to_signaling(data = test_back,
+                                                       CARNIVAL_options = my_options)
+```
+
+```{r, warning=FALSE, message=FALSE}
+test_result_back <- format_COSMOS_res(test_result_back,
+                                      metab_mapping = metab_to_pubchem_vec,
+                                      measured_nodes = unique(c(names(toy_metab_input_carnival_vec),
+                                                                names(toy_signaling_input_carnival_vec))),
+                                      omnipath_ptm = omnipath_ptm)
+```
+
+```{r, warning=FALSE, message=FALSE}
+# View(test_result_back[[1]]) #SIF
+# View(test_result_back[[2]]) #ATTRIBUTES
+```
+
+## Merge forward and backward networks
+
+```{r, warning=FALSE, message=FALSE}
+full_sif <- as.data.frame(rbind(test_result_for[[1]], test_result_back[[1]]))
+full_attributes <- as.data.frame(rbind(test_result_for[[2]], test_result_back[[2]]))
+
+full_sif <- unique(full_sif)
+full_attributes <- unique(full_attributes)
+```
+
+```{r, warning=FALSE, message=FALSE}
+network_plot <- display_node_neighboorhood(central_node = 'PRKACA', 
+                                           sif = full_sif, 
+                                           att = full_attributes, 
+                                           n = 5)
+
+network_plot
+```
+
+```{r, warning=FALSE, message=FALSE}
+
+```
+
+```{r, warning=FALSE, message=FALSE}
+
+```
+
+```{r, warning=FALSE, message=FALSE}
+
+```
+
+```{r, warning=FALSE, message=FALSE}
+
+```
+
+```{r, warning=FALSE, message=FALSE}
+
+```
+
+```{r, warning=FALSE, message=FALSE}
+
+```
+
+```{r, warning=FALSE, message=FALSE}
+
+```
+
+```{r, warning=FALSE, message=FALSE}
+
+```
