@@ -3,8 +3,8 @@ title: "COSMOS tutorial"
 author: "Aurelien Dugourd"
 date: "2/26/2021"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
   word_document: default
 ---
 
@@ -79,7 +79,7 @@ interaction: the sign of the directed interaction (1 = activation; -1 = inhibiti
 target: the target node ID
 
 ```{r, warning=FALSE, message=FALSE, error=FALSE}
-toy_sif
+toy_sif[1:10,]
 ```
 
 # COSMOS input introduction
@@ -171,7 +171,7 @@ full_sif <- unique(full_sif)
 full_attributes <- unique(full_attributes)
 ```
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, fig.width=20, fig.height=20}
 network_plot <- display_node_neighboorhood(central_node = 'PRKACA', 
                                            sif = full_sif, 
                                            att = full_attributes, 
