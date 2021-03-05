@@ -44,9 +44,9 @@ The meta PKN used with the biorXiv version of COSMOS is available [here](http://
 An updated meta PKN is available with the package (using load_meta_pkn() in R)
 
 ## Citation
-If you use cosmos for your research please cite the [original publication](https://www.biorxiv.org/content/10.1101/2020.04.23.057893v1): 
+If you use cosmos for your research please cite the [original publication](https://www.embopress.org/doi/full/10.15252/msb.20209730): 
 
-> Aurelien dugourd, Christoph Kuppe, Marco Sciacovelli, Enio Gjerga, Kristina Bennet Emdal, Dorte Breinholdt Bekker-Jensen, Jennifer Kranz, Eric J.M. Bindels, Sofia Costa, Jesper V Olsen, Christian Frezza, Rafael Kramann, Julio Saez-Rodriguez. Causal integration of multi-omics data with prior knowledge to generate mechanistic hypotheses. bioRxiv 2020.04.23.057893 (2020) doi:10.1101/2020.04.23.057893.
+> Dugourd A, Kuppe C, Sciacovelli M, Gjerga E, Gabor A, Emdal KB, Vieira V, Bekker-Jensen DB, Kranz J, Bindels EMJ, Jesper V Olsen, Christian Frezza, Rafael Kramann, Julio Saez-Rodriguez et al (2021) Causal integration of multi-omics data with prior knowledge to generate mechanistic hypotheses. Mol Syst Biol 17: e9730
 
 ## License
 
