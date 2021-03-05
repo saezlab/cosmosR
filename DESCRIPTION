@@ -34,7 +34,6 @@ Imports:
     purrr,
     Biobase,
     AnnotationDbi,
-    biomaRt,
     org.Hs.eg.db,
     visNetwork
 Suggests: 

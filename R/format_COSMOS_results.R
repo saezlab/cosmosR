@@ -120,7 +120,7 @@ format_COSMOS_res <- function(cosmos_res,
                               omnipath_ptm)
 {
   # require(dorothea)
-  requireNamespace('org.Hs.eg.db')
+  require('org.Hs.eg.db')
   # require(stringr)
   sif <- as.data.frame(cosmos_res$weightedSIF)
   sif$Node1 <- gsub("^X","",sif$Node1)
@@ -206,7 +206,7 @@ format_COSMOS_results_deprecated <- function(cosmos_res,
                               measured_nodes,
                               omnipath_ptm)
 {
-    requireNamespace(dorothea)
+    require(dorothea)
     
     sif <- as.data.frame(cosmos_res$weightedSIF)
     
