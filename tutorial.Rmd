@@ -88,13 +88,19 @@ The signaling inputs are the result of footprint based TF and kinase activity es
 For more info on TF activity estimation from transcriptomic data, 
 see:https://github.com/saezlab/transcriptutorial (Especially chapter 4)
 
+They should be provided in the form of a named vector, where each element is 
+a normalized enrichment score and the names are the corresponding gene identifiers in the form
+XEntrezGeneID
+
 ```{r, warning=FALSE, message=FALSE, error=FALSE}
 head(toy_signaling_input_carnival_vec)
 ```
+The metabolomic inputs
 
 ```{r, warning=FALSE, message=FALSE, error=FALSE}
 head(toy_metab_input_carnival_vec)
 ```
+
 ```{r, warning=FALSE, message=FALSE, error=FALSE}
 head(toy_RNA)
 ```
