@@ -15,9 +15,11 @@
 #' @return A new vector ready to be used as COSMOS input.
 #' 
 #' @import dplyr 
+#' @importFrom rlang .data
 #' @importFrom stringr str_extract
 #' @export
 prepare_metabolomics_data <- function(metabolic_data, meta_network) {
+    . <- NULL
     
     # if required, format PUBCHEM IDs to match COSMOS nodes
     if( ! all( grepl("XMetab__", names(metabolic_data) ))) {
@@ -28,7 +30,7 @@ prepare_metabolomics_data <- function(metabolic_data, meta_network) {
     }
     
     # collect all nodes in the PKN
-    allPknNodes <- unique( c(dplyr::pull(meta_network, source),dplyr::pull(meta_network, target)) ) %>%
+    allPknNodes <- unique( c(dplyr::pull(.data$meta_network, .data$source),dplyr::pull(.data$meta_network, .data$target)) ) %>%
         .[grepl("XMetab__", .)]
     
     # extract all compartments in the PKN
@@ -39,8 +41,8 @@ prepare_metabolomics_data <- function(metabolic_data, meta_network) {
     # create data frame with all the possible combinations and restrict to IDs in the PKN
     nameToId <- expand.grid(names(metabolic_data), compartments, stringsAsFactors = FALSE) %>%
         as.data.frame() %>%
-        dplyr::rename(name = Var1, compartment = Var2) %>%
-        dplyr::mutate(nodeId = paste0(name, compartment)) 
+        dplyr::rename(name = .data$Var1, compartment = .data$Var2) %>%
+        dplyr::mutate(nodeId = paste0(.data$name, .data$compartment)) 
     
     # create the expanded version of the inputs
     expandedInputs <- metabolic_data[nameToId$name]

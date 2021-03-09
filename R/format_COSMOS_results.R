@@ -236,15 +236,15 @@ format_COSMOS_results_deprecated <- function(cosmos_res,
     
     if(gene_mapping == "ensembl")
     {
-        ensembl = useEnsembl(biomart="ensembl", dataset="hsapiens_gene_ensembl")
+        ensembl = biomaRt::useEnsembl(biomart="ensembl", dataset="hsapiens_gene_ensembl")
         
-        G_list <- getBM(filters = "entrezgene_id",
+        G_list <- biomaRt::getBM(filters = "entrezgene_id",
                         attributes = c('hgnc_symbol','entrezgene_id', "description"),
                         values = prots, mart = ensembl)
         
     } else
     {
-        G_list <- as.data.frame(read_csv(gene_mapping))
+        G_list <- as.data.frame(readr::read_csv(gene_mapping))
     }
     
     gene_mapping <- G_list[,1]
