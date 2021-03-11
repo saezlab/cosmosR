@@ -17,11 +17,11 @@ in the PKN and values are from \{1, 0, -1\}.}
 in the PKN and values are continuous values. These values are compared to 
 with the the simulation}
 
-\item{solver_path}{argument passed to \code{\link{CARNIVAL::runCARNIVAL}}}
+\item{solver_path}{argument passed to \code{\link[CARNIVAL]{runCARNIVAL}}}
 
-\item{solver}{argument passed to \code{\link{CARNIVAL::runCARNIVAL}}}
+\item{solver}{argument passed to \code{\link[CARNIVAL]{runCARNIVAL}}}
 
-\item{time_limit}{argument passed to \code{\link{CARNIVAL::runCARNIVAL}}}
+\item{time_limit}{argument passed to \code{\link[CARNIVAL]{runCARNIVAL}}}
 }
 \description{
 checks and formats the COSMOS data to CARNIVAL inputs and runs CARNIVAL.

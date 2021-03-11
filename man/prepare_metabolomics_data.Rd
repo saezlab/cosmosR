@@ -12,7 +12,7 @@ used for the metabolic layer in COSMOS. The names of the vector
 should be PUBCHEM IDs.}
 
 \item{meta_network}{Prior knowledge network
-created with \code{\link{load_meta_pkn()}}.}
+created with \code{\link{load_meta_pkn}}.}
 }
 \value{
 A new vector ready to be used as COSMOS input.
