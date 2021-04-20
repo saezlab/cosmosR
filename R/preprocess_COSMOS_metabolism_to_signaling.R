@@ -9,8 +9,8 @@
 #' the interactions between TF and genes are filtered again. 
 #' 
 #' @param meta_network prior knowledge network. By default COSMOS use a PKN 
-#' derived from Omnipath, STITCHdb and Recon3D. See details on the function 
-#' \cite{\code{load_meta_pkn}}
+#' derived from Omnipath, STITCHdb and Recon3D. See details on the data 
+#' \code{meta_network}
 #' @param signaling_data numerical vector, where names are signaling nodes 
 #' in the PKN and values are from \{1, 0, -1\}. Continuous data will be 
 #' discretized using the \code{\link{sign}} function.  
@@ -49,10 +49,11 @@
 #'  - `metabolic_data`  metabolomics data
 #'  - `diff_expression_data_bin`  binarized gene expression data 
 #'  - `optimized_network` initial optimized network if filter_tf_gene_interaction_by_optimization is TRUE. 
-#' @seealso [load_meta_pkn()] for meta PKN, 
+#' @seealso \code{meta_network} for meta PKN,
 #' [load_tf_regulon_dorothea()] for tf regulon,
-#' [convert_genesymbols_to_entrezid()] for gene conversion. 
-preprocess_COSMOS_metabolism_to_signaling <- function(meta_network = load_meta_pkn(),
+#' [convert_genesymbols_to_entrezid()] for gene conversion.
+#' 
+preprocess_COSMOS_metabolism_to_signaling <- function(meta_network = meta_network,
                               tf_regulon = load_tf_regulon_dorothea(),
                               signaling_data,
                               metabolic_data,
@@ -63,7 +64,6 @@ preprocess_COSMOS_metabolism_to_signaling <- function(meta_network = load_meta_p
                               remove_unexpressed_nodes = TRUE,
                               filter_tf_gene_interaction_by_optimization = TRUE,
                               CARNIVAL_options = default_CARNIVAL_options()){
-    
     
     out_data <- preprocess_COSMOS_core(meta_network = meta_network,
                            tf_regulon = tf_regulon,

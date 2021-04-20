@@ -1,0 +1,28 @@
+#' Toy Signaling Input
+#' 
+#' This signaling data are a subset of the footprint-based signaling activity
+#' estimates of transcription factors, kinases and phophatases used as an input
+#' in the case study of the COSMOS paper.  The subset contains a random selection
+#' of signaling proteins present in the toy network.
+#'
+#' @docType data
+#'
+#' @usage toy_signaling_input_carnival_vec
+#'
+#' @format  An object of class \dQuote{\code{data.frame}} containing the normalised
+#'   enrichment scores (NES) of 15 signaling proteins, which are named with their
+#'   respective gene Entrez ID matching the toy network.
+#'
+#' @source 
+#'   \url{https://github.com/saezlab/COSMOS_MSB/blob/main/data/signaling_input_COSMOS.csv}
+#'   
+#' @references {
+#'   Dugourd, A., Kuppe, C. and Sciacovelli, M. et. al. (2021) \emph{Molecular 
+#'   Systems Biology}. \bold{17}, e9730.
+#' }
+#' 
+#' @examples
+#' toy_signaling_input = toy_signaling_input_carnival_vec
+#' 
+#' @keywords datasets
+"toy_signaling_input_carnival_vec"

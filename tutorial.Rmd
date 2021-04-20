@@ -79,7 +79,7 @@ interaction: the sign of the directed interaction (1 = activation; -1 = inhibiti
 target: the target node ID
 
 ```{r, warning=FALSE, message=FALSE, error=FALSE}
-toy_sif
+toy_network
 ```
 
 # COSMOS input introduction
@@ -100,7 +100,7 @@ head(toy_RNA)
 ```
 
 ```{r, warning=FALSE, message=FALSE, error=FALSE}
-test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_sif,  
+test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_network,  
                                                       signaling_data = toy_signaling_input_carnival_vec,
                                                       metabolic_data = toy_metab_input_carnival_vec,
                                                       diff_expression_data = toy_RNA,
@@ -116,8 +116,8 @@ test_result_for <- run_COSMOS_signaling_to_metabolism(data = test_for,
 ```
 
 ```{r, warning=FALSE, message=FALSE}
-metab_to_pubchem_vec <- metab_to_pubchem$name
-names(metab_to_pubchem_vec) <- metab_to_pubchem$pubchem
+metab_to_pubchem_vec <- metabolite_to_pubchem$name
+names(metab_to_pubchem_vec) <- metabolite_to_pubchem$pubchem
 
 test_result_for <- format_COSMOS_res(test_result_for,
                                      metab_mapping = metab_to_pubchem_vec,
@@ -127,14 +127,14 @@ test_result_for <- format_COSMOS_res(test_result_for,
 ```
 
 ```{r, warning=FALSE, message=FALSE}
-# View(test_result_for[[1]]) #SIF
+# View(test_result_for[[1]]) #NETWORK
 # View(test_result_for[[2]]) #ATTRIBUTES
 ```
 
 ## BACKWARD run of COSMOS, to connect metabolism to signaling
 
 ```{r, warning=FALSE, message=FALSE, error=FALSE}
-test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_sif,
+test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_network,
                                                        signaling_data = toy_signaling_input_carnival_vec,
                                                        metabolic_data = toy_metab_input_carnival_vec,
                                                        diff_expression_data = toy_RNA,
@@ -157,7 +157,7 @@ test_result_back <- format_COSMOS_res(test_result_back,
 ```
 
 ```{r, warning=FALSE, message=FALSE}
-# View(test_result_back[[1]]) #SIF
+# View(test_result_back[[1]]) #NETWORK
 # View(test_result_back[[2]]) #ATTRIBUTES
 ```
 

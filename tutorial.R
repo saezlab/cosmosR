@@ -20,7 +20,7 @@ my_options$solver <- "cplex" #or cbc
 #Thus we will first need to map whatever identifer for metabolite the data has to the one of the network.
 #Genes are identified as XENTREZid (in the signaling part of network) or XGene####__ENTREZid (in the reaction network part of network)
 
-test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_sif,
+test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_network,
                                                       signaling_data = toy_signaling_input_carnival_vec,
                                                       metabolic_data = toy_metab_input_carnival_vec,
                                                       diff_expression_data = toy_RNA,
@@ -33,20 +33,20 @@ test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_sif,
 test_result_for <- run_COSMOS_signaling_to_metabolism(data = test_for,
                                                       CARNIVAL_options = my_options)
 
-metab_to_pubchem_vec <- metab_to_pubchem$name
-names(metab_to_pubchem_vec) <- metab_to_pubchem$pubchem
+metab_to_pubchem_vec <- metabolite_to_pubchem$name
+names(metab_to_pubchem_vec) <- metabolite_to_pubchem$pubchem
 
 test_result_for <- format_COSMOS_res(test_result_for,
                                      metab_mapping = metab_to_pubchem_vec,
                                      measured_nodes = unique(c(names(toy_metab_input_carnival_vec),names(toy_signaling_input_carnival_vec))),
                                      omnipath_ptm = omnipath_ptm)
 
-View(test_result_for[[1]]) #SIF
+View(test_result_for[[1]]) #NETWORK
 View(test_result_for[[2]]) #ATTRIBUTES
 
 #### BACKWARD run of COSMOS, to connect metabolism to signaling
 
-test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_sif,
+test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_network,
                                                        signaling_data = toy_signaling_input_carnival_vec,
                                                        metabolic_data = toy_metab_input_carnival_vec,
                                                        diff_expression_data = toy_RNA,
@@ -65,7 +65,7 @@ test_result_back <- format_COSMOS_res(test_result_back,
                                       measured_nodes = unique(c(names(toy_metab_input_carnival_vec),names(toy_signaling_input_carnival_vec))),
                                       omnipath_ptm = omnipath_ptm)
 
-View(test_result_back[[1]]) #SIF
+View(test_result_back[[1]]) #NETWORK
 View(test_result_back[[2]]) #ATTRIBUTES
 
 ###Merge forward and backward networks
