@@ -1,7 +1,6 @@
 
 test_that("test cosmos preprocessing (signaling to metabolism)", {
     
-    
     meta_network_test <- cosmos:::meta_network_test
     signaling_input_test <- cosmos:::signaling_input_test
     expression_data_test <- cosmos:::expression_data_test
@@ -27,7 +26,7 @@ test_that("test cosmos preprocessing (signaling to metabolism)", {
     
     # checking network
     expect_equal(ncol(res$meta_network), 3)
-    expect_equal(nrow(res$meta_network), 39084)
+    expect_equal(nrow(res$meta_network), 44005)
     expect_true(all(colnames(res$meta_network) %in% c("source","interaction","target")))
     
     # checking tf_regulon
@@ -41,8 +40,8 @@ test_that("test cosmos preprocessing (signaling to metabolism)", {
     
     # checking metabolic
     expect_true(is.vector(res$metabolic_data))
-    expect_equal(length(res$metabolic_data),27)
-    expect_equal(sum(grepl("^XMetab",names(res$metabolic_data))),27)
+    expect_equal(length(res$metabolic_data),35)
+    expect_equal(sum(grepl("^XMetab",names(res$metabolic_data))),35)
     
     # check diff_expression_data_bin
     expect_true(is.vector(res$diff_expression_data_bin))
@@ -80,7 +79,7 @@ test_that("test cosmos preprocessing (signaling to metabolism)", {
     
     # checking network
     expect_equal(ncol(res$meta_network), 3)
-    expect_equal(nrow(res$meta_network), 38194)
+    expect_equal(nrow(res$meta_network), 42103)
     expect_true(all(colnames(res$meta_network) %in% c("source","interaction","target")))
     
     # checking tf_regulon
@@ -94,8 +93,8 @@ test_that("test cosmos preprocessing (signaling to metabolism)", {
     
     # checking metabolic
     expect_true(is.vector(res$metabolic_data))
-    expect_equal(length(res$metabolic_data),26)
-    expect_equal(sum(grepl("^XMetab",names(res$metabolic_data))),26)
+    expect_equal(length(res$metabolic_data),29)
+    expect_equal(sum(grepl("^XMetab",names(res$metabolic_data))),29)
     
     # check diff_expression_data_bin
     expect_true(is.vector(res$diff_expression_data_bin))
