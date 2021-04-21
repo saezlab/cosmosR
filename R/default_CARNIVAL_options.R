@@ -36,7 +36,7 @@ check_CARNIVAL_options <- function(opts){
     
     if(!is.list(opts)) stop("CARNIVAL options should be a list")
     req_names <- c(
-        "solverPath",
+        # "solverPath",
         "solver", 
         "timelimit",
         "mipGAP",
@@ -50,14 +50,21 @@ check_CARNIVAL_options <- function(opts){
         "threads",
         "dir_name")
     
+    # if(opts$solver == "lpSolve")
+    # {
+    #     req_names <- req_names[-which(req_names == "solverPath")]
+    # }
+    # 
     if(!all(req_names %in% names(opts))){
         stop("CARNIVAL options should contain all options. 
              Start by calling default_CARNIVAL_options() and replace entries. ")
     }
     
     
-    if(opts$solver!="cplex") stop("current version supports only the CPLEX solver")
-    if(is.null(opts$solverPath)) stop("path to CPLEX solver must be provided")
+    if(!(opts$solver %in% c("cplex","cbc","lpSolve"))) stop("current version supports only the CPLEX or cbc solver. lpSolve is also available for test runs.")
+    if(opts$solver == "cbc") print("COSMOS wasn't tested thoroughly with the cbc solver. We recommend the users to use CPLEX if possible, and use cbc as a backup solution.")
+    if(opts$solver == "lpSolve") print("lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers.")
+    if(is.null(opts$solverPath) & opts$solver != "lpSolve") stop("path to CPLEX or cbc solver must be provided")
     
     
     

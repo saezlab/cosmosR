@@ -5,7 +5,8 @@ library(cosmos)
 my_options <- default_CARNIVAL_options()
 
 #Here the user should provide a path to its CPLEX executable (only cplex at the moment, other solvers will be documented soon !)
-my_options$solverPath <- "~/Documents/cplex"
+my_options$solverPath <- "~/Documents/cplex" #or cbc solver executable
+my_options$solver <- "cplex" #or cbc
 
 #### FORWARD run of COSMOS, to connect signaling to metabolism
 

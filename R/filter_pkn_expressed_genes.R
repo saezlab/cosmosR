@@ -33,21 +33,27 @@ filter_pkn_expressed_genes <- function(expressed_genes_entrez,meta_pkn){
                     }
                 } else
                 {
-                    if(grepl("XGene[0-9]+__[0-9_]+reverse",x))
+                    if(grepl("XGene[0-9]+__[A-Za-z]",x))
                     {
-                        genes <- gsub("XGene[0-9]+__","",x)
-                        genes <- gsub("_reverse","",genes)
-                        genes <- strsplit(genes,"_")[[1]]
-                        if(sum(genes %in% expressed_genes_entrez) != length(genes))
-                        {
-                            return(NA)
-                        } else
-                        {
-                            return(x)
-                        }
+                        return(x)
                     } else
                     {
-                        return(NA)
+                        if(grepl("XGene[0-9]+__[0-9_]+reverse",x))
+                        {
+                            genes <- gsub("XGene[0-9]+__","",x)
+                            genes <- gsub("_reverse","",genes)
+                            genes <- strsplit(genes,"_")[[1]]
+                            if(sum(genes %in% expressed_genes_entrez) != length(genes))
+                            {
+                                return(NA)
+                            } else
+                            {
+                                return(x)
+                            }
+                        } else
+                        {
+                            return(NA)
+                        }
                     }
                 }
             }

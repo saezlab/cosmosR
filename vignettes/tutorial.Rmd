@@ -1,67 +1,180 @@
 ---
 title: "COSMOS-tutorial"
-author: "A. Dugourd and A. Gabor"
+author: "A. Dugourd, A. Gabor and K. Zirngibl"
 date: "11/10/2020"
-output: rmarkdown::html_vignette
+output:
+  pdf_document: default
+  html_document:
+    
+    df_print: paged
 vignette: >
-%\VignetteIndexEntry{Put the title of your vignette here}
+  %\VignetteIndexEntry{cosmos tutorial}
+  %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
-  \usepackage[utf8]{inputenc}
-  ---
+---
   
-  ```{r setup, include=FALSE}
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-```{r}
+
+## Introduction
+
+COSMOS (Causal Oriented Search of Multi-Omic Space) is a method that integrates phosphoproteomics, transcriptomics, and metabolomics data sets. COSMOS leverages extensive prior knowledge of signaling pathways, metabolic networks, and gene regulation with computational methods to estimate activities of transcription factors and kinases as well as network-level causal reasoning. This pipeline can provide mechanistic explanations for experimental observations across multiple omic data sets.
+
+![data_intro_figure](../man/figures/intro_data.png)
+
+First, we load the package
+
+```{r, warning=FALSE, message=FALSE}
 library(cosmos)
 ```
 
-## tutorial section: signaling to metabolism
+## Tutorial section: signaling to metabolism
 
-```{r}
+In this part, we can set up the options for the CARNIVAL run, such as timelimit and min gap tolerance.
 
-meta_network <- cosmos:::meta_network_test
-signaling_data <- cosmos:::signaling_input_test
-expression_data <- cosmos:::expression_data_test
-metabolic_data <- cosmos:::metabolic_data_test
+The user should provide a path to its CPLEX/cbc executable
 
+You can check the CARNIVAL_options variable to see all possible options that can be adjusted
 
-res <- preprocess_COSMOS_signaling_to_metabolism(signaling_data = signaling_data,
-                                                 meta_network = meta_network,
-                                                 metabolic_data = metabolic_data,
-                                                 diff_expression_data = expression_data,
-                                                 remove_unexpressed_nodes = TRUE,
-                                                 filter_tf_gene_interaction_by_optimization = FALSE)
-
-CARNIVAL_options = cosmos::default_CARNIVAL_options()
-CARNIVAL_options$solverPath = "/Applications/CPLEX_Studio128/cplex/bin/x86-64_osx/cplex"
-
-res_network = run_COSMOS_signaling_to_metabolism(data = res,
-                                                 CARNIVAL_options = CARNIVAL_options,
-                                                 test_run=TRUE)
+```{r, warning=FALSE, message=FALSE}
+CARNIVAL_options <- cosmos::default_CARNIVAL_options()
+CARNIVAL_options$solverPath <- "~/Documents/cplex"
+CARNIVAL_options$solver <- "cplex" #or cbc
+CARNIVAL_options$timelimit <- 3600
+CARNIVAL_options$mipGAP <- 0.05
+CARNIVAL_options$threads <- 2
 ```
 
+In the next section, we prepare the input to run cosmos
+The signaling inputs are the result of footprint based TF and kinase activity estiamtion
+For more info on TF activity estiamtion from transcriptomic data, see:https://github.com/saezlab/transcriptutorial (Especially chapter 4)
 
-## tutorial section: metabolism to signaling 
-```{r}
-meta_network <- cosmos:::meta_network_test
-signaling_data <- cosmos:::signaling_input_test
-expression_data <- cosmos:::expression_data_test
-metabolic_data <- cosmos:::metabolic_data_test
+Here we use of toy PKN, to see the full meta PKN, you can load it with load_meta_pkn()
 
+The metabolites in the prior knowledge network are identified as XMetab__PUBCHEMid___compartment____ or XMetab__BIGGid___compartment____
+or example “XMetab__6804___m____”. The compartment code is the BIGG model standard (r, c, e, x, m, l, n, g). 
+Thus we will first need to map whatever identifer for metabolite the data has to the one of the network.
+Genes are identified as XENTREZid (in the signaling part of network) or XGene####__ENTREZid (in the reaction network part of network)
 
-res <- preprocess_COSMOS_metabolism_to_signaling(signaling_data = signaling_data,
-                                                 meta_network = meta_network,
-                                                 metabolic_data = metabolic_data,
-                                                 diff_expression_data = expression_data,
-                                                 filter_tf_gene_interaction_by_optimization = FALSE)
+The maximum network depth will define the maximum number of step downstream of kinase/TF COSMOS will look for deregulated metabolites. Good first guess for max depth could be around 6 (here is 15 for the toy dataset)
 
-CARNIVAL_options = cosmos::default_CARNIVAL_options()
-CARNIVAL_options$solverPath = "/Applications/CPLEX_Studio128/cplex/bin/x86-64_osx/cplex"
+The differential experession data is used to filter out wrong TF-target interactions in this context after a pre-optimisation.
 
-res_network = run_COSMOS_metabolism_to_signaling(data = res,
-                                                 CARNIVAL_options = CARNIVAL_options,
-                                                 test_run=TRUE)
+The list of genes in the differential expression data will also be used as a reference to define which genes are expressed or not (all genes in the diff_expression_data are considered expressed, and genes that are no in diff_expression_data are removed from the network)
+
+```{r, warning=FALSE, message=FALSE}
+test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_sif,
+                                        signaling_data = toy_signaling_input_carnival_vec,
+                                        metabolic_data = toy_metab_input_carnival_vec,
+                                                      diff_expression_data = toy_RNA,
+                                                      maximum_network_depth = 15,
+                                                      remove_unexpressed_nodes = T,
+                                                      CARNIVAL_options = CARNIVAL_options
+                                                      )
 ```
 
+In this part, we can set up the options for the actual run, such as timelimit and min gap tolerance.
 
+The running time should be much higher here than in pre-optimisation. You cna increase the number of threads to use if you have many available CPUs.
+
+```{r, warning=FALSE, message=FALSE}
+CARNIVAL_options$timelimit <- 14400
+CARNIVAL_options$mipGAP <- 0.05
+CARNIVAL_options$threads <- 2
+```
+
+This is where cosmos run.
+
+```{r, warning=FALSE, message=FALSE}
+test_result_for <- run_COSMOS_signaling_to_metabolism(data = test_for,
+                                                      CARNIVAL_options = CARNIVAL_options)
+```
+
+Finally, we process the results of the first cosmos run, to translate gene names and metabolites name.
+
+```{r, warning=FALSE, message=FALSE}
+metab_to_pubchem_vec <- metab_to_pubchem$name
+names(metab_to_pubchem_vec) <- metab_to_pubchem$pubchem
+
+test_result_for <- format_COSMOS_res(test_result_for,
+                                     metab_mapping = metab_to_pubchem_vec,
+                     measured_nodes = unique(c(names(toy_metab_input_carnival_vec),
+                                               names(toy_signaling_input_carnival_vec))),
+                                     omnipath_ptm = omnipath_ptm)
+```
+
+## Tutorial section: metabolism to signaling 
+
+Before we run the metabolism to signaling part, we need to prepare again the inputs. 
+```{r, warning=FALSE, message=FALSE}
+CARNIVAL_options$timelimit <- 3600
+CARNIVAL_options$mipGAP <- 0.05
+CARNIVAL_options$threads <- 2
+```
+
+Now that the correct time is set up for the pre-optimisation run, we can prepare the inputs.
+
+```{r, warning=FALSE, message=FALSE}
+test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_sif,
+                                        signaling_data = toy_signaling_input_carnival_vec,
+                                        metabolic_data = toy_metab_input_carnival_vec,
+                                                       diff_expression_data = toy_RNA,
+                                                       maximum_network_depth = 15,
+                                                       remove_unexpressed_nodes = F,
+                                                       CARNIVAL_options = CARNIVAL_options
+                                                       
+)
+
+```
+
+Then we can run cosmos to connect metabolism to signaling. The running time here usually needs to be longer, as this problem seems to be harder to solve for CPLEX.
+
+```{r, warning=FALSE, echo=FALSE, message=FALSE}
+
+CARNIVAL_options$timelimit <- 28800
+
+test_result_back <- run_COSMOS_metabolism_to_signaling(data = test_back,
+                                                       CARNIVAL_options = CARNIVAL_options)
+
+
+```
+
+Finally we can format the result of the backward run as well (same as for forward run)
+
+```{r, warning=FALSE, message=FALSE}
+test_result_back <- format_COSMOS_res(test_result_back,
+                                      metab_mapping = metab_to_pubchem_vec,
+                      measured_nodes = unique(c(names(toy_metab_input_carnival_vec),
+                                                names(toy_signaling_input_carnival_vec))),
+                                      omnipath_ptm = omnipath_ptm)
+
+```
+
+## Tutorial section: Merge forward and backward networks and visualise network
+
+Here we simply take the union of forward and backward runs to create a full network solution lopping between signaling, gene-regulation and metabolism. Since there is an overlapp between the result network of forward and backward run, you may optionally want  to check if there are any node sign that are incoherent in the overlapp between the two solutions.
+
+```{r, warning=FALSE, message=FALSE}
+full_sif <- as.data.frame(rbind(test_result_for[[1]], test_result_back[[1]]))
+full_attributes <- as.data.frame(rbind(test_result_for[[2]], test_result_back[[2]]))
+
+full_sif <- unique(full_sif)
+full_attributes <- unique(full_attributes)
+```
+
+This function will generate a dynamic network plot centered on a given node of the network solution, and connecting it to measured nodes in the given range (here 5 steps).
+
+```{r, warning=FALSE, message=FALSE}
+network_plot <- display_node_neighboorhood(central_node = 'PRKACA', 
+                                           sif = full_sif, 
+                                           att = full_attributes, 
+                                           n = 5)
+
+# network_plot
+
+```
+
+```{r, warning=FALSE, message=FALSE}
+sessionInfo()
+```
