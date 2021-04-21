@@ -13,7 +13,8 @@
 #'  @param gene_expression_binarized named vector of {-1,0,1} difnining which genes changed
 #'  @param signaling_data named vector containing known activity of signaling nodes (kinases, TFs)
 #'  @param tf_regulon transcription factor regulon, e.g. from dorothea
-#'  @return a filtered version of the network 
+#'  @return a filtered version of the network
+#'  @importFrom rlang .data
 filter_transcriptional_regulations <- function(network, 
                                                gene_expression_binarized,
                                                signaling_data,
@@ -31,14 +32,14 @@ filter_transcriptional_regulations <- function(network,
 
     signaling_df = data.frame(TF =names(signaling_data),
                               TF_sign = signaling_data) %>%
-        filter(TF %in% tf_regulon$tf)
+        dplyr::filter(.data$TF %in% tf_regulon$tf)
     
     annotated_network <- network %>% 
         # add the gene expression data: (non-genes will be filled with NA)
         left_join(gene_exp_df, by=c(target="gene")) %>%
         # add the TF data (non-TFs will be filled with NAs)
         left_join( signaling_df, by=c(source="TF")) %>%
-        mutate(source_is_TF = source %in% tf_regulon$tf)
+        mutate(source_is_TF = .data$source %in% tf_regulon$tf)
     
     # find interactions where TF regulates a gene, but target 
     # - does not change 
@@ -46,17 +47,17 @@ filter_transcriptional_regulations <- function(network,
     # - target changes inconsistently
     annotated_network <- annotated_network %>% 
         # genes didn't change
-        mutate(target_gene_unchanged = target_sign==0) %>%
+        mutate(target_gene_unchanged = .data$target_sign==0) %>%
         # gene didnt change and the source is a TF (it is a transcriptional regulation)
-        mutate(TF_target_unchanged = source_is_TF &
-                   (target_gene_unchanged | is.na(target_gene_unchanged))) %>%
+        mutate(TF_target_unchanged = .data$source_is_TF &
+                   (.data$target_gene_unchanged | is.na(.data$target_gene_unchanged))) %>%
         # gene changed, but not consistently with TF activity
         mutate(inconsistent_TF_gene_sign = 
-                   sign(TF_sign) != interaction * sign(target_sign) ) 
+                   sign(.data$TF_sign) != interaction * sign(.data$target_sign) ) 
     
     # TODO: option to return these interactions
     removed_interactions <- annotated_network %>%
-        filter(TF_target_unchanged | inconsistent_TF_gene_sign)
+        filter(.data$TF_target_unchanged | .data$inconsistent_TF_gene_sign)
     
     print(paste("COSMOS: ", nrow(removed_interactions), 
                 "interactions are removed from the PKN based on",
@@ -64,10 +65,10 @@ filter_transcriptional_regulations <- function(network,
     
     
     kept_interactions <-  annotated_network %>%
-        filter(!TF_target_unchanged | is.na(TF_target_unchanged)) %>%
-        filter(!inconsistent_TF_gene_sign | is.na(inconsistent_TF_gene_sign)) 
+        filter(!.data$TF_target_unchanged | is.na(.data$TF_target_unchanged)) %>%
+        filter(!.data$inconsistent_TF_gene_sign | is.na(.data$inconsistent_TF_gene_sign)) 
     
-    out_pkn <- kept_interactions %>% select(source,interaction,target)    
+    out_pkn <- kept_interactions %>% select(.data$source,.data$interaction,.data$target)    
     return(out_pkn)
 }
 

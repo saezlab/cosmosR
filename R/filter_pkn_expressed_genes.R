@@ -33,21 +33,27 @@ filter_pkn_expressed_genes <- function(expressed_genes_entrez,meta_pkn){
                     }
                 } else
                 {
-                    if(grepl("XGene[0-9]+__[0-9_]+reverse",x))
+                    if(grepl("XGene[0-9]+__[A-Za-z]",x))
                     {
-                        genes <- gsub("XGene[0-9]+__","",x)
-                        genes <- gsub("_reverse","",genes)
-                        genes <- strsplit(genes,"_")[[1]]
-                        if(sum(genes %in% expressed_genes_entrez) != length(genes))
-                        {
-                            return(NA)
-                        } else
-                        {
-                            return(x)
-                        }
+                        return(x)
                     } else
                     {
-                        return(NA)
+                        if(grepl("XGene[0-9]+__[0-9_]+reverse",x))
+                        {
+                            genes <- gsub("XGene[0-9]+__","",x)
+                            genes <- gsub("_reverse","",genes)
+                            genes <- strsplit(genes,"_")[[1]]
+                            if(sum(genes %in% expressed_genes_entrez) != length(genes))
+                            {
+                                return(NA)
+                            } else
+                            {
+                                return(x)
+                            }
+                        } else
+                        {
+                            return(NA)
+                        }
                     }
                 }
             }
@@ -60,11 +66,11 @@ filter_pkn_expressed_genes <- function(expressed_genes_entrez,meta_pkn){
     # is_expressed("XGene3004__124975_91227")
     
     meta_pkn$source <- sapply(meta_pkn$source,is_expressed)
-    n_removed = sum(!complete.cases(meta_pkn))
-    meta_pkn <- meta_pkn[complete.cases(meta_pkn),]
+    n_removed = sum(!stats::complete.cases(meta_pkn))
+    meta_pkn <- meta_pkn[stats::complete.cases(meta_pkn),]
     meta_pkn$target <- sapply(meta_pkn$target,is_expressed)
-    meta_pkn <- meta_pkn[complete.cases(meta_pkn),]
-    n_removed = n_removed + sum(!complete.cases(meta_pkn))
+    meta_pkn <- meta_pkn[stats::complete.cases(meta_pkn),]
+    n_removed = n_removed + sum(!stats::complete.cases(meta_pkn))
     print(paste("COSMOS:", n_removed, "interactions removed"))
     return(meta_pkn)
 }

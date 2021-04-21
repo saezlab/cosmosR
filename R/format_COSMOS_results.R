@@ -120,7 +120,7 @@ format_COSMOS_res <- function(cosmos_res,
                               omnipath_ptm)
 {
   # require(dorothea)
-  require('org.Hs.eg.db')
+  requireNamespace('org.Hs.eg.db')
   # require(stringr)
   sif <- as.data.frame(cosmos_res$weightedSIF)
   sif$Node1 <- gsub("^X","",sif$Node1)
@@ -206,7 +206,7 @@ format_COSMOS_results_deprecated <- function(cosmos_res,
                               measured_nodes,
                               omnipath_ptm)
 {
-    require(dorothea)
+    requireNamespace(dorothea)
     
     sif <- as.data.frame(cosmos_res$weightedSIF)
     
@@ -236,15 +236,15 @@ format_COSMOS_results_deprecated <- function(cosmos_res,
     
     if(gene_mapping == "ensembl")
     {
-        ensembl = useEnsembl(biomart="ensembl", dataset="hsapiens_gene_ensembl")
+        ensembl = biomaRt::useEnsembl(biomart="ensembl", dataset="hsapiens_gene_ensembl")
         
-        G_list <- getBM(filters = "entrezgene_id",
+        G_list <- biomaRt::getBM(filters = "entrezgene_id",
                         attributes = c('hgnc_symbol','entrezgene_id', "description"),
                         values = prots, mart = ensembl)
         
     } else
     {
-        G_list <- as.data.frame(read_csv(gene_mapping))
+        G_list <- as.data.frame(readr::read_csv(gene_mapping))
     }
     
     gene_mapping <- G_list[,1]

@@ -15,6 +15,6 @@ cosmos_data(
 }
 \description{
 An S3 class that combines the required data into a comprehensive list. 
-Use the \code{\link{prepare_cosmos_signaling_to_metabolism}} or 
-\code{\link{prepare_cosmos_metabolism_to_signaling}} to create an instance.
+Use the \code{\link{preprocess_COSMOS_signaling_to_metabolism}} or 
+\code{\link{preprocess_COSMOS_metabolism_to_signaling}} to create an instance.
 }

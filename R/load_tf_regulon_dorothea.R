@@ -8,6 +8,7 @@
 #'  C, D, E\}. See the `dorothea` for the meaning of confidence levels. 
 #' package for further details. 
 #' @import dorothea
+#' @importFrom rlang .data
 #' @importFrom AnnotationDbi mapIds 
 #' @importFrom org.Hs.eg.db org.Hs.eg.db
 #' @return returns a PKN of a form of a data table. Each row is an interaction.
@@ -18,13 +19,14 @@
 #' - `sign` indicates if interaction is up (1) or down-regulation (-1). 
 #' @export
 load_tf_regulon_dorothea <- function(toEntrez = TRUE, confidence = c("A","B","C")){
+    . <- NULL
     
     # load regulon from dorothea:
     regulon = dorothea::dorothea_hs
     regulon <- regulon %>% rename(sign = "mor")
     
     conf = confidence
-    regulon <- regulon %>% dplyr::filter(confidence %in% conf)
+    regulon <- regulon %>% dplyr::filter(.data$confidence %in% conf)
     
     # transform names to EntrezID
     if(toEntrez){
@@ -35,10 +37,10 @@ load_tf_regulon_dorothea <- function(toEntrez = TRUE, confidence = c("A","B","C"
         target_table <- AnnotationDbi::mapIds(org.Hs.eg.db::org.Hs.eg.db, regulon$target, 'ENTREZID', 'SYMBOL')
         regulon$target_entrez = target_table
        
-        regulon <- regulon %>% filter(complete.cases(.)) %>%
-            dplyr::mutate(tf = paste0("X",tf_entrez),
-                   target = paste0("X",target_entrez)) %>%
-            dplyr::select(tf,sign,target)
+        regulon <- regulon %>% filter(stats::complete.cases(.)) %>%
+            dplyr::mutate(tf = paste0("X",.data$tf_entrez),
+                   target = paste0("X",.data$target_entrez)) %>%
+            dplyr::select(.data$tf,.data$sign,.data$target)
 
     }
     

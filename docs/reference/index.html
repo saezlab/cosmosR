@@ -52,6 +52,8 @@
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -62,10 +64,26 @@
 <![endif]-->
 
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PV71G2Q3SF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PV71G2Q3SF');
+</script>
+
+
+  
+
+  
 
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-index">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -228,6 +246,12 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="display_node_neighboorhood.html">display_node_neighboorhood()</a></code> </p>
+        </td>
+        <td><p>display_node_neighboorhood</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="filter_pkn_expressed_genes.html">filter_pkn_expressed_genes()</a></code> </p>
         </td>
         <td><p>filter_pkn_expressed_genes</p></td>
@@ -240,7 +264,13 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="format_COSMOS_results.html">format_COSMOS_results()</a></code> </p>
+          <p><code><a href="format_COSMOS_res.html">format_COSMOS_res()</a></code> </p>
+        </td>
+        <td><p>format_COSMOS_res</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="format_COSMOS_results_deprecated.html">format_COSMOS_results_deprecated()</a></code> </p>
         </td>
         <td><p>graphs from COSMOS results</p></td>
       </tr><tr>
@@ -285,6 +315,12 @@
           <p><code><a href="load_tf_regulon_dorothea_omnipath.html">load_tf_regulon_dorothea_omnipath()</a></code> </p>
         </td>
         <td><p>load_tf_regulon_dorothea_omnipath</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="metabolite_to_pubchem.html">metabolite_to_pubchem</a></code> </p>
+        </td>
+        <td><p>mapping between metabolite names and pubchem CIDs</p></td>
       </tr><tr>
         
         <td>
@@ -372,11 +408,11 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Aurélien Dugourd, Attila Gabor.</p>
+  <p><p>Developed by Aurélien Dugourd, Attila Gabor.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p></p>
 </div>
 
       </footer>
@@ -384,6 +420,8 @@
 
   
 
+
+  
 
   </body>
 </html>

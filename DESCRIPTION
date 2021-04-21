@@ -30,11 +30,15 @@ Imports:
     dplyr,
     stringr,
     tidyr,
+    readr,
+    rlang,
     tibble,
     purrr,
     Biobase,
     AnnotationDbi,
-    org.Hs.eg.db
+    biomaRt,
+    org.Hs.eg.db,
+    visNetwork
 Suggests: 
     testthat,
     knitr,

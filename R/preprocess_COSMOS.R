@@ -40,7 +40,7 @@
 #' and checks the consistency between the estimated activity and change in gene 
 #' expression. Removes interactions where TF and gene expression are inconsistent 
 #' @param CARNIVAL_options list that controls the options of CARNIVAL. See details 
-#'  in \code{\link{default_CARNIVAL_options()}}. 
+#'  in \code{\link{default_CARNIVAL_options}}. 
 #' @param input_layer either signaling_data or metabolic_data. Influences the way
 #' network pruning and CARNIVAL is ran. 
 #' @param output_layer either signaling_data or metabolic_data. Influences the way

@@ -3,8 +3,9 @@
 #' screens the CARNIVAL results and obtains the activity of transcription factors
 #' 
 #' @param carnival_result list obtained from runCARNIVAL
-#' @param TFs character vector of transcription factors using EntrezIDs 
-#' @return named numerical vector with TF activity found in CARNIVAL results. 
+#' @param TFs character vector of transcription factors using EntrezIDs
+#' @return named numerical vector with TF activity found in CARNIVAL results.
+#' @importFrom rlang .data
 
 get_TF_activity_from_CARNIVAL <- function(carnival_result, TFs)
 {
@@ -12,9 +13,9 @@ get_TF_activity_from_CARNIVAL <- function(carnival_result, TFs)
     if(!validate_CARNIVAL_results(carnival_result)) warning("we failed to validate CARNIVAL results.")
     
     estimated_activity <- as_tibble(carnival_result$nodesAttributes) %>%
-        dplyr::select(Node,AvgAct) %>%
-        dplyr::filter(AvgAct!=0) %>%
-        dplyr::filter(Node %in% TFs) 
+        dplyr::select(.data$Node,.data$AvgAct) %>%
+        dplyr::filter(.data$AvgAct!=0) %>%
+        dplyr::filter(.data$Node %in% TFs) 
     
     activity = as.numeric(estimated_activity$AvgAct)/100
     names(activity) = estimated_activity$Node
