@@ -8,7 +8,7 @@ load_tf_regulon_dorothea_omnipath <- function()
 {
     
     url = 'http://omnipathdb.org/interactions?datasets=tfregulons&tfregulons_levels=A,B,C&genesymbols=1&fields=sources,tfregulons_level'
-    dorothea <- read.table(url, sep = '\t', header = TRUE)
+    dorothea <- utils::read.table(url, sep = '\t', header = TRUE)
     
     dorothea <- dorothea[,c(4,3,6,7)]
     dorothea$sign <- dorothea$is_stimulation - dorothea$is_inhibition

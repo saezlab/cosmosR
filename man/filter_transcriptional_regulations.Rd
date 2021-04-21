@@ -25,4 +25,5 @@ should not go through this node )
  @param signaling_data named vector containing known activity of signaling nodes (kinases, TFs)
  @param tf_regulon transcription factor regulon, e.g. from dorothea
  @return a filtered version of the network
+ @importFrom rlang .data
 }

@@ -11,6 +11,7 @@
 #' - `aggregated_network_node_attributes`: estimated node properties
 #' - `individual_networks`: list of optimial networks found
 #' - `individual_networks_node_attributes`: node activity in each network.
+#' @importFrom rlang .data
 #' @importFrom purrr map
 process_CARNIVAL_results <- function(CARNIVAL_results){
     
@@ -21,17 +22,17 @@ process_CARNIVAL_results <- function(CARNIVAL_results){
                Node2 = "Node2",
                Sign = "Sign",
                Weight = "Weight") %>%
-        mutate(Sign = as.numeric(Sign),
-               Weight = as.numeric(Weight)/100)
+        mutate(Sign = as.numeric(.data$Sign),
+               Weight = as.numeric(.data$Weight)/100)
     
     network_output$N_networks = length(CARNIVAL_results$sifAll)
     
     network_output$nodesAttributes = 
         as_tibble(CARNIVAL_results$nodesAttributes) %>%
-        mutate(ZeroAct = as.numeric(ZeroAct)/100,
-               UpAct = as.numeric(UpAct)/100,
-               DownAct = as.numeric(DownAct)/100,
-               AvgAct = as.numeric(AvgAct)/100,
+        mutate(ZeroAct = as.numeric(.data$ZeroAct)/100,
+               UpAct = as.numeric(.data$UpAct)/100,
+               DownAct = as.numeric(.data$DownAct)/100,
+               AvgAct = as.numeric(.data$AvgAct)/100,
                ) 
     
     network_output$individual_networks = 
@@ -40,7 +41,7 @@ process_CARNIVAL_results <- function(CARNIVAL_results){
                 rename(source = "Node1",
                        target = "Node2",
                        interaction = "Sign") %>%
-                mutate(interaction = as.numeric(interaction))
+                mutate(interaction = as.numeric(.data$interaction))
             
         } )
     
@@ -50,7 +51,7 @@ process_CARNIVAL_results <- function(CARNIVAL_results){
             tibble::as_tibble(Net) %>%
                 rename(node = "Nodes",
                        activity = "Activity") %>%
-                mutate(activity = as.numeric(activity))
+                mutate(activity = as.numeric(.data$activity))
             
         } )
     

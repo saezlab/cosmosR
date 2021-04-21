@@ -5,7 +5,7 @@
 \title{preprocess COSMOS inputs}
 \usage{
 preprocess_COSMOS_metabolism_to_signaling(
-  meta_network = load_meta_pkn(),
+  meta_network = meta_network,
   tf_regulon = load_tf_regulon_dorothea(),
   signaling_data,
   metabolic_data,
@@ -20,8 +20,8 @@ preprocess_COSMOS_metabolism_to_signaling(
 }
 \arguments{
 \item{meta_network}{prior knowledge network. By default COSMOS use a PKN 
-derived from Omnipath, STITCHdb and Recon3D. See details on the function 
-\cite{\code{load_meta_pkn}}}
+derived from Omnipath, STITCHdb and Recon3D. See details on the data 
+\code{meta_network}}
 
 \item{signaling_data}{numerical vector, where names are signaling nodes 
 in the PKN and values are from \{1, 0, -1\}. Continuous data will be 
@@ -59,7 +59,7 @@ and checks the consistency between the estimated activity and change in gene
 expression. Removes interactions where TF and gene expression are inconsistent}
 
 \item{CARNIVAL_options}{list that controls the options of CARNIVAL. See details 
-in \code{\link{default_CARNIVAL_options()}}.}
+in \code{\link{default_CARNIVAL_options}}.}
 }
 \value{
 cosmos_data object with the following fields:
@@ -80,7 +80,7 @@ Optionally, further TF activities are estimated via network optimization and
 the interactions between TF and genes are filtered again.
 }
 \seealso{
-[load_meta_pkn()] for meta PKN, 
+\code{meta_network} for meta PKN,
 [load_tf_regulon_dorothea()] for tf regulon,
 [convert_genesymbols_to_entrezid()] for gene conversion.
 }

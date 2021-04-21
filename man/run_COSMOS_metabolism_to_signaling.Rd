@@ -15,7 +15,7 @@ run_COSMOS_metabolism_to_signaling(
 function to create one.}
 
 \item{CARNIVAL_options}{list that controls the options of CARNIVAL. See details 
-in \code{\link{default_CARNIVAL_options()}}.}
+in \code{\link{default_CARNIVAL_options}}.}
 }
 \value{
 list with the following elements:

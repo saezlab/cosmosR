@@ -9,7 +9,7 @@
 #' @param data \code{\link{cosmos_data}} object. Use the \code{\link{preprocess_COSMOS_metabolism_to_signaling}}
 #' function to create one.   
 #' @param CARNIVAL_options list that controls the options of CARNIVAL. See details 
-#'  in \code{\link{default_CARNIVAL_options()}}. 
+#'  in \code{\link{default_CARNIVAL_options}}. 
 #' @export
 #' @import dplyr
 #' @return list with the following elements:
