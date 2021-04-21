@@ -29,20 +29,16 @@ run_COSMOS_metabolism_to_signaling <- function(data,
     ## Checking COSMOS input format
     validate_cosmos_data_metabolism_to_signaling(data)
     
+    check_CARNIVAL_options(CARNIVAL_options)
     
-    if(!test_run){
-        check_CARNIVAL_options(CARNIVAL_options)
-        
-        disc_metabolic_data <- discretize_input(data$metabolic_data)
-        
-        CARNIVAL_results = runCARNIVAL_wrapper(network = data$meta_network,
-                                               input_data = disc_metabolic_data,
-                                               measured_data = data$signaling_data,
-                                               options = CARNIVAL_options)
-        
-    }else{
-        CARNIVAL_results <- CARNIVAL_results_up_down
-    }
+    disc_metabolic_data <- discretize_input(data$metabolic_data)
+    
+    CARNIVAL_results = runCARNIVAL_wrapper(network = data$meta_network,
+                                           input_data = disc_metabolic_data,
+                                           measured_data = data$signaling_data,
+                                           options = CARNIVAL_options)
+    
+    
     
     network_results <- process_CARNIVAL_results(CARNIVAL_results)
     

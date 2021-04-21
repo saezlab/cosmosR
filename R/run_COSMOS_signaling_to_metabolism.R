@@ -20,25 +20,18 @@
 #' - `individual_networks_node_attributes`: node activity in each network.
 
 run_COSMOS_signaling_to_metabolism <- function(data,
-                                               CARNIVAL_options = default_CARNIVAL_options(),
-                                               test_run = FALSE){
+                                               CARNIVAL_options = default_CARNIVAL_options()){
     
     validate_cosmos_data_signaling_to_metabolism(data)
-   
     
-    if(!test_run){
-        check_CARNIVAL_options(CARNIVAL_options)
-        
-        disc_signaling_data <- discretize_input(data$signaling_data)
-        
-        CARNIVAL_results = runCARNIVAL_wrapper(network = data$meta_network,
-                                               input_data = disc_signaling_data,
-                                               measured_data = data$metabolic_data,
-                                               options = CARNIVAL_options)
-        
-    }else{
-        CARNIVAL_results <- CARNIVAL_results_up_down
-    }
+    check_CARNIVAL_options(CARNIVAL_options)
+    
+    disc_signaling_data <- discretize_input(data$signaling_data)
+    
+    CARNIVAL_results = runCARNIVAL_wrapper(network = data$meta_network,
+                                           input_data = disc_signaling_data,
+                                           measured_data = data$metabolic_data,
+                                           options = CARNIVAL_options)
     
     network_results <- process_CARNIVAL_results(CARNIVAL_results)
     
