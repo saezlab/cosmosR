@@ -12,10 +12,10 @@
 #' @export
 #' @import dplyr
 #' @return list with the following elements:
-#' - `aggregated_network` the averaged networks found by optimization in a 
+#' - `weightedSIF` the averaged networks found by optimization in a 
 #' format of a Simple Interaction network, i.e. each row codes an edge
 #' - `N_networks`: number of solutions found by the optimization
-#' - `aggregated_network_node_attributes`: estimated node properties
+#' - `nodesAttributes`: estimated node properties
 #' - `individual_networks`: list of optimial networks found
 #' - `individual_networks_node_attributes`: node activity in each network.
 
