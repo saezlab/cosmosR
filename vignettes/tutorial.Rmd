@@ -64,7 +64,7 @@ The differential experession data is used to filter out wrong TF-target interact
 The list of genes in the differential expression data will also be used as a reference to define which genes are expressed or not (all genes in the diff_expression_data are considered expressed, and genes that are no in diff_expression_data are removed from the network)
 
 ```{r, warning=FALSE, message=FALSE}
-test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_sif,
+test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_network,
                                         signaling_data = toy_signaling_input_carnival_vec,
                                         metabolic_data = toy_metab_input_carnival_vec,
                                                       diff_expression_data = toy_RNA,
@@ -116,7 +116,7 @@ CARNIVAL_options$threads <- 2
 Now that the correct time is set up for the pre-optimisation run, we can prepare the inputs.
 
 ```{r, warning=FALSE, message=FALSE}
-test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_sif,
+test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_network,
                                         signaling_data = toy_signaling_input_carnival_vec,
                                         metabolic_data = toy_metab_input_carnival_vec,
                                                        diff_expression_data = toy_RNA,
