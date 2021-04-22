@@ -10,7 +10,6 @@
 #' @param CARNIVAL_options list that controls the options of CARNIVAL. See details 
 #'  in \code{\link{default_CARNIVAL_options}}. 
 #' @export
-#' @import dplyr
 #' @return list with the following elements:
 #' - `weightedSIF` the averaged networks found by optimization in a 
 #' format of a Simple Interaction network, i.e. each row codes an edge

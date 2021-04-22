@@ -12,7 +12,7 @@ get_TF_activity_from_CARNIVAL <- function(carnival_result, TFs)
     
     if(!validate_CARNIVAL_results(carnival_result)) warning("we failed to validate CARNIVAL results.")
     
-    estimated_activity <- as_tibble(carnival_result$nodesAttributes) %>%
+    estimated_activity <- tibble::as_tibble(carnival_result$nodesAttributes) %>%
         dplyr::select(.data$Node,.data$AvgAct) %>%
         dplyr::filter(.data$AvgAct!=0) %>%
         dplyr::filter(.data$Node %in% TFs) 

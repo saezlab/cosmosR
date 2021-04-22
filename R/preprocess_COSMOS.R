@@ -46,7 +46,6 @@
 #' @param output_layer either signaling_data or metabolic_data. Influences the way
 #' network pruning and CARNIVAL is ran.
 #' @export
-#' @import dplyr
 #' @return cosmos_data object with the following fields:
 #'  - `meta_network`  filtered PKN
 #'  - `tf_regulon`  TF - target regulatory network
@@ -149,7 +148,7 @@ preprocess_COSMOS_core <- function(meta_network,
         metabolic_data = filter_input_nodes_not_in_pkn(pkn = meta_network,
                                                        data = metabolic_data)
     }else {
-        stop("invalida input_layer and output_layer combination")
+        stop("invalid input_layer and output_layer combination")
     }
     
     

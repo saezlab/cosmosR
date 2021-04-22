@@ -1,16 +1,16 @@
 cleanup_protein_node <- function(node)
 {
-  prefixe <- str_extract(node, "Gene[0-9]+__")
+  prefixe <- stringr::str_extract(node, "Gene[0-9]+__")
   prefixe <- gsub("Gene","Enzyme",prefixe)
   
-  suffixe_direction <- str_extract(node, "_reverse")
-  suffixe_exchange <- str_extract(node, "EXCHANGE[0-9]+")
+  suffixe_direction <- stringr::str_extract(node, "_reverse")
+  suffixe_exchange <- stringr::str_extract(node, "EXCHANGE[0-9]+")
   
   node <- gsub("Gene[0-9]+__","",node)
   node <- gsub("_reverse","",node)
   node <- gsub("EXCHANGE[0-9]+","",node)
   
-  node <- str_split(node,'_')[[1]]
+  node <- stringr::str_split(node,'_')[[1]]
   
   return(list("prefixe" = prefixe, "node" = node,"suffixe_direction" = suffixe_direction, "suffixe_exchange" = suffixe_exchange))
 }
@@ -19,7 +19,7 @@ cleanup_metab_node <- function(node)
 {
   prefixe <- 'Metab__'
   
-  suffixe <- str_extract(node,'___[a-z]____')
+  suffixe <- stringr::str_extract(node,'___[a-z]____')
   
   node <- gsub('Metab__','',node)
   node <- gsub('___[a-z]____','',node)
@@ -111,8 +111,6 @@ translate_sif <- function(sif,
 #' @param measured_nodes vector of nodes that are measured or inputs
 #' @param omnipath_ptm ptms database from OmnipathR
 #' @export
-#' @import dorothea
-#' @import stringr
 format_COSMOS_res <- function(cosmos_res,
                               metab_mapping,
                               gene_mapping = 'org.Hs.eg.db',
@@ -120,8 +118,8 @@ format_COSMOS_res <- function(cosmos_res,
                               omnipath_ptm)
 {
   # require(dorothea)
-  requireNamespace('org.Hs.eg.db')
-  # require(stringr)
+  
+  
   sif <- as.data.frame(cosmos_res$weightedSIF)
   sif$Node1 <- gsub("^X","",sif$Node1)
   sif$Node2 <- gsub("^X","",sif$Node2)
@@ -144,7 +142,7 @@ format_COSMOS_res <- function(cosmos_res,
   if(is.null(names(gene_mapping)))
   {
     entrezid <- prots
-    gene_mapping <- mapIds(org.Hs.eg.db, entrezid, 'SYMBOL', 'ENTREZID')
+    gene_mapping <- AnnotationDbi::mapIds(org.Hs.eg.db::org.Hs.eg.db, entrezid, 'SYMBOL', 'ENTREZID')
     gene_mapping <- unlist(gene_mapping)
     gene_mapping <- gene_mapping[!is.na(gene_mapping)]
   } else
@@ -206,7 +204,7 @@ format_COSMOS_results_deprecated <- function(cosmos_res,
                               measured_nodes,
                               omnipath_ptm)
 {
-    requireNamespace(dorothea)
+    
     
     sif <- as.data.frame(cosmos_res$weightedSIF)
     
@@ -298,13 +296,13 @@ format_COSMOS_results_deprecated <- function(cosmos_res,
         }
         if(gsub("Metab__","",gsub("___[a-z]____","",sif[i,1])) %in% names(metab_to_pubchem_vec))
         {
-            suffix <- str_match(sif[i,1],"___.____")
+            suffix <- stringr::str_match(sif[i,1],"___.____")
             metab <- metab_to_pubchem_vec[gsub("Metab__","",gsub("___[a-z]____","",sif[i,1]))]
             sif[i,1] <- paste(metab,suffix,sep = "")
         }
         if(gsub("Metab__","",gsub("___[a-z]____","",sif[i,3])) %in% names(metab_to_pubchem_vec))
         {
-            suffix <- str_match(sif[i,3],"___.____")
+            suffix <- stringr::str_match(sif[i,3],"___.____")
             metab <- metab_to_pubchem_vec[gsub("Metab__","",gsub("___[a-z]____","",sif[i,3]))]
             sif[i,3] <- paste(metab,suffix,sep = "")
         }
@@ -341,7 +339,7 @@ format_COSMOS_results_deprecated <- function(cosmos_res,
         }
         if(gsub("Metab__","",gsub("___[a-z]____","",att[i,1])) %in% names(metab_to_pubchem_vec))
         {
-            suffix <- str_match(att[i,1],"___.____")
+            suffix <- stringr::str_match(att[i,1],"___.____")
             metab <- metab_to_pubchem_vec[gsub("Metab__","",gsub("___[a-z]____","",att[i,1]))]
             att[i,1] <- paste(metab,suffix,sep = "")
         }

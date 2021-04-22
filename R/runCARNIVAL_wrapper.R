@@ -12,7 +12,7 @@
 #' @param solver_path argument passed to \code{\link[CARNIVAL]{runCARNIVAL}}
 #' @param solver argument passed to \code{\link[CARNIVAL]{runCARNIVAL}}
 #' @param time_limit argument passed to \code{\link[CARNIVAL]{runCARNIVAL}}
-#' @import CARNIVAL
+
 runCARNIVAL_wrapper <- function(network, 
                                 input_data,
                                 measured_data,

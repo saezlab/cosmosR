@@ -2,8 +2,6 @@
 #'
 #' @param ensembl vector of genes with ensembl id
 #'
-#' @importFrom AnnotationDbi mapIds
-#' @importFrom org.Hs.eg.db org.Hs.eg.db
 #' @return named vector, where names are the old ensemblIDs and values are the 
 #' entrezIDs
 #' @export
