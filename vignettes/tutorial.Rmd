@@ -94,8 +94,8 @@ test_result_for <- run_COSMOS_signaling_to_metabolism(data = test_for,
 Finally, we process the results of the first cosmos run, to translate gene names and metabolites name.
 
 ```{r, warning=FALSE, message=FALSE}
-metab_to_pubchem_vec <- metab_to_pubchem$name
-names(metab_to_pubchem_vec) <- metab_to_pubchem$pubchem
+metab_to_pubchem_vec <- metabolite_to_pubchem$name
+names(metab_to_pubchem_vec) <- metabolite_to_pubchem$pubchem
 
 test_result_for <- format_COSMOS_res(test_result_for,
                                      metab_mapping = metab_to_pubchem_vec,
