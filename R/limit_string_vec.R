@@ -1,7 +1,8 @@
-
-#' limit_string_vec
+#' Limit String Vec
 #' 
-#' writes the first 6 elements and the number of other elements in a string.
+#' Writes the first 6 elements and the number of other elements in a string.
+#' 
+#' @param str_vec A string vector to be transformed.
 #' 
 limit_string_vec <- function(str_vec){
     paste(paste(utils::head(str_vec),collapse = ", "), "and",

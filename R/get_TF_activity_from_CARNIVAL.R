@@ -23,10 +23,12 @@ get_TF_activity_from_CARNIVAL <- function(carnival_result, TFs)
     return(activity)
 }
 
-#' validate_CARNIVAL_results
+#' Validate CARNIVAL Results
 #' 
-#' implement here basic checks to see if we got back from CARNIVAL that we
-#' expected. Subject to change if CARNIVAL results changes
+#' Implement here basic checks to see if we got back from CARNIVAL what we
+#' expected.  Subject to change if CARNIVAL results changes.
+#' 
+#' @param CR CARNIVAL result object
 validate_CARNIVAL_results <- function(CR){
  
     list_names = c("weightedSIF","nodesAttributes","sifAll","attributesAll" ) %in% names(CR)

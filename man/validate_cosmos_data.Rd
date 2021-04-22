@@ -2,10 +2,15 @@
 % Please edit documentation in R/cosmos_data.R
 \name{validate_cosmos_data}
 \alias{validate_cosmos_data}
-\title{validate cosmos data}
+\title{Validate cosmos data}
 \usage{
 validate_cosmos_data(x)
 }
+\arguments{
+\item{x}{\code{\link{cosmos_data}} object.  Use the 
+\code{\link{preprocess_COSMOS_metabolism_to_signaling}} function to create 
+one.}
+}
 \description{
-checks the cosmos object
+Checks the cosmos object.
 }

@@ -1,7 +1,6 @@
-
-#' filter_transcriptional_regulations
+#' Filter Based On Transcriptional Regulations
 #' 
-#' Filters interactions between TFs and genes in the PKN by the following points
+#' Filters interactions between TFs and genes in the PKN by the following points:
 #' - finds the TF target genes that change strongly (threshold)
 #' - finds TFs from the inputs (known TF activity)
 #' - remove interactions if the target gene expression doesn't change (regulation 
@@ -9,12 +8,18 @@
 #' - remove interactions if the TF activity is not in agreement with the change
 #'  in the target gene expression (other factors influence these genes)
 #'  
-#'  @param network meta PKN
-#'  @param gene_expression_binarized named vector of {-1,0,1} difnining which genes changed
-#'  @param signaling_data named vector containing known activity of signaling nodes (kinases, TFs)
-#'  @param tf_regulon transcription factor regulon, e.g. from dorothea
-#'  @return a filtered version of the network
-#'  @importFrom rlang .data
+#' @param network Prior knowledge network (PKN).  By default COSMOS use a PKN 
+#'   derived from Omnipath, STITCHdb and Recon3D. See details on the data 
+#'   \code{\link{meta_network}}.
+#' @param gene_expression_binarized Named vector of {-1,0,1} difnining which 
+#'   genes changed.
+#' @param signaling_data Named vector containing known activity of signaling
+#'   nodes (kinases, TFs).
+#' @param tf_regulon Collection of transcription factor - target interactions.
+#'  A default collection from dorothea can be obtained by the 
+#'  \code{\link{load_tf_regulon_dorothea}} function.
+#' @return A filtered version of the network.
+#' @importFrom rlang .data
 filter_transcriptional_regulations <- function(network, 
                                                gene_expression_binarized,
                                                signaling_data,

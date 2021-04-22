@@ -2,27 +2,29 @@
 % Please edit documentation in R/runCARNIVAL_wrapper.R
 \name{runCARNIVAL_wrapper}
 \alias{runCARNIVAL_wrapper}
-\title{runCARNIVAL_wrapper}
+\title{Run CARNIVAL Wrapper}
 \usage{
 runCARNIVAL_wrapper(network, input_data, measured_data, options)
 }
 \arguments{
-\item{network}{prior knowledge network. data.frame object with source, sign and 
-target columns}
+\item{network}{Prior knowledge network (PKN).  \dQuote{\code{data.frame}} 
+object with source, sign and target columns.  By default COSMOS uses a PKN 
+derived from Omnipath, STITCHdb and Recon3D.  See details on the data 
+\code{\link{meta_network}}.}
 
-\item{input_data}{numerical vector, where names are input nodes 
-in the PKN and values are from \{1, 0, -1\}.}
+\item{input_data}{Numerical vector, where names are input nodes in the PKN 
+and values are from \{1, 0, -1\}.}
 
-\item{measured_data}{numerical vector, where names are measured nodes 
-in the PKN and values are continuous values. These values are compared to 
-with the the simulation}
+\item{measured_data}{Numerical vector, where names are measured nodes in the
+PKN and values are continuous values.  These values are compared to with
+the simulation.}
 
-\item{solver_path}{argument passed to \code{\link[CARNIVAL]{runCARNIVAL}}}
-
-\item{solver}{argument passed to \code{\link[CARNIVAL]{runCARNIVAL}}}
-
-\item{time_limit}{argument passed to \code{\link[CARNIVAL]{runCARNIVAL}}}
+\item{options}{An object of type \dQuote{\code{list}} defining the run 
+parameters for CARNIVAL.  Use the \code{\link{default_CARNIVAL_options}}
+function to create a list with default parameter settings. If cplex or cbc 
+are chosen as the solver, the parameter solverPath needs to be supplied 
+(not automatically added by \code{default_CARNIVAL_options()}).}
 }
 \description{
-checks and formats the COSMOS data to CARNIVAL inputs and runs CARNIVAL.
+Checks and formats the COSMOS data to CARNIVAL inputs and runs CARNIVAL.
 }

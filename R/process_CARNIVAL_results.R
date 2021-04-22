@@ -5,12 +5,17 @@
 #' @param  CARNIVAL_results list of matrices received from 
 #' CRANIVAL::run_CARNIVAL()
 #' @return list with the following elements:
-#' - `aggregated_network` the averaged networks found by optimization in a 
-#' format of a Simple Interaction network, i.e. each row codes an edge
-#' - `N_networks`: number of solutions found by the optimization
-#' - `aggregated_network_node_attributes`: estimated node properties
-#' - `individual_networks`: list of optimial networks found
-#' - `individual_networks_node_attributes`: node activity in each network.
+#'   \describe{
+#'     \item{\code{aggregated_network}}{The averaged networks found by 
+#'     optimization in a format of a Simple Interaction network, i.e. each row 
+#'     codes an edge}
+#'     \item{\code{N_networks}}{Number of solutions found by the 
+#'     optimization}
+#'     \item{\code{aggregated_network_node_attributes}}{Estimated node properties}
+#'     \item{\code{individual_networks}}{List of optimial networks found}
+#'     \item{\code{individual_networks_node_attributes}}{Node activity in each
+#'     network}
+#'   }
 #' @importFrom rlang .data
 
 process_CARNIVAL_results <- function(CARNIVAL_results){

@@ -16,10 +16,13 @@
 #' with the the simulation [? range of values]
 #' @param expression_data (optional) numerical vector, where names are gene names  
 #' and values are from \{1,-1\}
-#' @param expand_metabolic_data format metabolic data to match meta_network nodes?
-#' It will add "XMetab__" before the pubchem IDs and all the possible compartments 
-#' after it. (e.g, "1150" will become "Xmetab__1150___c____" and "Xmetab__1150___e____")
 #' @param verbose (default: TRUE) reports coverage
+ 
+
+# expand_metabolic_data format metabolic data to match meta_network nodes?
+# It will add "XMetab__" before the pubchem IDs and all the possible compartments 
+# after it. (e.g, "1150" will become "Xmetab__1150___c____" and "Xmetab__1150___e____")
+
 check_network_data_coverage <- function(meta_network,
                                         tf_regulon = NULL,
                                         signaling_data,

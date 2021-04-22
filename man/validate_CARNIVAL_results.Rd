@@ -2,11 +2,14 @@
 % Please edit documentation in R/get_TF_activity_from_CARNIVAL.R
 \name{validate_CARNIVAL_results}
 \alias{validate_CARNIVAL_results}
-\title{validate_CARNIVAL_results}
+\title{Validate CARNIVAL Results}
 \usage{
 validate_CARNIVAL_results(CR)
 }
+\arguments{
+\item{CR}{CARNIVAL result object}
+}
 \description{
-implement here basic checks to see if we got back from CARNIVAL that we
-expected. Subject to change if CARNIVAL results changes
+Implement here basic checks to see if we got back from CARNIVAL what we
+expected.  Subject to change if CARNIVAL results changes.
 }

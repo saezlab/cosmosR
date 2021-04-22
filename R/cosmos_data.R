@@ -1,9 +1,27 @@
 
 # Constructor ------------------------------------------------------------------
 # for internal use
-#' create new cosmos data
+#' Create New Cosmos Data
 #' 
-#' Constructor. Should not be exported. The object is not validated. 
+#' Constructor. Should not be exported. The object is not validated.
+#' @param meta_network Prior knowledge network (PKN).  By default COSMOS use a 
+#'   PKN derived from Omnipath, STITCHdb and Recon3D. See details on the data 
+#'   \code{meta_network}.
+#' @param tf_regulon Collection of transcription factor - target interactions.
+#'   A default collection from dorothea can be obtained by the 
+#'   \code{\link{load_tf_regulon_dorothea}} function.
+#' @param signaling_data Numerical vector, where names are signaling nodes 
+#'   in the PKN and values are from \{1, 0, -1\}.  Continuous data will be 
+#'   discretized using the \code{\link{sign}} function.  
+#' @param metabolic_data Numerical vector, where names are metabolic nodes 
+#'   in the PKN and values are continuous values that represents log2 fold change 
+#'   or t-values from a differential analysis.  These values are compared to 
+#'   the simulation results (simulated nodes can take value -1, 0 or 1).
+#' @param expression_data Numerical vector that represents the results of a 
+#'   differential gene expression analysis. Names are gene names using EntrezID 
+#'   starting with an X and values are log fold change or t-values. Genes with 
+#'   NA values are considered none expressed and they will be removed from the
+#'   TF-gene expression interactions. 
 #' 
 new_cosmos_data <- function(meta_network = data.frame(),
                             tf_regulon = data.frame(),
@@ -30,9 +48,13 @@ new_cosmos_data <- function(meta_network = data.frame(),
 }
 
 # validator  -------------------------------------------------------------------
-#' validate cosmos data
+#' Validate cosmos data
 #' 
-#' checks the cosmos object
+#' Checks the cosmos object.
+#' 
+#' @param x \code{\link{cosmos_data}} object.  Use the 
+#'   \code{\link{preprocess_COSMOS_metabolism_to_signaling}} function to create 
+#'   one.   
 #' 
 validate_cosmos_data <- function(x){
 
@@ -72,11 +94,32 @@ validate_cosmos_data <- function(x){
 
 
 # helper -----------------------------------------------------------------------
-#' create cosmos data
+#' Create Cosmos Data
 #' 
-#' An S3 class that combines the required data into a comprehensive list. 
-#' Use the \code{\link{preprocess_COSMOS_signaling_to_metabolism}} or 
-#' \code{\link{preprocess_COSMOS_metabolism_to_signaling}} to create an instance. 
+#' An S3 class that combines the required data into a comprehensive list.  Use 
+#' the \code{\link{preprocess_COSMOS_signaling_to_metabolism}} or 
+#' \code{\link{preprocess_COSMOS_metabolism_to_signaling}} to create an instance.
+#' 
+#' @param meta_network Prior knowledge network (PKN).  By default COSMOS use a
+#'   PKN derived from Omnipath, STITCHdb and Recon3D.  See details on the data 
+#'   \code{meta_network}.
+#' @param tf_regulon Collection of transcription factor - target interactions.  
+#'   A default collection from dorothea can be obtained by the 
+#'   \code{\link{load_tf_regulon_dorothea}} function.
+#' @param signaling_data Numerical vector, where names are signaling nodes 
+#'   in the PKN and values are from \{1, 0, -1\}.  Continuous data will be 
+#'   discretized using the \code{\link{sign}} function.  
+#' @param metabolic_data Numerical vector, where names are metabolic nodes 
+#'   in the PKN and values are continuous values that represents log2 fold change 
+#'   or t-values from a differential analysis.  These values are compared to 
+#'   the simulation results (simulated nodes can take value -1, 0 or 1).
+#' @param expression_data Numerical vector that represents the results of a 
+#'   differential gene expression analysis. Names are gene names using EntrezID 
+#'   starting with an X and values are log fold change or t-values. Genes with 
+#'   NA values are considered none expressed and they will be removed from the
+#'   TF-gene expression interactions.
+#' @param verbose (default: TRUE) Reports details about the
+#'   \code{\link{cosmos_data}} object. 
 cosmos_data <- function(meta_network,
                         tf_regulon = NULL,
                         signaling_data,
@@ -145,10 +188,18 @@ cosmos_data <- function(meta_network,
 }
 
 
-### functions ------------------------------------------------------------------
-# Generics
-#
-#' print a summary of cosmos data
+### Generic functions ------------------------------------------------------------------
+#' Print Cosmos Data Summary
+
+#' Print a summary of cosmos data.
+
+#' @param x \code{\link{cosmos_data}} object.  Use the 
+#'   \code{\link{preprocess_COSMOS_metabolism_to_signaling}} function to 
+#'   create one.
+#' @param ... Further print arguments passed to or from other methods.
+#' 
+#' @seealso \code{\link[base]{print}}
+#' 
 #' @export
 print.cosmos_data <- function(x, ...) {
     cat("cosmos_data contains the following data: \n")
