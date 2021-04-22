@@ -5,7 +5,7 @@
 #'  (source, interaction, target)
 #' @param n_steps largest distance t consider
 #' @param input_nodes names of the input nodes in the network
-#' @importFrom igraph graph_from_data_frame ego
+
 keep_controllable_neighbours <- function(network, n_steps, input_nodes)
 {
     stopifnot(all(c("source","target","interaction") %in% colnames(network)))
@@ -36,7 +36,7 @@ keep_controllable_neighbours <- function(network, n_steps, input_nodes)
 #'  (source, interaction, target)
 #' @param n_steps largest distance t consider
 #' @param observed_nodes names of the measured nodes in the network
-#' @importFrom igraph graph_from_data_frame ego
+
 keep_observable_neighbours <- function(network, n_steps, observed_nodes)
 {
     stopifnot(all(c("source","target","interaction") %in% colnames(network)))

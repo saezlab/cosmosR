@@ -7,11 +7,6 @@
 #' @param n numeric; maximum number of steps in the network to look for inputs and measurments
 #' @return a visnetwork object
 #' @export
-#' @import visNetwork
-#' @importFrom igraph make_ego_graph
-#' @importFrom igraph graph_from_data_frame
-#' @importFrom igraph V
-#' @importFrom igraph get.shortest.paths
 display_node_neighboorhood <- function(central_node,sif, att, n = 100)
 {
   # require(igraph)
@@ -24,19 +19,19 @@ display_node_neighboorhood <- function(central_node,sif, att, n = 100)
   full_sif <- full_sif[,c("Node1", "Node2", "Sign", "Weight")]
   full_att <- att
   
-  ig_net <- graph_from_data_frame(full_sif) 
+  ig_net <- igraph::graph_from_data_frame(full_sif) 
   
-  ig_net <- make_ego_graph(ig_net, nodes = central_node, order = n, mode = "all")
+  ig_net <- igraph::make_ego_graph(ig_net, nodes = central_node, order = n, mode = "all")
   
-  to_keep <- unlist(sapply(ig_net,function(x){V(x)$name}))
+  to_keep <- unlist(sapply(ig_net,function(x){igraph::V(x)$name}))
   
   full_sif <- full_sif[full_sif$Node1 %in% to_keep & full_sif$Node2 %in% to_keep,]
   full_att <- full_att[full_att$Nodes %in% to_keep,]
   
-  ig_net <- graph_from_data_frame(full_sif) 
+  ig_net <- igraph::graph_from_data_frame(full_sif) 
   
   center_node <- sapply(central_node, function(x, ig_net, full_att) {
-    names(unlist(get.shortest.paths(ig_net, from = x, to = full_att[full_att$measured == 1,1])$vpath))
+    names(unlist(igraph::get.shortest.paths(ig_net, from = x, to = full_att[full_att$measured == 1,1])$vpath))
   }, ig_net= ig_net, full_att = full_att, simplify = F, USE.NAMES = T)
   
   center_node <- unlist(center_node)
@@ -44,7 +39,7 @@ display_node_neighboorhood <- function(central_node,sif, att, n = 100)
   center_node_out <- full_sif[full_sif$Node1 %in% center_node & full_sif$Node2 %in% center_node,]
   
   center_node <- sapply(central_node, function(x, ig_net, full_att) {
-    names(unlist(get.shortest.paths(ig_net, from = x, to = full_att[full_att$measured == 1,1], mode = "in")$vpath))
+    names(unlist(igraph::get.shortest.paths(ig_net, from = x, to = full_att[full_att$measured == 1,1], mode = "in")$vpath))
   }, ig_net= ig_net, full_att = full_att, simplify = F, USE.NAMES = T)
   
   center_node <- unlist(center_node)
@@ -79,8 +74,8 @@ display_node_neighboorhood <- function(central_node,sif, att, n = 100)
   nodes <- nodes[order(nodes$id),]
   nodes$shadow <- ifelse(nodes$measured == 1, T, F)
   
-  return(visNetwork(nodes, edges, width = 1600, height = 1600) %>% 
-           visOptions(highlightNearest = TRUE, 
+  return(visNetwork::visNetwork(nodes, edges, width = 1600, height = 1600) %>% 
+             visNetwork::visOptions(highlightNearest = TRUE, 
                       nodesIdSelection = list(enabled = TRUE,
                                               style = 'width: 200px; height: 26px;
                                               background: #f8f8f8;

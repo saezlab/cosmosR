@@ -14,9 +14,7 @@
 #'
 #' @return A new vector ready to be used as COSMOS input.
 #' 
-#' @import dplyr 
 #' @importFrom rlang .data
-#' @importFrom stringr str_extract
 #' @export
 prepare_metabolomics_data <- function(metabolic_data, meta_network) {
     . <- NULL
