@@ -18,8 +18,10 @@
 #'   \url{https://metapkn.omnipathdb.org/00__README.txt}.
 #'   }
 #'
-#' @source  The network is available on github:
-#'   \url{https://github.com/saezlab/COSMOS_MSB/tree/main/results/COSMOS_result}
+#' @source  The network data are available on github:
+#'   \url{https://github.com/saezlab/COSMOS_MSB/tree/main/results/COSMOS_result/COSMOS_res_session.RData}.
+#'     The toy_network is the combined network of the COSMOS network solutions 
+#'   CARNIVAL_Result2 and CARNIVAL_Result_rerun.
 #'   
 #' @references {
 #'   Dugourd, A., Kuppe, C. and Sciacovelli, M. et. al. (2021) \emph{Molecular 

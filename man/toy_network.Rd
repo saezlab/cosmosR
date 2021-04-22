@@ -16,8 +16,10 @@ An object of class \dQuote{\code{data.frame}} with 720 rows
   }
 }
 \source{
-The network is available on github:
-  \url{https://github.com/saezlab/COSMOS_MSB/tree/main/results/COSMOS_result}
+The network data are available on github:
+  \url{https://github.com/saezlab/COSMOS_MSB/tree/main/results/COSMOS_result/COSMOS_res_session.RData}.
+    The toy_network is the combined network of the COSMOS network solutions 
+  CARNIVAL_Result2 and CARNIVAL_Result_rerun.
 }
 \usage{
 toy_network
