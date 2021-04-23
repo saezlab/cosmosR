@@ -25,7 +25,7 @@
 #'     network}
 #'   }
 #' @seealso \code{\link{preprocess_COSMOS_metabolism_to_signaling}},  
-#'   \code{\link[CARNIVAL]{runCARNIVAL}}
+#'   \code{\link[CARNIVAL]{runCARNIVAL}}, \code{\link{cosmos_data}}
 
 run_COSMOS_metabolism_to_signaling <- function(data,
                                                CARNIVAL_options = default_CARNIVAL_options()){
