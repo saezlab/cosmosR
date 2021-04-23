@@ -60,6 +60,18 @@
 #' \code{\link{convert_genesymbols_to_entrezid}} for gene conversion,
 #' \code{\link[CARNIVAL]{runCARNIVAL}}.
 #' 
+#' @examples
+#' CARNIVAL_options <- cosmos::default_CARNIVAL_options()
+#' CARNIVAL_options$solver <- "lpSolve"
+#' test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_network,
+#' signaling_data = toy_signaling_input,
+#' metabolic_data = toy_metabolic_input,
+#' diff_expression_data = toy_RNA,
+#' maximum_network_depth = 15,
+#' remove_unexpressed_nodes = T,
+#' CARNIVAL_options = CARNIVAL_options
+#' )
+
 preprocess_COSMOS_signaling_to_metabolism <- function(meta_network = meta_network,
                               tf_regulon = load_tf_regulon_dorothea(),
                               signaling_data,

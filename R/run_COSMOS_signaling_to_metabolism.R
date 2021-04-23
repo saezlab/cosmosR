@@ -26,7 +26,20 @@
 #'   }
 #' @seealso \code{\link{preprocess_COSMOS_metabolism_to_signaling}},  
 #'   \code{\link[CARNIVAL]{runCARNIVAL}}, \code{\link{cosmos_data}}
-
+#' @examples
+#' CARNIVAL_options <- cosmos::default_CARNIVAL_options()
+#' CARNIVAL_options$solver <- "lpSolve"
+#' test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_network,
+#' signaling_data = toy_signaling_input,
+#' metabolic_data = toy_metabolic_input,
+#' diff_expression_data = toy_RNA,
+#' maximum_network_depth = 15,
+#' remove_unexpressed_nodes = T,
+#' CARNIVAL_options = CARNIVAL_options
+#' )
+#' test_result_for <- run_COSMOS_signaling_to_metabolism(data = test_for,
+#' CARNIVAL_options = CARNIVAL_options)
+#'   \code{\link[CARNIVAL]{runCARNIVAL}}
 run_COSMOS_signaling_to_metabolism <- function(data,
                                                CARNIVAL_options = default_CARNIVAL_options()){
     
