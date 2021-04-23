@@ -1,4 +1,4 @@
-Package: cosmos
+Package: cosmosr
 Type: Package
 Title: COSMOS (Causal Oriented Search of Multi-Omic Space)
 Version: 0.1.5
@@ -17,7 +17,8 @@ Authors@R: c(
     person(given = "Attila",
            family = "Gabor",
            role = c("aut"),
-           email = "attila.gabor@uni-heidelberg.de"),
+           email = "attila.gabor@uni-heidelberg.de",
+           comment = c(ORCID = "0000-0002-0776-1182")),
     person(given = "Katharina",
            family = "Zirngibl",
            role = c("cre","aut"),
