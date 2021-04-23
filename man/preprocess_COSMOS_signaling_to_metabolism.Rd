@@ -2,7 +2,7 @@
 % Please edit documentation in R/preprocess_COSMOS_signaling_to_metabolism.R
 \name{preprocess_COSMOS_signaling_to_metabolism}
 \alias{preprocess_COSMOS_signaling_to_metabolism}
-\title{preprocess_COSMOS}
+\title{Preprocess COSMOS Inputs For Signaling to Metabolism}
 \usage{
 preprocess_COSMOS_signaling_to_metabolism(
   meta_network = meta_network,
@@ -21,7 +21,7 @@ preprocess_COSMOS_signaling_to_metabolism(
 \arguments{
 \item{meta_network}{prior knowledge network. By default COSMOS use a PKN 
 derived from Omnipath, STITCHdb and Recon3D. See details on the data 
-\code{meta_network}.}
+\code{\link{meta_network}}.}
 
 \item{tf_regulon}{collection of transcription factor - target interactions.
 A default collection from dorothea can be obtained by the 

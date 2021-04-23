@@ -48,7 +48,6 @@
 #' network pruning and CARNIVAL is ran. 
 #' @param output_layer either signaling_data or metabolic_data. Influences the way
 #' network pruning and CARNIVAL is ran.
-#' @export
 #' @return cosmos_data object with the following fields:
 #'   \describe{
 #'     \item{\code{meta_network}}{Filtered PKN}

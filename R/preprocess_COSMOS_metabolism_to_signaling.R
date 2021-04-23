@@ -1,4 +1,4 @@
-#' Preprocess COSMOS Inputs
+#' Preprocess COSMOS Inputs For Metabolism to Signaling
 #' 
 #' Runs checks on the input data and simplifies the prior knowledge network.
 #' Simplification includes the removal of (1) nodes that are not reachable from 
@@ -43,7 +43,6 @@
 #' expression. Removes interactions where TF and gene expression are inconsistent 
 #' @param CARNIVAL_options list that controls the options of CARNIVAL. See details 
 #'  in \code{\link{default_CARNIVAL_options}}. 
-#' @importFrom dplyr "%>%"
 #' @export
 #' @return cosmos_data object with the following fields:
 #'   \describe{

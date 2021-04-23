@@ -2,7 +2,7 @@
 % Please edit documentation in R/preprocess_COSMOS_metabolism_to_signaling.R
 \name{preprocess_COSMOS_metabolism_to_signaling}
 \alias{preprocess_COSMOS_metabolism_to_signaling}
-\title{Preprocess COSMOS Inputs}
+\title{Preprocess COSMOS Inputs For Metabolism to Signaling}
 \usage{
 preprocess_COSMOS_metabolism_to_signaling(
   meta_network = meta_network,
