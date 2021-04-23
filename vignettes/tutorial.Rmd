@@ -39,7 +39,7 @@ You can check the CARNIVAL_options variable to see all possible options that can
 In this example, we will use the built-in solver lpSolve. User should be aware that lpSolve should ONLY be used for TESTS. To obtain meaningful results, best solver is cplex, or cbc if not possible.
 
 ```{r, warning=FALSE, message=FALSE}
-CARNIVAL_options <- cosmos::default_CARNIVAL_options()
+CARNIVAL_options <- cosmosR::default_CARNIVAL_options()
 # CARNIVAL_options$solverPath <- "~/Documents/cplex"
 # CARNIVAL_options$solver <- "cplex" #or cbc
 CARNIVAL_options$solver <- "lpSolve" #or cbc
@@ -48,7 +48,7 @@ CARNIVAL_options$mipGAP <- 0.05
 CARNIVAL_options$threads <- 2
 ```
 
-In the next section, we prepare the input to run cosmos
+In the next section, we prepare the input to run cosmosR
 The signaling inputs are the result of footprint based TF and kinase activity estiamtion
 For more info on TF activity estiamtion from transcriptomic data, see:https://github.com/saezlab/transcriptutorial (Especially chapter 4)
 
@@ -86,14 +86,14 @@ CARNIVAL_options$mipGAP <- 0.05
 CARNIVAL_options$threads <- 2
 ```
 
-This is where cosmos run.
+This is where cosmosR run.
 
 ```{r, warning=FALSE, message=FALSE}
 test_result_for <- run_COSMOS_signaling_to_metabolism(data = test_for,
                                                       CARNIVAL_options = CARNIVAL_options)
 ```
 
-Finally, we process the results of the first cosmos run, to translate gene names and metabolites name.
+Finally, we process the results of the first cosmosR run, to translate gene names and metabolites name.
 
 ```{r, warning=FALSE, message=FALSE}
 test_result_for <- format_COSMOS_res(test_result_for,
@@ -127,7 +127,7 @@ test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_networ
 
 ```
 
-Then we can run cosmos to connect metabolism to signaling. The running time here usually needs to be longer, as this problem seems to be harder to solve for CPLEX.
+Then we can run cosmosR to connect metabolism to signaling. The running time here usually needs to be longer, as this problem seems to be harder to solve for CPLEX.
 
 ```{r, warning=FALSE, echo=FALSE, message=FALSE}
 CARNIVAL_options$timelimit <- 28800

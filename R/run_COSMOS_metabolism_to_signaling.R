@@ -27,7 +27,7 @@
 #' @seealso \code{\link{preprocess_COSMOS_metabolism_to_signaling}},  
 #'   \code{\link[CARNIVAL]{runCARNIVAL}}, \code{\link{cosmos_data}}
 #' @examples
-#' CARNIVAL_options <- cosmos::default_CARNIVAL_options()
+#' CARNIVAL_options <- cosmosR::default_CARNIVAL_options()
 #' CARNIVAL_options$solver <- "lpSolve"
 #' test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_network,
 #' signaling_data = toy_signaling_input,

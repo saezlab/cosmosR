@@ -88,7 +88,7 @@ Optionally, further TF activities are estimated via network optimization via
 CARNIVAL and the interactions between TF and genes are filtered again.
 }
 \examples{
-CARNIVAL_options <- cosmos::default_CARNIVAL_options()
+CARNIVAL_options <- cosmosR::default_CARNIVAL_options()
 CARNIVAL_options$solver <- "lpSolve"
 test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_network,
 signaling_data = toy_signaling_input,

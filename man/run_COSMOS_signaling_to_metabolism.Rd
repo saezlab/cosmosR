@@ -39,7 +39,7 @@ the data.  Use \code{\link{preprocess_COSMOS_signaling_to_metabolism}} to
 prepare inputs, measurements and prior knowledge network.
 }
 \examples{
-CARNIVAL_options <- cosmos::default_CARNIVAL_options()
+CARNIVAL_options <- cosmosR::default_CARNIVAL_options()
 CARNIVAL_options$solver <- "lpSolve"
 test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_network,
 signaling_data = toy_signaling_input,
