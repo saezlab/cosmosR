@@ -1,7 +1,7 @@
 Package: cosmos
 Type: Package
 Title: COSMOS (Causal Oriented Search of Multi-Omic Space)
-Version: 0.1.5
+Version: 0.1.6
 Authors@R: c(
     person(given = "Aurélien",
            family = "Dugourd",
@@ -43,4 +43,4 @@ Suggests:
     testthat,
     knitr,
     rmarkdown
-biocViews: CellBiology, Proteomics, Pathways, Network
+biocViews: CellBiology, Pathways, Network, Proteomics, Metabolomics, Transcriptomics
