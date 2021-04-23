@@ -34,7 +34,7 @@
 #' metabolic_data = toy_metabolic_input,
 #' diff_expression_data = toy_RNA,
 #' maximum_network_depth = 15,
-#' remove_unexpressed_nodes = T,
+#' remove_unexpressed_nodes = TRUE,
 #' CARNIVAL_options = CARNIVAL_options
 #' )
 #' test_result_for <- run_COSMOS_signaling_to_metabolism(data = test_for,
