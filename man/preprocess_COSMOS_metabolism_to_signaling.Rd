@@ -36,9 +36,27 @@ in the PKN and values are continuous values that represents log2 fold change
 or t-values from a differential analysis. These values are compared to 
 the simulation results (simulated nodes can take value -1, 0 or 1)}
 
+\item{diff_expression_data}{(optional) numerical vector that represents the 
+results of a differential gene expression analysis. Names are gene
+names using EntrezID starting with an X and values are log fold change or
+ t-values.  \code{\link{convert_genesymbols_to_entrezid}} can be used for
+ conversion.  We use the \dQuote{\code{diff_exp_threshold}} parameter to decide
+ which genes changed significantly.  Genes with NA values are considered none 
+ expressed and they will be removed from the TF-gene expression interactions.}
+
+\item{diff_exp_threshold}{threshold parameter (default 1) used to binarize
+the values of \dQuote{\code{diff_expression_data}}.}
+
+\item{maximum_network_depth}{integer > 0 (default: 8). Nodes that are further 
+than \dQuote{\code{maximum_network_depth}} steps from the signaling nodes on
+the directed graph of the PKN are considered non-reachable and are removed.}
+
 \item{expressed_genes}{character vector. Names of nodes that are expressed. By 
 default we consider all the nodes that appear in \code{diff_expression_data} with
 a numeric value (i.e. nodes with NA are removed)}
+
+\item{remove_unexpressed_nodes}{if TRUE (default) removes nodes from the PKN 
+that are not expressed, see input \dQuote{\code{expressed_genes}}.}
 
 \item{filter_tf_gene_interaction_by_optimization}{(default:TRUE), if TRUE then runs 
 a network optimization that estimates TF activity not included in the inputs

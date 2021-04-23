@@ -39,7 +39,6 @@
 #' )
 #' test_result_for <- run_COSMOS_signaling_to_metabolism(data = test_for,
 #' CARNIVAL_options = CARNIVAL_options)
-#'   \code{\link[CARNIVAL]{runCARNIVAL}}
 run_COSMOS_signaling_to_metabolism <- function(data,
                                                CARNIVAL_options = default_CARNIVAL_options()){
     

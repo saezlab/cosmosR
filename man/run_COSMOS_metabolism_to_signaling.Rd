@@ -41,8 +41,6 @@ prepare the the inputs, measurements and the prior knowledge network.
 \examples{
 CARNIVAL_options <- cosmos::default_CARNIVAL_options()
 CARNIVAL_options$solver <- "lpSolve"
-CARNIVAL_options <- cosmos::default_CARNIVAL_options()
-CARNIVAL_options$solver <- "lpSolve"
 test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_network,
 signaling_data = toy_signaling_input,
 metabolic_data = toy_metabolic_input,
@@ -53,7 +51,6 @@ CARNIVAL_options = CARNIVAL_options
 )
 test_result_back <- run_COSMOS_metabolism_to_signaling(data = test_back,
 CARNIVAL_options = CARNIVAL_options)
-  \code{\link[CARNIVAL]{runCARNIVAL}}
 }
 \seealso{
 \code{\link{preprocess_COSMOS_metabolism_to_signaling}},  

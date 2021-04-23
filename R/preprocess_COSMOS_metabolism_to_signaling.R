@@ -25,16 +25,16 @@
 #' results of a differential gene expression analysis. Names are gene
 #' names using EntrezID starting with an X and values are log fold change or
 #'  t-values.  \code{\link{convert_genesymbols_to_entrezid}} can be used for
-#'  conversion.  We use the \dQuote{\code{diff_exp_threshold} parameter to decide
+#'  conversion.  We use the \dQuote{\code{diff_exp_threshold}} parameter to decide
 #'  which genes changed significantly.  Genes with NA values are considered none 
 #'  expressed and they will be removed from the TF-gene expression interactions. 
 #' @param diff_exp_threshold threshold parameter (default 1) used to binarize
-#'  the values of \dQuote{\code{diff_expression_data}. 
+#'  the values of \dQuote{\code{diff_expression_data}}. 
 #' @param maximum_network_depth integer > 0 (default: 8). Nodes that are further 
-#' than \dQuote{\code{maximum_network_depth} steps from the signaling nodes on
+#' than \dQuote{\code{maximum_network_depth}} steps from the signaling nodes on
 #' the directed graph of the PKN are considered non-reachable and are removed. 
 #' @param remove_unexpressed_nodes if TRUE (default) removes nodes from the PKN 
-#' that are not expressed, see input \dQuote{\code{expressed_genes}.
+#' that are not expressed, see input \dQuote{\code{expressed_genes}}.
 #' @param expressed_genes character vector. Names of nodes that are expressed. By 
 #' default we consider all the nodes that appear in \code{diff_expression_data} with
 #' a numeric value (i.e. nodes with NA are removed) 
