@@ -22,5 +22,5 @@ Print Cosmos Data Summary
 Print a summary of cosmos data.
 }
 \seealso{
-\code{\link[base]{print}}
+\code{\link[base]{print}}, \code{\link{cosmos_data}}
 }
