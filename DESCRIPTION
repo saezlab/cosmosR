@@ -4,7 +4,10 @@ Title: COSMOS (Causal Oriented Search of Multi-Omic Space)
 Version: 0.1.5
 Description: COSMOS (Causal Oriented Search of Multi-Omic Space) is a method 
     that integrates phosphoproteomics, transcriptomics, and metabolomics data sets
-    based on prior knowledge.
+    based on prior knowledge of signaling, metabolic, and gene regulatory
+    networks. It estimated the activities of transcrption factors and kinases
+    and finds a network-level causal reasoning. Thereby, COSMOS provides 
+    mechanistic hypotheses for experimental observations across mulit-omics datasets.
 Authors@R: c(
     person(given = "Aurélien",
            family = "Dugourd",
