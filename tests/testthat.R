@@ -1,4 +1,4 @@
 library(testthat)
-library(cosmos)
+library(cosmosR)
 
-test_check("cosmos")
+test_check("cosmosR")

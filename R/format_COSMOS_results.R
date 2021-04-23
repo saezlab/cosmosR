@@ -112,7 +112,7 @@ translate_sif <- function(sif,
 #' @param omnipath_ptm ptms database from OmnipathR
 #' @return list with network and attribute tables.
 #' @examples
-#' CARNIVAL_options <- cosmos::default_CARNIVAL_options()
+#' CARNIVAL_options <- cosmosR::default_CARNIVAL_options()
 #' CARNIVAL_options$solver <- "lpSolve"
 #' test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_network,
 #' signaling_data = toy_signaling_input,

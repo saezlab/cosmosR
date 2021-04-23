@@ -1,4 +1,4 @@
-# cosmos <img src="man/figures/logo.png" align="right" height="139">
+# cosmosR <img src="man/figures/logo.png" align="right" height="139">
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -35,17 +35,15 @@ A markdown version is in preparation and arriving soon.
 
 
 //!\\ The tutorial.pdf is curently based on the paper version of CARNIVAL, which is the preprint version: https://github.com/saezlab/CARNIVAL/tree/package_paper_version
-Check the Tutorial.pdf (or click [here](https://github.com/saezlab/COSMOS/blob/master/Tutorial.pdf)) file in the root github folder to have an example of running COSMOS with from TF, kinase, phosphatase activities and metabolite abundances. You need to download [this](https://github.com/saezlab/COSMOS/releases/tag/v0.1) release to run the current version of the tutorial. This version is obsolete.
-
 
 ## Access
 
 The meta PKN used with the biorXiv version of COSMOS is available [here](http://metapkn.omnipathdb.org/).
 
-An updated meta PKN is available with the package (using load_meta_pkn() in R)
+An updated meta PKN is available with the package (using meta_network in R)
 
 ## Citation
-If you use cosmos for your research please cite the [original publication](https://www.embopress.org/doi/full/10.15252/msb.20209730): 
+If you use cosmosR for your research please cite the [original publication](https://www.embopress.org/doi/full/10.15252/msb.20209730): 
 
 > Dugourd A, Kuppe C, Sciacovelli M, Gjerga E, Gabor A, Emdal KB, Vieira V, Bekker-Jensen DB, Kranz J, Bindels EMJ, Jesper V Olsen, Christian Frezza, Rafael Kramann, Julio Saez-Rodriguez et al (2021) Causal integration of multi-omics data with prior knowledge to generate mechanistic hypotheses. Mol Syst Biol 17: e9730
 

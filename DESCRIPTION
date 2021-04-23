@@ -1,4 +1,4 @@
-Package: cosmosr
+Package: cosmosR
 Type: Package
 Title: COSMOS (Causal Oriented Search of Multi-Omic Space)
 Version: 0.1.5

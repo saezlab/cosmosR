@@ -7,7 +7,7 @@ output:
   pdf_document: 
     df_print: paged
 vignette: >
-  %\VignetteIndexEntry{cosmos tutorial}
+  %\VignetteIndexEntry{cosmosR tutorial}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 ---
@@ -25,7 +25,7 @@ COSMOS (Causal Oriented Search of Multi-Omic Space) is a method that integrates 
 First, we load the package
 
 ```{r, warning=FALSE, message=FALSE}
-library(cosmos)
+library(cosmosR)
 ```
 
 ## Tutorial section: signaling to metabolism
