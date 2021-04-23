@@ -199,7 +199,8 @@ cosmos_data <- function(meta_network,
 #'   create one.
 #' @param ... Further print arguments passed to or from other methods.
 #' 
-#' @seealso \code{\link[base]{print}}
+#' @seealso \code{\link[base]{print}}, \code{\link{cosmos_data}}
+#'   
 #' 
 #' @return input (invisible)
 #' @export
