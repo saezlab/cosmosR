@@ -169,7 +169,19 @@ network_plot <- display_node_neighboorhood(central_node = 'BCAT1',
 
 network_plot
 ```
+This network represent the flow of activities that can connect FOXM1 up-regulation with glutathione (CID 124886)
+accumulation. Here, FOXM1 can activate MYC, which in turn activate BCAT1. The activation of BCAT1 can lead 
+to the increased production of glutamate (CID 33032), whioch in turn can be converted to glutathione GGT enzymes.
 
+It is important to understand that each of this links are hypothetical. The come from a larger pool of 
+potential molecular interactions present in multiple online databases and compiled in omnipath, STITCH 
+and recon metabolic network. They exist in the literature and are interactions that are known to
+potentially exists in other experimental contexts. Thus, COSMOS compile all those potential interactions 
+together and proposes a coherent set that can explain the data at hand. Here, such a set of mechanistic hypothesis
+is plotted as a network connecting FOXM1 and glutathione production.
+
+Those links should however be considered only as potential mechanistic connections, and will need to be further 
+confirmed experimentally.
 ```{r, warning=FALSE, message=FALSE}
 sessionInfo()
 ```
