@@ -71,7 +71,7 @@ test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_network
                                         metabolic_data = toy_metabolic_input,
                                                       diff_expression_data = toy_RNA,
                                                       maximum_network_depth = 15,
-                                                      remove_unexpressed_nodes = T,
+                                                      remove_unexpressed_nodes = TRUE,
                                                       CARNIVAL_options = CARNIVAL_options
                                                       )
 ```
@@ -120,7 +120,7 @@ test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_networ
                                         metabolic_data = toy_metabolic_input,
                                                        diff_expression_data = toy_RNA,
                                                        maximum_network_depth = 15,
-                                                       remove_unexpressed_nodes = F,
+                                                       remove_unexpressed_nodes = FALSE,
                                                        CARNIVAL_options = CARNIVAL_options
                                                        
 )

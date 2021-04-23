@@ -120,7 +120,9 @@ validate_cosmos_data <- function(x){
 #'   TF-gene expression interactions.
 #' @param verbose (default: TRUE) Reports details about the
 #'   \code{\link{cosmos_data}} object. 
-#' @noRd
+#' @return \code{cosmos data} class instance.  
+#'   
+
 cosmos_data <- function(meta_network,
                         tf_regulon = NULL,
                         signaling_data,

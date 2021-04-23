@@ -21,8 +21,4 @@ my_options = default_CARNIVAL_options()
 my_options$solverPath = "/Applications/CPLEX_Studio128/cplex/bin/x86-64_osx/cplex"
 my_options$threads = 2
 my_options$timelimit = 3600*15
-# pass the options to COSMOS:
-\dontrun{
-run_COSMOS_metabolism_to_signaling([other inputs], CARNIVAL_options = my_options)
-}
 }
