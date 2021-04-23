@@ -43,4 +43,5 @@ Suggests:
     testthat,
     knitr,
     rmarkdown
-biocViews: CellBiology, Proteomics, Pathways, Network
+biocViews: CellBiology, Pathways, Network, Proteomics, Metabolomics, Transcriptomics
+

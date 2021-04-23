@@ -16,6 +16,7 @@ package for further details.}
 \value{
 returns a PKN of a form of a data table. Each row is an interaction.
 Columns names are:
+
 - `tf` transcription factor
 - `confidence` class of confidence
 - `target` target gene

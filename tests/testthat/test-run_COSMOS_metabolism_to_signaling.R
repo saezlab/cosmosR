@@ -3,11 +3,11 @@
 
 test_that("test run COSMOS signaling to metabolism", {
   
+  meta_network <- cosmos:::meta_network_test
+  signaling_data <- cosmos:::signaling_input_test
+  expression_data <- cosmos:::expression_data_test
+  metabolic_data <- cosmos:::metabolic_data_test
   
-  meta_network <- cosmos::toy_network
-  signaling_data <- cosmos::toy_signaling_input_carnival_vec
-  expression_data <- cosmos::toy_RNA
-  metabolic_data <- cosmos::toy_metab_input_carnival_vec
   
   res <- preprocess_COSMOS_metabolism_to_signaling(signaling_data = signaling_data,
                            meta_network = meta_network,
@@ -22,7 +22,7 @@ test_that("test run COSMOS signaling to metabolism", {
   
   cplex_file <- "/Applications/CPLEX_Studio128/cplex/bin/x86-64_osx/cplex"
   
-  skip_if(!file.exists(cplex_file),"optimization based test skipped.")
+  skip_if(!file.exists(cplex_file),"CPLEX optimization based test skipped.")
   
   CARNIVAL_options$solverPath = cplex_file
   

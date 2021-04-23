@@ -9,10 +9,12 @@
 #' package for further details. 
 #' @return returns a PKN of a form of a data table. Each row is an interaction.
 #' Columns names are:
+#' 
 #' - `tf` transcription factor
 #' - `confidence` class of confidence
 #' - `target` target gene
 #' - `sign` indicates if interaction is up (1) or down-regulation (-1). 
+#' 
 #' @export
 load_tf_regulon_dorothea <- function(toEntrez = TRUE, confidence = c("A","B","C")){
     . <- NULL
