@@ -1,0 +1,6 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^.git$
+^pkgdown$
+cosmos_cache
+docs

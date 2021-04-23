@@ -1,10 +1,8 @@
 .Rproj.user
 *.Rproj
-.Rbuildignore
 .Rhistory
 .Rprofile
 vignettes/.Rhistory
 vignettes/.Rhistory
 
-send_to_cluster.sh
 .DS_Store
