@@ -53,8 +53,9 @@ CARNIVAL_options = CARNIVAL_options
 )
 test_result_back <- run_COSMOS_metabolism_to_signaling(data = test_back,
 CARNIVAL_options = CARNIVAL_options)
+  \code{\link[CARNIVAL]{runCARNIVAL}}
 }
 \seealso{
 \code{\link{preprocess_COSMOS_metabolism_to_signaling}},  
-  \code{\link[CARNIVAL]{runCARNIVAL}}
+  \code{\link[CARNIVAL]{runCARNIVAL}}, \code{\link{cosmos_data}}
 }
