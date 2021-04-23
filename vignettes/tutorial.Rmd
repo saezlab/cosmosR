@@ -3,9 +3,8 @@ title: "COSMOS-tutorial"
 author: "A. Dugourd, A. Gabor and K. Zirngibl"
 date: "11/10/2020"
 output:
-  pdf_document: default
-  html_document:
-    
+  html_document: default
+  pdf_document: 
     df_print: paged
 vignette: >
   %\VignetteIndexEntry{cosmos tutorial}
@@ -37,10 +36,13 @@ The user should provide a path to its CPLEX/cbc executable
 
 You can check the CARNIVAL_options variable to see all possible options that can be adjusted
 
+In this example, we will use the built-in solver lpSolve. User should be aware that lpSolve should ONLY be used for TESTS. To obtain meaningful results, best solver is cplex, or cbc if not possible.
+
 ```{r, warning=FALSE, message=FALSE}
 CARNIVAL_options <- cosmos::default_CARNIVAL_options()
-CARNIVAL_options$solverPath <- "~/Documents/cplex"
-CARNIVAL_options$solver <- "cplex" #or cbc
+# CARNIVAL_options$solverPath <- "~/Documents/cplex"
+# CARNIVAL_options$solver <- "cplex" #or cbc
+CARNIVAL_options$solver <- "lpSolve" #or cbc
 CARNIVAL_options$timelimit <- 3600
 CARNIVAL_options$mipGAP <- 0.05
 CARNIVAL_options$threads <- 2
@@ -65,8 +67,8 @@ The list of genes in the differential expression data will also be used as a ref
 
 ```{r, warning=FALSE, message=FALSE}
 test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_network,
-                                        signaling_data = toy_signaling_input_carnival_vec,
-                                        metabolic_data = toy_metab_input_carnival_vec,
+                                        signaling_data = toy_signaling_input,
+                                        metabolic_data = toy_metabolic_input,
                                                       diff_expression_data = toy_RNA,
                                                       maximum_network_depth = 15,
                                                       remove_unexpressed_nodes = T,
@@ -94,13 +96,10 @@ test_result_for <- run_COSMOS_signaling_to_metabolism(data = test_for,
 Finally, we process the results of the first cosmos run, to translate gene names and metabolites name.
 
 ```{r, warning=FALSE, message=FALSE}
-metab_to_pubchem_vec <- metabolite_to_pubchem$name
-names(metab_to_pubchem_vec) <- metabolite_to_pubchem$pubchem
-
 test_result_for <- format_COSMOS_res(test_result_for,
-                                     metab_mapping = metab_to_pubchem_vec,
-                     measured_nodes = unique(c(names(toy_metab_input_carnival_vec),
-                                               names(toy_signaling_input_carnival_vec))),
+                                     metab_mapping = metabolite_to_pubchem,
+                     measured_nodes = unique(c(names(toy_metabolic_input),
+                                               names(toy_signaling_input))),
                                      omnipath_ptm = omnipath_ptm)
 ```
 
@@ -117,8 +116,8 @@ Now that the correct time is set up for the pre-optimisation run, we can prepare
 
 ```{r, warning=FALSE, message=FALSE}
 test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_network,
-                                        signaling_data = toy_signaling_input_carnival_vec,
-                                        metabolic_data = toy_metab_input_carnival_vec,
+                                        signaling_data = toy_signaling_input,
+                                        metabolic_data = toy_metabolic_input,
                                                        diff_expression_data = toy_RNA,
                                                        maximum_network_depth = 15,
                                                        remove_unexpressed_nodes = F,
@@ -131,22 +130,19 @@ test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_networ
 Then we can run cosmos to connect metabolism to signaling. The running time here usually needs to be longer, as this problem seems to be harder to solve for CPLEX.
 
 ```{r, warning=FALSE, echo=FALSE, message=FALSE}
-
 CARNIVAL_options$timelimit <- 28800
 
 test_result_back <- run_COSMOS_metabolism_to_signaling(data = test_back,
                                                        CARNIVAL_options = CARNIVAL_options)
-
-
 ```
 
 Finally we can format the result of the backward run as well (same as for forward run)
 
 ```{r, warning=FALSE, message=FALSE}
 test_result_back <- format_COSMOS_res(test_result_back,
-                                      metab_mapping = metab_to_pubchem_vec,
-                      measured_nodes = unique(c(names(toy_metab_input_carnival_vec),
-                                                names(toy_signaling_input_carnival_vec))),
+                                      metab_mapping = metabolite_to_pubchem,
+                      measured_nodes = unique(c(names(toy_metabolic_input),
+                                                names(toy_signaling_input))),
                                       omnipath_ptm = omnipath_ptm)
 
 ```
@@ -166,13 +162,12 @@ full_attributes <- unique(full_attributes)
 This function will generate a dynamic network plot centered on a given node of the network solution, and connecting it to measured nodes in the given range (here 5 steps).
 
 ```{r, warning=FALSE, message=FALSE}
-network_plot <- display_node_neighboorhood(central_node = 'PRKACA', 
+network_plot <- display_node_neighboorhood(central_node = 'BCAT1', 
                                            sif = full_sif, 
                                            att = full_attributes, 
                                            n = 5)
 
-# network_plot
-
+network_plot
 ```
 
 ```{r, warning=FALSE, message=FALSE}
