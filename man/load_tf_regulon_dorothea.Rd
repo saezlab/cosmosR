@@ -26,3 +26,6 @@ Columns names are:
 load the transcription factors from \code{DOROTHEA} package and converts 
 gene symbols to EntrezID using org.Hs.eg.db
 }
+\examples{
+load_tf_regulon_dorothea()
+}

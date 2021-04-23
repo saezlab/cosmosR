@@ -32,7 +32,7 @@ display_node_neighboorhood <- function(central_node,sif, att, n = 100)
   
   center_node <- sapply(central_node, function(x, ig_net, full_att) {
     names(unlist(igraph::get.shortest.paths(ig_net, from = x, to = full_att[full_att$measured == 1,1])$vpath))
-  }, ig_net= ig_net, full_att = full_att, simplify = F, USE.NAMES = T)
+  }, ig_net= ig_net, full_att = full_att, simplify = FALSE, USE.NAMES = TRUE)
   
   center_node <- unlist(center_node)
   
@@ -40,7 +40,7 @@ display_node_neighboorhood <- function(central_node,sif, att, n = 100)
   
   center_node <- sapply(central_node, function(x, ig_net, full_att) {
     names(unlist(igraph::get.shortest.paths(ig_net, from = x, to = full_att[full_att$measured == 1,1], mode = "in")$vpath))
-  }, ig_net= ig_net, full_att = full_att, simplify = F, USE.NAMES = T)
+  }, ig_net= ig_net, full_att = full_att, simplify = FALSE, USE.NAMES = TRUE)
   
   center_node <- unlist(center_node)
   
@@ -72,7 +72,7 @@ display_node_neighboorhood <- function(central_node,sif, att, n = 100)
   nodes[nodes$type == "Kinase","shape"] <- "triangle"
   nodes[nodes$type == "TF","shape"] <- "diamond"
   nodes <- nodes[order(nodes$id),]
-  nodes$shadow <- ifelse(nodes$measured == 1, T, F)
+  nodes$shadow <- (nodes$measured == 1)
   
   return(visNetwork::visNetwork(nodes, edges, width = 1600, height = 1600) %>% 
              visNetwork::visOptions(highlightNearest = TRUE, 

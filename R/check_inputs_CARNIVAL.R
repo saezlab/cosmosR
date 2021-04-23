@@ -17,7 +17,7 @@
 #'   the simulation.
 #' 
 #' @seealso \code{\link{default_CARNIVAL_options}}
-#' 
+#' @noRd
 check_inputs_for_CARNIVAL <- function(meta_network,
                                       input_data,
                                       measured_data){

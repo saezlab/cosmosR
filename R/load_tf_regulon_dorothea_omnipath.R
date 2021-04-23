@@ -3,7 +3,11 @@
 #' downloads the TF-regulons from Omnipaht. Different from DOROTHEA regulon because
 #' sign is handled differently: if both stimulation and inhibition was reported then
 #' it is removed. 
-#'
+#' 
+#' @export
+#' @return TF - TF-target interactions in tibble format. 
+#' @examples 
+#' load_tf_regulon_dorothea_omnipath()
 load_tf_regulon_dorothea_omnipath <- function()
 {
     
@@ -24,7 +28,7 @@ load_tf_regulon_dorothea_omnipath <- function()
     gene_mapping <- as.character(G_list[,2])
     names(gene_mapping) <- G_list[,1]
     
-    for(i in 1:length(dorothea[,1]))
+    for(i in seq_along(dorothea[,1]))
     {
         dorothea[i,2] <- gene_mapping[dorothea[i,2]]
     }

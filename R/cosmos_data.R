@@ -22,7 +22,7 @@
 #'   starting with an X and values are log fold change or t-values. Genes with 
 #'   NA values are considered none expressed and they will be removed from the
 #'   TF-gene expression interactions. 
-#' 
+#' @noRd
 new_cosmos_data <- function(meta_network = data.frame(),
                             tf_regulon = data.frame(),
                             signaling_data = double(),
@@ -55,7 +55,7 @@ new_cosmos_data <- function(meta_network = data.frame(),
 #' @param x \code{\link{cosmos_data}} object.  Use the 
 #'   \code{\link{preprocess_COSMOS_metabolism_to_signaling}} function to create 
 #'   one.   
-#' 
+#' @noRd
 validate_cosmos_data <- function(x){
 
     if(!all(c("meta_network", "tf_regulon", "signaling_data", "metabolic_data", "expression_data") %in% names(x))){
@@ -120,6 +120,7 @@ validate_cosmos_data <- function(x){
 #'   TF-gene expression interactions.
 #' @param verbose (default: TRUE) Reports details about the
 #'   \code{\link{cosmos_data}} object. 
+#' @noRd
 cosmos_data <- function(meta_network,
                         tf_regulon = NULL,
                         signaling_data,
@@ -200,6 +201,7 @@ cosmos_data <- function(meta_network,
 #' 
 #' @seealso \code{\link[base]{print}}
 #' 
+#' @return input (invisible)
 #' @export
 print.cosmos_data <- function(x, ...) {
     cat("cosmos_data contains the following data: \n")

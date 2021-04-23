@@ -62,7 +62,7 @@
 #' \code{\link{load_tf_regulon_dorothea}} for tf regulon,
 #' \code{\link{convert_genesymbols_to_entrezid}} for gene conversion,
 #' \code{\link[CARNIVAL]{runCARNIVAL}}.
-#'  
+#' @noRd
 preprocess_COSMOS_core <- function(meta_network,
                                    tf_regulon,
                                    signaling_data,

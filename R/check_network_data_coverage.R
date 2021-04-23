@@ -17,6 +17,7 @@
 #' @param expression_data (optional) numerical vector, where names are gene names  
 #' and values are from \{1,-1\}
 #' @param verbose (default: TRUE) reports coverage
+#' @noRd
  
 
 # expand_metabolic_data format metabolic data to match meta_network nodes?

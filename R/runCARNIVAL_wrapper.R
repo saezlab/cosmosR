@@ -19,7 +19,7 @@
 #'   function to create a list with default parameter settings. If cplex or cbc 
 #'   are chosen as the solver, the parameter solverPath needs to be supplied 
 #'   (not automatically added by \code{default_CARNIVAL_options()}).
-
+#' @noRd
 runCARNIVAL_wrapper <- function(network, 
                                 input_data,
                                 measured_data,

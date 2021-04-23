@@ -2,6 +2,7 @@
 #'
 #' @param symbols vector of genesymbols 
 #' @export
+#' @noRd
 #' @seealso [convert_ensembl_to_entrezid()]
 convert_genesymbols_to_entrezid <- function(symbols){
 

@@ -23,6 +23,9 @@ format_COSMOS_res(
 
 \item{omnipath_ptm}{ptms database from OmnipathR}
 }
+\value{
+list with network and attribute tables.
+}
 \description{
 formats the network with readable names
 }

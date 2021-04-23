@@ -4,6 +4,7 @@
 #' Gives a sign based on the sign of the input data.
 #' @param data numerical vector
 #' @param threshold threshold used to binarise the data
+#' @noRd
 binarize_with_sign <- function(data,threshold){
     
     out = sign(data) * as.numeric(abs(data) >= threshold)

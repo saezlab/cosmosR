@@ -16,6 +16,8 @@
 #' - `sign` indicates if interaction is up (1) or down-regulation (-1). 
 #' 
 #' @export
+#' @examples 
+#' load_tf_regulon_dorothea()
 load_tf_regulon_dorothea <- function(toEntrez = TRUE, confidence = c("A","B","C")){
     . <- NULL
     

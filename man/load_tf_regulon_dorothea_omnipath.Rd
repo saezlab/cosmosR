@@ -6,8 +6,14 @@
 \usage{
 load_tf_regulon_dorothea_omnipath()
 }
+\value{
+TF - TF-target interactions in tibble format.
+}
 \description{
 downloads the TF-regulons from Omnipaht. Different from DOROTHEA regulon because
 sign is handled differently: if both stimulation and inhibition was reported then
 it is removed.
+}
+\examples{
+load_tf_regulon_dorothea_omnipath()
 }

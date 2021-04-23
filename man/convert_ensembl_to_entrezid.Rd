@@ -16,6 +16,10 @@ entrezIDs
 \description{
 convert gene ensembl to entrez id
 }
+\examples{
+ensembl <- c("ENSG00000100601", "ENSG00000178826", "ENSG00000138231")
+entrez_map <- convert_ensembl_to_entrezid(ensembl)
+}
 \seealso{
 [convert_genesymbols_to_entrezid()]
 }

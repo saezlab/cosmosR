@@ -6,7 +6,7 @@
 #' @param TFs character vector of transcription factors using EntrezIDs
 #' @return named numerical vector with TF activity found in CARNIVAL results.
 #' @importFrom rlang .data
-
+#' @noRd
 get_TF_activity_from_CARNIVAL <- function(carnival_result, TFs)
 {
     
@@ -29,6 +29,7 @@ get_TF_activity_from_CARNIVAL <- function(carnival_result, TFs)
 #' expected.  Subject to change if CARNIVAL results changes.
 #' 
 #' @param CR CARNIVAL result object
+#' @noRd
 validate_CARNIVAL_results <- function(CR){
  
     list_names = c("weightedSIF","nodesAttributes","sifAll","attributesAll" ) %in% names(CR)

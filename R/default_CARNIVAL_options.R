@@ -51,7 +51,7 @@ default_CARNIVAL_options = function(){
 #'   
 #' @seealso \code{\link{default_CARNIVAL_options}},  
 #'   \code{\link[CARNIVAL]{runCARNIVAL}}
-#'
+#' @noRd
 check_CARNIVAL_options <- function(opts){
     
     

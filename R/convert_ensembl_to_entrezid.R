@@ -6,6 +6,9 @@
 #' entrezIDs
 #' @export
 #' @seealso [convert_genesymbols_to_entrezid()]
+#' @examples 
+#' ensembl <- c("ENSG00000100601", "ENSG00000178826", "ENSG00000138231")
+#' entrez_map <- convert_ensembl_to_entrezid(ensembl)
 convert_ensembl_to_entrezid <- function(ensembl){
     
     map_table <- AnnotationDbi::mapIds(org.Hs.eg.db::org.Hs.eg.db, ensembl, 'ENTREZID', 'ENSEMBL')

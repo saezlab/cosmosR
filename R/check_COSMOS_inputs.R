@@ -7,6 +7,7 @@
 #' @param signaling_data named numerical vector
 #' @param metabolic_data named numerical vector
 #' @param expression_data named numerical vector
+#' @noRd
 check_COSMOS_inputs <- function(meta_network = NULL,
                                 tf_regulon = NULL,
                                 signaling_data = NULL,

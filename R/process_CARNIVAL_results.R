@@ -17,7 +17,7 @@
 #'     network}
 #'   }
 #' @importFrom rlang .data
-
+#' @noRd
 process_CARNIVAL_results <- function(CARNIVAL_results){
     
     network_output = list()

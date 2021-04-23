@@ -24,3 +24,12 @@ optimization steps. It takes as input a vector with the metabolic
  multi-compartment COSMOS format. 
  It also messages the number of final inputs in the meta network.
 }
+\examples{
+
+# generate random t-values:
+t_values <- rnorm(10)
+# assign to metabolites with pubchem names
+names(t_values) <- metabolite_to_pubchem$pubchem[1:10]
+
+prepare_metabolomics_data(t_values,meta_network)
+}

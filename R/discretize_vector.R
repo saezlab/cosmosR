@@ -3,6 +3,7 @@
 #' convert a vector of continuous values to discrete {-1, 0, 1}
 #' 
 #' @param input_vec numerical value
+#' @noRd
 
 
 discretize_input <- function(input_vec){

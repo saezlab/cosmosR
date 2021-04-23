@@ -50,8 +50,8 @@ translate_column <- function(sif_column,
         return(ifelse(x %in% names(gene_mapping),
                       gene_mapping[x],
                       x))
-      },simplify = T,
-      gene_mapping = gene_mapping, USE.NAMES = F))
+      },simplify = TRUE,
+      gene_mapping = gene_mapping, USE.NAMES = FALSE))
       
       node <- node[!is.na(node)]
       
@@ -69,8 +69,8 @@ translate_column <- function(sif_column,
         return(ifelse(x %in% names(metab_mapping),
                       metab_mapping[x],
                       x))
-      },simplify = T,
-      metab_mapping = metab_mapping, USE.NAMES = F))
+      },simplify = TRUE,
+      metab_mapping = metab_mapping, USE.NAMES = FALSE))
       
       node <- node[!is.na(node)]
       node <- paste(node, collapse = '')
@@ -78,9 +78,9 @@ translate_column <- function(sif_column,
     
     
       
-  }, simplify = T, 
+  }, simplify = TRUE, 
   metab_mapping = metab_mapping,
-  gene_mapping = gene_mapping, USE.NAMES = F)
+  gene_mapping = gene_mapping, USE.NAMES = FALSE)
   
   return(sif_column)
 }
@@ -110,6 +110,7 @@ translate_sif <- function(sif,
 #' @param gene_mapping by default, use the 'org.Hs.eg.db' to map gene names. Can also be a named vector with entrez gene id as names and desired gene names as values.
 #' @param measured_nodes vector of nodes that are measured or inputs
 #' @param omnipath_ptm ptms database from OmnipathR
+#' @return list with network and attribute tables. 
 #' @export
 format_COSMOS_res <- function(cosmos_res,
                               metab_mapping,
@@ -198,6 +199,7 @@ format_COSMOS_res <- function(cosmos_res,
 #' @param gene_mapping -- not sure !!!
 #' @param measured_nodes vector of nodes that are measured or inputs
 #' @param omnipath_ptm ptms database from OmnipathR
+#' @noRd
 format_COSMOS_results_deprecated <- function(cosmos_res,
                               metab_mapping,
                               gene_mapping = "ensembl",
@@ -268,7 +270,7 @@ format_COSMOS_results_deprecated <- function(cosmos_res,
     metab_to_pubchem_vec <- metab_to_pubchem$name
     names(metab_to_pubchem_vec) <- metab_to_pubchem$pubchem
     
-    for(i in 1:length(sif$Node1))
+    for(i in seq_along(sif$Node1))
     {
         if(gsub("Gene[0-9]+__","",sif[i,1]) %in% names(gene_mapping))
         {
@@ -323,7 +325,7 @@ format_COSMOS_results_deprecated <- function(cosmos_res,
     }
     
     
-    for(i in 1:length(att$Nodes))
+    for(i in seq_along(att$Nodes))
     {
         if(gsub("Gene[0-9]+__","",att[i,1]) %in% names(gene_mapping))
         {

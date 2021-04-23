@@ -1,3 +1,4 @@
+
 filter_input_nodes_not_in_pkn <- function(data,pkn){
     
     new_data = data[names(data) %in% c(pkn$source,pkn$target)]

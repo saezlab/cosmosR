@@ -16,19 +16,27 @@
 #' 
 #' @importFrom rlang .data
 #' @export
+#' @examples 
+#' 
+#' # generate random t-values:
+#' t_values <- rnorm(10)
+#' # assign to metabolites with pubchem names
+#' names(t_values) <- metabolite_to_pubchem$pubchem[1:10]
+#' 
+#' prepare_metabolomics_data(t_values,meta_network)
 prepare_metabolomics_data <- function(metabolic_data, meta_network) {
     . <- NULL
     
     # if required, format PUBCHEM IDs to match COSMOS nodes
     if( ! all( grepl("XMetab__", names(metabolic_data) ))) {
         
-        message("COSMOS: Adding `XMetab__` label to metabolic data names", length(metabolic_data))
+        message("COSMOS: Adding `XMetab__` label to metabolic data names ", length(metabolic_data))
         names(metabolic_data) <- paste0("XMetab__", names(metabolic_data))
         
     }
     
     # collect all nodes in the PKN
-    allPknNodes <- unique( c(dplyr::pull(.data$meta_network, .data$source),dplyr::pull(.data$meta_network, .data$target)) ) %>%
+    allPknNodes <- unique( c(dplyr::pull(meta_network, .data$source),dplyr::pull(meta_network, .data$target)) ) %>%
         .[grepl("XMetab__", .)]
     
     # extract all compartments in the PKN

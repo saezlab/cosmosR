@@ -14,6 +14,9 @@ create one.}
 
 \item{...}{Further print arguments passed to or from other methods.}
 }
+\value{
+input (invisible)
+}
 \description{
 Print Cosmos Data Summary
 Print a summary of cosmos data.

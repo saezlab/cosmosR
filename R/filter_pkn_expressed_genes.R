@@ -4,7 +4,7 @@
 #'
 #' @param expressed_genes_entrez  EntrezID of expressed genes
 #' @param meta_pkn  COSMOS prior knowledge network
-
+#' @noRd
 filter_pkn_expressed_genes <- function(expressed_genes_entrez,meta_pkn){
     
     print(paste("COSMOS: removing unexpressed nodes from PKN..."))    

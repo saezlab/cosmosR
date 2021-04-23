@@ -2,7 +2,7 @@
 #' 
 #' checks if gene names looks like an EntrezID with a prefix of X. 
 #' @param ... takes named vectors
-#' 
+#' @noRd
 check_gene_names <- function(...){
     
     res = lapply(list(...),function(x){

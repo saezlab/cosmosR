@@ -29,12 +29,10 @@ Imports:
     igraph,
     dplyr,
     stringr,
-    tidyr,
     readr,
     rlang,
     tibble,
     purrr,
-    Biobase,
     AnnotationDbi,
     biomaRt,
     org.Hs.eg.db,
@@ -44,4 +42,3 @@ Suggests:
     knitr,
     rmarkdown
 biocViews: CellBiology, Pathways, Network, Proteomics, Metabolomics, Transcriptomics
-
