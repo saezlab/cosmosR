@@ -1,8 +1,23 @@
-#' check_inputs_for_CARNIVAL
+#' Check Inputs For CARNIVAL
 #' 
-#' checks the format of the main data inputs for CARNIVL. Checks the data format
-#' and coverage of nodes in the PKN and data. All nodes in input_data and 
-#' measured data must apper in the PKN 
+#' Checks the format of the main data inputs for CARNIVL.  Checks the data format
+#' and coverage of nodes in the PKN and data.  Ensures that all nodes in 
+#' input_data and measured_data apper in the PKN.
+#' 
+#' @param meta_network Prior knowledge network (PKN).  \dQuote{\code{data.frame}} 
+#'   object with source, sign and target columns.  By default COSMOS uses a PKN 
+#'   derived from Omnipath, STITCHdb and Recon3D.  See details on the data 
+#'   \code{\link{meta_network}}.
+#' 
+#' @param input_data Numerical vector, where names are input nodes in the PKN 
+#'   and values are from \{1, 0, -1\}.
+#' 
+#' @param measured_data Numerical vector, where names are measured nodes in the
+#'   PKN and values are continuous values.  These values are compared to with
+#'   the simulation.
+#' 
+#' @seealso \code{\link{default_CARNIVAL_options}}
+#' 
 check_inputs_for_CARNIVAL <- function(meta_network,
                                       input_data,
                                       measured_data){

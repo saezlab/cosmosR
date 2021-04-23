@@ -10,25 +10,35 @@ run_COSMOS_signaling_to_metabolism(
 )
 }
 \arguments{
-\item{data}{\code{\link{cosmos_data}} object. Use the \code{\link{preprocess_COSMOS_signaling_to_metabolism}}
-function to create one.}
+\item{data}{\code{\link{cosmos_data}} object.  Use the
+\code{\link{preprocess_COSMOS_signaling_to_metabolism}} function to create
+an instance.}
 
-\item{CARNIVAL_options}{list that controls the options of CARNIVAL. See details 
-in \code{\link{default_CARNIVAL_options}}.}
+\item{CARNIVAL_options}{List that controls the options of CARNIVAL. See 
+details in \code{\link{default_CARNIVAL_options}}.}
 }
 \value{
-list with the following elements:
-- `weightedSIF` the averaged networks found by optimization in a 
-format of a Simple Interaction network, i.e. each row codes an edge
-- `N_networks`: number of solutions found by the optimization
-- `nodesAttributes`: estimated node properties
-- `individual_networks`: list of optimial networks found
-- `individual_networks_node_attributes`: node activity in each network.
+List with the following elements:
+  \describe{
+    \item{\code{weightedSIF}}{The averaged networks found by 
+    optimization in a format of a Simple Interaction network, i.e. each row 
+    codes an edge}
+    \item{\code{N_networks}}{Number of solutions found by the 
+    optimization}
+    \item{\code{nodesAttributes}}{Estimated node properties}
+    \item{\code{individual_networks}}{List of optimial networks found}
+    \item{\code{individual_networks_node_attributes}}{Node activity in each
+    network}
+  }
 }
 \description{
-runs COSMOS from signaling to metabolism. This function finds a subset of the
-prior knowledge network based on optimisation that (1) includes the most 
-measured and input nodes and (2) which is in agreement with the data. 
-Use \code{\link{preprocess_COSMOS_signaling_to_metabolism}} to prepare 
-inputs, measurements and prior knowledge network.
+Runs COSMOS from signaling to metabolism.  This function uses CARNIVAL to find
+a subset of the prior knowledge network based on optimisation that (1) 
+includes the most measured and input nodes and (2) which is in agreement with
+the data.  Use \code{\link{preprocess_COSMOS_signaling_to_metabolism}} to
+prepare inputs, measurements and prior knowledge network.
+}
+\seealso{
+\code{\link{preprocess_COSMOS_metabolism_to_signaling}},  
+  \code{\link[CARNIVAL]{runCARNIVAL}}
 }

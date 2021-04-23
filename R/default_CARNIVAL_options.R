@@ -1,7 +1,7 @@
-#' default_CARNIVAL_options
+#' Setting Default CARNIVAL Options
 #' 
-#' returns the default CARNIVAL options as a list. You can modify the elements of
-#' the list and then use it as an argument in `run_COSMOS()`
+#' Returns the default CARNIVAL options as a list.  You can modify the elements
+#' of the list and then use it as an argument in \dQuote{\code{run_COSMOS()}}.
 #' 
 #' @return returns a list with all possible options implemented in CARNIVAL.
 #' see the documentation on \code{\link[CARNIVAL]{runCARNIVAL}}.
@@ -39,10 +39,19 @@ default_CARNIVAL_options = function(){
 
 
 
-#' check_CARNIVAL_options
+#' Check CARNIVAL Options
 #' 
-#' checks options for CARNIVAL
+#' Checks the list of input options for CARNIVAL for completeness.
 #' 
+#' @param opts An object of type \dQuote{\code{list}} defining the run parameters
+#'   for CARNIVAL.  Use the \code{\link{default_CARNIVAL_options}} function to 
+#'   create a list with default parameter settings. If cplex or cbc are chosen 
+#'   as the solver, the parameter solverPath needs to be supplied (not 
+#'   automatically added by \code{default_CARNIVAL_options()}).
+#'   
+#' @seealso \code{\link{default_CARNIVAL_options}},  
+#'   \code{\link[CARNIVAL]{runCARNIVAL}}
+#'
 check_CARNIVAL_options <- function(opts){
     
     
@@ -78,6 +87,7 @@ check_CARNIVAL_options <- function(opts){
     if(opts$solver == "lpSolve") print("lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers.")
     if(is.null(opts$solverPath) & opts$solver != "lpSolve") stop("path to CPLEX or cbc solver must be provided")
     
+    return('List of CARNIVAL options is complete.')
     
     
 }

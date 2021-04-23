@@ -2,10 +2,22 @@
 % Please edit documentation in R/cosmos_data.R
 \name{print.cosmos_data}
 \alias{print.cosmos_data}
-\title{print a summary of cosmos data}
+\title{Print Cosmos Data Summary
+Print a summary of cosmos data.}
 \usage{
 \method{print}{cosmos_data}(x, ...)
 }
+\arguments{
+\item{x}{\code{\link{cosmos_data}} object.  Use the 
+\code{\link{preprocess_COSMOS_metabolism_to_signaling}} function to 
+create one.}
+
+\item{...}{Further print arguments passed to or from other methods.}
+}
 \description{
-print a summary of cosmos data
+Print Cosmos Data Summary
+Print a summary of cosmos data.
+}
+\seealso{
+\code{\link[base]{print}}
 }

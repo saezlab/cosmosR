@@ -2,10 +2,13 @@
 % Please edit documentation in R/limit_string_vec.R
 \name{limit_string_vec}
 \alias{limit_string_vec}
-\title{limit_string_vec}
+\title{Limit String Vec}
 \usage{
 limit_string_vec(str_vec)
 }
+\arguments{
+\item{str_vec}{A string vector to be transformed.}
+}
 \description{
-writes the first 6 elements and the number of other elements in a string.
+Writes the first 6 elements and the number of other elements in a string.
 }

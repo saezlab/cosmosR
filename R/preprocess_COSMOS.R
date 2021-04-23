@@ -3,21 +3,24 @@
 #' core function for preprocessing. 
 #' runs checks on the input data and simplifies the prior knowledge network.
 #' Simplification includes the removal of (1) nodes that are not reachable from 
-#' signaling nodes and  (2) interactions between transcription factors and target
-#' genes if the target gene does not respond or the response is contradictory
-#' with the change in the transcription factor activity. 
-#' Optionally, further TF activities are estimated via network optimization and 
-#' the interactions between TF and genes are filtered again. 
+#' signaling nodes and  (2) interactions between transcription factors (TFs) and
+#' target genes if the target gene does not respond or the response is
+#' contradictory with the change in the transcription factor activity. 
+#' Optionally, further TF activities are estimated via network optimization via
+#' CARNIVAL and the interactions between TF and genes are filtered again. 
 #' 
 #' @param meta_network prior knowledge network. By default COSMOS use a PKN 
 #' derived from Omnipath, STITCHdb and Recon3D. See details on the function 
-#' \cite{\code{load_meta_pkn}}
+#' \cite{\code{load_meta_pkn}}.
+#' @param tf_regulon collection of transcription factor - target interactions.
+#' A default collection from dorothea can be obtained by the 
+#' \code{\link{load_tf_regulon_dorothea}} function.
 #' @param signaling_data numerical vector, where names are signaling nodes 
 #' in the PKN and values are from \{1, 0, -1\}. Continuous data will be 
 #' discretized using the \code{\link{sign}} function.  
 #' @param metabolic_data numerical vector, where names are metabolic nodes 
 #' in the PKN and values are continuous values that represents log2 fold change 
-#' or t values from a differential analysis. These values are compared to 
+#' or t-values from a differential analysis. These values are compared to 
 #' the simulation results (simulated nodes can take value -1, 0 or 1)
 #' @param diff_expression_data (optional) numerical vector that represents the 
 #' results of a differential gene expression analysis. Names are gene
@@ -26,7 +29,7 @@
 #'  changed significantly. Genes with NA values are considered none expressed
 #'  and they will be removed from the TF-gene expression interactions. 
 #' @param diff_exp_threshold threshold parameter (default 1) used to binarize
-#'  the values of `diff_expression_data`. 
+#'  the values of \dQuote{\code{diff_expression_data}}. 
 #' @param maximum_network_depth integer > 0 (default: 8). Nodes that are further 
 #' than `maximum_network_depth` steps from the signaling nodes on the directed
 #' graph of the PKN are considered non-reachable and are removed. 
@@ -45,17 +48,21 @@
 #' network pruning and CARNIVAL is ran. 
 #' @param output_layer either signaling_data or metabolic_data. Influences the way
 #' network pruning and CARNIVAL is ran.
-#' @export
 #' @return cosmos_data object with the following fields:
-#'  - `meta_network`  filtered PKN
-#'  - `tf_regulon`  TF - target regulatory network
-#'  - `signaling_data_bin` binarised signaling data 
-#'  - `metabolic_data`  metabolomics data
-#'  - `diff_expression_data_bin`  binarized gene expression data 
-#'  - `optimized_network` initial optimized network if filter_tf_gene_interaction_by_optimization is TRUE. 
-#' @seealso [load_meta_pkn()] for meta PKN, 
-#' [load_tf_regulon_dorothea()] for tf regulon,
-#' [convert_genesymbols_to_entrezid()] for gene conversion. 
+#'   \describe{
+#'     \item{\code{meta_network}}{Filtered PKN}
+#'     \item{\code{tf_regulon}}{TF - target regulatory network}
+#'     \item{\code{signaling_data_bin}}{Binarised signaling data} 
+#'     \item{\code{metabolic_data}}{Metabolomics data}
+#'     \item{\code{diff_expression_data_bin}}{Binarized gene expression data} 
+#'     \item{\code{optimized_network}}{Initial optimized network if 
+#'     \code{filter_tf_gene_interaction_by_optimization is TRUE}}
+#'   }
+#' @seealso \code{\link{meta_network}} for meta PKN,
+#' \code{\link{load_tf_regulon_dorothea}} for tf regulon,
+#' \code{\link{convert_genesymbols_to_entrezid}} for gene conversion,
+#' \code{\link[CARNIVAL]{runCARNIVAL}}.
+#'  
 preprocess_COSMOS_core <- function(meta_network,
                                    tf_regulon,
                                    signaling_data,

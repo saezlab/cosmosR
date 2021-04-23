@@ -2,7 +2,7 @@
 % Please edit documentation in R/cosmos_data.R
 \name{new_cosmos_data}
 \alias{new_cosmos_data}
-\title{create new cosmos data}
+\title{Create New Cosmos Data}
 \usage{
 new_cosmos_data(
   meta_network = data.frame(),
@@ -11,6 +11,30 @@ new_cosmos_data(
   metabolic_data = double(),
   expression_data = double()
 )
+}
+\arguments{
+\item{meta_network}{Prior knowledge network (PKN).  By default COSMOS use a 
+PKN derived from Omnipath, STITCHdb and Recon3D. See details on the data 
+\code{meta_network}.}
+
+\item{tf_regulon}{Collection of transcription factor - target interactions.
+A default collection from dorothea can be obtained by the 
+\code{\link{load_tf_regulon_dorothea}} function.}
+
+\item{signaling_data}{Numerical vector, where names are signaling nodes 
+in the PKN and values are from \{1, 0, -1\}.  Continuous data will be 
+discretized using the \code{\link{sign}} function.}
+
+\item{metabolic_data}{Numerical vector, where names are metabolic nodes 
+in the PKN and values are continuous values that represents log2 fold change 
+or t-values from a differential analysis.  These values are compared to 
+the simulation results (simulated nodes can take value -1, 0 or 1).}
+
+\item{expression_data}{Numerical vector that represents the results of a 
+differential gene expression analysis. Names are gene names using EntrezID 
+starting with an X and values are log fold change or t-values. Genes with 
+NA values are considered none expressed and they will be removed from the
+TF-gene expression interactions.}
 }
 \description{
 Constructor. Should not be exported. The object is not validated.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/default_CARNIVAL_options.R
 \name{default_CARNIVAL_options}
 \alias{default_CARNIVAL_options}
-\title{default_CARNIVAL_options}
+\title{Setting Default CARNIVAL Options}
 \usage{
 default_CARNIVAL_options()
 }
@@ -11,8 +11,8 @@ returns a list with all possible options implemented in CARNIVAL.
 see the documentation on \code{\link[CARNIVAL]{runCARNIVAL}}.
 }
 \description{
-returns the default CARNIVAL options as a list. You can modify the elements of
-the list and then use it as an argument in `run_COSMOS()`
+Returns the default CARNIVAL options as a list.  You can modify the elements
+of the list and then use it as an argument in \dQuote{\code{run_COSMOS()}}.
 }
 \examples{
 # load and change default options: 

@@ -1,26 +1,36 @@
 #' run COSMOS signaling to metabolism
 #' 
-#' runs COSMOS from signaling to metabolism. This function finds a subset of the
-#' prior knowledge network based on optimisation that (1) includes the most 
-#' measured and input nodes and (2) which is in agreement with the data. 
-#' Use \code{\link{preprocess_COSMOS_signaling_to_metabolism}} to prepare 
-#' inputs, measurements and prior knowledge network.
-#' @param data \code{\link{cosmos_data}} object. Use the \code{\link{preprocess_COSMOS_signaling_to_metabolism}}
-#' function to create one. 
-#' @param CARNIVAL_options list that controls the options of CARNIVAL. See details 
-#'  in \code{\link{default_CARNIVAL_options}}. 
+#' Runs COSMOS from signaling to metabolism.  This function uses CARNIVAL to find
+#' a subset of the prior knowledge network based on optimisation that (1) 
+#' includes the most measured and input nodes and (2) which is in agreement with
+#' the data.  Use \code{\link{preprocess_COSMOS_signaling_to_metabolism}} to
+#' prepare inputs, measurements and prior knowledge network.
+#' 
+#' @param data \code{\link{cosmos_data}} object.  Use the
+#'   \code{\link{preprocess_COSMOS_signaling_to_metabolism}} function to create
+#'   an instance. 
+#' @param CARNIVAL_options List that controls the options of CARNIVAL. See 
+#'   details in \code{\link{default_CARNIVAL_options}}. 
 #' @export
-#' @return list with the following elements:
-#' - `weightedSIF` the averaged networks found by optimization in a 
-#' format of a Simple Interaction network, i.e. each row codes an edge
-#' - `N_networks`: number of solutions found by the optimization
-#' - `nodesAttributes`: estimated node properties
-#' - `individual_networks`: list of optimial networks found
-#' - `individual_networks_node_attributes`: node activity in each network.
+#' @return List with the following elements:
+#'   \describe{
+#'     \item{\code{weightedSIF}}{The averaged networks found by 
+#'     optimization in a format of a Simple Interaction network, i.e. each row 
+#'     codes an edge}
+#'     \item{\code{N_networks}}{Number of solutions found by the 
+#'     optimization}
+#'     \item{\code{nodesAttributes}}{Estimated node properties}
+#'     \item{\code{individual_networks}}{List of optimial networks found}
+#'     \item{\code{individual_networks_node_attributes}}{Node activity in each
+#'     network}
+#'   }
+#' @seealso \code{\link{preprocess_COSMOS_metabolism_to_signaling}},  
+#'   \code{\link[CARNIVAL]{runCARNIVAL}}
 
 run_COSMOS_signaling_to_metabolism <- function(data,
                                                CARNIVAL_options = default_CARNIVAL_options()){
     
+    ## Checking COSMOS input format
     validate_cosmos_data_signaling_to_metabolism(data)
     
     check_CARNIVAL_options(CARNIVAL_options)
@@ -33,7 +43,6 @@ run_COSMOS_signaling_to_metabolism <- function(data,
                                            options = CARNIVAL_options)
     
     network_results <- process_CARNIVAL_results(CARNIVAL_results)
-    
     
 }
 

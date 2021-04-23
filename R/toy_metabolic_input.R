@@ -6,13 +6,13 @@
 #'
 #' @docType data
 #'
-#' @usage toy_metab_input_carnival_vec
+#' @usage toy_metabolic_input
 #'
 #' @format An object of class \dQuote{\code{numeric}} containing the t-values of
-#'   10 metabolites, which are named with metabolite PubChem CIDs matching the
+#'   3 metabolites, which are named with metabolite PubChem CIDs matching the
 #'   toy network.
 #'
-#' @source
+#' @source Subset of: 
 #'   \url{https://github.com/saezlab/COSMOS_MSB/blob/main/data/metab_input_COSMOS.csv}
 #' 
 #' @references {
@@ -21,7 +21,7 @@
 #' }
 #' 
 #' @examples
-#' toy_metabolic_input = toy_metab_input_carnival_vec
+#' toy_metabolic_input = toy_metabolic_input
 #' 
 #' @keywords datasets
-"toy_metab_input_carnival_vec"
+"toy_metabolic_input"

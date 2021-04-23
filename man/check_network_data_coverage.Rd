@@ -29,10 +29,6 @@ with the the simulation [? range of values]}
 and values are from \{1,-1\}}
 
 \item{verbose}{(default: TRUE) reports coverage}
-
-\item{expand_metabolic_data}{format metabolic data to match meta_network nodes?
-It will add "XMetab__" before the pubchem IDs and all the possible compartments 
-after it. (e.g, "1150" will become "Xmetab__1150___c____" and "Xmetab__1150___e____")}
 }
 \description{
 checks the following
