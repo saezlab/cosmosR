@@ -8,7 +8,7 @@
 #'
 #' @usage toy_network
 #'
-#' @format An object of class \dQuote{\code{data.frame}} with 720 rows
+#' @format An object of class \dQuote{\code{data.frame}} with 19 rows
 #'   (interactions) and three variables:
 #'   \describe{
 #'     \item{\code{source}}{Source node, either metabolite or protein}
@@ -20,8 +20,9 @@
 #'
 #' @source  The network data are available on github:
 #'   \url{https://github.com/saezlab/COSMOS_MSB/tree/main/results/COSMOS_result/COSMOS_res_session.RData}.
-#'     The toy_network is the combined network of the COSMOS network solutions 
-#'   CARNIVAL_Result2 and CARNIVAL_Result_rerun.
+#'   The toy_network is the combined network of the COSMOS network solutions 
+#'   CARNIVAL_Result2 and CARNIVAL_Result_rerun subsequently reduced to 19
+#'   exemplary nodes.
 #'   
 #' @references {
 #'   Dugourd, A., Kuppe, C. and Sciacovelli, M. et. al. (2021) \emph{Molecular 

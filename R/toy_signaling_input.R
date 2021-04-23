@@ -7,13 +7,13 @@
 #'
 #' @docType data
 #'
-#' @usage toy_signaling_input_carnival_vec
+#' @usage toy_signaling_input
 #'
 #' @format  An object of class \dQuote{\code{data.frame}} containing the normalised
-#'   enrichment scores (NES) of 15 signaling proteins, which are named with their
+#'   enrichment scores (NES) of 2 signaling proteins, which are named with their
 #'   respective gene Entrez ID matching the toy network.
 #'
-#' @source 
+#' @source Subset of: 
 #'   \url{https://github.com/saezlab/COSMOS_MSB/blob/main/data/signaling_input_COSMOS.csv}
 #'   
 #' @references {
@@ -22,7 +22,7 @@
 #' }
 #' 
 #' @examples
-#' toy_signaling_input = toy_signaling_input_carnival_vec
+#' toy_signaling_input = toy_signaling_input
 #' 
 #' @keywords datasets
-"toy_signaling_input_carnival_vec"
+"toy_signaling_input"
