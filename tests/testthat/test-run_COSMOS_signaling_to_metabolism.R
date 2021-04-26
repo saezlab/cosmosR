@@ -4,10 +4,10 @@
 test_that("test run COSMOS signaling to metabolism", {
   
   
-  meta_network <- cosmos:::meta_network_test
-  signaling_data <- cosmos:::signaling_input_test
-  expression_data <- cosmos:::expression_data_test
-  metabolic_data <- cosmos:::metabolic_data_test
+  meta_network <- cosmosR:::meta_network_test
+  signaling_data <- cosmosR:::signaling_input_test
+  expression_data <- cosmosR:::expression_data_test
+  metabolic_data <- cosmosR:::metabolic_data_test
     
   
   res <- preprocess_COSMOS_signaling_to_metabolism(signaling_data = signaling_data,
@@ -18,7 +18,7 @@ test_that("test run COSMOS signaling to metabolism", {
                            maximum_network_depth = 15,
                            filter_tf_gene_interaction_by_optimization = FALSE)
   
-  CARNIVAL_options = cosmos::default_CARNIVAL_options()
+  CARNIVAL_options = cosmosR::default_CARNIVAL_options()
   
   
   cplex_file <- "/Applications/CPLEX_Studio128/cplex/bin/x86-64_osx/cplex"
