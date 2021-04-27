@@ -1,10 +1,10 @@
 
 test_that("test cosmos preprocessing (signaling to metabolism)", {
     
-    meta_network_test <- cosmos:::meta_network_test
-    signaling_input_test <- cosmos:::signaling_input_test
-    expression_data_test <- cosmos:::expression_data_test
-    metabolic_data_test <- cosmos:::metabolic_data_test
+    meta_network_test <- cosmosR:::meta_network_test
+    signaling_input_test <- cosmosR:::signaling_input_test
+    expression_data_test <- cosmosR:::expression_data_test
+    metabolic_data_test <- cosmosR:::metabolic_data_test
     
     res <- preprocess_COSMOS_signaling_to_metabolism(meta_network = meta_network_test,
                              signaling_data = signaling_input_test,
@@ -54,10 +54,10 @@ test_that("test cosmos preprocessing (signaling to metabolism)", {
 test_that("test cosmos preprocessing (signaling to metabolism)", {
     
     
-    meta_network_test <- cosmos:::meta_network_test
-    signaling_input_test <- cosmos:::signaling_input_test
-    expression_data_test <- cosmos:::expression_data_test
-    metabolic_data_test <- cosmos:::metabolic_data_test
+    meta_network_test <- cosmosR:::meta_network_test
+    signaling_input_test <- cosmosR:::signaling_input_test
+    expression_data_test <- cosmosR:::expression_data_test
+    metabolic_data_test <- cosmosR:::metabolic_data_test
     
     res <- preprocess_COSMOS_metabolism_to_signaling(meta_network = meta_network_test,
                                                      signaling_data = signaling_input_test,
