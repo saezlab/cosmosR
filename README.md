@@ -1,7 +1,7 @@
 # cosmosR <img src="man/figures/logo.png" align="right" height="139">
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/saezlab/dorothea/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/saezlab/cosmosr/actions)
+[![R-CMD-check](https://github.com/saezlab/cosmosr/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/saezlab/cosmosr/actions)
 <!-- badges: end -->
 
 ## Overview
