@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>preprocess_COSMOS — preprocess_COSMOS_signaling_to_metabolism • cosmos</title>
+<title>Preprocess COSMOS Inputs For Signaling to Metabolism — preprocess_COSMOS_signaling_to_metabolism • cosmosR</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,14 +46,14 @@
 
 
 
-<meta property="og:title" content="preprocess_COSMOS — preprocess_COSMOS_signaling_to_metabolism" />
-<meta property="og:description" content="runs checks on the input data and simplifies the prior knowledge network.
+<meta property="og:title" content="Preprocess COSMOS Inputs For Signaling to Metabolism — preprocess_COSMOS_signaling_to_metabolism" />
+<meta property="og:description" content="Runs checks on the input data and simplifies the prior knowledge network.
 Simplification includes the removal of (1) nodes that are not reachable from 
 signaling nodes and  (2) interactions between transcription factors and target
 genes if the target gene does not respond or the response is contradictory
 with the change in the transcription factor activity. 
-Optionally, further TF activities are estimated via network optimization and 
-the interactions between TF and genes are filtered again." />
+Optionally, further TF activities are estimated via network optimization via
+CARNIVAL and the interactions between TF and genes are filtered again." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -103,8 +103,8 @@ the interactions between TF and genes are filtered again." />
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">cosmos</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
+        <a class="navbar-link" href="../index.html">cosmosR</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2</span>
       </span>
     </div>
 
@@ -121,7 +121,7 @@ the interactions between TF and genes are filtered again." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/tutorial.html">UNKNOWN TITLE</a>
+      <a href="../articles/tutorial.html">COSMOS-tutorial</a>
     </li>
   </ul>
 </li>
@@ -132,19 +132,19 @@ the interactions between TF and genes are filtered again." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/saezlab/COSMOS/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="https://twitter.com/saezlab">
-    <span class="fab fa fab fa-twitter fa-lg"></span>
+    <span class="fab fa-twitter fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../www.saezlab.org">
-    <span class="fas fa fas fa-university"></span>
+    <span class="fas fa-university"></span>
      
   </a>
 </li>
@@ -161,23 +161,23 @@ the interactions between TF and genes are filtered again." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>preprocess_COSMOS</h1>
+    <h1>Preprocess COSMOS Inputs For Signaling to Metabolism</h1>
     <small class="dont-index">Source: <a href='https://github.com/saezlab/COSMOS/blob/master/R/preprocess_COSMOS_signaling_to_metabolism.R'><code>R/preprocess_COSMOS_signaling_to_metabolism.R</code></a></small>
     <div class="hidden name"><code>preprocess_COSMOS_signaling_to_metabolism.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>runs checks on the input data and simplifies the prior knowledge network.
+    <p>Runs checks on the input data and simplifies the prior knowledge network.
 Simplification includes the removal of (1) nodes that are not reachable from 
 signaling nodes and  (2) interactions between transcription factors and target
 genes if the target gene does not respond or the response is contradictory
 with the change in the transcription factor activity. 
-Optionally, further TF activities are estimated via network optimization and 
-the interactions between TF and genes are filtered again.</p>
+Optionally, further TF activities are estimated via network optimization via
+CARNIVAL and the interactions between TF and genes are filtered again.</p>
     </div>
 
     <pre class="usage"><span class='fu'>preprocess_COSMOS_signaling_to_metabolism</span><span class='op'>(</span>
-  meta_network <span class='op'>=</span> <span class='fu'><a href='load_meta_pkn.html'>load_meta_pkn</a></span><span class='op'>(</span><span class='op'>)</span>,
+  meta_network <span class='op'>=</span> <span class='va'>meta_network</span>,
   tf_regulon <span class='op'>=</span> <span class='fu'><a href='load_tf_regulon_dorothea.html'>load_tf_regulon_dorothea</a></span><span class='op'>(</span><span class='op'>)</span>,
   <span class='va'>signaling_data</span>,
   <span class='va'>metabolic_data</span>,
@@ -196,8 +196,14 @@ the interactions between TF and genes are filtered again.</p>
     <tr>
       <th>meta_network</th>
       <td><p>prior knowledge network. By default COSMOS use a PKN 
-derived from Omnipath, STITCHdb and Recon3D. See details on the function 
-<cite><code>load_meta_pkn</code></cite></p></td>
+derived from Omnipath, STITCHdb and Recon3D. See details on the data 
+<code><a href='meta_network.html'>meta_network</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>tf_regulon</th>
+      <td><p>collection of transcription factor - target interactions.
+A default collection from dorothea can be obtained by the 
+<code><a href='load_tf_regulon_dorothea.html'>load_tf_regulon_dorothea</a></code> function.</p></td>
     </tr>
     <tr>
       <th>signaling_data</th>
@@ -209,7 +215,7 @@ discretized using the <code><a href='https://rdrr.io/r/base/sign.html'>sign</a><
       <th>metabolic_data</th>
       <td><p>numerical vector, where names are metabolic nodes 
 in the PKN and values are continuous values that represents log2 fold change 
-or t values from a differential analysis. These values are compared to 
+or t-values from a differential analysis. These values are compared to 
 the simulation results (simulated nodes can take value -1, 0 or 1)</p></td>
     </tr>
     <tr>
@@ -217,20 +223,21 @@ the simulation results (simulated nodes can take value -1, 0 or 1)</p></td>
       <td><p>(optional) numerical vector that represents the 
 results of a differential gene expression analysis. Names are gene
 names using EntrezID starting with an X and values are log fold change or
- t-values. We use the `diff_exp_threshold` parameter to decide which genes 
- changed significantly. Genes with NA values are considered none expressed
- and they will be removed from the TF-gene expression interactions.</p></td>
+ t-values.  <code><a href='convert_genesymbols_to_entrezid.html'>convert_genesymbols_to_entrezid</a></code> can be used for
+ conversion.  We use the &#8220;<code>diff_exp_threshold</code>&#8221; parameter to decide
+ which genes changed significantly.  Genes with NA values are considered none
+ expressed and they will be removed from the TF-gene expression interactions.</p></td>
     </tr>
     <tr>
       <th>diff_exp_threshold</th>
       <td><p>threshold parameter (default 1) used to binarize
-the values of `diff_expression_data`.</p></td>
+the values of &#8220;<code>diff_expression_data</code>&#8221;.</p></td>
     </tr>
     <tr>
       <th>maximum_network_depth</th>
       <td><p>integer &gt; 0 (default: 8). Nodes that are further 
-than `maximum_network_depth` steps from the signaling nodes on the directed
-graph of the PKN are considered non-reachable and are removed.</p></td>
+than &#8220;<code>maximum_network_depth</code>&#8221; steps from the signaling nodes on 
+the directed graph of the PKN are considered non-reachable and are removed.</p></td>
     </tr>
     <tr>
       <th>expressed_genes</th>
@@ -241,7 +248,7 @@ a numeric value (i.e. nodes with NA are removed)</p></td>
     <tr>
       <th>remove_unexpressed_nodes</th>
       <td><p>if TRUE (default) removes nodes from the PKN 
-that are not expressed, see input `expressed_genes`.</p></td>
+that are not expressed, see input &#8220;<code>expressed_genes</code>&#8221;.</p></td>
     </tr>
     <tr>
       <th>filter_tf_gene_interaction_by_optimization</th>
@@ -253,25 +260,61 @@ expression. Removes interactions where TF and gene expression are inconsistent</
     <tr>
       <th>CARNIVAL_options</th>
       <td><p>list that controls the options of CARNIVAL. See details 
-in <code><a href='default_CARNIVAL_options.html'>default_CARNIVAL_options()</a></code>.</p></td>
+in <code><a href='default_CARNIVAL_options.html'>default_CARNIVAL_options</a></code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>cosmos_data object with the following fields:
- - `meta_network`  filtered PKN
- - `tf_regulon`  TF - target regulatory network
- - `signaling_data_bin` binarised signaling data 
- - `metabolic_data`  metabolomics data
- - `diff_expression_data_bin`  binarized gene expression data 
- - `optimized_network` initial optimized network if filter_tf_gene_interaction_by_optimization is TRUE.</p>
+    <p>cosmos_data object with the following fields:</p><dl>
+    <dt><code>meta_network</code></dt><dd><p>Filtered PKN</p></dd>
+    <dt><code>tf_regulon</code></dt><dd><p>TF - target regulatory network</p></dd>
+    <dt><code>signaling_data_bin</code></dt><dd><p>Binarised signaling data</p></dd> 
+    <dt><code>metabolic_data</code></dt><dd><p>Metabolomics data</p></dd>
+    <dt><code>diff_expression_data_bin</code></dt><dd><p>Binarized gene expression data</p></dd> 
+    <dt><code>optimized_network</code></dt><dd><p>Initial optimized network if 
+    <code>filter_tf_gene_interaction_by_optimization is TRUE</code></p></dd>
+  
+</dl>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>[load_meta_pkn()] for meta PKN, 
-[load_tf_regulon_dorothea()] for tf regulon,
-[convert_genesymbols_to_entrezid()] for gene conversion.</p></div>
+    <div class='dont-index'><p><code><a href='meta_network.html'>meta_network</a></code> for meta PKN,
+<code><a href='load_tf_regulon_dorothea.html'>load_tf_regulon_dorothea</a></code> for tf regulon,
+<code><a href='convert_genesymbols_to_entrezid.html'>convert_genesymbols_to_entrezid</a></code> for gene conversion,
+<code><a href='https://rdrr.io/pkg/CARNIVAL/man/runCARNIVAL.html'>runCARNIVAL</a></code>.</p></div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>CARNIVAL_options</span> <span class='op'>&lt;-</span> <span class='fu'>cosmosR</span><span class='fu'>::</span><span class='fu'><a href='default_CARNIVAL_options.html'>default_CARNIVAL_options</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>CARNIVAL_options</span><span class='op'>$</span><span class='va'>solver</span> <span class='op'>&lt;-</span> <span class='st'>"lpSolve"</span>
+<span class='va'>test_for</span> <span class='op'>&lt;-</span> <span class='fu'>preprocess_COSMOS_signaling_to_metabolism</span><span class='op'>(</span>meta_network <span class='op'>=</span> <span class='va'>toy_network</span>,
+signaling_data <span class='op'>=</span> <span class='va'>toy_signaling_input</span>,
+metabolic_data <span class='op'>=</span> <span class='va'>toy_metabolic_input</span>,
+diff_expression_data <span class='op'>=</span> <span class='va'>toy_RNA</span>,
+maximum_network_depth <span class='op'>=</span> <span class='fl'>15</span>,
+remove_unexpressed_nodes <span class='op'>=</span> <span class='cn'>TRUE</span>,
+CARNIVAL_options <span class='op'>=</span> <span class='va'>CARNIVAL_options</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>'select()' returned 1:1 mapping between keys and columns</span></div><div class='output co'>#&gt; <span class='message'>'select()' returned 1:many mapping between keys and columns</span></div><div class='output co'>#&gt; [1] "COSMOS: all 2 signaling nodes from data were found in the meta PKN"
+#&gt; [1] "COSMOS: all 3 metabolic nodes from data were found in the meta PKN"
+#&gt; [1] "COSMOS: 4653 of the 15919 genes in expression data were found as transcription factor target"
+#&gt; [1] "COSMOS: 4653 of the 5303 transcription factor targets were found in expression data"
+#&gt; [1] "COSMOS: removing unexpressed nodes from PKN..."
+#&gt; [1] "COSMOS: 0 interactions removed"
+#&gt; [1] "COSMOS: removing nodes that are not reachable from inputs within 15 steps"
+#&gt; [1] "COSMOS: 10 from  19 interactions are removed from the PKN"
+#&gt; [1] "COSMOS: 1 input/measured nodes are not in PKN any more: XMetab__190___c____ and 0 more."
+#&gt; [1] "COSMOS: removing nodes that are not observable by measurements within 15 steps"
+#&gt; [1] "COSMOS: 0 from  9 interactions are removed from the PKN"
+#&gt; [1] "COSMOS:  1 interactions are removed from the PKN based on consistency check between TF activity and gene expression"
+#&gt; [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."
+#&gt; [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</div><div class='output co'>#&gt; <span class='message'>Writing constraints...</span></div><div class='output co'>#&gt; <span class='message'>Solving LP problem...</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Column specification</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span><span></span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  `enter Problem` = </span><span style='color: #BB0000;'>col_character()</span><span></span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; [1] "COSMOS:  0 interactions are removed from the PKN based on consistency check between TF activity and gene expression"</div><div class='output co'>#&gt; <span class='message'>COSMOS: The following signaling nodes are not found in the PKN and will be removed from input: X3725 and 0 more.</span></div><div class='output co'>#&gt; [1] "COSMOS: all 2 metabolic nodes from data were found in the meta PKN"
+#&gt; [1] "COSMOS: 4653 of the 15919 genes in expression data were found as transcription factor target"
+#&gt; [1] "COSMOS: 4653 of the 5303 transcription factor targets were found in expression data"</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -283,7 +326,7 @@ in <code><a href='default_CARNIVAL_options.html'>default_CARNIVAL_options()</a><
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by Aurélien Dugourd, Attila Gabor.</p></p>
+  <p><p>Developed by Aurélien Dugourd, Attila Gabor, Katharina Zirngibl.</p></p>
 </div>
 
 <div class="pkgdown">

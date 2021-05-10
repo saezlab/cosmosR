@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>create cosmos data — cosmos_data • cosmos</title>
+<title>Create Cosmos Data — cosmos_data • cosmosR</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,10 +46,10 @@
 
 
 
-<meta property="og:title" content="create cosmos data — cosmos_data" />
-<meta property="og:description" content="An S3 class that combines the required data into a comprehensive list. 
-Use the prepare_cosmos_signaling_to_metabolism or 
-prepare_cosmos_metabolism_to_signaling to create an instance." />
+<meta property="og:title" content="Create Cosmos Data — cosmos_data" />
+<meta property="og:description" content="An S3 class that combines the required data into a comprehensive list.  Use 
+the preprocess_COSMOS_signaling_to_metabolism or 
+preprocess_COSMOS_metabolism_to_signaling to create an instance." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -99,8 +99,8 @@ prepare_cosmos_metabolism_to_signaling to create an instance." />
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">cosmos</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
+        <a class="navbar-link" href="../index.html">cosmosR</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2</span>
       </span>
     </div>
 
@@ -117,7 +117,7 @@ prepare_cosmos_metabolism_to_signaling to create an instance." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/tutorial.html">UNKNOWN TITLE</a>
+      <a href="../articles/tutorial.html">COSMOS-tutorial</a>
     </li>
   </ul>
 </li>
@@ -128,19 +128,19 @@ prepare_cosmos_metabolism_to_signaling to create an instance." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/saezlab/COSMOS/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="https://twitter.com/saezlab">
-    <span class="fab fa fab fa-twitter fa-lg"></span>
+    <span class="fab fa-twitter fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../www.saezlab.org">
-    <span class="fas fa fas fa-university"></span>
+    <span class="fas fa-university"></span>
      
   </a>
 </li>
@@ -157,15 +157,15 @@ prepare_cosmos_metabolism_to_signaling to create an instance." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>create cosmos data</h1>
+    <h1>Create Cosmos Data</h1>
     <small class="dont-index">Source: <a href='https://github.com/saezlab/COSMOS/blob/master/R/cosmos_data.R'><code>R/cosmos_data.R</code></a></small>
     <div class="hidden name"><code>cosmos_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>An S3 class that combines the required data into a comprehensive list. 
-Use the <code>prepare_cosmos_signaling_to_metabolism</code> or 
-<code>prepare_cosmos_metabolism_to_signaling</code> to create an instance.</p>
+    <p>An S3 class that combines the required data into a comprehensive list.  Use 
+the <code><a href='preprocess_COSMOS_signaling_to_metabolism.html'>preprocess_COSMOS_signaling_to_metabolism</a></code> or 
+<code><a href='preprocess_COSMOS_metabolism_to_signaling.html'>preprocess_COSMOS_metabolism_to_signaling</a></code> to create an instance.</p>
     </div>
 
     <pre class="usage"><span class='fu'>cosmos_data</span><span class='op'>(</span>
@@ -177,7 +177,52 @@ Use the <code>prepare_cosmos_signaling_to_metabolism</code> or
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>meta_network</th>
+      <td><p>Prior knowledge network (PKN).  By default COSMOS use a
+PKN derived from Omnipath, STITCHdb and Recon3D.  See details on the data 
+<code>meta_network</code>.</p></td>
+    </tr>
+    <tr>
+      <th>tf_regulon</th>
+      <td><p>Collection of transcription factor - target interactions.
+A default collection from dorothea can be obtained by the 
+<code><a href='load_tf_regulon_dorothea.html'>load_tf_regulon_dorothea</a></code> function.</p></td>
+    </tr>
+    <tr>
+      <th>signaling_data</th>
+      <td><p>Numerical vector, where names are signaling nodes 
+in the PKN and values are from {1, 0, -1}.  Continuous data will be 
+discretized using the <code><a href='https://rdrr.io/r/base/sign.html'>sign</a></code> function.</p></td>
+    </tr>
+    <tr>
+      <th>metabolic_data</th>
+      <td><p>Numerical vector, where names are metabolic nodes 
+in the PKN and values are continuous values that represents log2 fold change 
+or t-values from a differential analysis.  These values are compared to 
+the simulation results (simulated nodes can take value -1, 0 or 1).</p></td>
+    </tr>
+    <tr>
+      <th>expression_data</th>
+      <td><p>Numerical vector that represents the results of a 
+differential gene expression analysis. Names are gene names using EntrezID 
+starting with an X and values are log fold change or t-values. Genes with 
+NA values are considered none expressed and they will be removed from the
+TF-gene expression interactions.</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>(default: TRUE) Reports details about the
+<code>cosmos_data</code> object.</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code>cosmos data</code> class instance.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -190,7 +235,7 @@ Use the <code>prepare_cosmos_signaling_to_metabolism</code> or
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by Aurélien Dugourd, Attila Gabor.</p></p>
+  <p><p>Developed by Aurélien Dugourd, Attila Gabor, Katharina Zirngibl.</p></p>
 </div>
 
 <div class="pkgdown">

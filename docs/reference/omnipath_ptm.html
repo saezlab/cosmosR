@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>convert gene symbols to entrez id — convert_genesymbols_to_entrezid • cosmosR</title>
+<title>OmniPath PTMs — omnipath_ptm • cosmosR</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,9 @@
 
 
 
-<meta property="og:title" content="convert gene symbols to entrez id — convert_genesymbols_to_entrezid" />
-<meta property="og:description" content="convert gene symbols to entrez id" />
+<meta property="og:title" content="OmniPath PTMs — omnipath_ptm" />
+<meta property="og:description" content="Collection of annotated enzyme-substrate post translational modifications
+obtained from OmniPath." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -155,37 +156,52 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>convert gene symbols to entrez id</h1>
-    <small class="dont-index">Source: <a href='https://github.com/saezlab/COSMOS/blob/master/R/convert_genesymbols_to_entrezid.R'><code>R/convert_genesymbols_to_entrezid.R</code></a></small>
-    <div class="hidden name"><code>convert_genesymbols_to_entrezid.Rd</code></div>
+    <h1>OmniPath PTMs</h1>
+    <small class="dont-index">Source: <a href='https://github.com/saezlab/COSMOS/blob/master/R/omnipath_ptm.R'><code>R/omnipath_ptm.R</code></a></small>
+    <div class="hidden name"><code>omnipath_ptm.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>convert gene symbols to entrez id</p>
+    <p>Collection of annotated enzyme-substrate post translational modifications
+obtained from OmniPath.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>convert_genesymbols_to_entrezid</span><span class='op'>(</span><span class='va'>symbols</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='va'>omnipath_ptm</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>symbols</th>
-      <td><p>vector of genesymbols</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>data.frame with human gene ENTREZID and SYMBOL mapping</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <p>An object of class &#8220;<code>data.frame</code>&#8221; with 39201 rows (PTMs) 
+  and 12 variables:</p><dl>
+    <dt><code>enzyme</code></dt><dd><p></p></dd>
+    <dt><code>substrate</code></dt><dd><p></p></dd>
+    <dt><code>enzyme_genesymbol</code></dt><dd><p></p></dd>
+    <dt><code>substrate_genesymbol</code></dt><dd><p></p></dd>
+    <dt><code>residue_type</code></dt><dd><p></p></dd>
+    <dt><code>residue_offset</code></dt><dd><p></p></dd>
+    <dt><code>modification</code></dt><dd><p></p></dd>
+    <dt><code>sources</code></dt><dd><p></p></dd>
+    <dt><code>references</code></dt><dd><p></p></dd>
+    <dt><code>curation_effort</code></dt><dd><p></p></dd>
+    <dt><code>n_references</code></dt><dd><p></p></dd>
+    <dt><code>n_resources</code></dt><dd><p></p></dd>
+  
+</dl>
 
-    <div class='dont-index'><p><code><a href='convert_ensembl_to_entrezid.html'>convert_ensembl_to_entrezid</a></code></p></div>
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p>Default resource collection of OmniPath:
+  <a href='http://omnipathdb.org/ptms?fields=sources,references&amp;genesymbols=1'>http://omnipathdb.org/ptms?fields=sources,references&amp;genesymbols=1</a>,
+  version of Feb 5th, 2020.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Turei, D., Korcsmaros, T. and Saez-Rodriguesz, J. (2016) <em>Nature Methods</em>.
+  <b>13</b>(12), 966--967.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>symbols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"MDH1"</span>, <span class='st'>"PARP1"</span>, <span class='st'>"IL6"</span><span class='op'>)</span>
-<span class='va'>symbol_entrez_map</span> <span class='op'>&lt;-</span> <span class='fu'>convert_genesymbols_to_entrezid</span><span class='op'>(</span><span class='va'>symbols</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>'select()' returned 1:1 mapping between keys and columns</span></div></pre>
+    <pre class="examples"><div class='input'><span class='va'>omnipath_ptm</span> <span class='op'>=</span> <span class='va'>omnipath_ptm</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

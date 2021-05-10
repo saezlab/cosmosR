@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>run COSMOS signaling to metabolism — run_COSMOS_signaling_to_metabolism • cosmos</title>
+<title>run COSMOS signaling to metabolism — run_COSMOS_signaling_to_metabolism • cosmosR</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -47,11 +47,11 @@
 
 
 <meta property="og:title" content="run COSMOS signaling to metabolism — run_COSMOS_signaling_to_metabolism" />
-<meta property="og:description" content="runs COSMOS from signaling to metabolism. This function finds a subset of the
-prior knowledge network based on optimisation that (1) includes the most 
-measured and input nodes and (2) which is in agreement with the data. 
-Use preprocess_COSMOS_signaling_to_metabolism to prepare 
-inputs, measurements and prior knowledge network." />
+<meta property="og:description" content="Runs COSMOS from signaling to metabolism.  This function uses CARNIVAL to find
+a subset of the prior knowledge network based on optimisation that (1) 
+includes the most measured and input nodes and (2) which is in agreement with
+the data.  Use preprocess_COSMOS_signaling_to_metabolism to
+prepare inputs, measurements and prior knowledge network." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -101,8 +101,8 @@ inputs, measurements and prior knowledge network." />
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">cosmos</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
+        <a class="navbar-link" href="../index.html">cosmosR</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2</span>
       </span>
     </div>
 
@@ -119,7 +119,7 @@ inputs, measurements and prior knowledge network." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/tutorial.html">UNKNOWN TITLE</a>
+      <a href="../articles/tutorial.html">COSMOS-tutorial</a>
     </li>
   </ul>
 </li>
@@ -130,19 +130,19 @@ inputs, measurements and prior knowledge network." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/saezlab/COSMOS/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="https://twitter.com/saezlab">
-    <span class="fab fa fab fa-twitter fa-lg"></span>
+    <span class="fab fa-twitter fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../www.saezlab.org">
-    <span class="fas fa fas fa-university"></span>
+    <span class="fas fa-university"></span>
      
   </a>
 </li>
@@ -165,17 +165,16 @@ inputs, measurements and prior knowledge network." />
     </div>
 
     <div class="ref-description">
-    <p>runs COSMOS from signaling to metabolism. This function finds a subset of the
-prior knowledge network based on optimisation that (1) includes the most 
-measured and input nodes and (2) which is in agreement with the data. 
-Use <code><a href='preprocess_COSMOS_signaling_to_metabolism.html'>preprocess_COSMOS_signaling_to_metabolism</a></code> to prepare 
-inputs, measurements and prior knowledge network.</p>
+    <p>Runs COSMOS from signaling to metabolism.  This function uses CARNIVAL to find
+a subset of the prior knowledge network based on optimisation that (1) 
+includes the most measured and input nodes and (2) which is in agreement with
+the data.  Use <code><a href='preprocess_COSMOS_signaling_to_metabolism.html'>preprocess_COSMOS_signaling_to_metabolism</a></code> to
+prepare inputs, measurements and prior knowledge network.</p>
     </div>
 
     <pre class="usage"><span class='fu'>run_COSMOS_signaling_to_metabolism</span><span class='op'>(</span>
   <span class='va'>data</span>,
-  CARNIVAL_options <span class='op'>=</span> <span class='fu'><a href='default_CARNIVAL_options.html'>default_CARNIVAL_options</a></span><span class='op'>(</span><span class='op'>)</span>,
-  test_run <span class='op'>=</span> <span class='cn'>FALSE</span>
+  CARNIVAL_options <span class='op'>=</span> <span class='fu'><a href='default_CARNIVAL_options.html'>default_CARNIVAL_options</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -183,26 +182,74 @@ inputs, measurements and prior knowledge network.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p><code><a href='cosmos_data.html'>cosmos_data</a></code> object. Use the <code><a href='preprocess_COSMOS_signaling_to_metabolism.html'>preprocess_COSMOS_signaling_to_metabolism</a></code>
-function to create one.</p></td>
+      <td><p><code><a href='cosmos_data.html'>cosmos_data</a></code> object.  Use the
+<code><a href='preprocess_COSMOS_signaling_to_metabolism.html'>preprocess_COSMOS_signaling_to_metabolism</a></code> function to create
+an instance.</p></td>
     </tr>
     <tr>
       <th>CARNIVAL_options</th>
-      <td><p>list that controls the options of CARNIVAL. See details 
-in <code><a href='default_CARNIVAL_options.html'>default_CARNIVAL_options()</a></code>.</p></td>
+      <td><p>List that controls the options of CARNIVAL. See 
+details in <code><a href='default_CARNIVAL_options.html'>default_CARNIVAL_options</a></code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>list with the following elements:
-- `aggregated_network` the averaged networks found by optimization in a 
-format of a Simple Interaction network, i.e. each row codes an edge
-- `N_networks`: number of solutions found by the optimization
-- `aggregated_network_node_attributes`: estimated node properties
-- `individual_networks`: list of optimial networks found
-- `individual_networks_node_attributes`: node activity in each network.</p>
+    <p>List with the following elements:</p><dl>
+    <dt><code>weightedSIF</code></dt><dd><p>The averaged networks found by 
+    optimization in a format of a Simple Interaction network, i.e. each row 
+    codes an edge</p></dd>
+    <dt><code>N_networks</code></dt><dd><p>Number of solutions found by the 
+    optimization</p></dd>
+    <dt><code>nodesAttributes</code></dt><dd><p>Estimated node properties</p></dd>
+    <dt><code>individual_networks</code></dt><dd><p>List of optimial networks found</p></dd>
+    <dt><code>individual_networks_node_attributes</code></dt><dd><p>Node activity in each
+    network</p></dd>
+  
+</dl>
 
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='preprocess_COSMOS_metabolism_to_signaling.html'>preprocess_COSMOS_metabolism_to_signaling</a></code>,  
+  <code><a href='https://rdrr.io/pkg/CARNIVAL/man/runCARNIVAL.html'>runCARNIVAL</a></code>, <code><a href='cosmos_data.html'>cosmos_data</a></code></p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>CARNIVAL_options</span> <span class='op'>&lt;-</span> <span class='fu'>cosmosR</span><span class='fu'>::</span><span class='fu'><a href='default_CARNIVAL_options.html'>default_CARNIVAL_options</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>CARNIVAL_options</span><span class='op'>$</span><span class='va'>solver</span> <span class='op'>&lt;-</span> <span class='st'>"lpSolve"</span>
+<span class='va'>test_for</span> <span class='op'>&lt;-</span> <span class='fu'><a href='preprocess_COSMOS_signaling_to_metabolism.html'>preprocess_COSMOS_signaling_to_metabolism</a></span><span class='op'>(</span>meta_network <span class='op'>=</span> <span class='va'>toy_network</span>,
+signaling_data <span class='op'>=</span> <span class='va'>toy_signaling_input</span>,
+metabolic_data <span class='op'>=</span> <span class='va'>toy_metabolic_input</span>,
+diff_expression_data <span class='op'>=</span> <span class='va'>toy_RNA</span>,
+maximum_network_depth <span class='op'>=</span> <span class='fl'>15</span>,
+remove_unexpressed_nodes <span class='op'>=</span> <span class='cn'>TRUE</span>,
+CARNIVAL_options <span class='op'>=</span> <span class='va'>CARNIVAL_options</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>'select()' returned 1:1 mapping between keys and columns</span></div><div class='output co'>#&gt; <span class='message'>'select()' returned 1:many mapping between keys and columns</span></div><div class='output co'>#&gt; [1] "COSMOS: all 2 signaling nodes from data were found in the meta PKN"
+#&gt; [1] "COSMOS: all 3 metabolic nodes from data were found in the meta PKN"
+#&gt; [1] "COSMOS: 4653 of the 15919 genes in expression data were found as transcription factor target"
+#&gt; [1] "COSMOS: 4653 of the 5303 transcription factor targets were found in expression data"
+#&gt; [1] "COSMOS: removing unexpressed nodes from PKN..."
+#&gt; [1] "COSMOS: 0 interactions removed"
+#&gt; [1] "COSMOS: removing nodes that are not reachable from inputs within 15 steps"
+#&gt; [1] "COSMOS: 10 from  19 interactions are removed from the PKN"
+#&gt; [1] "COSMOS: 1 input/measured nodes are not in PKN any more: XMetab__190___c____ and 0 more."
+#&gt; [1] "COSMOS: removing nodes that are not observable by measurements within 15 steps"
+#&gt; [1] "COSMOS: 0 from  9 interactions are removed from the PKN"
+#&gt; [1] "COSMOS:  1 interactions are removed from the PKN based on consistency check between TF activity and gene expression"
+#&gt; [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."
+#&gt; [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</div><div class='output co'>#&gt; <span class='message'>Writing constraints...</span></div><div class='output co'>#&gt; <span class='message'>Solving LP problem...</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Column specification</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span><span></span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  `enter Problem` = </span><span style='color: #BB0000;'>col_character()</span><span></span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; [1] "COSMOS:  0 interactions are removed from the PKN based on consistency check between TF activity and gene expression"</div><div class='output co'>#&gt; <span class='message'>COSMOS: The following signaling nodes are not found in the PKN and will be removed from input: X3725 and 0 more.</span></div><div class='output co'>#&gt; [1] "COSMOS: all 2 metabolic nodes from data were found in the meta PKN"
+#&gt; [1] "COSMOS: 4653 of the 15919 genes in expression data were found as transcription factor target"
+#&gt; [1] "COSMOS: 4653 of the 5303 transcription factor targets were found in expression data"</div><div class='input'><span class='va'>test_result_for</span> <span class='op'>&lt;-</span> <span class='fu'>run_COSMOS_signaling_to_metabolism</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>test_for</span>,
+CARNIVAL_options <span class='op'>=</span> <span class='va'>CARNIVAL_options</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</div><div class='output co'>#&gt; <span class='message'>Input nodes should have values from {-1, 0, 1}. We discretize your input with sign().</span></div><div class='output co'>#&gt; [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</div><div class='output co'>#&gt; <span class='message'>Writing constraints...</span></div><div class='output co'>#&gt; <span class='message'>Solving LP problem...</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Column specification</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span><span></span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  `enter Problem` = </span><span style='color: #BB0000;'>col_character()</span><span></span>
+#&gt; <span class='message'>)</span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -214,7 +261,7 @@ format of a Simple Interaction network, i.e. each row codes an edge
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by Aurélien Dugourd, Attila Gabor.</p></p>
+  <p><p>Developed by Aurélien Dugourd, Attila Gabor, Katharina Zirngibl.</p></p>
 </div>
 
 <div class="pkgdown">

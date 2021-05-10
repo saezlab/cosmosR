@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>load transcription factor regulon — load_tf_regulon_dorothea • cosmos</title>
+<title>load transcription factor regulon — load_tf_regulon_dorothea • cosmosR</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -98,8 +98,8 @@ gene symbols to EntrezID using org.Hs.eg.db" />
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">cosmos</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
+        <a class="navbar-link" href="../index.html">cosmosR</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.2</span>
       </span>
     </div>
 
@@ -116,7 +116,7 @@ gene symbols to EntrezID using org.Hs.eg.db" />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/tutorial.html">UNKNOWN TITLE</a>
+      <a href="../articles/tutorial.html">COSMOS-tutorial</a>
     </li>
   </ul>
 </li>
@@ -127,19 +127,19 @@ gene symbols to EntrezID using org.Hs.eg.db" />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/saezlab/COSMOS/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="https://twitter.com/saezlab">
-    <span class="fab fa fab fa-twitter fa-lg"></span>
+    <span class="fab fa-twitter fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../www.saezlab.org">
-    <span class="fas fa fas fa-university"></span>
+    <span class="fas fa-university"></span>
      
   </a>
 </li>
@@ -186,12 +186,28 @@ package for further details.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>returns a PKN of a form of a data table. Each row is an interaction.
-Columns names are:
-- `tf` transcription factor
+Columns names are:</p>
+<p>- `tf` transcription factor
 - `confidence` class of confidence
 - `target` target gene
 - `sign` indicates if interaction is up (1) or down-regulation (-1).</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>load_tf_regulon_dorothea</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>'select()' returned 1:1 mapping between keys and columns</span></div><div class='output co'>#&gt; <span class='message'>'select()' returned 1:many mapping between keys and columns</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 13,185 x 3</span><span>
+#&gt;    tf     sign target
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> X196      1 X1543 
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> X196      1 X1544 
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> X196      1 X1545 
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> X196      1 X2353 
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> X196      1 X4609 
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> X196      1 X54578
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> X196      1 X50807
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> X196      1 X2078 
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> X196      1 X9686 
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> X196      1 X55843
+#&gt; </span><span style='color: #949494;'># … with 13,175 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -203,7 +219,7 @@ Columns names are:
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by Aurélien Dugourd, Attila Gabor.</p></p>
+  <p><p>Developed by Aurélien Dugourd, Attila Gabor, Katharina Zirngibl.</p></p>
 </div>
 
 <div class="pkgdown">

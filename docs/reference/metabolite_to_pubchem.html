@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>convert gene symbols to entrez id — convert_genesymbols_to_entrezid • cosmosR</title>
+<title>Metabolite-PubChem CID Mapping — metabolite_to_pubchem • cosmosR</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,9 @@
 
 
 
-<meta property="og:title" content="convert gene symbols to entrez id — convert_genesymbols_to_entrezid" />
-<meta property="og:description" content="convert gene symbols to entrez id" />
+<meta property="og:title" content="Metabolite-PubChem CID Mapping — metabolite_to_pubchem" />
+<meta property="og:description" content="Mapping between metabolite names and PubChem CIDs obtained from the recon3D
+metabolic model.  Combined table version from the recon3D matlab object." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -155,37 +156,39 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>convert gene symbols to entrez id</h1>
-    <small class="dont-index">Source: <a href='https://github.com/saezlab/COSMOS/blob/master/R/convert_genesymbols_to_entrezid.R'><code>R/convert_genesymbols_to_entrezid.R</code></a></small>
-    <div class="hidden name"><code>convert_genesymbols_to_entrezid.Rd</code></div>
+    <h1>Metabolite-PubChem CID Mapping</h1>
+    <small class="dont-index">Source: <a href='https://github.com/saezlab/COSMOS/blob/master/R/metabolite_to_pubchem.R'><code>R/metabolite_to_pubchem.R</code></a></small>
+    <div class="hidden name"><code>metabolite_to_pubchem.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>convert gene symbols to entrez id</p>
+    <p>Mapping between metabolite names and PubChem CIDs obtained from the recon3D
+metabolic model.  Combined table version from the recon3D matlab object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>convert_genesymbols_to_entrezid</span><span class='op'>(</span><span class='va'>symbols</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='va'>metabolite_to_pubchem</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>symbols</th>
-      <td><p>vector of genesymbols</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>data.frame with human gene ENTREZID and SYMBOL mapping</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <p>An object of class &#8220;<code>data.frame</code>&#8221; with 1131 rows (metabolites) 
+  and two variables:</p><dl>
+    <dt><code>name</code></dt><dd><p>Metabolite name synonym</p></dd>
+    <dt><code>pubchem</code></dt><dd><p>Pubchem CID</p></dd>
+  
+</dl>
 
-    <div class='dont-index'><p><code><a href='convert_ensembl_to_entrezid.html'>convert_ensembl_to_entrezid</a></code></p></div>
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p><a href='https://www.vmh.life/#downloadview'>https://www.vmh.life/#downloadview</a>, downloaded on Feb 19th, 2018.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Brunk, E. et al. (2018) <em>Nature Biotechnology</em>. <b>36</b>(3), 272--281.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>symbols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"MDH1"</span>, <span class='st'>"PARP1"</span>, <span class='st'>"IL6"</span><span class='op'>)</span>
-<span class='va'>symbol_entrez_map</span> <span class='op'>&lt;-</span> <span class='fu'>convert_genesymbols_to_entrezid</span><span class='op'>(</span><span class='va'>symbols</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>'select()' returned 1:1 mapping between keys and columns</span></div></pre>
+    <pre class="examples"><div class='input'><span class='va'>metab_to_pub</span> <span class='op'>=</span> <span class='va'>metabolite_to_pubchem</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
