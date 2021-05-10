@@ -29,7 +29,6 @@ BugReports: https://github.com/saezlab/COSMOS/issues
 Depends: R (>= 4.1)
 License: GPL-3
 Encoding: UTF-8
-LazyData: true
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 Imports:
