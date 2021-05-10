@@ -3,9 +3,9 @@ title: "COSMOS-tutorial"
 author: "A. Dugourd, A. Gabor and K. Zirngibl"
 date: "11/10/2020"
 output:
-  html_document: default
-  pdf_document: 
-    df_print: paged
+  html_document: 
+    toc: true
+    toc_depth: 2
 vignette: >
   %\VignetteIndexEntry{cosmosR tutorial}
   %\VignetteEncoding{UTF-8}
@@ -15,6 +15,16 @@ vignette: >
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+## Installation
+
+Please install the package from Bioconductor by typing: 
+```{r, eval=FALSE}
+if(!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("cosmosR")
+```
+
+
 
 ## Introduction
 
