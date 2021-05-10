@@ -4,3 +4,4 @@
 ^pkgdown$
 cosmos_cache
 docs
+^\.github$
