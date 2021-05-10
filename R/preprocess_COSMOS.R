@@ -10,8 +10,8 @@
 #' CARNIVAL and the interactions between TF and genes are filtered again. 
 #' 
 #' @param meta_network prior knowledge network. By default COSMOS use a PKN 
-#' derived from Omnipath, STITCHdb and Recon3D. See details on the function 
-#' \cite{\code{load_meta_pkn}}.
+#' derived from Omnipath, STITCHdb and Recon3D. See details on the data 
+#' \code{\link{meta_network}}.
 #' @param tf_regulon collection of transcription factor - target interactions.
 #' A default collection from dorothea can be obtained by the 
 #' \code{\link{load_tf_regulon_dorothea}} function.

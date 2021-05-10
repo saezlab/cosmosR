@@ -23,7 +23,7 @@ The network data are available on github:
   exemplary nodes.
 }
 \usage{
-toy_network
+data(toy_network)
 }
 \description{
 This signaling network is the reduced COSMOS network solution obtained in the

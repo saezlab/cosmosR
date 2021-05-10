@@ -7,7 +7,7 @@
 #'
 #' @docType data
 #'
-#' @usage toy_signaling_input
+#' @usage data(toy_signaling_input)
 #'
 #' @format  An object of class \dQuote{\code{data.frame}} containing the normalised
 #'   enrichment scores (NES) of 2 signaling proteins, which are named with their

@@ -7,7 +7,7 @@
 #' 
 #' @docType data
 #'
-#' @usage meta_network
+#' @usage data(meta_network)
 #'
 #' @format An object of class \dQuote{\code{tibble}} with 117065 rows
 #'   (interactions) and three variables:

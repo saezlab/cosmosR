@@ -28,7 +28,7 @@ Default resource collection of OmniPath:
   version of Feb 5th, 2020.
 }
 \usage{
-omnipath_ptm
+data(omnipath_ptm)
 }
 \description{
 Collection of annotated enzyme-substrate post translational modifications

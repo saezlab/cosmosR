@@ -6,7 +6,7 @@
 #'
 #' @docType data
 #'
-#' @usage toy_metabolic_input
+#' @usage data(toy_metabolic_input)
 #'
 #' @format An object of class \dQuote{\code{numeric}} containing the t-values of
 #'   3 metabolites, which are named with metabolite PubChem CIDs matching the

@@ -12,7 +12,7 @@ An object of class \dQuote{\code{numeric}} containing the t-values of
 \url{https://github.com/saezlab/COSMOS_MSB/blob/main/data/RNA_ttop_tumorvshealthy.csv}
 }
 \usage{
-toy_RNA
+data(toy_RNA)
 }
 \description{
 This exemplary transcription data are the differential expression results
