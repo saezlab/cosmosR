@@ -1,3 +1,4 @@
-# cosmos (0.99.0)
-* Submission to bioRxiv
-* Release of github page
+
+Changes in version 0.99.0 2021-04-23
++ Submitted to Bioconductor
+
