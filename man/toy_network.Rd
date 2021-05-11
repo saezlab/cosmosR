@@ -31,7 +31,7 @@ case study of the COSMOS paper.  Here, this network solution is reused as an
 exemplary input prior knowledge network (PKN).
 }
 \examples{
-toy_pkn = toy_network
+data(toy_network)
 
 }
 \references{

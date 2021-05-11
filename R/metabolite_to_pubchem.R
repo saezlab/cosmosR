@@ -21,7 +21,7 @@
 #' }
 #' 
 #' @examples
-#' metab_to_pub = metabolite_to_pubchem
+#' data(metabolite_to_pubchem)
 #' 
 #' @keywords datasets
 "metabolite_to_pubchem"

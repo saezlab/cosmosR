@@ -19,9 +19,9 @@ preprocess_COSMOS_signaling_to_metabolism(
 )
 }
 \arguments{
-\item{meta_network}{prior knowledge network. By default COSMOS use a PKN 
-derived from Omnipath, STITCHdb and Recon3D. See details on the data 
-\code{\link{meta_network}}.}
+\item{meta_network}{prior knowledge network (PKN). A PKN released with COSMOS
+and derived from Omnipath, STITCHdb and Recon3D can be used. See details on 
+the data \code{\link{meta_network}}.}
 
 \item{tf_regulon}{collection of transcription factor - target interactions.
 A default collection from dorothea can be obtained by the 

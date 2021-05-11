@@ -35,7 +35,7 @@ Collection of annotated enzyme-substrate post translational modifications
 obtained from OmniPath.
 }
 \examples{
-omnipath_ptm = omnipath_ptm
+data(omnipath_ptm)
 
 }
 \references{

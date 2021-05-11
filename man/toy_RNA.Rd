@@ -19,7 +19,7 @@ This exemplary transcription data are the differential expression results
 analysed in the case study of the COSMOS paper.
 }
 \examples{
-toy_transcription_input = toy_RNA
+data(toy_RNA)
 
 }
 \references{

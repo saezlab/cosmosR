@@ -30,7 +30,7 @@
 #' }
 #' 
 #' @examples
-#' meta_pkn = meta_network
+#' data(meta_network)
 #' 
 #' @keywords datasets
 "meta_network"

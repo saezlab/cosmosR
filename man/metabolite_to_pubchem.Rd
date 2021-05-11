@@ -23,7 +23,7 @@ Mapping between metabolite names and PubChem CIDs obtained from the recon3D
 metabolic model.  Combined table version from the recon3D matlab object.
 }
 \examples{
-metab_to_pub = metabolite_to_pubchem
+data(metabolite_to_pubchem)
 
 }
 \references{

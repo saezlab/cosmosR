@@ -19,7 +19,7 @@
 #' }
 #' 
 #' @examples
-#' toy_transcription_input = toy_RNA
+#' data(toy_RNA)
 #' 
 #' @keywords datasets
 "toy_RNA"

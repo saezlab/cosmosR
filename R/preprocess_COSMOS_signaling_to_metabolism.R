@@ -8,9 +8,9 @@
 #' Optionally, further TF activities are estimated via network optimization via
 #' CARNIVAL and the interactions between TF and genes are filtered again. 
 #' 
-#' @param meta_network prior knowledge network. By default COSMOS use a PKN 
-#' derived from Omnipath, STITCHdb and Recon3D. See details on the data 
-#' \code{\link{meta_network}}.
+#' @param meta_network prior knowledge network (PKN). A PKN released with COSMOS
+#' and derived from Omnipath, STITCHdb and Recon3D can be used. See details on 
+#' the data \code{\link{meta_network}}.
 #' @param tf_regulon collection of transcription factor - target interactions.
 #' A default collection from dorothea can be obtained by the 
 #' \code{\link{load_tf_regulon_dorothea}} function.
@@ -43,7 +43,8 @@
 #' and checks the consistency between the estimated activity and change in gene 
 #' expression. Removes interactions where TF and gene expression are inconsistent 
 #' @param CARNIVAL_options list that controls the options of CARNIVAL. See details 
-#'  in \code{\link{default_CARNIVAL_options}}. 
+#'  in \code{\link{default_CARNIVAL_options}}.
+#' @importFrom utils data
 #' @export
 #' @return cosmos_data object with the following fields:
 #'   \describe{
@@ -88,7 +89,6 @@ preprocess_COSMOS_signaling_to_metabolism <- function(meta_network = meta_networ
                               filter_tf_gene_interaction_by_optimization = TRUE,
                               CARNIVAL_options = default_CARNIVAL_options()){
     
-    data(meta_network)
     out_data <- preprocess_COSMOS_core(meta_network = meta_network,
                                        tf_regulon = tf_regulon,
                                        signaling_data=signaling_data,

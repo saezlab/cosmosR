@@ -23,7 +23,7 @@ in the case study of the COSMOS paper.  The subset contains a random selection
 of signaling proteins present in the toy network.
 }
 \examples{
-toy_signaling_input = toy_signaling_input
+data(toy_signaling_input)
 
 }
 \references{
