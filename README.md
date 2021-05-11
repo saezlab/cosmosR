@@ -17,19 +17,19 @@ You can also use COSMOS if you don't have metabolomic data, to connect TF activi
 
 <img src="inst/figures/graphical_abstract.png" align="center" width="800">
 
-## Tutorial
 
-Instal the package (from github with devtools) :
-
+## Installation
 ```r
-## If needed instal devtool package
-install.packages("devtools")
+# install from bioconductor
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
 
-## instal COSMOS
-devtools::install_github("saezlab/COSMOS")
+BiocManager::install("cosmosR")
+
+# install the development version from GitHub
+# install.packages("remotes")
+remotes::install_github("saezlab/cosmosR")
 ```
-
-- Curently avalaible tutorial as self contained R script: https://github.com/saezlab/COSMOS/blob/master/vignettes/tutorial.Rmd
 
 ## Access
 
