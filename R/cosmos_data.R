@@ -137,8 +137,9 @@ cosmos_data <- function(meta_network,
     missing_nodes <- signaling_nodes[!signaling_nodes %in% c(meta_network$source,
                                                              meta_network$target)]
     if(length(missing_nodes)>0){
-        message("COSMOS: ", paste("The following signaling nodes are not found in the PKN and will be removed from input:",
-                                  limit_string_vec(missing_nodes)))
+        message_missing_nodes <- paste("The following signaling nodes are not found in the PKN and will be removed from input:",
+                                       limit_string_vec(missing_nodes))
+        message("COSMOS: ", message_missing_nodes)
         signaling_data <- signaling_data[signaling_nodes != missing_nodes]
         
         
@@ -153,8 +154,9 @@ cosmos_data <- function(meta_network,
                                                              meta_network$target)]
     if(length(missing_nodes)>0){
         
-        message("COSMOS: ", paste("The following metabolic nodes are not found in the PKN and will be removed from input:",
-                                  limit_string_vec(missing_nodes)))
+        message_missing_nodes <- paste("The following metabolic nodes are not found in the PKN and will be removed from input:",
+                                       limit_string_vec(missing_nodes))
+        message("COSMOS: ", message_missing_nodes)
         # remove metabolic inputs not matching into the meta_network
         metabolic_data <- metabolic_data[metabolic_nodes != missing_nodes]
         
