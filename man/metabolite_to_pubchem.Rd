@@ -16,7 +16,7 @@ An object of class \dQuote{\code{data.frame}} with 1131 rows (metabolites)
 \url{https://www.vmh.life/#downloadview}, downloaded on Feb 19th, 2018.
 }
 \usage{
-metabolite_to_pubchem
+data(metabolite_to_pubchem)
 }
 \description{
 Mapping between metabolite names and PubChem CIDs obtained from the recon3D

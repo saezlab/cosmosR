@@ -14,7 +14,7 @@ Subset of:
   \url{https://github.com/saezlab/COSMOS_MSB/blob/main/data/signaling_input_COSMOS.csv}
 }
 \usage{
-toy_signaling_input
+data(toy_signaling_input)
 }
 \description{
 This signaling data are a subset of the footprint-based signaling activity

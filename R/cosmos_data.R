@@ -6,7 +6,7 @@
 #' Constructor. Should not be exported. The object is not validated.
 #' @param meta_network Prior knowledge network (PKN).  By default COSMOS use a 
 #'   PKN derived from Omnipath, STITCHdb and Recon3D. See details on the data 
-#'   \code{meta_network}.
+#'   \code{\link{meta_network}}.
 #' @param tf_regulon Collection of transcription factor - target interactions.
 #'   A default collection from dorothea can be obtained by the 
 #'   \code{\link{load_tf_regulon_dorothea}} function.
@@ -102,7 +102,7 @@ validate_cosmos_data <- function(x){
 #' 
 #' @param meta_network Prior knowledge network (PKN).  By default COSMOS use a
 #'   PKN derived from Omnipath, STITCHdb and Recon3D.  See details on the data 
-#'   \code{meta_network}.
+#'   \code{\link{meta_network}}.
 #' @param tf_regulon Collection of transcription factor - target interactions.  
 #'   A default collection from dorothea can be obtained by the 
 #'   \code{\link{load_tf_regulon_dorothea}} function.

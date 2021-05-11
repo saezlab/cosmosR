@@ -32,6 +32,10 @@ formats the network with readable names
 \examples{
 CARNIVAL_options <- cosmosR::default_CARNIVAL_options()
 CARNIVAL_options$solver <- "lpSolve"
+data(toy_network)
+data(toy_signaling_input)
+data(toy_metabolic_input)
+data(toy_RNA)
 test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_network,
 signaling_data = toy_signaling_input,
 metabolic_data = toy_metabolic_input,
@@ -42,6 +46,8 @@ CARNIVAL_options = CARNIVAL_options
 )
 test_result_for <- run_COSMOS_signaling_to_metabolism(data = test_for,
 CARNIVAL_options = CARNIVAL_options)
+data(metabolite_to_pubchem)
+data(omnipath_ptm)
 test_result_for <- format_COSMOS_res(test_result_for,
 metab_mapping = metabolite_to_pubchem,
 measured_nodes = unique(c(names(toy_metabolic_input),

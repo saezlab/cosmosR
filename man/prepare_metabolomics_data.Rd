@@ -12,7 +12,7 @@ used for the metabolic layer in COSMOS. The names of the vector
 should be PUBCHEM IDs.}
 
 \item{meta_network}{Prior knowledge network
-created with \code{meta_network}.}
+created with \code{data(meta_network)}.}
 }
 \value{
 A new vector ready to be used as COSMOS input.
@@ -29,7 +29,10 @@ optimization steps. It takes as input a vector with the metabolic
 # generate random t-values:
 t_values <- rnorm(10)
 # assign to metabolites with pubchem names
+data(metabolite_to_pubchem)
+metabolite_to_pubchem <- metabolite_to_pubchem
 names(t_values) <- metabolite_to_pubchem$pubchem[1:10]
 
-prepare_metabolomics_data(t_values,meta_network)
+data(meta_network)
+prepare_metabolomics_data(t_values, meta_network)
 }

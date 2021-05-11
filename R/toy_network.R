@@ -6,7 +6,7 @@
 #'
 #' @docType data
 #'
-#' @usage toy_network
+#' @usage data(toy_network)
 #'
 #' @format An object of class \dQuote{\code{data.frame}} with 19 rows
 #'   (interactions) and three variables:

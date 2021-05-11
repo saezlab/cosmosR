@@ -22,7 +22,7 @@ The network is available in Omnipath:
   \url{https://github.com/saezlab/Meta_PKN}.
 }
 \usage{
-meta_network
+data(meta_network)
 }
 \description{
 Comprehensive Prior Knowledge Network (PKN), which combines signaling and

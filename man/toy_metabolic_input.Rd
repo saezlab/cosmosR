@@ -14,7 +14,7 @@ Subset of:
   \url{https://github.com/saezlab/COSMOS_MSB/blob/main/data/metab_input_COSMOS.csv}
 }
 \usage{
-toy_metabolic_input
+data(toy_metabolic_input)
 }
 \description{
 This metabolic data are a subset from the metabolic measurements used as an

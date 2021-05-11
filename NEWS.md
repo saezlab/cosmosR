@@ -1,4 +1,7 @@
+## Changes in version 0.99.2 (2020-05-12)
 
-Changes in version 0.99.0 2021-04-23
-+ Submitted to Bioconductor
+---
 
+- Submitted to bioRxiv
+- Release of github page
+- Submitted to Bioconductor

@@ -5,7 +5,7 @@
 #' 
 #' @docType data
 #'
-#' @usage toy_RNA
+#' @usage data(toy_RNA)
 #'
 #' @format An object of class \dQuote{\code{numeric}} containing the t-values of
 #'   15919 genes, which are named with gene Entrez IDs matching the toy network.

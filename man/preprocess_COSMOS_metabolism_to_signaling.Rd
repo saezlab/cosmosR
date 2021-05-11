@@ -90,6 +90,10 @@ CARNIVAL and the interactions between TF and genes are filtered again.
 \examples{
 CARNIVAL_options <- cosmosR::default_CARNIVAL_options()
 CARNIVAL_options$solver <- "lpSolve"
+data(toy_network)
+data(toy_signaling_input)
+data(toy_metabolic_input)
+data(toy_RNA)
 test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_network,
 signaling_data = toy_signaling_input,
 metabolic_data = toy_metabolic_input,

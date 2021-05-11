@@ -62,7 +62,7 @@ In the next section, we prepare the input to run cosmosR
 The signaling inputs are the result of footprint based TF and kinase activity estiamtion
 For more info on TF activity estiamtion from transcriptomic data, see:https://github.com/saezlab/transcriptutorial (Especially chapter 4)
 
-Here we use of toy PKN, to see the full meta PKN, you can load it with load_meta_pkn()
+Here we use of toy PKN, to see the full meta PKN, you can load it with data(meta_network).
 
 The metabolites in the prior knowledge network are identified as XMetab__PUBCHEMid___compartment____ or XMetab__BIGGid___compartment____
 or example “XMetab__6804___m____”. The compartment code is the BIGG model standard (r, c, e, x, m, l, n, g). 
@@ -76,6 +76,10 @@ The differential experession data is used to filter out wrong TF-target interact
 The list of genes in the differential expression data will also be used as a reference to define which genes are expressed or not (all genes in the diff_expression_data are considered expressed, and genes that are no in diff_expression_data are removed from the network)
 
 ```{r, warning=FALSE, message=FALSE}
+data(toy_network)
+data(toy_signaling_input)
+data(toy_metabolic_input)
+data(toy_RNA)
 test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_network,
                                         signaling_data = toy_signaling_input,
                                         metabolic_data = toy_metabolic_input,
@@ -106,6 +110,8 @@ test_result_for <- run_COSMOS_signaling_to_metabolism(data = test_for,
 Finally, we process the results of the first cosmosR run, to translate gene names and metabolites name.
 
 ```{r, warning=FALSE, message=FALSE}
+data(metabolite_to_pubchem)
+data(omnipath_ptm)
 test_result_for <- format_COSMOS_res(test_result_for,
                                      metab_mapping = metabolite_to_pubchem,
                      measured_nodes = unique(c(names(toy_metabolic_input),

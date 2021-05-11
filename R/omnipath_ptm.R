@@ -5,7 +5,7 @@
 #'
 #' @docType data
 #'
-#' @usage omnipath_ptm
+#' @usage data(omnipath_ptm)
 #'
 #' @format An object of class \dQuote{\code{data.frame}} with 39201 rows (PTMs) 
 #'   and 12 variables:

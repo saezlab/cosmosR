@@ -35,7 +35,7 @@ devtools::install_github("saezlab/COSMOS")
 
 The meta PKN used with the biorXiv version of COSMOS is available [here](http://metapkn.omnipathdb.org/).
 
-An updated meta PKN is available with the package (using meta_network in R)
+An updated meta PKN is available with the package (using data(meta_network) in R)
 
 ## Citation
 If you use cosmosR for your research please cite the [original publication](https://www.embopress.org/doi/full/10.15252/msb.20209730): 

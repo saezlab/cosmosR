@@ -5,7 +5,7 @@
 #'
 #' @docType data
 #'
-#' @usage metabolite_to_pubchem
+#' @usage data(metabolite_to_pubchem)
 #'
 #' @format An object of class \dQuote{\code{data.frame}} with 1131 rows (metabolites) 
 #'   and two variables:
