@@ -16,6 +16,18 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Installation
+```r
+# install from bioconductor
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("cosmosR")
+
+# install the development version from GitHub
+# install.packages("remotes")
+remotes::install_github("saezlab/cosmosR")
+```
+
 ## Introduction
 
 COSMOS (Causal Oriented Search of Multi-Omic Space) is a method that integrates phosphoproteomics, transcriptomics, and metabolomics data sets. COSMOS leverages extensive prior knowledge of signaling pathways, metabolic networks, and gene regulation with computational methods to estimate activities of transcription factors and kinases as well as network-level causal reasoning. This pipeline can provide mechanistic explanations for experimental observations across multiple omic data sets.
