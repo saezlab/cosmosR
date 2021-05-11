@@ -31,7 +31,8 @@ translate_column <- function(sif_column,
                              metab_mapping,
                              gene_mapping)
 {
-  sif_column <- sapply(sif_column, function(x,
+  # sif_column_length <- length(sif_column)
+  sif_column <- vapply(sif_column, function(x,
                                             metab_mapping,
                                             gene_mapping)
     {
@@ -44,13 +45,13 @@ translate_column <- function(sif_column,
     {
       node <- cleanup_protein_node(node)
       
-      node$node <- unlist(sapply(node$node, function(x,
+      node$node <- unlist(vapply(node$node, function(x,
                                               gene_mapping)
         {
         return(ifelse(x %in% names(gene_mapping),
                       gene_mapping[x],
                       x))
-      },simplify = TRUE,
+      }, character(1),
       gene_mapping = gene_mapping, USE.NAMES = FALSE))
       
       node <- node[!is.na(node)]
@@ -63,13 +64,13 @@ translate_column <- function(sif_column,
     {
       node <- cleanup_metab_node(node)
       
-      node$node <- unlist(sapply(node$node, function(x,
+      node$node <- unlist(vapply(node$node, function(x,
                                                      metab_mapping)
       {
         return(ifelse(x %in% names(metab_mapping),
                       metab_mapping[x],
                       x))
-      },simplify = TRUE,
+      }, character(1),
       metab_mapping = metab_mapping, USE.NAMES = FALSE))
       
       node <- node[!is.na(node)]
@@ -78,7 +79,7 @@ translate_column <- function(sif_column,
     
     
       
-  }, simplify = TRUE, 
+  }, character(1), 
   metab_mapping = metab_mapping,
   gene_mapping = gene_mapping, USE.NAMES = FALSE)
   
