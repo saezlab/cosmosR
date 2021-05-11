@@ -35,10 +35,12 @@ check_network_data_coverage <- function(meta_network,
     signaling_nodes = names(signaling_data)
     missing_nodes <- signaling_nodes[!signaling_nodes %in% c(meta_network$source,
                                                              meta_network$target)]
+    
     if(length(missing_nodes)>0){
         
-        stop(paste("The following signaling nodes are not found in the PKN:",
-                   limit_string_vec(missing_nodes)))    
+        message_missing_nodes <- paste("The following signaling nodes are not found in the PKN:",
+                                       limit_string_vec(missing_nodes))
+        stop(message_missing_nodes)    
         
         
     }else{
@@ -52,8 +54,9 @@ check_network_data_coverage <- function(meta_network,
                                                              meta_network$target)]
     if(length(missing_nodes)>0){
         
-        stop(paste("The following metabolic nodes are not found in the PKN:",
-                   limit_string_vec(missing_nodes)))    
+        message_missing_nodes <- paste("The following signaling nodes are not found in the PKN:",
+                                       limit_string_vec(missing_nodes))
+        stop(message_missing_nodes)    
         
         
         

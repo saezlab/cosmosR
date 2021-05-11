@@ -15,7 +15,7 @@ convert_ensembl_to_entrezid <- function(ensembl){
     
     stopifnot(length(map_table) == length(ensembl))
     stopifnot(all(names(map_table) == ensembl))
-    if(any(is.na(map_table))) message("WARNING: some ensemble IDs were not found.")
+    if(any(is.na(map_table))) warning("some ensemble IDs were not found.")
     
     map_table
 }
