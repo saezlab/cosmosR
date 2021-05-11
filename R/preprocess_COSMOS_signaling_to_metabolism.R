@@ -88,6 +88,7 @@ preprocess_COSMOS_signaling_to_metabolism <- function(meta_network = meta_networ
                               filter_tf_gene_interaction_by_optimization = TRUE,
                               CARNIVAL_options = default_CARNIVAL_options()){
     
+    data(meta_network)
     out_data <- preprocess_COSMOS_core(meta_network = meta_network,
                                        tf_regulon = tf_regulon,
                                        signaling_data=signaling_data,
