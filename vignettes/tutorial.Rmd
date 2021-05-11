@@ -15,16 +15,18 @@ vignette: >
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-## Installation
 
-Please install the package from Bioconductor by typing: 
-```{r, eval=FALSE}
-if(!requireNamespace("BiocManager", quietly = TRUE))
+## Installation
+```{r eval=FALSE}
+# install from bioconductor
+if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("cosmosR")
+
+# install the development version from GitHub
+# install.packages("remotes")
+remotes::install_github("saezlab/cosmosR")
 ```
-
-
 
 ## Introduction
 
