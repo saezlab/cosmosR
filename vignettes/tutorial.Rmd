@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Installation
-```r
+```{r eval=FALSE}
 # install from bioconductor
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
