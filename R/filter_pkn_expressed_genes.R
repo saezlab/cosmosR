@@ -65,10 +65,10 @@ filter_pkn_expressed_genes <- function(expressed_genes_entrez,meta_pkn){
     
     # is_expressed("XGene3004__124975_91227")
     
-    meta_pkn$source <- vapply(meta_pkn$source,is_expressed,character(1))
+    meta_pkn$source <- sapply(meta_pkn$source,is_expressed)
     n_removed = sum(!stats::complete.cases(meta_pkn))
     meta_pkn <- meta_pkn[stats::complete.cases(meta_pkn),]
-    meta_pkn$target <- vapply(meta_pkn$target,is_expressed,character(1))
+    meta_pkn$target <- sapply(meta_pkn$target,is_expressed)
     meta_pkn <- meta_pkn[stats::complete.cases(meta_pkn),]
     n_removed = n_removed + sum(!stats::complete.cases(meta_pkn))
     print(paste("COSMOS:", n_removed, "interactions removed"))
