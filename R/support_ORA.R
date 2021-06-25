@@ -1,5 +1,3 @@
-##################### Supporting functions for ORA COSMOS ######################
-
 #Copyright (C) 2021  Caroline Lohoff, Aurelien Dugourd
 
 #based on "support_enrichment.R" from
@@ -20,18 +18,6 @@
 #You should have received a copy of the GNU General Public License
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-library(piano)
-library(biomaRt)  # interface to databases, e.g. Ensembl
-library(parallel)
-library(GSEABase)
-library(snowfall)
-library(readr)
-library(ggplot2)
-library(scales) 
-library(magrittr)
-library("org.Hs.eg.db")  # Genome wide annotation for human, based on mapping
-                         # using Entrez Gene identifiers
-
 
 #'\code{gmt_to_csv}
 #'
@@ -45,7 +31,8 @@ library("org.Hs.eg.db")  # Genome wide annotation for human, based on mapping
 #' will simply return a dataframe. If outfile is provided with a full length
 #' path name file, the dataframe will be written as a csv file to the path provided.
 #'@return a two column dataframe where the first column corresponds to omic
-#'features and the second column to associated terms.
+#'features and the second column to associated terms (pathways).
+#'@import GSEABase
 
 gmt_to_csv <- function(gmtfile, fast = T)
 {
@@ -84,197 +71,140 @@ gmt_to_csv <- function(gmtfile, fast = T)
 }
 
 
-#'\code{geneMapping}
-#'
-#'Function to map all genes from a list that was extracted from a network to
-#'Ensembl or ENTREZID identifiers.
-#'
-#'@param GenList  List of genes extracted from a network (genes as identifiers)
-#'@return List of genes (genes as names)
 
-geneMapping <- function(GenList){
-  
-  prots <- GenList[!grepl("XMetab",GenList)] # filter out metabolites
-  prots <- gsub("^X","",prots)
-  prots <- gsub("Gene[0-9]+__","",prots)
-  prots <- gsub("_reverse","",prots)
-  prots <- gsub("EXCHANGE.*","",prots)
-  prots <- unique(prots)
-  prots <- unlist(sapply(prots, function(x){unlist(strsplit(x,split = "_"))}))
-  
-  gene_mapping <- "else"
-  
-  if(gene_mapping == "ensembl")
-  {
-    ensembl = useEnsembl(biomart="ensembl", dataset="hsapiens_gene_ensembl")
-    
-    G_list <- getBM(filters = "entrezgene_id",
-                    attributes = c('hgnc_symbol','entrezgene_id', "description"),
-                    values = metabs, mart = ensembl)
-    gene_mapping <- G_list[,1]
-    names(gene_mapping) <- G_list[,2]
-    
-  } else
-  {
-    entrezid <- prots
-    gene_mapping <- mapIds(org.Hs.eg.db, entrezid, 'SYMBOL', 'ENTREZID')
-    gene_mapping <- unlist(gene_mapping)
-    gene_mapping <- gene_mapping[!is.na(gene_mapping)]
-  }
-  
-  output_list <- sapply(prots, function(x, translation_dictionary){
-    return(translation_dictionary[x])
-  },translation_dictionary = gene_mapping)
-  names(output_list) <- 1:length(output_list)
-  
-  output_list <- unique(output_list)
-  return(output_list)
-}
-
-
-
-#'\code{extractCOSMOSnodes}
+#'\code{extract_COSMOS_nodes}
 #'
 #'Function to extract the nodes that appear in the COSMOS output network and
 #'the background genes (all genes present in the prior knowledge network)
 #'
-#'@param CosmosResults  COSMOS output.
-#'@return List with 2 objects: the success and the background genes.
+#'@param CosmosResults  COSMOS output
+#'@return List with 2 objects: the success and the background genes
+#'@import magrittr
 
-extractCOSMOSnodes <- function(CosmosResults){
+extract_COSMOS_nodes <- function(CosmosResults){
   
-  ## 1. Extract all nodes from COSMOS's solution network
-  # extract network dataframe from Cosmos's output list
+  # Extract all nodes from COSMOS's solution network
   CosmosNetwork <- 
     as.data.frame(CosmosResults$weightedSIF, stringsAsFactors = FALSE)
-  # renaming of column names in df
-  colnames(CosmosNetwork) <- c("source", "sign", "target", "Weight")
+  colnames(CosmosNetwork) <- c("source", "sign", "target", "weight")
   
-  ## We define the set of nodes interesting for our condition
-  #  (if node is inhibited or activated is in this case not important, we only
-  #   want to get all nodes from Cosmos's solution network as a list)
-  # unique: we get every node exactly one time
+  # Remove all metabolites
+  CosmosNetwork <- CosmosNetwork[!grepl("Metab", CosmosNetwork$source), ]
+  CosmosNetwork <- CosmosNetwork[!grepl("Metab", CosmosNetwork$target), ]
+  
+  ## We define the set of unique nodes (genes) in the solution network
   sucesses <- unique(c(gsub("_.*","",CosmosNetwork$source), 
                        gsub("_.*","",CosmosNetwork$target)))
   
-  # Map all genes (kinase, enzyme, TF) to identifiers (code to name)
-  #sucesses_sol_net <- unique(c(CosmosNetwork$source,CosmosNetwork$target))
-  #sucesses_genes = geneMapping(sucesses_sol_net)
-  
-  # Map all metabolites
-  # sucesses_metabs = metaboliteMapping(sucesses_sol_net)
-  # sucesses = append(sucesses_genes, sucesses_metabs)
-  
-  
-  # Now we extract for each node the detailed activation or downregulation
-  # score and if the node is a TF or a perturbed node
-  CosmosAttributes <- as.data.frame(CosmosResults$nodesAttributes, 
-                                      stringsAsFactors = FALSE)
-  ## 2. Extract all nodes from PKN
-  # We define the background as all the genes in our prior knowledge network.
-  bg <- unique(gsub("_.*","",CosmosAttributes$Nodes)) 
-  
-  # Map all genes (kinase, enzyme, TF) to identifiers (code to name) 
-  #bg_sol_net <- unique(CosmosAttributes$Node) 
-  #bg_genes = geneMapping(bg_sol_net)
-  
-  # Map all metabolites
-  # bg_metabs = metaboliteMapping(bg_sol_net)
-  # bg = append(bg_genes, bg_metabs)
-  
+  # Extract all unique genes from PKN as background nodes 
+  Cosmos_attributes <- as.data.frame(CosmosResults$nodesAttributes, 
+                                     stringsAsFactors = FALSE)
+  Cosmos_attributes <- Cosmos_attributes[!grepl("Metab", Cosmos_attributes$Nodes), ]
+  bg <- unique(gsub("_.*","",Cosmos_attributes$Nodes)) 
+
   return(list(sucesses = sucesses, bg = bg))
-  # If mapping of identifiers was required
-  #return(list(sucesses = sucesses_genes, bg = bg_genes))
 }
 
 
 
-#'\code{plotPathways}
+#'\code{plot_pathways}
 #'
-#'Function to plot the pathways which are significantly overexpressed
+#'Function to display the most significantly over-expressed pathways sorted by
+#'their source (e.g. Reactome, Biocarta, etc.)
 #'
-#'@param sigPathwaysDf  Dataframe containing all significant pathways as a result of the ORA
-#'@return Bar plot of the most significant pathways
+#'@param sigPathwaysDf  Data frame containing all significant pathways as a result of the ORA
+#'@param cutoff number used as a filter criteria for p-value
+#'@return plot of the 5 most significant pathways per source
+#'@import ggplot2
+#'@import magrittr
+#'@import scales
+#'@export
 
-plotPathways <- function(sigPathwaysDf){
+plot_pathways <- function(sigPathwaysDf, cutoff){
 
-  #Prepare data for plotting
+  # Prepare data for plotting
   PathwaysSelect <- sigPathwaysDf %>%
     dplyr::select(pathway, `p-value`, `Adjusted p-value`) %>%
-    dplyr::filter(`Adjusted p-value` <= 0.001) %>%  
-    dplyr::rename(pvalue = `p-value`, AdjPvalu = `Adjusted p-value`) %>% 
+    dplyr::rename(pvalue = `p-value`, AdjPvalue = `Adjusted p-value`) %>% 
     dplyr::mutate(pathway = as.factor(pathway))
-
+  
   PathwaysSelect <- data.frame(t(apply(PathwaysSelect, 1, function(r){
-    aux = unlist(strsplit( sub("_",";", r["pathway"]), ";" ))
+    aux = unlist(strsplit(sub("_",";", r["pathway"]), ";" ))
     r["pathway"] = gsub("_", " ", aux[2])
     return(c(r, "source" = aux[1]))
   })))
-
-  colnames(PathwaysSelect) = c("pathway", "pvalue", "AdjPvalu", "source")
-  PathwaysSelect$AdjPvalu = as.numeric(PathwaysSelect$AdjPvalu)
-
-  ggdata = PathwaysSelect %>% 
-    dplyr::filter(AdjPvalu <= 0.05) %>% 
-    dplyr::group_by(source) %>% 
-    dplyr::arrange(AdjPvalu) %>%
-    dplyr::slice(1:5)
-
-  #Visualize top results
-  pathway_plot <- ggplot(ggdata, aes(y = reorder(pathway, AdjPvalu),
-                                     x = -log10(AdjPvalu)),
-                         color = source) + 
-                        geom_bar(stat = "identity") +
-                        facet_grid(source ~ ., scales="free_y") +
-                        ggtitle("Most Significant Pathways") +
-                        scale_x_continuous(
-                          expand = c(0.01, 0.01),
-                          limits = c(0, ceiling(max(-log10(PathwaysSelect$AdjPvalu)))),
-                          breaks = seq(floor(min(-log10(PathwaysSelect$AdjPvalu))),
-                                   ceiling(max(-log10(PathwaysSelect$AdjPvalu))), 3),
-                          labels = math_format(10^-.x)
-                        ) +
-                        annotation_logticks(sides = "bt") +
-                        theme_bw() +
-                        theme(axis.title = element_text(face = "bold", size = 12),
-                              axis.text.y = element_text(size = 6)) +
-                        ylab("")
-  ggsave("significant_pathways.png", plot = pathway_plot,
-         path = "results/", scale = 1, dpi = 300, limitsize = TRUE)
   
-  return(pathway_plot)
+  colnames(PathwaysSelect) <- c("pathway", "pvalue", "AdjPvalue", "source")
+  PathwaysSelect$AdjPvalue = as.numeric(PathwaysSelect$AdjPvalue)
+  PathwaysSelect$pvalue = as.numeric(PathwaysSelect$pvalue)
+  
+  PathwaysSelect$pathway <- tolower(PathwaysSelect$pathway)
+  PathwaysSelect$pathway <- gsub("(^|[[:space:]])([[:alpha:]])", "\\1\\U\\2",
+                                 PathwaysSelect$pathway, perl = TRUE)
+  
+  ggdata = PathwaysSelect %>% 
+    dplyr::filter(pvalue <= cutoff) %>% 
+    dplyr::group_by(source) %>% 
+    dplyr::arrange(pvalue) %>%
+    dplyr::slice(1:5)
+  
+  # Visualize top results
+  plot <- ggplot(ggdata, aes(y = reorder(pathway, pvalue),
+                             x = -log10(pvalue),
+                         color = source)) + 
+                 geom_bar(stat = "identity") +
+                 facet_grid(source ~ ., scales="free_y") +
+                 ggtitle("Most Significant Pathways By Source") +
+                 scale_x_continuous(
+                   expand = c(0.01, 0.01),
+                   limits = c(0, ceiling(max(-log10(PathwaysSelect$pvalue)))),
+                   breaks = seq(floor(min(-log10(PathwaysSelect$pvalue))),
+                                ceiling(max(-log10(PathwaysSelect$pvalue))), 3),
+                   labels = math_format(10^-.x)
+                 ) +
+                 annotation_logticks(sides = "bt") +
+                 theme_bw() +
+                 theme(axis.title = element_text(face = "bold", size = 12),
+                       axis.text.y = element_text(size = 10)) +
+                 ylab("")
+  
+#  ggsave("significant_pathways.png", plot = pathway_plot,
+#         path = "results/", scale = 1, dpi = 300, limitsize = TRUE)
+  
+  return(plot)
 }
 
 
-#'\code{plotPathways2}
+
+#'\code{top_pathways}
 #'
-#'Function to plot the pathways which are significantly overexpressed
+#'Function to plot the most significantly over-expressed pathways (max. 20)
+#'(regardless of source, e.g. Reactome, Biocarta)
 #'
-#'@param sigPathwaysDf  Dataframe containing all significant pathways as a result of the ORA
-#'@return Bar plot of the 20 most significant pathways
+#'@param sigPathwaysDf  Data frame containing all significant pathways as a result of the ORA
+#'@return Bar plot of the 20 most significant pathways by p-value
+#'@import ggplot2
+#'@export
 
-plotPathways2 <- function(sigPathwaysDf){
+top_pathways <- function(sigPathwaysDf){
 
-  # filtering out top 20 pathways by Adjusted p-value
-  sigPathwaysDf <- sigPathwaysDf[order(sigPathwaysDf$'Adjusted p-value'),]
-  top_hallmark <- sigPathwaysDf[1:20,c(7,1,2)] 
-  top_hallmark <- top_hallmark[order(top_hallmark$'p-value', decreasing = TRUE),]
-  
-  # write pathways with capital letter and without underscore & HALLMARK
-  top_hallmark$pathway <- gsub("HALLMARK","",top_hallmark$pathway)
-  top_hallmark$pathway <- tolower(top_hallmark$pathway)
-  top_hallmark$pathway <- gsub("(^|\\p{P})(.)",
-                                   "\\1\\U\\2",    
-                               top_hallmark$pathway, perl = TRUE)
-  top_hallmark$pathway <- gsub("_"," ",top_hallmark$pathway)
-  
-  top_hallmark$`p-value` <- -log10(top_hallmark$`p-value`)
-  top_hallmark$pathway <- factor(top_hallmark$pathway, levels = top_hallmark$pathway)
-  names(top_hallmark)[3] <- "-log10(p-value)"
+  # Filtering out top 20 pathways by p-value
+  sigPathwaysDf <- sigPathwaysDf[order(sigPathwaysDf$'p-value'),]
+  top_pathway <- sigPathwaysDf[1:20,c(1,2,3)] 
+  top_pathway <- top_pathway[order(top_pathway$'p-value', decreasing = TRUE),]
 
-  write_csv(top_hallmark,'results/top_pathways.csv')
+  # Write pathways with capital letter and without underscore
+  top_pathway$pathway <- gsub("_"," ",top_pathway$pathway)
+  top_pathway$pathway <- tolower(top_pathway$pathway)
+  top_pathway$pathway <- gsub("(^|\\p{P})(.)", "\\1\\U\\2",    
+                              top_pathway$pathway, perl = TRUE)
 
-  plot <- ggplot(top_hallmark, aes(x = pathway, y = `-log10(p-value)`,
+  # Calculate -log10(p-value)
+  top_pathway$`p-value` <- -log10(top_pathway$`p-value`)
+  top_pathway$pathway <- factor(top_pathway$pathway, levels = top_pathway$pathway)
+  names(top_pathway)[2] <- "-log10(p-value)"
+
+  plot <- ggplot(top_pathway, aes(x = pathway, y = `-log10(p-value)`,
                                    fill = `-log10(p-value)`)) + 
     geom_bar(stat = "identity") + 
     coord_flip() + 
@@ -282,8 +212,8 @@ plotPathways2 <- function(sigPathwaysDf){
     ggtitle("ORA TOP 20 PATHWAYS") +
     scale_fill_gradient(low="grey", high="darkred")
   
-  ggsave("top_pathways.png", plot = plot,
-         path = "results/", scale = 1, dpi = 300, limitsize = TRUE)
+#  ggsave("top_pathways.png", plot = plot,
+#         path = "results/", scale = 1, dpi = 300, limitsize = TRUE)
   
   return(plot)
 }

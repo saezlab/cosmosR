@@ -52,9 +52,11 @@ In this example, we will use the built-in solver lpSolve. User should be aware t
 
 ```{r, warning=FALSE, message=FALSE}
 CARNIVAL_options <- cosmosR::default_CARNIVAL_options()
+CARNIVAL_options$solverPath <- "C:/Program Files/CPLEX_solver/cplex/bin/x64_win64/cplex.exe"
+CARNIVAL_options$solver <- "cplex" #or cbc
 # CARNIVAL_options$solverPath <- "~/Documents/cplex"
 # CARNIVAL_options$solver <- "cplex" #or cbc
-CARNIVAL_options$solver <- "lpSolve" #or cbc
+# CARNIVAL_options$solver <- "lpSolve" #or cbc
 CARNIVAL_options$timelimit <- 3600
 CARNIVAL_options$mipGAP <- 0.05
 CARNIVAL_options$threads <- 2
@@ -207,7 +209,7 @@ whether the genes (nodes) in the COSMOS solution network show statistically
 significant differences in comparison to the prior-knowledge network (PKN). 
 
 In this way the significant differences between two biological conditions
-(e.g. cancer vs. normal tissue, or treatment vs. normal cells) can be shown.
+(e.g. cancer vs. normal tissue, or treatment vs. untreated cells) can be shown.
 The differentially expressed genes give information about the cellular
 processes that are deregulated and if the proportions in various pathways are
 SIGNIFICANTLY different from what is expected.
@@ -219,37 +221,42 @@ To perform the ORA, two different lists are required:
   network (which are used as the background in our analysis)
 
 ```{r, warning=FALSE, message=FALSE}
-source("./R/support_ORA.R")
+library(piano)
 
 cosmos_result <- list(weightedSIF = full_sif, nodesAttributes = full_attributes)
-
 
 ##Load all canonical pathways with annotated genes as Gene Symbols from MSigDB 
 #(https://www.gsea-msigdb.org/gsea/index.jsp)
 pathways = gmt_to_csv("./data/c2.cp.v7.4.symbols.gmt") 
 
 ## Extract nodes from COSMOS solution network and background as two lists
-nodes_cosmos = extractCOSMOSnodes(cosmos_result)
+#'(without metabolite nodes, for performing a metabolite enrichment analysis, see:
+#'https://github.com/saezlab/ocean/blob/master/tutorial_metabolite_enrichment_analysis.R)
+nodes_cosmos = extract_COSMOS_nodes(cosmos_result)
 
-# can be deleted later on
-nodes_bg <- c("PNP", "ACAA1", "ACO1", "Cis_Aconitate_m_", "Uridine_l_", "ADA",
-              "Inosine_e_", "AGER", "CSNK2A2", "DBF4B", "PIK3CA", "SMAD4", "AHCY",
-              "AKT3", "ESR1", "GATA2", "SMAD3", "SRPK2", "BTK", "CDK9", "MAPK8")
+##As toy data set is too small, we need more background genes
+nodes_bg <- c("PNP", "ACAA1", "ACO1", "ADA", "AGER", "CSNK2A2", "DBF4B",
+              "PIK3CA", "SMAD4", "AHCY", "AKT3", "ESR1", "GATA2", "SMAD3",
+              "SRPK2", "BTK", "CDK9", "MAPK8")
 nodes_cosmos$bg <- append(nodes_cosmos$bg,nodes_bg)
 
 # The gene set analysis (GSA) is based on a list of significant genes
-# (CARNIVAL nodes) and a gene set collection (background). 
+# (Cosmos nodes) and a gene set collection (background). 
 # We perform the GSA with Fisher's exact test (from piano package)
 sig_pathways <- runGSAhyper(genes = nodes_cosmos$sucesses, 
                             universe = nodes_cosmos$bg,
                             gsc = loadGSC(pathways),
                             adjMethod = "fdr")
 sig_pathways_df <- as.data.frame(sig_pathways$resTab)  %>% 
-  tibble::rownames_to_column(var = "pathway") 
+                   tibble::rownames_to_column(var = "pathway") 
 
-## Plot most significant pathways
-plot_pathways = plotPathways(sig_pathways_df)
-plot_pathways2 = plotPathways2(sig_pathways_df)
+## Plot most significant pathways based on p-value
+sig_pathways_plot = plot_pathways(sig_pathways_df,
+                                  cutoff = 0.08)  #p-value <= cutoff
+sig_pathways_plot
+
+top_pathways_barplot = top_pathways(sig_pathways_df)
+top_pathways_barplot
 ```
 
 ## Tutorial section: Highlight interesting pathways in Cytoscape network
@@ -259,20 +266,23 @@ the most significant pathway.
 The user has to define a set of interesting pathways which should be highlighted.
 
 ```{r, warning=FALSE, message=FALSE}
-source("./R/highlight_pathways.R")
+source("C:/Users/Admin/Documents/MASTER/4Semester/Internship_1_Saez-Rodriguez/Project_2_Highlight_interesting_pathways/OCEAN/cosmosR/R/highlight_pathways.R")
 
 #' - Look at result of ORA ("results/top_pathways.png") and select most significant pathways
 #' - Or choose pathways of interest in a specific disease, e.g. cancer
 ##These are the available pathways to choose from
 View(unique(recon2_redhuman$pathway))
 
-pathways_interesting <- c("KEGG_PANTOTHENATE_AND_COA_BIOSYNTHESIS", "BIOCARTA_CDMAC_PATHWAY",
+pathways_interesting <- c("KEGG_PANTOTHENATE_AND_COA_BIOSYNTHESIS",
+                          "BIOCARTA_CDMAC_PATHWAY",
                           "REACTOME_ANTI_INFLAMMATORY_RESPONSE_FAVOURING_LEISHMANIA_PARASITE_INFECTION")
 
-nodes_att_pathways <- highlightPathways(pathwaysMSigDB = pathways,
-                                    sigPathwaysDf = sig_pathways_df,
-                                    cosmosResults = cosmos_result,
-                                    pathwaysInt = pathways_interesting)
+##Choose "p-value" or "Adjusted p-value" as filterMethod
+nodes_att_pathways <- highlight_pathways(pathwaysMSigDB = pathways,
+                                        sigPathwaysDf = sig_pathways_df,
+                                        cosmosResults = cosmos_result,
+                                        pathwaysInt = pathways_interesting,
+                                        filterMethod = "p-value")
 ```
 
 ```{r, warning=FALSE, message=FALSE}
