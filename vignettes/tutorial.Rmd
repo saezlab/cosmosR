@@ -261,28 +261,31 @@ top_pathways_barplot
 
 ## Tutorial section: Highlight interesting pathways in Cytoscape network
 
-We can use the result from the ORA and map to every node in the solution network
-the most significant pathway. 
-The user has to define a set of interesting pathways which should be highlighted.
+We can use the result from the ORA and map the most significant pathway to every
+node (i.e. protein, enzyme, TF, kinase and metabolite) in the solution network
+(cosmos_result$nodesAttributes).
+The user has to define a set of interesting pathways to which a color will be 
+mapped. The border of a node in the solution network will be colored according 
+to the pathway the node belongs to.
 
 ```{r, warning=FALSE, message=FALSE}
-source("C:/Users/Admin/Documents/MASTER/4Semester/Internship_1_Saez-Rodriguez/Project_2_Highlight_interesting_pathways/OCEAN/cosmosR/R/highlight_pathways.R")
-
-#' - Look at result of ORA ("results/top_pathways.png") and select most significant pathways
+#' - Look at result of ORA and select the most significant pathways
 #' - Or choose pathways of interest in a specific disease, e.g. cancer
 ##These are the available pathways to choose from
-View(unique(recon2_redhuman$pathway))
+View(pathways)
 
-pathways_interesting <- c("KEGG_PANTOTHENATE_AND_COA_BIOSYNTHESIS",
-                          "BIOCARTA_CDMAC_PATHWAY",
-                          "REACTOME_ANTI_INFLAMMATORY_RESPONSE_FAVOURING_LEISHMANIA_PARASITE_INFECTION")
+pathways_interesting <- c("BIOCARTA_MAPK_PATHWAY",
+                          "KEGG_PANTOTHENATE_AND_COA_BIOSYNTHESIS",
+                          "REACTOME_LEISHMANIA_INFECTION",
+                          "WP_IL2_SIGNALING_PATHWAY")
 
-##Choose "p-value" or "Adjusted p-value" as filterMethod
+##Choose "p-value" or "Adjusted p-value" as filter method
 nodes_att_pathways <- highlight_pathways(pathwaysMSigDB = pathways,
-                                        sigPathwaysDf = sig_pathways_df,
-                                        cosmosResults = cosmos_result,
-                                        pathwaysInt = pathways_interesting,
-                                        filterMethod = "p-value")
+                                         sigPathwaysDf = sig_pathways_df,
+                                         cosmosResults = cosmos_result,
+                                         pathwaysInt = pathways_interesting,
+                                         filterMethod = "p-value")
+
 ```
 
 ```{r, warning=FALSE, message=FALSE}
