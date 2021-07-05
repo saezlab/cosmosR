@@ -19,22 +19,22 @@
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-#'\code{gmt_to_csv}
+#'\code{gmt_to_dataframe}
 #'
 #'This function is designed to convert a gmt file (gene set file from MSigDB)
-#'into a two column dataframe where the first column corresponds to omic features
-#'(genes) and the second column to associated terms (pathway the gene belongs to).
-#'One gene can belong to various pathways.
+#'into a two column data frame where the first column corresponds to omic
+#'features (genes) and the second column to associated terms (pathway the gene
+#'belongs to). One gene can belong to several pathways.
 #'
 #'@param gmtfile a full path name of the gmt file to be converted
 #'@param outfile an optional output file name. If none is provided, the function
-#' will simply return a dataframe. If outfile is provided with a full length
-#' path name file, the dataframe will be written as a csv file to the path provided.
-#'@return a two column dataframe where the first column corresponds to omic
+#' will simply return a data frame. If outfile is provided with a full length
+#' path name file, the data frame will be written as a csv file to the path provided.
+#'@return a two column data frame where the first column corresponds to omic
 #'features and the second column to associated terms (pathways).
 #'@import GSEABase
 
-gmt_to_csv <- function(gmtfile, fast = T)
+gmt_to_dataframe <- function(gmtfile, fast = T)
 {
   if(fast)
   {

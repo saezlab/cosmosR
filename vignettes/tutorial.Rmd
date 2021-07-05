@@ -227,7 +227,7 @@ cosmos_result <- list(weightedSIF = full_sif, nodesAttributes = full_attributes)
 
 ##Load all canonical pathways with annotated genes as Gene Symbols from MSigDB 
 #(https://www.gsea-msigdb.org/gsea/index.jsp)
-pathways = gmt_to_csv("./data/c2.cp.v7.4.symbols.gmt") 
+pathways = gmt_to_dataframe("./data/c2.cp.v7.4.symbols.gmt") 
 
 ## Extract nodes from COSMOS solution network and background as two lists
 #'(without metabolite nodes, for performing a metabolite enrichment analysis, see:
