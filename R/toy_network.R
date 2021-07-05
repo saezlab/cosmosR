@@ -30,7 +30,7 @@
 #' }
 #' 
 #' @examples
-#' toy_pkn = toy_network
+#' data(toy_network)
 #' 
 #' @keywords datasets
 "toy_network"

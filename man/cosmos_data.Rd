@@ -16,7 +16,7 @@ cosmos_data(
 \arguments{
 \item{meta_network}{Prior knowledge network (PKN).  By default COSMOS use a
 PKN derived from Omnipath, STITCHdb and Recon3D.  See details on the data 
-\code{meta_network}.}
+\code{\link{meta_network}}.}
 
 \item{tf_regulon}{Collection of transcription factor - target interactions.
 A default collection from dorothea can be obtained by the 

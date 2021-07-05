@@ -34,7 +34,7 @@
 #' }
 #' 
 #' @examples
-#' omnipath_ptm = omnipath_ptm
+#' data(omnipath_ptm)
 #' 
 #' @keywords datasets
 "omnipath_ptm"

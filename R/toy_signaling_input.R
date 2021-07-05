@@ -22,7 +22,7 @@
 #' }
 #' 
 #' @examples
-#' toy_signaling_input = toy_signaling_input
+#' data(toy_signaling_input)
 #' 
 #' @keywords datasets
 "toy_signaling_input"

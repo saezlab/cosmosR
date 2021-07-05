@@ -22,7 +22,7 @@ input in the case study of the COSMOS paper.  The subset contains a random
 selection of metabolites present in the toy network.
 }
 \examples{
-toy_metabolic_input = toy_metabolic_input
+data(toy_metabolic_input)
 
 }
 \references{

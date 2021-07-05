@@ -31,7 +31,7 @@ and STITCH metabolic networks as well as the signaling network from
 OmniPath.
 }
 \examples{
-meta_pkn = meta_network
+data(meta_network)
 
 }
 \references{

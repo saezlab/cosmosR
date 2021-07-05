@@ -21,7 +21,7 @@
 #' }
 #' 
 #' @examples
-#' toy_metabolic_input = toy_metabolic_input
+#' data(toy_metabolic_input)
 #' 
 #' @keywords datasets
 "toy_metabolic_input"

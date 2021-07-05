@@ -19,9 +19,9 @@ preprocess_COSMOS_signaling_to_metabolism(
 )
 }
 \arguments{
-\item{meta_network}{prior knowledge network. By default COSMOS use a PKN 
-derived from Omnipath, STITCHdb and Recon3D. See details on the data 
-\code{\link{meta_network}}.}
+\item{meta_network}{prior knowledge network (PKN). A PKN released with COSMOS
+and derived from Omnipath, STITCHdb and Recon3D can be used. See details on 
+the data \code{\link{meta_network}}.}
 
 \item{tf_regulon}{collection of transcription factor - target interactions.
 A default collection from dorothea can be obtained by the 
@@ -90,6 +90,10 @@ CARNIVAL and the interactions between TF and genes are filtered again.
 \examples{
 CARNIVAL_options <- cosmosR::default_CARNIVAL_options()
 CARNIVAL_options$solver <- "lpSolve"
+data(toy_network)
+data(toy_signaling_input)
+data(toy_metabolic_input)
+data(toy_RNA)
 test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_network,
 signaling_data = toy_signaling_input,
 metabolic_data = toy_metabolic_input,
