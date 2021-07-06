@@ -280,11 +280,11 @@ pathways_interesting <- c("BIOCARTA_MAPK_PATHWAY",
                           "WP_IL2_SIGNALING_PATHWAY")
 
 ##Choose "p-value" or "Adjusted p-value" as filter method
-nodes_att_pathways <- highlight_pathways(pathwaysMSigDB = pathways,
-                                         sigPathwaysDf = sig_pathways_df,
-                                         cosmosResults = cosmos_result,
-                                         pathwaysInt = pathways_interesting,
-                                         filterMethod = "p-value")
+cosmos_result$nodesAttributes <- highlight_pathways(pathwaysMSigDB = pathways,
+                                             sigPathwaysDf = sig_pathways_df,
+                                             cosmosResults = cosmos_result,
+                                             pathwaysInt = pathways_interesting,
+                                             filterMethod = "p-value")
 
 ```
 

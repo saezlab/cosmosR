@@ -44,7 +44,7 @@ create_metabolite_enzyme_df <- function(){
 
   ##Copy entries from Node1 and Node2 column to metabolite or enzyme column
 
-  for (i in 3:ncol(metabolites_enzymes)) #iterate through Node1 and Node2 column
+  for (i in 3:ncol(metabolites_enzymes))   #iterate through cols Node1 & Node2
   {
     for (j in 1:nrow(metabolites_enzymes)) #iterate through all rows
     {
@@ -57,8 +57,8 @@ create_metabolite_enzyme_df <- function(){
     }
   }
 
-  metabolites_enzymes <- metabolites_enzymes[, -c(3:4)]  #delete columns Node1 & Node2
-  metabolites_enzymes <- na.omit(metabolites_enzymes)    #remove rows containing NA
+  metabolites_enzymes <- metabolites_enzymes[, -c(3:4)] #delete cols Node1 & Node2
+  metabolites_enzymes <- na.omit(metabolites_enzymes)   #remove rows containing NA
 
  return(metabolites_enzymes)
 }
@@ -127,22 +127,23 @@ map_pathways_to_metabolites <- function(metab_df){
 
 #'\code{highlight_pathways}
 #'
-#'Function to map the most significant pathway to every node in the Cosmos solution network.
-#'This function can be used after an ORA has been performed.
+#'Function to map the most significant pathway to every node in the Cosmos
+#'solution network. This function can be used after an ORA has been performed.
 #'
-#'@param  pathwaysMSigDB Canonical pathways with annotated genes as Gene Symbols from MSigDB
-#'                       (example: c2.cp.v7.4.symbols.gmt)
-#'@param  sigPathwaysDf  Dataframe containing all significant pathways as a result of the ORA
-#'@param  cosmosResults  COSMOS output (list containing two dataframes: network and nodes attributes)
+#'@param  pathwaysMSigDB Canonical pathways with annotated genes as Gene Symbols 
+#'                       from MSigDB (example: c2.cp.v7.4.symbols.gmt)
+#'@param  sigPathwaysDf  Data frame containing all significant pathways (result of ORA)
+#'@param  cosmosResults  COSMOS output (list containing two data frames: network
+#'                       and nodes attributes)
 #'@param  pathwaysInt    Vector containing interesting pathways which should be
 #'                       highlighted in a visualized network (using Cytoscape)
-#'@param  filterMethod   "p-value" or "Adjusted p-value" can be used for filtering the hits                     
-#'@return Dataframe containing the nodes attributes of the Cosmos output and
-#'        additionally pathways for every node if applicable and colors
+#'@param  filterMethod   "p-value" or "Adjusted p-value" for filtering the hits                     
+#'@return modified nodesAttributes data frame from COSMOS output: the two columns
+#'        "pathway" and "column" were added to the existing nodes attributes
 #'@export
 
 highlight_pathways <- function(pathwaysMSigDB, sigPathwaysDf, cosmosResults,
-                              pathwaysInt, filterMethod){
+                               pathwaysInt, filterMethod){
   
   ##Function for adding new column for p-value by merging pathways data frame 
   # with result of ORA (sigPathwaysDf) by pathway column
@@ -182,8 +183,7 @@ highlight_pathways <- function(pathwaysMSigDB, sigPathwaysDf, cosmosResults,
   nodes_attributes_enzymes$ID <- 1:nrow(nodes_attributes_enzymes)
   
   ##Map most significant pathway per gene to COSMOS output
-  full_att_pathway_e = merge(nodes_attributes_enzymes[, c("Nodes", "measured",
-                                                          "type", "Activity", "ID")], 
+  full_att_pathway_e = merge(nodes_attributes_enzymes[, c(1:10)], 
                            pathways_nodes_unique[, c("gene", "pathway")], 
                            by.x = "Nodes",  #merging by nodes column
                            by.y = "gene",
@@ -212,8 +212,7 @@ highlight_pathways <- function(pathwaysMSigDB, sigPathwaysDf, cosmosResults,
   nodes_attributes_metabs <- nodes_attributes_metabs[nodes_attributes_metabs$type == "metabolite", ]
 
   ##Map most significant pathway per metabolite to COSMOS output
-  full_att_pathway_m = merge(nodes_attributes_metabs[, c("Nodes", "measured",
-                                                         "type", "Activity")], 
+  full_att_pathway_m = merge(nodes_attributes_metabs[, c(1:9)], 
                              metabs_pathways_unique[, c("metabolites", "pathway")], 
                              by.x = "Nodes",  #merging by nodes column
                              by.y = "metabolites",
