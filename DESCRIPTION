@@ -33,7 +33,6 @@ LazyData: false
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 Imports:
-    CARNIVAL (== 1.3.0),
     dorothea,
     igraph,
     dplyr,
@@ -53,5 +52,7 @@ Suggests:
     rmarkdown,
     GSEABase,
     piano
+Remotes:
+    bioc::3.12/CARNIVAL
 biocViews: CellBiology, Pathways, Network, Proteomics, Metabolomics, Transcriptomics,
     GeneSignaling
