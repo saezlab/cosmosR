@@ -26,9 +26,8 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 
 BiocManager::install("cosmosR")
 
-# install the development version from GitHub
-# install.packages("remotes")
-remotes::install_github("saezlab/cosmosR")
+#We advise to install the development version from GitHub to get the lastest features
+devtools::install_github(“saezlab/cosmosR”, ref = “development”)
 ```
 
 ## Access
