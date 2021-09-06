@@ -32,7 +32,7 @@
 #' path name file, the data frame will be written as a csv file to the path provided.
 #'@return a two column data frame where the first column corresponds to omic
 #'features and the second column to associated terms (pathways).
-#'@import GSEABase
+#'@importFrom GSEABase getGmt
 
 gmt_to_dataframe <- function(gmtfile, fast = T)
 {
@@ -52,7 +52,7 @@ gmt_to_dataframe <- function(gmtfile, fast = T)
   }
   else
   {
-    genesets = getGmt(con = gmtfile)
+    genesets = GSEABase::getGmt(con = gmtfile)
     genesets = unlist(genesets)
     
     gene_to_term <- data.frame(NA,NA)
@@ -79,6 +79,7 @@ gmt_to_dataframe <- function(gmtfile, fast = T)
 #'
 #'@param CosmosResults  COSMOS output
 #'@return List with 2 objects: the success and the background genes
+#'@export
 #'@import magrittr
 
 extract_COSMOS_nodes <- function(CosmosResults){
@@ -204,7 +205,7 @@ top_pathways <- function(sigPathwaysDf){
   top_pathway$pathway <- factor(top_pathway$pathway, levels = top_pathway$pathway)
   names(top_pathway)[2] <- "-log10(p-value)"
 
-  plot <- ggplot(top_pathway, aes(x = pathway, y = `-log10(p-value)`,
+  plot <- ggplot2::ggplot(top_pathway, aes(x = pathway, y = `-log10(p-value)`,
                                    fill = `-log10(p-value)`)) + 
     geom_bar(stat = "identity") + 
     coord_flip() + 

@@ -52,11 +52,11 @@ In this example, we will use the built-in solver lpSolve. User should be aware t
 
 ```{r, warning=FALSE, message=FALSE}
 CARNIVAL_options <- cosmosR::default_CARNIVAL_options()
-CARNIVAL_options$solverPath <- "C:/Program Files/CPLEX_solver/cplex/bin/x64_win64/cplex.exe"
-CARNIVAL_options$solver <- "cplex" #or cbc
+# CARNIVAL_options$solverPath <- "C:/Program Files/CPLEX_solver/cplex/bin/x64_win64/cplex.exe"
+# CARNIVAL_options$solver <- "cplex" #or cbc
 # CARNIVAL_options$solverPath <- "~/Documents/cplex"
 # CARNIVAL_options$solver <- "cplex" #or cbc
-# CARNIVAL_options$solver <- "lpSolve" #or cbc
+CARNIVAL_options$solver <- "lpSolve" #or cbc
 CARNIVAL_options$timelimit <- 3600
 CARNIVAL_options$mipGAP <- 0.05
 CARNIVAL_options$threads <- 2
@@ -227,7 +227,7 @@ cosmos_result <- list(weightedSIF = full_sif, nodesAttributes = full_attributes)
 
 ##Load all canonical pathways with annotated genes as Gene Symbols from MSigDB 
 #(https://www.gsea-msigdb.org/gsea/index.jsp)
-load(pathways)
+data(pathways)
 
 ## Extract nodes from COSMOS solution network and background as two lists
 #'(without metabolite nodes, for performing a metabolite enrichment analysis, see:
@@ -247,8 +247,9 @@ sig_pathways <- runGSAhyper(genes = nodes_cosmos$sucesses,
                             universe = nodes_cosmos$bg,
                             gsc = loadGSC(pathways),
                             adjMethod = "fdr")
-sig_pathways_df <- as.data.frame(sig_pathways$resTab)  %>% 
-                   tibble::rownames_to_column(var = "pathway") 
+sig_pathways_df <- as.data.frame(sig_pathways$resTab)  
+sig_pathways_df$pathway <- row.names(sig_pathways_df)
+sig_pathways_df <- sig_pathways_df[,c(7,1:6)] # put the pathway column in first place
 
 ## Plot most significant pathways based on p-value
 sig_pathways_plot = plot_pathways(sig_pathways_df,
@@ -257,35 +258,6 @@ sig_pathways_plot
 
 top_pathways_barplot = top_pathways(sig_pathways_df)
 top_pathways_barplot
-```
-
-## Tutorial section: Highlight interesting pathways in Cytoscape network
-
-We can use the result from the ORA and map the most significant pathway to every
-node (i.e. protein, enzyme, TF, kinase and metabolite) in the solution network
-(cosmos_result$nodesAttributes).
-The user has to define a set of interesting pathways to which a color will be 
-mapped. The border of a node in the solution network will be colored according 
-to the pathway the node belongs to.
-
-```{r, warning=FALSE, message=FALSE}
-#' - Look at result of ORA and select the most significant pathways
-#' - Or choose pathways of interest in a specific disease, e.g. cancer
-##These are the available pathways to choose from
-View(pathways)
-
-pathways_interesting <- c("BIOCARTA_MAPK_PATHWAY",
-                          "KEGG_PANTOTHENATE_AND_COA_BIOSYNTHESIS",
-                          "REACTOME_LEISHMANIA_INFECTION",
-                          "WP_IL2_SIGNALING_PATHWAY")
-
-##Choose "p-value" or "Adjusted p-value" as filter method
-cosmos_result$nodesAttributes <- highlight_pathways(pathwaysMSigDB = pathways,
-                                             sigPathwaysDf = sig_pathways_df,
-                                             cosmosResults = cosmos_result,
-                                             pathwaysInt = pathways_interesting,
-                                             filterMethod = "p-value")
-
 ```
 
 ```{r, warning=FALSE, message=FALSE}
