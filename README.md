@@ -19,6 +19,8 @@ You can also use COSMOS if you don't have metabolomic data, to connect TF activi
 
 
 ## Installation
+
+R >= 4.1 is required
 ```r
 # install from bioconductor
 if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -26,12 +28,16 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 
 BiocManager::install("cosmosR")
 
-#We advise to install the development version from GitHub to get the lastest features
+# We advise to instal from github to get the latest version of the tool.
 if (!requireNamespace("devtools", quietly = TRUE))
     install.packages("devtools")
     
-devtools::install_github(“saezlab/cosmosR”, ref = “development”)
+devtools::install_github(“saezlab/cosmosR”)
 ```
+
+If you don't have R 4.1, you can also clone the github repository on your machine, create a new R project with R studio from the cosmosR folder, change the R version to your own R version in the DESCRIPTION file and then install it with devtools:install()
+
+But 4.1 is advised in anycase.
 
 ## Access
 
