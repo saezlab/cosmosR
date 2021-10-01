@@ -39,6 +39,12 @@ If you don't have R 4.1, you can also clone the github repository on your machin
 
 But 4.1 is advised in anycase.
 
+## Tutorial (video)
+
+We recorded a video guide for cosmosR tutorial in the context of a course organised by EBI-EMBL. 
+You can access the recording at this link for a step by step introduction to cosmosR : 
+https://embl-ebi.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=318f7091-b6bf-44ee-939f-adb10121fc1b
+
 ## Access
 
 The meta PKN used with the biorXiv version of COSMOS is available [here](http://metapkn.omnipathdb.org/).
