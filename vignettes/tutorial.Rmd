@@ -180,10 +180,10 @@ full_attributes <- unique(full_attributes)
 This function will generate a dynamic network plot centered on a given node of the network solution, and connecting it to measured nodes in the given range (here 5 steps).
 
 ```{r, warning=FALSE, message=FALSE}
-network_plot <- display_node_neighboorhood(central_node = 'BCAT1', 
+network_plot <- display_node_neighboorhood(central_node = 'NFKB1', 
                                            sif = full_sif, 
                                            att = full_attributes, 
-                                           n = 5)
+                                           n = 7)
 
 network_plot
 ```
@@ -234,7 +234,7 @@ data(pathways)
 #'https://github.com/saezlab/ocean/blob/master/tutorial_metabolite_enrichment_analysis.R)
 nodes_cosmos = extract_COSMOS_nodes(cosmos_result)
 
-##As toy data set is too small, we need more background genes
+##As toy data set is too small, we need more background genes, these are randoms
 nodes_bg <- c("PNP", "ACAA1", "ACO1", "ADA", "AGER", "CSNK2A2", "DBF4B",
               "PIK3CA", "SMAD4", "AHCY", "AKT3", "ESR1", "GATA2", "SMAD3",
               "SRPK2", "BTK", "CDK9", "MAPK8")
@@ -259,7 +259,7 @@ sig_pathways_plot
 top_pathways_barplot = top_pathways(sig_pathways_df)
 top_pathways_barplot
 ```
-
+(Here, the pathway highlighted are random since they were generated from a toy example and a random background)
 ```{r, warning=FALSE, message=FALSE}
 sessionInfo()
 ```
