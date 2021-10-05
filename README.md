@@ -32,7 +32,7 @@ BiocManager::install("cosmosR")
 if (!requireNamespace("devtools", quietly = TRUE))
     install.packages("devtools")
     
-devtools::install_github(“saezlab/cosmosR”)
+devtools::install_github("saezlab/cosmosR")
 ```
 
 If you don't have R 4.1, you can also clone the github repository on your machine, create a new R project with R studio from the cosmosR folder, change the R version to your own R version in the DESCRIPTION file and then install it with devtools:install()
