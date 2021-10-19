@@ -15,6 +15,7 @@
 #' @return A new vector ready to be used as COSMOS input.
 #' 
 #' @importFrom rlang .data
+#' @importFrom magrittr %>%
 #' @export
 #' @examples 
 #' 

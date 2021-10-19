@@ -43,8 +43,7 @@
 #' and checks the consistency between the estimated activity and change in gene 
 #' expression. Removes interactions where TF and gene expression are inconsistent 
 #' @param CARNIVAL_options list that controls the options of CARNIVAL. See details 
-#'  in \code{\link{default_CARNIVAL_options}}. 
-#' @importFrom dplyr %>%
+#'  in \code{\link{default_CARNIVAL_options}}.
 #' @importFrom utils data
 #' @export
 #' @return cosmos_data object with the following fields:

@@ -30,29 +30,32 @@ Depends: R (>= 4.1)
 License: GPL-3
 Encoding: UTF-8
 LazyData: false
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 VignetteBuilder: knitr
 Imports:
-    dorothea,
-    igraph,
-    dplyr,
-    utils,
-    stringr,
-    readr,
-    rlang,
-    tibble,
-    purrr,
     AnnotationDbi,
     biomaRt,
+    CARNIVAL,
+    dorothea,
+    dplyr,
+    ggplot2,
+    GSEABase,
+    igraph,
+    magrittr,
     org.Hs.eg.db,
+    plyr,
+    purrr,
+    readr,
+    rlang,
+    scales,
+    stringr,
+    tibble,
+    utils,
     visNetwork
 Suggests: 
     testthat,
     knitr,
     rmarkdown,
-    GSEABase,
     piano
-Remotes:
-    bioc::3.12/CARNIVAL
 biocViews: CellBiology, Pathways, Network, Proteomics, Metabolomics, Transcriptomics,
     GeneSignaling

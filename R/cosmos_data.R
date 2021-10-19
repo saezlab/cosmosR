@@ -199,7 +199,8 @@ cosmos_data <- function(meta_network,
 #' Print a summary of cosmos data.
 
 #' @param x \code{\link{cosmos_data}} object.  Use the 
-#'   \code{\link{preprocess_COSMOS_metabolism_to_signaling}} function to 
+#'   \code{\link{preprocess_COSMOS_signaling_to_metabolism}} or 
+#'   \code{\link{preprocess_COSMOS_metabolism_to_signaling}} functions to 
 #'   create one.
 #' @param ... Further print arguments passed to or from other methods.
 #' 

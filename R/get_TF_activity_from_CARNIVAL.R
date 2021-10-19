@@ -6,6 +6,7 @@
 #' @param TFs character vector of transcription factors using EntrezIDs
 #' @return named numerical vector with TF activity found in CARNIVAL results.
 #' @importFrom rlang .data
+#' @importFrom magrittr %>%
 #' @noRd
 get_TF_activity_from_CARNIVAL <- function(carnival_result, TFs)
 {

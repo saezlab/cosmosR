@@ -17,6 +17,7 @@
 #'     network}
 #'   }
 #' @importFrom rlang .data
+#' @importFrom magrittr %>%
 #' @noRd
 process_CARNIVAL_results <- function(CARNIVAL_results){
     

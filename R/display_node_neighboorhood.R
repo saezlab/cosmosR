@@ -1,11 +1,16 @@
 #' display_node_neighboorhood
 #' 
 #' display input and measurements within n steps of a given set of nodes
-#' @param central_node character or character vector; node ID(s) around which a network will be branched out untill meansurments and input are reached
-#' @param sif df; COSMOS network solution in sif format, as returned by the format_cosmos_res function
-#' @param att df; attributes of the nodes of the COMSOS network solution, as returned by the format_cosmos_res function
-#' @param n numeric; maximum number of steps in the network to look for inputs and measurments
+#' @param central_node character or character vector; node ID(s) around which a 
+#' network will be branched out untill meansurments and input are reached
+#' @param sif df; COSMOS network solution in sif format like the first list
+#' element returned by the format_cosmos_res function
+#' @param att df; attributes of the nodes of the COMSOS network solution like 
+#' the second list element returned by the format_cosmos_res function
+#' @param n numeric; maximum number of steps in the network to look for inputs 
+#' and measurments
 #' @return a visnetwork object
+#' @importFrom magrittr %>%
 #' @examples
 #' CARNIVAL_options <- cosmosR::default_CARNIVAL_options()
 #' CARNIVAL_options$solver <- "lpSolve"
