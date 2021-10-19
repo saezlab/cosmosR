@@ -201,64 +201,6 @@ is plotted as a network connecting FOXM1 and glutathione production.
 Those links should however be considered only as potential mechanistic connections, and will need to be further 
 confirmed experimentally.
 
-
-## Tutorial section: Over Representation Analysis
-
-In this section we perform an Over Representation Analysis (ORA) by determining 
-whether the genes (nodes) in the COSMOS solution network show statistically
-significant differences in comparison to the prior-knowledge network (PKN). 
-
-In this way the significant differences between two biological conditions
-(e.g. cancer vs. normal tissue, or treatment vs. untreated cells) can be shown.
-The differentially expressed genes give information about the cellular
-processes that are deregulated and if the proportions in various pathways are
-SIGNIFICANTLY different from what is expected.
-
-To perform the ORA, two different lists are required:
-- nodes in the COSMOS solution network which relate back to the input data
-  (e.g. transcriptomics, proteomics, metabolomics, fluxomics, or perturbations) 
-- all nodes (kinases, transcription factors, metabolites) in the prior-knowledge
-  network (which are used as the background in our analysis)
-
-```{r, warning=FALSE, message=FALSE}
-library(piano)
-
-cosmos_result <- list(weightedSIF = full_sif, nodesAttributes = full_attributes)
-
-##Load all canonical pathways with annotated genes as Gene Symbols from MSigDB 
-#(https://www.gsea-msigdb.org/gsea/index.jsp)
-data(pathways)
-
-## Extract nodes from COSMOS solution network and background as two lists
-#'(without metabolite nodes, for performing a metabolite enrichment analysis, see:
-#'https://github.com/saezlab/ocean/blob/master/tutorial_metabolite_enrichment_analysis.R)
-nodes_cosmos = extract_COSMOS_nodes(cosmos_result)
-
-##As toy data set is too small, we need more background genes, these are randoms
-nodes_bg <- c("PNP", "ACAA1", "ACO1", "ADA", "AGER", "CSNK2A2", "DBF4B",
-              "PIK3CA", "SMAD4", "AHCY", "AKT3", "ESR1", "GATA2", "SMAD3",
-              "SRPK2", "BTK", "CDK9", "MAPK8")
-nodes_cosmos$bg <- append(nodes_cosmos$bg,nodes_bg)
-
-# The gene set analysis (GSA) is based on a list of significant genes
-# (Cosmos nodes) and a gene set collection (background). 
-# We perform the GSA with Fisher's exact test (from piano package)
-sig_pathways <- runGSAhyper(genes = nodes_cosmos$sucesses, 
-                            universe = nodes_cosmos$bg,
-                            gsc = loadGSC(pathways),
-                            adjMethod = "fdr")
-sig_pathways_df <- as.data.frame(sig_pathways$resTab)  
-sig_pathways_df$pathway <- row.names(sig_pathways_df)
-sig_pathways_df <- sig_pathways_df[,c(7,1:6)] # put the pathway column in first place
-
-## Plot most significant pathways based on p-value
-sig_pathways_plot = plot_pathways(sig_pathways_df,
-                                  cutoff = 0.08)  #p-value <= cutoff
-sig_pathways_plot
-
-top_pathways_barplot = top_pathways(sig_pathways_df)
-top_pathways_barplot
-```
 (Here, the pathway highlighted are random since they were generated from a toy example and a random background)
 ```{r, warning=FALSE, message=FALSE}
 sessionInfo()
