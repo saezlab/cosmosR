@@ -2,7 +2,7 @@
 % Please edit documentation in R/support_ORA.R
 \name{top_pathways}
 \alias{top_pathways}
-\title{\code{top_pathways}}
+\title{Plot top ORA pathways over all sources}
 \usage{
 top_pathways(sigPathwaysDf)
 }
@@ -15,4 +15,7 @@ Bar plot of the 20 most significant pathways by p-value
 \description{
 Function to plot the most significantly over-expressed pathways (max. 20)
 (regardless of source, e.g. Reactome, Biocarta)
+}
+\examples{
+top_pathways()
 }

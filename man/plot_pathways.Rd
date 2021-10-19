@@ -2,12 +2,17 @@
 % Please edit documentation in R/support_ORA.R
 \name{plot_pathways}
 \alias{plot_pathways}
-\title{\code{plot_pathways}}
+\title{Plot top ORA pathways per source}
 \usage{
 plot_pathways(sigPathwaysDf, cutoff)
 }
 \arguments{
-\item{sigPathwaysDf}{Data frame containing all significant pathways as a result of the ORA}
+\item{sigPathwaysDf}{Data frame containing all significant pathways as a 
+result of the ORA analysis. Columns names of this data frame are:
+- `tf` transcription factor
+- `confidence` class of confidence
+- `target` target gene
+- `sign` indicates if interaction is up (1) or down-regulation (-1).}
 
 \item{cutoff}{number used as a filter criteria for p-value}
 }
@@ -17,4 +22,7 @@ plot of the 5 most significant pathways per source
 \description{
 Function to display the most significantly over-expressed pathways sorted by
 their source (e.g. Reactome, Biocarta, etc.)
+}
+\examples{
+plot_pathways()
 }

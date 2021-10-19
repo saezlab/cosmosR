@@ -2,9 +2,9 @@
 % Please edit documentation in R/support_ORA.R
 \name{gmt_to_dataframe}
 \alias{gmt_to_dataframe}
-\title{\code{gmt_to_dataframe}}
+\title{Convert gmt file to data frame}
 \usage{
-gmt_to_dataframe(gmtfile, fast = T)
+gmt_to_dataframe(gmtfile)
 }
 \arguments{
 \item{gmtfile}{a full path name of the gmt file to be converted}
