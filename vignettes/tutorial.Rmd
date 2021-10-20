@@ -116,7 +116,7 @@ Finally, we process the results of the first cosmosR run, to translate gene name
 ```{r, warning=FALSE, message=FALSE}
 data(metabolite_to_pubchem)
 data(omnipath_ptm)
-test_result_for <- format_COSMOS_res(test_result_for,
+formated_result_for <- format_COSMOS_res(test_result_for,
                                      metab_mapping = metabolite_to_pubchem,
                      measured_nodes = unique(c(names(toy_metabolic_input),
                                                names(toy_signaling_input))),
@@ -157,7 +157,7 @@ test_result_back <- run_COSMOS_metabolism_to_signaling(data = test_back,
 Finally we can format the result of the backward run as well (same as for forward run)
 
 ```{r, warning=FALSE, message=FALSE}
-test_result_back <- format_COSMOS_res(test_result_back,
+formated_result_back <- format_COSMOS_res(test_result_back,
                                       metab_mapping = metabolite_to_pubchem,
                       measured_nodes = unique(c(names(toy_metabolic_input),
                                                 names(toy_signaling_input))),
@@ -170,8 +170,8 @@ test_result_back <- format_COSMOS_res(test_result_back,
 Here we simply take the union of forward and backward runs to create a full network solution lopping between signaling, gene-regulation and metabolism. Since there is an overlap between the result network of forward and backward run, you may optionally want  to check if there are any node sign that are incoherent in the overlap between the two solutions.
 
 ```{r, warning=FALSE, message=FALSE}
-full_sif <- as.data.frame(rbind(test_result_for[[1]], test_result_back[[1]]))
-full_attributes <- as.data.frame(rbind(test_result_for[[2]], test_result_back[[2]]))
+full_sif <- as.data.frame(rbind(formated_result_for[[1]], formated_result_back[[1]]))
+full_attributes <- as.data.frame(rbind(formated_result_for[[2]], formated_result_back[[2]]))
 
 full_sif <- unique(full_sif)
 full_attributes <- unique(full_attributes)
@@ -201,7 +201,42 @@ is plotted as a network connecting FOXM1 and glutathione production.
 Those links should however be considered only as potential mechanistic connections, and will need to be further 
 confirmed experimentally.
 
-(Here, the pathway highlighted are random since they were generated from a toy example and a random background)
+## Tutorial section: Over Representation Analysis
+
+Often it is useful to perform an Over Representation Analysis (ORA) on the
+resulting nodes of a COSMOS network as a first analysis step to get a more 
+functional interpretation on the modeled signaling cascade. A common way to this
+is to test whether the selected genes (nodes) in the COSMOS solution network
+show statistically significant differences in comparison to the prior-knowledge
+network (PKN). 
+
+The differentially expressed genes give information about the cellular
+processes that are deregulated and if the proportions in various pathways are
+SIGNIFICANTLY different from what is expected.In this way the significant 
+differences between two biological conditions (e.g. cancer vs. normal tissue, or
+treatment vs. untreated cells) can be shown.
+
+Algorithms that perform an ORA are implemented in other R packages like piano or
+decoupleR. In addition to a gene set collection these algorithms require two 
+different lists as inputs:
+- nodes in the COSMOS solution network which relate back to the input data
+  (e.g. transcriptomics, proteomics, metabolomics, fluxomics, or perturbations) 
+- all nodes (kinases, transcription factors, metabolites) in the prior-knowledge
+  network (which are used as the background in our analysis)
+  
+In this section we will show how to obtain these two lists from a formated 
+COSMOS result object.
+
+```{r, warning=FALSE, message=FALSE}
+sif_forward = formated_result_for[[1]]
+att_forward = formated_result_for[[2]]
+nodes_ORA = extract_nodes_for_ORA(
+    sif = sif_forward, 
+    att = att_forward)
+```
+
+Now this forground and background set can be used with any ORA anaylsis. 
+
 ```{r, warning=FALSE, message=FALSE}
 sessionInfo()
 ```
