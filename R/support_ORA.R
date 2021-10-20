@@ -83,7 +83,7 @@ gmt_to_dataframe <- function(gmtfile)
 #' omnipath_ptm = omnipath_ptm)
 #' extreacted_nodes <- extract_nodes_for_ORA(
 #' sif = test_result_for[[1]],
-#' att = test_result_for[[2]],
+#' att = test_result_for[[2]]
 #' )
 
 extract_nodes_for_ORA <- function(sif, att){

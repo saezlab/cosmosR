@@ -35,10 +35,10 @@
 #' measured_nodes = unique(c(names(toy_metabolic_input),
 #'                           names(toy_signaling_input))),
 #' omnipath_ptm = omnipath_ptm)
-#' network_plot <- display_node_neighboorhood(central_node = 'BCAT1',
+#' network_plot <- display_node_neighboorhood(central_node = 'NFKB1',
 #' sif = test_result_for[[1]],
 #' att = test_result_for[[2]],
-#' n = 5)
+#' n = 7)
 #' network_plot
 #' @export
 display_node_neighboorhood <- function(central_node,sif, att, n = 100)
