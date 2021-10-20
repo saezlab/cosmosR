@@ -8,10 +8,6 @@ gmt_to_dataframe(gmtfile)
 }
 \arguments{
 \item{gmtfile}{a full path name of the gmt file to be converted}
-
-\item{outfile}{an optional output file name. If none is provided, the function
-will simply return a data frame. If outfile is provided with a full length
-path name file, the data frame will be written as a csv file to the path provided.}
 }
 \value{
 a two column data frame where the first column corresponds to omic

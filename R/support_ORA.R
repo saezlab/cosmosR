@@ -27,9 +27,6 @@
 #' belongs to). One gene can belong to several pathways.
 #' 
 #' @param gmtfile a full path name of the gmt file to be converted
-#' @param outfile an optional output file name. If none is provided, the function
-#' will simply return a data frame. If outfile is provided with a full length
-#' path name file, the data frame will be written as a csv file to the path provided.
 #' @return a two column data frame where the first column corresponds to omic
 #' features and the second column to associated terms (pathways).
 
@@ -49,7 +46,7 @@ gmt_to_dataframe <- function(gmtfile)
 }
 
 
-#' Extract COSMOS nodes
+#' Extract COSMOS nodes for ORA analysis
 #' 
 #' Function to extract the nodes that appear in the COSMOS output network and
 #' the background genes (all genes present in the prior knowledge network)
@@ -84,12 +81,12 @@ gmt_to_dataframe <- function(gmtfile)
 #' measured_nodes = unique(c(names(toy_metabolic_input),
 #'                           names(toy_signaling_input))),
 #' omnipath_ptm = omnipath_ptm)
-#' extreacted_nodes <- extract_COSMOS_nodes(
+#' extreacted_nodes <- extract_nodes_for_ORA(
 #' sif = test_result_for[[1]],
 #' att = test_result_for[[2]],
 #' )
 
-extract_COSMOS_nodes <- function(sif, att){
+extract_nodes_for_ORA <- function(sif, att){
   
   # Extract all nodes from COSMOS's solution network
   CosmosNetwork <- 
@@ -111,127 +108,4 @@ extract_COSMOS_nodes <- function(sif, att){
   bg <- unique(gsub("_.*","",Cosmos_attributes$Nodes)) 
 
   return(list(sucesses = sucesses, bg = bg))
-}
-
-
-#' Plot top ORA pathways per source
-#' 
-#' Function to display the most significantly over-expressed pathways sorted by
-#' their source (e.g. Reactome, Biocarta, etc.)
-#' 
-#' @param sigPathwaysDf  Data frame containing all significant pathways as a 
-#' result of the ORA analysis. Columns names of this data frame are:
-#' - `tf` transcription factor
-#' - `confidence` class of confidence
-#' - `target` target gene
-#' - `sign` indicates if interaction is up (1) or down-regulation (-1).
-#' 
-#' @param cutoff number used as a filter criteria for p-value
-#' @return plot of the 5 most significant pathways per source
-#' @importFrom rlang .data
-#' @importFrom magrittr %>%
-#' @import ggplot2
-#' @export
-#' @examples
-#' plot_pathways()
-
-plot_pathways <- function(sigPathwaysDf, cutoff){
-    pathway <- `p-value` <- `Adjusted p-value` <- Pvalue <- .x <- NULL
-
-  # Prepare data for plotting
-  PathwaysSelect <- sigPathwaysDf %>%
-    dplyr::select(pathway, `p-value`, `Adjusted p-value`) %>%
-    dplyr::rename(Pvalue = `p-value`, AdjPvalue = `Adjusted p-value`) %>% 
-    dplyr::mutate(pathway = as.factor(pathway))
-  
-  PathwaysSelect <- data.frame(t(apply(PathwaysSelect, 1, function(r){
-    aux = unlist(strsplit(sub("_",";", r["pathway"]), ";" ))
-    r["pathway"] = gsub("_", " ", aux[2])
-    return(c(r, "source" = aux[1]))
-  })))
-  
-  colnames(PathwaysSelect) <- c("pathway", "Pvalue", "AdjPvalue", "source")
-  PathwaysSelect$AdjPvalue = as.numeric(PathwaysSelect$AdjPvalue)
-  PathwaysSelect$Pvalue = as.numeric(PathwaysSelect$Pvalue)
-  
-  PathwaysSelect$pathway <- tolower(PathwaysSelect$pathway)
-  PathwaysSelect$pathway <- gsub("(^|[[:space:]])([[:alpha:]])", "\\1\\U\\2",
-                                 PathwaysSelect$pathway, perl = TRUE)
-  
-  ggdata = PathwaysSelect %>% 
-    dplyr::filter(Pvalue <= cutoff) %>% 
-    dplyr::group_by(source) %>% 
-    dplyr::arrange(Pvalue) %>%
-    dplyr::slice(1:5)
-  
-  # Visualize top results
-  plot <- ggplot(ggdata, aes(y = stats::reorder(pathway, Pvalue),
-                             x = -log10(Pvalue),
-                         color = source)) + 
-                 geom_bar(stat = "identity") +
-                 facet_grid(source ~ ., scales="free_y") +
-                 ggtitle("Most Significant Pathways By Source") +
-                 scale_x_continuous(
-                   expand = c(0.01, 0.01),
-                   limits = c(0, ceiling(max(-log10(PathwaysSelect$Pvalue)))),
-                   breaks = seq(floor(min(-log10(PathwaysSelect$Pvalue))),
-                                ceiling(max(-log10(PathwaysSelect$Pvalue))), 3),
-                   labels = scales::math_format(10^-.x)
-                 ) +
-                 annotation_logticks(sides = "bt") +
-                 theme_bw() +
-                 theme(axis.title = element_text(face = "bold", size = 12),
-                       axis.text.y = element_text(size = 10)) +
-                 ylab("")
-  
-#  ggsave("significant_pathways.png", plot = pathway_plot,
-#         path = "results/", scale = 1, dpi = 300, limitsize = TRUE)
-  
-  return(plot)
-}
-
-
-#' Plot top ORA pathways over all sources
-#' 
-#' Function to plot the most significantly over-expressed pathways (max. 20)
-#' (regardless of source, e.g. Reactome, Biocarta)
-#' 
-#' @param sigPathwaysDf  Data frame containing all significant pathways as a result of the ORA
-#' @return Bar plot of the 20 most significant pathways by p-value
-#' @importFrom rlang .data
-#' @export
-#' @examples
-#' top_pathways()
-
-top_pathways <- function(sigPathwaysDf){
-    pathway <- `-log10(p-value)` <- NULL
-
-  # Filtering out top 20 pathways by p-value
-  sigPathwaysDf <- sigPathwaysDf[order(sigPathwaysDf$'p-value'),]
-  top_pathway <- sigPathwaysDf[1:20,c(1,2,3)] 
-  top_pathway <- top_pathway[order(top_pathway$'p-value', decreasing = TRUE),]
-
-  # Write pathways with capital letter and without underscore
-  top_pathway$pathway <- gsub("_"," ",top_pathway$pathway)
-  top_pathway$pathway <- tolower(top_pathway$pathway)
-  top_pathway$pathway <- gsub("(^|\\p{P})(.)", "\\1\\U\\2",    
-                              top_pathway$pathway, perl = TRUE)
-
-  # Calculate -log10(p-value)
-  top_pathway$`p-value` <- -log10(top_pathway$`p-value`)
-  top_pathway$pathway <- factor(top_pathway$pathway, levels = top_pathway$pathway)
-  names(top_pathway)[2] <- "-log10(p-value)"
-
-  plot <- ggplot(top_pathway, aes(x = pathway, y = `-log10(p-value)`,
-                                   fill = `-log10(p-value)`)) + 
-    geom_bar(stat = "identity") + 
-    coord_flip() + 
-    theme_minimal() + 
-    ggtitle("ORA TOP 20 PATHWAYS") +
-    scale_fill_gradient(low="grey", high="darkred")
-  
-#  ggsave("top_pathways.png", plot = plot,
-#         path = "results/", scale = 1, dpi = 300, limitsize = TRUE)
-  
-  return(plot)
 }
