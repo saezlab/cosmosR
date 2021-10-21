@@ -39,6 +39,15 @@ If you don't have R 4.1, you can also clone the github repository on your machin
 
 But 4.1 is advised in anycase.
 
+
+Small note to package dependencies:
+
+COSMOS is dependent on CARNIVAL for exhibiting the signalling pathway optimisation. CARNIVAL is currently under active development. We try to ensure the compatibility of both packages. In case the current CARNIVAL installation non the less colides with COSMOS please report and consider installing an older stable version to run COSMSOS.
+```r
+# Install an older stable version of CARNIVAL (1.3.0)
+remotes::install_github("saezlab/CARNIVAL@b3a84c6ba9706547caca02644566d75ee621f568")
+```
+
 ## Tutorial (video)
 
 We recorded a video guide for cosmosR tutorial in the context of a course organised by EBI-EMBL. 
