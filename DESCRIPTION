@@ -35,7 +35,7 @@ VignetteBuilder: knitr
 Imports:
     AnnotationDbi,
     biomaRt,
-    CARNIVAL (== 1.3.0),
+    CARNIVAL,
     dorothea,
     dplyr,
     ggplot2,
