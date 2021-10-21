@@ -23,8 +23,7 @@
 #' t_values <- rnorm(10)
 #' # assign to metabolites with pubchem names
 #' data(metabolite_to_pubchem)
-#' metabolite_to_pubchem <- metabolite_to_pubchem
-#' names(t_values) <- metabolite_to_pubchem$pubchem[1:10]
+#' names(t_values) <- names(metabolite_to_pubchem)[1:10]
 #' 
 #' data(meta_network)
 #' prepare_metabolomics_data(t_values, meta_network)
