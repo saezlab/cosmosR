@@ -57,5 +57,7 @@ Suggests:
     knitr,
     rmarkdown,
     piano
+Remotes:
+    saezlab/CARNIVAL@b3a84c6ba9706547caca02644566d75ee621f568
 biocViews: CellBiology, Pathways, Network, Proteomics, Metabolomics, Transcriptomics,
     GeneSignaling
