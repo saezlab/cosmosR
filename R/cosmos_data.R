@@ -33,7 +33,7 @@ new_cosmos_data <- function(meta_network = data.frame(),
     stopifnot(is.data.frame(tf_regulon))
     stopifnot(is.double(signaling_data))
     stopifnot(is.double(metabolic_data))
-    stopifnot(is.double(expression_data))
+    stopifnot(is.double(expression_data) | is.null(expression_data))
     
     
     structure(list(
@@ -58,9 +58,9 @@ new_cosmos_data <- function(meta_network = data.frame(),
 #' @noRd
 validate_cosmos_data <- function(x){
 
-    if(!all(c("meta_network", "tf_regulon", "signaling_data", "metabolic_data", "expression_data") %in% names(x))){
+    if(!all(c("meta_network", "tf_regulon", "signaling_data", "metabolic_data") %in% names(x))){
         stop(
-            "All fields should present in the cosmos object: meta_network, tf_regulon, signaling_data, metabolic_data, expression_data",
+            "All fields should present in the cosmos object: meta_network, tf_regulon, signaling_data, metabolic_data",
             call. = FALSE
         )
     }
@@ -166,7 +166,7 @@ cosmos_data <- function(meta_network,
     }
     
     # the expression data should overlap with the TF targets
-    if(!is.null(tf_regulon)){
+    if(!is.null(tf_regulon) & !is.null(expression_data)){
         genes = names(expression_data)
         genes_as_tf_target <- sum(genes %in% tf_regulon$target)
         
