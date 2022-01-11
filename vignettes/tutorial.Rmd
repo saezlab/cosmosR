@@ -26,6 +26,9 @@ BiocManager::install("cosmosR")
 # install the development version from GitHub
 # install.packages("remotes")
 remotes::install_github("saezlab/cosmosR")
+
+# Install an older stable version of CARNIVAL (1.3.0)
+remotes::install_github("saezlab/CARNIVAL@b3a84c6ba9706547caca02644566d75ee621f568")
 ```
 
 ## Introduction
@@ -69,8 +72,8 @@ For more info on TF activity estimation from transcriptomic data, see:https://gi
 Here we use of toy PKN, to see the full meta PKN, you can load it with data(meta_network).
 
 The metabolites in the prior knowledge network are identified as XMetab__PUBCHEMid___compartment____ or XMetab__BIGGid___compartment____
-or example “XMetab__6804___m____”. The compartment code is the BIGG model standard (r, c, e, x, m, l, n, g). 
-Thus we will first need to map whatever identifer for metabolite the data has to the one of the network.
+(for example “XMetab__6804___m____”). The compartment code is the BIGG model standard (r, c, e, x, m, l, n, g). 
+Thus we will first need to map whatever identifier for metabolite the data has to the one of the network.
 Genes are identified as XENTREZid (in the signaling part of network) or XGene####__ENTREZid (in the reaction network part of network).
 
 The maximum network depth will define the maximum number of step downstream of kinase/TF COSMOS will look for deregulated metabolites. Good first guess for max depth could be around 6 (here it is 15 for the toy dataset)
@@ -177,7 +180,7 @@ full_sif <- unique(full_sif)
 full_attributes <- unique(full_attributes)
 ```
 
-This function will generate a dynamic network plot centered on a given node of the network solution, and connecting it to measured nodes in the given range (here 5 steps).
+This function will generate a dynamic network plot centered on a given node of the network solution, and connecting it to measured nodes in the given range (here 7 steps).
 
 ```{r, warning=FALSE, message=FALSE}
 network_plot <- display_node_neighboorhood(central_node = 'NFKB1', 
@@ -187,16 +190,17 @@ network_plot <- display_node_neighboorhood(central_node = 'NFKB1',
 
 network_plot
 ```
-This network represents the flow of activities that can connect FOXM1 up-regulation with glutathione (CID 124886)
-accumulation. Here, FOXM1 can activate MYC, which in turn activate BCAT1. The activation of BCAT1 can lead 
-to the increased production of glutamate (CID 33032), which in turn can be converted to glutathione GGT enzymes.
+Here is how this network can be intepreted (this is purely illustrative, as some of those interaction may be incorectly signed because lpsolve can only use positive interactions): 
+
+This network represents the flow of activities that can connect NFKB1 up-regulation with o-propanoylcarnitine accumulation
+accumulation. Here, NFKB1 can upregulate the expression of TNFAIP3, which in turn activate TBK1 (potentially through ubiquitin editing mechanism). The activation of TBK1 can lead to the phosphorilation and activation of HADHB kinase, leading
+to the increased production of propionyl-Coa, which in turn can be converted to o-propanoylcarnitine by the CRAT enzyme.
 
 It is important to understand that each of this links is hypothetical. The come from a larger pool of 
 potential molecular interactions present in multiple online databases and compiled in omnipath, STITCH 
 and recon metabolic network. They exist in the literature and are interactions that are known to
 potentially exists in other experimental contexts. Thus, COSMOS compile all those potential interactions 
-together and proposes a coherent set that can explain the data at hand. Here, such a set of mechanistic hypothesis
-is plotted as a network connecting FOXM1 and glutathione production.
+together and proposes a coherent set that can explain the data at hand.
 
 Those links should however be considered only as potential mechanistic connections, and will need to be further 
 confirmed experimentally.

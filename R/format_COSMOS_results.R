@@ -154,7 +154,7 @@ format_COSMOS_res <- function(cosmos_res,
   att$measured <- ifelse(att$Nodes %in% measured_nodes, 1, 0)
   att$Nodes <- gsub("^X","",att$Nodes)
   att$type <- ifelse(grepl("Metab",att$Nodes), "metabolite","protein")
-  att <- att[abs(as.numeric(att$AvgAct)) > 0,]
+  # att <- att[abs(as.numeric(att$AvgAct)) > 0,]
   
   ########################
   prots <- unique(att$Nodes)
@@ -179,7 +179,7 @@ format_COSMOS_res <- function(cosmos_res,
       return('Bad identifer mapping')
     }
   }
-  
+
   sif <- translate_sif(sif,
                        metab_mapping,
                        gene_mapping)
@@ -187,7 +187,7 @@ format_COSMOS_res <- function(cosmos_res,
   att$Nodes <- translate_column(att$Nodes,
                                 metab_mapping,
                                 gene_mapping)
-  
+
   ########################
   omnipath_ptm <- omnipath_ptm[omnipath_ptm$modification %in% c("dephosphorylation","phosphorylation"),]
   KSN <- omnipath_ptm[,c(4,3)]
