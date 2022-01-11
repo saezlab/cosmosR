@@ -69,7 +69,7 @@ preprocess_COSMOS_core <- function(meta_network,
                                    metabolic_data,
                                    input_layer = c("signaling_data","metabolic_data"),
                                    output_layer = c("metabolic_data","signaling_data"),
-                                   diff_expression_data, 
+                                   diff_expression_data = NULL, 
                                    diff_exp_threshold,
                                    maximum_network_depth,
                                    expressed_genes,
@@ -160,19 +160,26 @@ preprocess_COSMOS_core <- function(meta_network,
     
     
     # Filter TF -> target interaction from PKN if target expression not changing
-    diff_expression_data_bin <- binarize_with_sign(diff_expression_data,
-                                                   threshold = diff_exp_threshold)
+    if(!is.null(diff_expression_data))
+    {
+        diff_expression_data_bin <- binarize_with_sign(diff_expression_data,
+                                                       threshold = diff_exp_threshold)
+        
+        
+        filtered_meta_network <- filter_transcriptional_regulations(
+            network = meta_network, 
+            gene_expression_binarized = diff_expression_data_bin,
+            signaling_data  = signaling_data,
+            tf_regulon = tf_regulon)
+    } else 
+    {
+        filtered_meta_network <- meta_network
+    }
     
-    
-    filtered_meta_network <- filter_transcriptional_regulations(
-        network = meta_network, 
-        gene_expression_binarized = diff_expression_data_bin,
-        signaling_data  = signaling_data,
-        tf_regulon = tf_regulon)
     
     # run CARNIVAL from signaling to metabolism,
     # this may estimate the activity of other TF-s.
-    if(filter_tf_gene_interaction_by_optimization){
+    if(filter_tf_gene_interaction_by_optimization & !is.null(diff_expression_data)){
         
         check_CARNIVAL_options(CARNIVAL_options)
         
@@ -224,7 +231,14 @@ preprocess_COSMOS_core <- function(meta_network,
     
     out_data$signaling_data_bin = sign(signaling_data)
     out_data$metabolic_data_bin = sign(metabolic_data)
-    out_data$diff_expression_data_bin = diff_expression_data_bin
+    if(!is.null(diff_expression_data))
+    {
+        out_data$diff_expression_data_bin = diff_expression_data_bin
+    } else
+    {
+        out_data$diff_expression_data_bin = NULL
+    }
+
     out_data$optimized_network = CARNIVAL_results
     
     return(out_data)

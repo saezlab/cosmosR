@@ -67,7 +67,7 @@ validate_cosmos_data_signaling_to_metabolism <- function(data){
     
     validate_cosmos_data(data)
     
-    if(!all(c("signaling_data_bin", "diff_expression_data_bin") %in% names(data)))
+    if(!all(c("signaling_data_bin") %in% names(data)))
         stop("missing inputs detected. Input data should be obtained by running preprocess_cosmos_signaling_to_metabolism.")
     
 }

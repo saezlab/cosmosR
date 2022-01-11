@@ -9,10 +9,10 @@ preprocess_COSMOS_metabolism_to_signaling(
   tf_regulon = load_tf_regulon_dorothea(),
   signaling_data,
   metabolic_data,
-  diff_expression_data,
+  diff_expression_data = NULL,
   diff_exp_threshold = 1,
   maximum_network_depth = 8,
-  expressed_genes = names(diff_expression_data)[!is.na(diff_expression_data)],
+  expressed_genes = NULL,
   remove_unexpressed_nodes = TRUE,
   filter_tf_gene_interaction_by_optimization = TRUE,
   CARNIVAL_options = default_CARNIVAL_options()

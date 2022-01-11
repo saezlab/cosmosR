@@ -68,7 +68,7 @@ check_network_data_coverage <- function(meta_network,
     }
     
     # the expression data should overlap with the TF targets
-    if(!is.null(tf_regulon)){
+    if(!is.null(tf_regulon) & !is.null(expression_data)){
         genes = names(expression_data)
         genes_as_tf_target <- sum(genes %in% tf_regulon$target)
         
