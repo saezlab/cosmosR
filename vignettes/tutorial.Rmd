@@ -213,7 +213,7 @@ potentially exists in other experimental contexts. Thus, COSMOS compile all thos
 together and proposes a coherent set that can explain the data at hand.
 
 Those links should however be considered only as potential mechanistic connections, and will need to be further 
-confirmed experimentally.
+confirmed experimentally. Those interactions can be searched in the literature to see in which other disease or experimental context they have been shown to be relevant. Taken together, multiple interactions can help to build a biological story that can guide further underatanding of the underlying biology and decide on futur expertiments.
 
 ## Tutorial section: Over Representation Analysis
 
