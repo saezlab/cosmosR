@@ -90,7 +90,9 @@ The maximum network depth will define the maximum number of step downstream of k
 
 The differential experession data is used to filter out wrong TF-target interactions in this context after a pre-optimisation.
 
-The list of genes in the differential expression data will also be used as a reference to define which genes are expressed or not (all genes in the diff_expression_data are considered expressed, and genes that are no in diff_expression_data are removed from the network)
+The list of genes in the differential expression data will also be used as a reference to define which genes are expressed or not (all genes in the diff_expression_data are considered expressed, and genes that are no in diff_expression_data are removed from the network).
+
+Here, the CARNIVAL_options$timelimit is set for the pre-optimisation. Indeed, if the "filter_tf_gene_interaction_by_optimization" parameter of the "preprocess_COSMOS_signaling_to_metabolism" function is set to TRUE, COSMOS can perform a first optimisation run in order to generate a preliminary solution network that can be used for filtering out incoherences between TF activities and downstream target expressions.
 
 ```{r, warning=FALSE, message=FALSE}
 data(toy_network)
@@ -109,7 +111,7 @@ test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_network
 
 In this part, we can set up the options for the actual run, such as timelimit and min gap tolerance.
 
-The running time should be much higher here than in pre-optimisation. You cna increase the number of threads to use if you have many available CPUs.
+The running time should be much higher here than in pre-optimisation. You can increase the number of threads to use if you have many available CPUs.
 
 ```{r, warning=FALSE, message=FALSE}
 CARNIVAL_options$timelimit <- 14400
@@ -213,7 +215,7 @@ potentially exists in other experimental contexts. Thus, COSMOS compile all thos
 together and proposes a coherent set that can explain the data at hand.
 
 Those links should however be considered only as potential mechanistic connections, and will need to be further 
-confirmed experimentally. Those interactions can be searched in the literature to see in which other disease or experimental context they have been shown to be relevant. Taken together, multiple interactions can help to build a biological story that can guide further underatanding of the underlying biology and decide on futur expertiments.
+confirmed experimentally. Those interactions can be searched in the literature to see in which other disease or experimental context they have been shown to be relevant. Taken together, multiple interactions can help to build a biological story that can guide further underatanding of the underlying biology and decide on future experiments.
 
 ## Tutorial section: Over Representation Analysis
 

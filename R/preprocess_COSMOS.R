@@ -171,6 +171,12 @@ preprocess_COSMOS_core <- function(meta_network,
             gene_expression_binarized = diff_expression_data_bin,
             signaling_data  = signaling_data,
             tf_regulon = tf_regulon)
+        
+        # After modifying the PKN, inputs/measured nodes might get lost, we remove
+        signaling_data = filter_input_nodes_not_in_pkn(pkn = filtered_meta_network,
+                                                       data = signaling_data)
+        metabolic_data = filter_input_nodes_not_in_pkn(pkn = filtered_meta_network,
+                                                       data = metabolic_data)
     } else 
     {
         filtered_meta_network <- meta_network
@@ -200,6 +206,12 @@ preprocess_COSMOS_core <- function(meta_network,
                 signaling_data  = estimated_TF_activity,
                 tf_regulon=tf_regulon[,c("tf","sign","target")])
             
+            # After modifying the PKN, inputs/measured nodes might get lost, we remove
+            signaling_data = filter_input_nodes_not_in_pkn(pkn = filtered_meta_network,
+                                                           data = signaling_data)
+            metabolic_data = filter_input_nodes_not_in_pkn(pkn = filtered_meta_network,
+                                                           data = metabolic_data)
+            
         }else if(input_layer == "metabolic_data" & output_layer == "signaling_data"){
             
             CARNIVAL_results = runCARNIVAL_wrapper(network = meta_network,
@@ -216,6 +228,12 @@ preprocess_COSMOS_core <- function(meta_network,
                 gene_expression_binarized = diff_expression_data_bin,
                 signaling_data  = estimated_TF_activity,
                 tf_regulon=tf_regulon[,c("tf","sign","target")])
+            
+            # After modifying the PKN, inputs/measured nodes might get lost, we remove
+            signaling_data = filter_input_nodes_not_in_pkn(pkn = filtered_meta_network,
+                                                           data = signaling_data)
+            metabolic_data = filter_input_nodes_not_in_pkn(pkn = filtered_meta_network,
+                                                           data = metabolic_data)
             
         }
         
