@@ -6,14 +6,6 @@
 check_gene_names <- function(...){
     
     res = lapply(list(...),function(x){
-        if(!all(grepl("^X",names(x)))){
-            stop("gene names in inputs should be entrezID with a prefix character X. eg: X5062")
-        }
-        TRUE
-    }
-    )
-    
-    res = lapply(list(...),function(x){
         if(any(duplicated(names(x)))){
             stop("Duplicated gene names detected. Gene names in inputs should be unique.")
         }

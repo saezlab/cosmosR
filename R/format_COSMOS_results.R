@@ -107,110 +107,58 @@ translate_sif <- function(sif,
 #' formats the network with readable names
 #'
 #' @param cosmos_res  results of CARNIVAL run
-#' @param metab_mapping a named vector with pubchem cid as names and desired metabolite names as values.
-#' @param gene_mapping by default, use the 'org.Hs.eg.db' to map gene names. Can also be a named vector with entrez gene id as names and desired gene names as values.
-#' @param measured_nodes vector of nodes that are measured or inputs
-#' @param omnipath_ptm ptms database from OmnipathR
+#' @param metab_mapping a named vector with HMDB Ids as names and desired metabolite names as values.
+#' @import stringr
 #' @return list with network and attribute tables.
-#' @examples
-#' CARNIVAL_options <- cosmosR::default_CARNIVAL_options()
-#' CARNIVAL_options$solver <- "lpSolve"
-#' data(toy_network)
-#' data(toy_signaling_input)
-#' data(toy_metabolic_input)
-#' data(toy_RNA)
-#' test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_network,
-#' signaling_data = toy_signaling_input,
-#' metabolic_data = toy_metabolic_input,
-#' diff_expression_data = toy_RNA,
-#' maximum_network_depth = 15,
-#' remove_unexpressed_nodes = TRUE,
-#' CARNIVAL_options = CARNIVAL_options
-#' )
-#' test_result_for <- run_COSMOS_signaling_to_metabolism(data = test_for,
-#' CARNIVAL_options = CARNIVAL_options)
-#' data(metabolite_to_pubchem)
-#' data(omnipath_ptm)
-#' test_result_for <- format_COSMOS_res(test_result_for,
-#' metab_mapping = metabolite_to_pubchem,
-#' measured_nodes = unique(c(names(toy_metabolic_input),
-#'                           names(toy_signaling_input))),
-#' omnipath_ptm = omnipath_ptm)
 #' @export
 format_COSMOS_res <- function(cosmos_res,
-                              metab_mapping,
-                              gene_mapping = 'org.Hs.eg.db',
-                              measured_nodes,
-                              omnipath_ptm)
+                              metab_mapping = NULL)
 {
   # require(dorothea)
-  
-  
-  sif <- as.data.frame(cosmos_res$weightedSIF)
-  sif$Node1 <- gsub("^X","",sif$Node1)
-  sif$Node2 <- gsub("^X","",sif$Node2)
-  att <- as.data.frame(cosmos_res$nodesAttributes)#[,c(1,2)]
-  names(att)[1] <- "Nodes"
-  att$measured <- ifelse(att$Nodes %in% measured_nodes, 1, 0)
-  att$Nodes <- gsub("^X","",att$Nodes)
-  att$type <- ifelse(grepl("Metab",att$Nodes), "metabolite","protein")
-  # att <- att[abs(as.numeric(att$AvgAct)) > 0,]
-  
-  ########################
-  prots <- unique(att$Nodes)
-  prots <- prots[!(grepl("Metab",prots))]
-  prots <- gsub("Gene[0-9]+__","",prots)
-  prots <- gsub("_reverse","",prots)
-  prots <- gsub("EXCHANGE.*","",prots)
-  prots <- unique(prots)
-  prots <- unlist(sapply(prots, function(x){unlist(strsplit(x,split = "_"))}))
-  
-  if(is.null(names(gene_mapping)))
+  if(is.null(metab_mapping))
   {
-    entrezid <- prots
-    gene_mapping <- AnnotationDbi::mapIds(org.Hs.eg.db::org.Hs.eg.db, entrezid, 'SYMBOL', 'ENTREZID')
-    gene_mapping <- unlist(gene_mapping)
-    gene_mapping <- gene_mapping[!is.na(gene_mapping)]
-  } else
-  {
-    if(sum(names(gene_mapping) %in% prots) == 0)
-    {
-      print('Error : none of gene mapping identifiers are not found in the network solution. Please make sure you inputed a properlly named vector. Else use the default value for this argument : "org.Hs.eg.db"')
-      return('Bad identifer mapping')
-    }
+    data(HMDB_mapper_vec)
   }
-
-  sif <- translate_sif(sif,
-                       metab_mapping,
-                       gene_mapping)
+  SIF <- as.data.frame(cosmos_res$weightedSIF)
+  ATT <- as.data.frame(cosmos_res$nodesAttributes)
+  names(ATT)[1] <- "Nodes"
+  ATT$measured <- ifelse(ATT$NodeType %in% c("T","S"),1,0)
+  ATT$Activity <- ATT$AvgAct
   
-  att$Nodes <- translate_column(att$Nodes,
-                                metab_mapping,
-                                gene_mapping)
-
-  ########################
-  omnipath_ptm <- omnipath_ptm[omnipath_ptm$modification %in% c("dephosphorylation","phosphorylation"),]
-  KSN <- omnipath_ptm[,c(4,3)]
-  KSN$substrate_genesymbol <- paste(KSN$substrate_genesymbol,omnipath_ptm$residue_type, sep ="_")
-  KSN$substrate_genesymbol <- paste(KSN$substrate_genesymbol,omnipath_ptm$residue_offset, sep = "")
-  KSN$sign <- ifelse(omnipath_ptm$modification == "phosphorylation", 1, -1)
-  att$type <- ifelse(att$type == 'protein', 'metab_enzyme', att$type)
+  for(i in c(1,3))
+  {
+    SIF[,i] <- sapply(SIF[,i], function(x, HMDB_mapper_vec){
+      x <- gsub("Metab__","",x)
+      x <- gsub("^Gene","Enzyme",x)
+      suffixe <- str_extract(x,"_[a-z]$")
+      x <- gsub("_[a-z]$","",x)
+      if(x %in% names(HMDB_mapper_vec))
+      {
+        x <- HMDB_mapper_vec[x]
+        x <- paste("Metab__",paste(x,suffixe,sep = ""),sep = "")
+      }
+      return(x)
+    },HMDB_mapper_vec = HMDB_mapper_vec)
+  }
   
-  att$type <- ifelse(att$Nodes %in% KSN$enzyme_genesymbol, "Kinase",att$type)
-  dorothea <- as.data.frame(dorothea::dorothea_hs[dorothea::dorothea_hs$confidence %in% c("A","B","C","D","E"),c(3,1,4)])
-  names(dorothea) <- c("target_genesymbol","source_genesymbol","sign")
-  att$type <- ifelse(att$Nodes %in% dorothea$source_genesymbol, "TF",att$type)
-
-  att$Activity <- sign(as.numeric(as.character(att$AvgAct)))
-
-  sif <- sif[sif$Node1 != sif$Node2,]
-
-  sif <- sif[sif$Node1 %in% att$Nodes & sif$Node2 %in% att$Nodes,]
+  ATT[,1] <- sapply(ATT[,1], function(x, HMDB_mapper_vec){
+    x <- gsub("Metab__","",x)
+    x <- gsub("^Gene","Enzyme",x)
+    suffixe <- str_extract(x,"_[a-z]$")
+    x <- gsub("_[a-z]$","",x)
+    if(x %in% names(HMDB_mapper_vec))
+    {
+      x <- HMDB_mapper_vec[x]
+      x <- paste("Metab__",x,sep = "")
+    }
+    if(!is.na(suffixe))
+    {
+      x <- paste(x,suffixe,sep = "")
+    }
+    return(x)
+  },HMDB_mapper_vec = HMDB_mapper_vec)
   
-  measured <- att[att$measured == 1,"Nodes"]
-  att$measured <- ifelse(att$Nodes %in% measured, 1, 0)
-  
-  return(list(sif,att))
+  return(list(SIF,ATT))
 }
 
 

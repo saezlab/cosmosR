@@ -19,7 +19,7 @@
 #' @export
 #' @examples 
 #' load_tf_regulon_dorothea()
-load_tf_regulon_dorothea <- function(toEntrez = TRUE, confidence = c("A","B","C")){
+load_tf_regulon_dorothea <- function(toEntrez = FALSE, confidence = c("A","B","C")){
     . <- NULL
     
     # load regulon from dorothea:

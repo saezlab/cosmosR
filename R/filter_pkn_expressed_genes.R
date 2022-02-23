@@ -8,21 +8,19 @@
 filter_pkn_expressed_genes <- function(expressed_genes_entrez,meta_pkn){
     
     print(paste("COSMOS: removing unexpressed nodes from PKN..."))    
-    
-    expressed_genes_entrez <- gsub("X","", expressed_genes_entrez)
-    
+
     is_expressed <- function(x)
     {
-        if(!grepl("Metab",x))
+        if(!grepl("Metab",x) & !grepl("orphanReac",x))
         {
-            if(gsub("X","",x)  %in% expressed_genes_entrez)
+            if(x %in% expressed_genes_entrez)
             {
                 return(x)
             } else
             {
-                if(grepl("XGene[0-9]+__[0-9_]+$",x))
+                if(grepl("Gene[0-9]+__[A-Z0-9_]+$",x))
                 {
-                    genes <- gsub("XGene[0-9]+__","",x)
+                    genes <- gsub("Gene[0-9]+__","",x)
                     genes <- strsplit(genes,"_")[[1]]
                     if(sum(genes %in% expressed_genes_entrez) != length(genes))
                     {
@@ -33,14 +31,15 @@ filter_pkn_expressed_genes <- function(expressed_genes_entrez,meta_pkn){
                     }
                 } else
                 {
-                    if(grepl("XGene[0-9]+__[A-Za-z]",x))
+                    if(grepl("Gene[0-9]+__[^_][a-z]",x))
                     {
+                        print(x)
                         return(x)
                     } else
                     {
-                        if(grepl("XGene[0-9]+__[0-9_]+reverse",x))
+                        if(grepl("Gene[0-9]+__[A-Z0-9_]+reverse",x))
                         {
-                            genes <- gsub("XGene[0-9]+__","",x)
+                            genes <- gsub("Gene[0-9]+__","",x)
                             genes <- gsub("_reverse","",genes)
                             genes <- strsplit(genes,"_")[[1]]
                             if(sum(genes %in% expressed_genes_entrez) != length(genes))

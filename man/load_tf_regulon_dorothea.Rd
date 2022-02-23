@@ -4,7 +4,7 @@
 \alias{load_tf_regulon_dorothea}
 \title{load transcription factor regulon}
 \usage{
-load_tf_regulon_dorothea(toEntrez = TRUE, confidence = c("A", "B", "C"))
+load_tf_regulon_dorothea(toEntrez = FALSE, confidence = c("A", "B", "C"))
 }
 \arguments{
 \item{toEntrez}{if TRUE (default), converts gene symbols to EntrezID}
