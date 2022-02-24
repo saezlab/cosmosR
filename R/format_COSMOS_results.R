@@ -13,7 +13,7 @@ format_COSMOS_res <- function(cosmos_res,
   # require(dorothea)
   if(is.null(metab_mapping))
   {
-    data("HMDB_mapper_vec")
+    data("HMDB_mapper_vec",package = "cosmosR",envir = environment())
   }
   SIF <- as.data.frame(cosmos_res$weightedSIF)
   ATT <- as.data.frame(cosmos_res$nodesAttributes)

@@ -33,16 +33,12 @@ LazyData: false
 RoxygenNote: 7.1.2
 VignetteBuilder: knitr
 Imports:
-    AnnotationDbi,
-    biomaRt,
     CARNIVAL,
-    dorothea,
     dplyr,
     ggplot2,
     GSEABase,
     igraph,
     magrittr,
-    org.Hs.eg.db,
     plyr,
     purrr,
     readr,
