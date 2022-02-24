@@ -3,9 +3,7 @@
 
 test_that("tf conversion", {
     
-    reg = load_tf_regulon_dorothea(toEntrez = TRUE,
-                             confidence = c("A","B","C")
-                                )
+    reg = load_tf_regulon_dorothea(confidence = c("A","B","C"))
     # make sure A,B,C still contains a lot of interactions
     expect_true(nrow(reg) > 1)
     # should return 3 columns, correct names 
