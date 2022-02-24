@@ -27,7 +27,7 @@ data(toy_network)
 }
 \description{
 This signaling network is the reduced COSMOS network solution obtained in the
-case study of the COSMOS paper.  Here, this network solution is reused as an
+cosmos test on 786-O NCI60 data.  Here, this network solution is reused as an
 exemplary input prior knowledge network (PKN).
 }
 \examples{

@@ -18,9 +18,7 @@ data(toy_signaling_input)
 }
 \description{
 This signaling data are a subset of the footprint-based signaling activity
-estimates of transcription factors, kinases and phophatases used as an input
-in the case study of the COSMOS paper.  The subset contains a random selection
-of signaling proteins present in the toy network.
+estimates of transcription factors of the 786-O cell line from the NCI60 dataset.
 }
 \examples{
 data(toy_signaling_input)

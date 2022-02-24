@@ -79,8 +79,9 @@ check_network_data_coverage <- function(meta_network,
                                  " of the ",length(unique(tf_regulon$target)),
                                  " transcription factor targets were found in expression data"))
         if(genes_as_tf_target==0){
+            print(genes, tf_regulon$target)
             stop("Expression data contains no gene that appear as transcription factor target.
-             The expression_data must be a named vector using EntrezIDs.")
+             The expression_data must be a named vector using gene symboles.")
         }
     }
     

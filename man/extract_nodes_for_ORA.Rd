@@ -37,13 +37,7 @@ CARNIVAL_options = CARNIVAL_options
 )
 test_result_for <- run_COSMOS_signaling_to_metabolism(data = test_for,
 CARNIVAL_options = CARNIVAL_options)
-data(metabolite_to_pubchem)
-data(omnipath_ptm)
-test_result_for <- format_COSMOS_res(test_result_for,
-metab_mapping = metabolite_to_pubchem,
-measured_nodes = unique(c(names(toy_metabolic_input),
-                          names(toy_signaling_input))),
-omnipath_ptm = omnipath_ptm)
+test_result_for <- format_COSMOS_res(test_result_for)
 extreacted_nodes <- extract_nodes_for_ORA(
 sif = test_result_for[[1]],
 att = test_result_for[[2]]

@@ -129,13 +129,7 @@ test_result_for <- run_COSMOS_signaling_to_metabolism(data = test_for,
 Finally, we process the results of the first cosmosR run, to translate gene names and metabolites name.
 
 ```{r, warning=FALSE, message=FALSE}
-data(metabolite_to_pubchem)
-data(omnipath_ptm)
-formated_result_for <- format_COSMOS_res(test_result_for,
-                                     metab_mapping = metabolite_to_pubchem,
-                     measured_nodes = unique(c(names(toy_metabolic_input),
-                                               names(toy_signaling_input))),
-                                     omnipath_ptm = omnipath_ptm)
+formated_result_for <- format_COSMOS_res(test_result_for)
 ```
 
 ## Tutorial section: metabolism to signaling 
@@ -172,12 +166,7 @@ test_result_back <- run_COSMOS_metabolism_to_signaling(data = test_back,
 Finally we can format the result of the backward run as well (same as for forward run)
 
 ```{r, warning=FALSE, message=FALSE}
-formated_result_back <- format_COSMOS_res(test_result_back,
-                                      metab_mapping = metabolite_to_pubchem,
-                      measured_nodes = unique(c(names(toy_metabolic_input),
-                                                names(toy_signaling_input))),
-                                      omnipath_ptm = omnipath_ptm)
-
+formated_result_back <- format_COSMOS_res(test_result_back)
 ```
 
 ## Tutorial section: Merge forward and backward networks and visualise network
@@ -195,7 +184,7 @@ full_attributes <- unique(full_attributes)
 This function will generate a dynamic network plot centered on a given node of the network solution, and connecting it to measured nodes in the given range (here 7 steps).
 
 ```{r, warning=FALSE, message=FALSE}
-network_plot <- display_node_neighboorhood(central_node = 'NFKB1', 
+network_plot <- display_node_neighboorhood(central_node = 'Metab__D-Glucitol_c', 
                                            sif = full_sif, 
                                            att = full_attributes, 
                                            n = 7)

@@ -6,7 +6,7 @@
 \title{Toy Input Transcription Data Set}
 \format{
 An object of class \dQuote{\code{numeric}} containing the t-values of
-  15919 genes, which are named with gene Entrez IDs matching the toy network.
+  9300 genes, which are named with gene symboles matching the toy network.
 }
 \source{
 \url{https://github.com/saezlab/COSMOS_MSB/blob/main/data/RNA_ttop_tumorvshealthy.csv}
@@ -15,8 +15,7 @@ An object of class \dQuote{\code{numeric}} containing the t-values of
 data(toy_RNA)
 }
 \description{
-This exemplary transcription data are the differential expression results
-analysed in the case study of the COSMOS paper.
+This exemplary transcription data are the specific deregulated gene expression of the 786-O cell line from the NCI60 dataset.
 }
 \examples{
 data(toy_RNA)

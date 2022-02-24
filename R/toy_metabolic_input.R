@@ -1,15 +1,13 @@
 #' Toy Metabolic Input Data
 #' 
-#' This metabolic data are a subset from the metabolic measurements used as an
-#' input in the case study of the COSMOS paper.  The subset contains a random 
-#' selection of metabolites present in the toy network.
+#' This metabolic data are a subset from the metabolic measurements of the 786-O cell line from the NCI60 dataset.
 #'
 #' @docType data
 #'
 #' @usage data(toy_metabolic_input)
 #'
 #' @format An object of class \dQuote{\code{numeric}} containing the t-values of
-#'   3 metabolites, which are named with metabolite PubChem CIDs matching the
+#'   2 metabolites, which are named with metabolite HMDB Ids matching the
 #'   toy network.
 #'
 #' @source Subset of: 
