@@ -81,12 +81,12 @@ For more info on TF activity estimation from transcriptomic data, see:https://gi
 
 Here we use of toy PKN, to see the full meta PKN, you can load it with data(meta_network).
 
-The metabolites in the prior knowledge network are identified as XMetab__PUBCHEMid___compartment____ or XMetab__BIGGid___compartment____
-(for example “XMetab__6804___m____”). The compartment code is the BIGG model standard (r, c, e, x, m, l, n, g). 
+The metabolites in the prior knowledge network are identified as XMetab__HMDBid_compartment or XMetab__BIGGid_compartment
+(for example “Metab__HMDB0000190_c”). The compartment code is the BIGG model standard (r, c, e, x, m, l, n, g). 
 Thus we will first need to map whatever identifier for metabolite the data has to the one of the network.
-Genes are identified as XENTREZid (in the signaling part of network) or XGene####__ENTREZid (in the reaction network part of network).
+Genes are identified as gene symboles (in the signaling part of network) or Gene####__symbole (in the reaction network part of network).
 
-The maximum network depth will define the maximum number of step downstream of kinase/TF COSMOS will look for deregulated metabolites. Good first guess for max depth could be around 6 (here it is 15 for the toy dataset)
+The maximum network depth will define the maximum number of step downstream of kinase/TF COSMOS will look for deregulated metabolites. Good first guess for max depth could be around between 4 and 6 (here it is 15 for the toy dataset)
 
 The differential experession data is used to filter out wrong TF-target interactions in this context after a pre-optimisation.
 
@@ -193,9 +193,7 @@ network_plot
 ```
 Here is how this network can be intepreted (this is purely illustrative, as some of those interaction may be incorectly signed because lpsolve can only use positive interactions): 
 
-This network represents the flow of activities that can connect NFKB1 up-regulation with o-propanoylcarnitine accumulation
-accumulation. Here, NFKB1 can upregulate the expression of TNFAIP3, which in turn activate TBK1 (potentially through ubiquitin editing mechanism). The activation of TBK1 can lead to the phosphorilation and activation of HADHB kinase, leading
-to the increased production of propionyl-Coa, which in turn can be converted to o-propanoylcarnitine by the CRAT enzyme.
+This network represents the flow of activities that can connect MYC up-regulation with Glucitol (Sorbitol) accumulation. Here, NFKB1 can upregulate the expression of SLC2A1, which in turn transport more glucose in the cytoplasm. The increase transport of glucose can lead to more glucose being avlaible for conversion into glucitol by the AKR1A enzyme. Interestingly, glucitol is a now activator of MAPK14, thus leading to the appearance of a positive feedback loop connecting MYC, glucitol and MAPK14.
 
 It is important to understand that each of this links is hypothetical. The come from a larger pool of 
 potential molecular interactions present in multiple online databases and compiled in omnipath, STITCH 
