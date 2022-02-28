@@ -45,6 +45,8 @@ Essentially, COSMOS has 3 main components:
 
 * The algorithm: The problem described in the data part is formulated as an integer linear optimisation problem. The PKN and the data can be abstracted as a large set of integer variables operating together in an even larger set of equations (see https://www.nature.com/articles/s41540-019-0118-z for more info). Given a set of fixed value for the variable (that is, a subset of the known deregulation), we need to find the values for the other sets of variable (corresponding to proteins and metabolites for which we have no information in our data) that can lead to a satisfying result. A satisfying results in the context of COSMOS represent a sub-network of interactions that is as small as possible while coherently explaining as many of our known deregulation as possible. Thus, the set of equation mentioned earlier needs to be solved, using an integer linear programming solver. The solvers that are currently available for COSMOS are lpsolve, cbc and cplex. In general, CPLEX is preferred over CBC for most real case applications, while lpsolve is mainly used for testing with small networks and sets of measurements.
 
+Users can obtain executable for cbc that are directly usable for cosmos here: https://ampl.com/products/solvers/open-source/#cbc
+
 ![Summary figure](../inst/figures/summary.png)
 
 ## Tutorial section: signaling to metabolism
@@ -79,7 +81,7 @@ In the next section, we prepare the input to run cosmosR.
 The signaling inputs are the result of footprint based TF and kinase activity estimation.
 For more info on TF activity estimation from transcriptomic data, see:https://github.com/saezlab/transcriptutorial (Especially chapter 4)
 
-Here we use of toy PKN, to see the full meta PKN, you can load it with data(meta_network).
+Here we use of toy PKN, to see the full meta PKN, you can load it with data(meta_network). To see how is the meta_PKN assembled, see: https://github.com/saezlab/meta_PKN_BIGG.git
 
 The metabolites in the prior knowledge network are identified as XMetab__HMDBid_compartment or XMetab__BIGGid_compartment
 (for example “Metab__HMDB0000190_c”). The compartment code is the BIGG model standard (r, c, e, x, m, l, n, g). 
