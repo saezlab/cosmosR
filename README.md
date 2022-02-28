@@ -54,6 +54,11 @@ We recorded a video guide for cosmosR tutorial in the context of a course organi
 You can access the recording at this link for a step by step introduction to cosmosR : 
 https://embl-ebi.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=318f7091-b6bf-44ee-939f-adb10121fc1b
 
+## Tutorial (NCI60 playground)
+
+We made a repository that ocntains pre-processed inputs and an example script to use cosmos with the NCI60 RNA+metabolomic datasets.
+You can find the repository here: https://github.com/saezlab/NCI60_cosmos.git
+
 ## Access
 
 The meta PKN used with the biorXiv version of COSMOS is available [here](http://metapkn.omnipathdb.org/).
