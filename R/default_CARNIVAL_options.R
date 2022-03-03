@@ -55,17 +55,18 @@ check_CARNIVAL_options <- function(opts){
     req_names <- c(
         # "solverPath",
         "solver", 
-        "timelimit",
-        "mipGAP",
-        "poolrelGAP",
-        "limitPop", 
-        "poolCap",
-        "poolIntensity",
-        "poolReplace",
-        "alphaWeight", 
-        "betaWeight",
-        "threads",
-        "dir_name")
+        "timelimit"
+        # "mipGAP",
+        # "poolrelGAP",
+        # "limitPop", 
+        # "poolCap",
+        # "poolIntensity",
+        # "poolReplace",
+        # "alphaWeight", 
+        # "betaWeight",
+        # "threads",
+        # "dir_name"
+        )
     
     # if(opts$solver == "lpSolve")
     # {
@@ -74,7 +75,9 @@ check_CARNIVAL_options <- function(opts){
     # 
     if(!all(req_names %in% names(opts))){
         stop("CARNIVAL options should contain all options. 
-             Start by calling default_CARNIVAL_options() and replace entries. ")
+             Start by calling CARNIVAL::defaultCbcCarnivalOptions() for CPLEX  or
+             CARNIVAL::defaultCplexCarnivalOptions() for CBC solver, or
+             CARNIVAL::defaultLpSolveCarnivalOptions() for LpSolve and replace entries. ")
     }
     
     
