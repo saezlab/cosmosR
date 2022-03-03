@@ -18,7 +18,7 @@ format_COSMOS_res <- function(cosmos_res,
   SIF <- as.data.frame(cosmos_res$weightedSIF)
   ATT <- as.data.frame(cosmos_res$nodesAttributes)
   names(ATT)[1] <- "Nodes"
-  ATT$measured <- ifelse(ATT$NodeType %in% c("T","S"),1,0)
+  ATT$measured <- ifelse(ATT$NodeType %in% c("M","T","S"),1,0)
   ATT$Activity <- ATT$AvgAct
   
   for(i in c(1,3))
