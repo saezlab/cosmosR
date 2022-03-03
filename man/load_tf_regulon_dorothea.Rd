@@ -4,11 +4,9 @@
 \alias{load_tf_regulon_dorothea}
 \title{load transcription factor regulon}
 \usage{
-load_tf_regulon_dorothea(toEntrez = FALSE, confidence = c("A", "B", "C"))
+load_tf_regulon_dorothea(confidence = c("A", "B", "C"))
 }
 \arguments{
-\item{toEntrez}{if TRUE (default), converts gene symbols to EntrezID}
-
 \item{confidence}{strong vector (by default: c("A","B","C")). Subset of \{A, B,
  C, D, E\}. See the `dorothea` for the meaning of confidence levels. 
 package for further details.}
