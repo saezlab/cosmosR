@@ -15,7 +15,7 @@ preprocess_COSMOS_metabolism_to_signaling(
   expressed_genes = NULL,
   remove_unexpressed_nodes = TRUE,
   filter_tf_gene_interaction_by_optimization = TRUE,
-  CARNIVAL_options = default_CARNIVAL_options()
+  CARNIVAL_options = CARNIVAL::defaultLpSolveCarnivalOptions()
 )
 }
 \arguments{
