@@ -64,15 +64,21 @@ You can check the CARNIVAL_options variable to see all possible options that can
 In this example, we will use the built-in solver lpSolve. User should be aware that lpSolve should ONLY be used for TESTS. To obtain meaningful results, best solver is cplex, or cbc if not possible.
 
 ```{r, warning=FALSE, message=FALSE}
-CARNIVAL_options <- cosmosR::default_CARNIVAL_options()
+CARNIVAL_options <- CARNIVAL::defaultLpSolveCarnivalOptions()
+# To use CBC
+# CARNIVAL_options <- CARNIVAL::defaultCbcCarnivalOptions()
+
 # CARNIVAL_options$solverPath <- "C:/Program Files/CPLEX_solver/cplex/bin/x64_win64/cplex.exe"
 # CARNIVAL_options$solver <- "cplex" #or cbc
 # CARNIVAL_options$solverPath <- "~/Documents/cplex"
 # CARNIVAL_options$solver <- "cplex" #or cbc
-CARNIVAL_options$solver <- "lpSolve" #or cbc
+# CARNIVAL_options$threads <- 2
+# CARNIVAL_options$mipGAP <- 0.05
+
 CARNIVAL_options$timelimit <- 3600
-CARNIVAL_options$mipGAP <- 0.05
-CARNIVAL_options$threads <- 2
+#CARNIVAL_options <- CARNIVAL::defaultCplexCarnivalOptions()
+#CARNIVAL_options$solverPath = "/Applications/CPLEX_Studio128/cplex/bin/x86-64_osx/cplex"
+
 ```
 
 In the next section, we prepare the input to run cosmosR.
@@ -105,8 +111,7 @@ test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_network
                                                       diff_expression_data = toy_RNA,
                                                       maximum_network_depth = 15,
                                                       remove_unexpressed_nodes = TRUE,
-                                                      CARNIVAL_options = CARNIVAL_options
-                                                      )
+                                                      CARNIVAL_options = CARNIVAL_options)
 ```
 
 In this part, we can set up the options for the actual run, such as timelimit and min gap tolerance.
@@ -175,6 +180,7 @@ Here we simply take the union of forward and backward runs to create a full netw
 
 ```{r, warning=FALSE, message=FALSE}
 full_sif <- as.data.frame(rbind(formated_result_for[[1]], formated_result_back[[1]]))
+full_sif <- full_sif[full_sif$Weight>0,]
 full_attributes <- as.data.frame(rbind(formated_result_for[[2]], formated_result_back[[2]]))
 
 full_sif <- unique(full_sif)
