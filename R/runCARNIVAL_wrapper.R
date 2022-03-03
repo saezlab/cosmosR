@@ -31,30 +31,14 @@ runCARNIVAL_wrapper <- function(network,
                               input_data = input_data,
                               measured_data = measured_data)
     
+
+    CARNIVAL_Result <- CARNIVAL::runVanillaCarnival(perturbations = input_data,
+                                                    measurements = measured_data,
+                                                    priorKnowledgeNetwork = network,
+                                                    carnivalOptions = options)
+
     
-    inputObj = dplyr::bind_rows(input_data)
-    measObj  = dplyr::bind_rows(measured_data)
-    # netObj = meta_network
-    netObj = network
-    
-    CARNIVAL_Result <- CARNIVAL::runCARNIVAL(inputObj = inputObj,
-                                             measObj = measObj,
-                                             netObj = netObj,
-                                             poolrelGAP = options$poolrelGAP,
-                                             limitPop = options$limitPop,
-                                             poolCap = options$poolCap,
-                                             poolIntensity = options$poolIntensity,
-                                             alphaWeight = options$alphaWeight,
-                                             betaWeight = options$betaWeight,
-                                             poolReplace = options$poolReplace,
-                                             threads = options$threads,
-                                             solverPath = options$solverPath,
-                                             solver = options$solver,
-                                             timelimit = options$timelimit,
-                                             mipGAP = options$mipGAP,
-                                             dir_name = options$dir_name)
-    
-    if(!validate_CARNIVAL_results(CARNIVAL_Result)) warning("We failed to validate CARNIVAL results.")
+        if(!validate_CARNIVAL_results(CARNIVAL_Result)) warning("We failed to validate CARNIVAL results.")
     
     return(CARNIVAL_Result)
 }
