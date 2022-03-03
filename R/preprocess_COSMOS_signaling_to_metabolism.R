@@ -87,7 +87,7 @@ preprocess_COSMOS_signaling_to_metabolism <- function(meta_network = meta_networ
                               expressed_genes =  NULL,
                               remove_unexpressed_nodes = TRUE,
                               filter_tf_gene_interaction_by_optimization = TRUE,
-                              CARNIVAL_options = default_CARNIVAL_options()){
+                              CARNIVAL_options =  CARNIVAL::defaultLpSolveCarnivalOptions()){
     
     if(!is.null(diff_expression_data))
     {
