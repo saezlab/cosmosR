@@ -20,7 +20,10 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Installation and dependency
 
 COSMOS is dependent on CARNIVAL for exhibiting the signalling pathway optimisation.
-CARNIVAL requires the interactive version of IBM Cplex or CBC-COIN solver as the network optimiser. The IBM ILOG Cplex is freely available through Academic Initiative [here](https://www.ibm.com/products/ilog-cplex-optimization-studio).  The [CBC](https://projects.coin-or.org/Cbc) solver is open source and freely available for any user, but has a significantly lower performance than CPLEX. Alternatively for small networks, users can rely on the freely available [lpSolve R-package](https://cran.r-project.org/web/packages/lpSolve/index.html), which is automatically installed with the package.
+CARNIVAL requires the interactive version of IBM Cplex or CBC-COIN solver as the network optimiser. The IBM ILOG Cplex is freely available through Academic Initiative [here](https://www.ibm.com/products/ilog-cplex-optimization-studio).  The [CBC](https://projects.coin-or.org/Cbc) solver is open source and freely available for any user, but has a significantly lower performance than CPLEX. Obtain CBC executable directly usable for cosmos [here](https://ampl.com/products/solvers/open-source/#cbc).
+Alternatively for small networks, users can rely on the freely available [lpSolve R-package](https://cran.r-project.org/web/packages/lpSolve/index.html), which is automatically installed with the package.
+
+
 
 In this tutorial we use lpSolve, but we strongly recommend to obtain a license
 for CPLEX.
@@ -48,6 +51,8 @@ Essentially, COSMOS has 3 main components:
 * The data: Information about deregulated transcription factors (TF), kinases/phosphophatases and metabolites can be extracted from transcriptomic, phospho-proteomic or metabolomic data respectively, using footprint analysis methods (see:https://github.com/saezlab/transcriptutorial (Especially chapter 4)). Such information can be quite useful by itself, to characterize which TFs or kinases are specifically deregulated in cancer cells for example. the goal of COSMOS is to find how these different deregulation events can be connected together. Going back to the example of MTOR and AKT, if I know that AKT can potentially activate MTOR, and  I observe in my data that both AKT and MTOR are significantly activated in cancer tissue compared to their healthy counterpart, there is a reasonable chance that this interaction is active in the cancer tissue I'm studying. The problem is that data often contain information about hundreds of up and down-regulated activities at the same time, and thousands of potential interactions can potentially explain them. In order to find the optimal set of interactions that are relevant to explain the deregulation observed in my data, an algorithm is needed.
 
 * The algorithm: The problem described in the data part is formulated as an integer linear optimisation problem. The PKN and the data can be abstracted as a large set of integer variables operating together in an even larger set of equations (see https://www.nature.com/articles/s41540-019-0118-z for more info). Given a set of fixed value for the variable (that is, a subset of the known deregulation), we need to find the values for the other sets of variable (corresponding to proteins and metabolites for which we have no information in our data) that can lead to a satisfying result. A satisfying results in the context of COSMOS represent a sub-network of interactions that is as small as possible while coherently explaining as many of our known deregulation as possible. Thus, the set of equation mentioned earlier needs to be solved, using an integer linear programming solver. The solvers that are currently available for COSMOS are lpsolve, cbc and cplex. In general, CPLEX is preferred over CBC for most real case applications, while lpsolve is mainly used for testing with small networks and sets of measurements.
+
+
 
 ![Summary figure](../inst/figures/summary.png)
 
@@ -89,14 +94,14 @@ In the next section, we prepare the input to run cosmosR.
 The signaling inputs are the result of footprint based TF and kinase activity estimation.
 For more info on TF activity estimation from transcriptomic data, see:https://github.com/saezlab/transcriptutorial (Especially chapter 4)
 
-Here we use of toy PKN, to see the full meta PKN, you can load it with data(meta_network).
+Here we use of toy PKN, to see the full meta PKN, you can load it with data(meta_network). To see how is the meta_PKN assembled, see: https://github.com/saezlab/meta_PKN_BIGG.git
 
-The metabolites in the prior knowledge network are identified as XMetab__PUBCHEMid___compartment____ or XMetab__BIGGid___compartment____
-(for example “XMetab__6804___m____”). The compartment code is the BIGG model standard (r, c, e, x, m, l, n, g). 
+The metabolites in the prior knowledge network are identified as XMetab__HMDBid_compartment or XMetab__BIGGid_compartment
+(for example “Metab__HMDB0000190_c”). The compartment code is the BIGG model standard (r, c, e, x, m, l, n, g). 
 Thus we will first need to map whatever identifier for metabolite the data has to the one of the network.
-Genes are identified as XENTREZid (in the signaling part of network) or XGene####__ENTREZid (in the reaction network part of network).
+Genes are identified as gene symboles (in the signaling part of network) or Gene####__symbole (in the reaction network part of network).
 
-The maximum network depth will define the maximum number of step downstream of kinase/TF COSMOS will look for deregulated metabolites. Good first guess for max depth could be around 6 (here it is 15 for the toy dataset)
+The maximum network depth will define the maximum number of step downstream of kinase/TF COSMOS will look for deregulated metabolites. Good first guess for max depth could be around between 4 and 6 (here it is 15 for the toy dataset)
 
 The differential experession data is used to filter out wrong TF-target interactions in this context after a pre-optimisation.
 
@@ -203,9 +208,7 @@ network_plot
 ```
 Here is how this network can be intepreted (this is purely illustrative, as some of those interaction may be incorectly signed because lpsolve can only use positive interactions): 
 
-This network represents the flow of activities that can connect NFKB1 up-regulation with o-propanoylcarnitine accumulation
-accumulation. Here, NFKB1 can upregulate the expression of TNFAIP3, which in turn activate TBK1 (potentially through ubiquitin editing mechanism). The activation of TBK1 can lead to the phosphorilation and activation of HADHB kinase, leading
-to the increased production of propionyl-Coa, which in turn can be converted to o-propanoylcarnitine by the CRAT enzyme.
+This network represents the flow of activities that can connect MYC up-regulation with Glucitol (Sorbitol) accumulation. Here, NFKB1 can upregulate the expression of SLC2A1, which in turn transport more glucose in the cytoplasm. The increase transport of glucose can lead to more glucose being avlaible for conversion into glucitol by the AKR1A enzyme. Interestingly, glucitol is a now activator of MAPK14, thus leading to the appearance of a positive feedback loop connecting MYC, glucitol and MAPK14.
 
 It is important to understand that each of this links is hypothetical. The come from a larger pool of 
 potential molecular interactions present in multiple online databases and compiled in omnipath, STITCH 
