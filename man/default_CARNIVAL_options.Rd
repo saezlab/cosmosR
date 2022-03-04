@@ -4,7 +4,12 @@
 \alias{default_CARNIVAL_options}
 \title{Setting Default CARNIVAL Options}
 \usage{
-default_CARNIVAL_options()
+default_CARNIVAL_options(solver = c("lpSolve", "cplex", "cbc"), verbose = TRUE)
+}
+\arguments{
+\item{solver}{one of `cplex` (recommended, but require 3rd party tool), `cbc` (also require 3rd party tool) or `lpSolve` (default, only for small networks)}
+
+\item{verbose}{(default: TRUE)  notify the user to include path for CPLEX or CBC path}
 }
 \value{
 returns a list with all possible options implemented in CARNIVAL.
@@ -16,7 +21,7 @@ of the list and then use it as an argument in \dQuote{\code{run_COSMOS()}}.
 }
 \examples{
 # load and change default options: 
-my_options = default_CARNIVAL_options()
+my_options = default_CARNIVAL_options(solver = "cplex")
 
 my_options$solverPath = "/Applications/CPLEX_Studio128/cplex/bin/x86-64_osx/cplex"
 my_options$threads = 2
