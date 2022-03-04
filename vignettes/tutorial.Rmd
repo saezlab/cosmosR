@@ -17,19 +17,23 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Installation
+## Installation and dependency
+
+COSMOS is dependent on CARNIVAL for exhibiting the signalling pathway optimisation.
+CARNIVAL requires the interactive version of IBM Cplex or CBC-COIN solver as the network optimiser. The IBM ILOG Cplex is freely available through Academic Initiative [here](https://www.ibm.com/products/ilog-cplex-optimization-studio).  The [CBC](https://projects.coin-or.org/Cbc) solver is open source and freely available for any user, but has a significantly lower performance than CPLEX. Alternatively for small networks, users can rely on the freely available [lpSolve R-package](https://cran.r-project.org/web/packages/lpSolve/index.html), which is automatically installed with the package.
+
+In this tutorial we use lpSolve, but we strongly recommend to obtain a license
+for CPLEX.
+
 ```{r eval=FALSE}
 # install from bioconductor
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("cosmosR")
 
-# install the development version from GitHub
+# install the newest (development) version from GitHub
 # install.packages("remotes")
 remotes::install_github("saezlab/cosmosR")
-
-# Install an older stable version of CARNIVAL (1.3.0)
-remotes::install_github("saezlab/CARNIVAL@b3a84c6ba9706547caca02644566d75ee621f568")
 ```
 
 ## Introduction
@@ -64,10 +68,12 @@ You can check the CARNIVAL_options variable to see all possible options that can
 In this example, we will use the built-in solver lpSolve. User should be aware that lpSolve should ONLY be used for TESTS. To obtain meaningful results, best solver is cplex, or cbc if not possible.
 
 ```{r, warning=FALSE, message=FALSE}
-CARNIVAL_options <- CARNIVAL::defaultLpSolveCarnivalOptions()
+CARNIVAL_options <- default_CARNIVAL_options(solver = "lpSolve")
 # To use CBC
-# CARNIVAL_options <- CARNIVAL::defaultCbcCarnivalOptions()
+# CARNIVAL_options <- default_CARNIVAL_options(solver = "cbc")
 
+# To use CPLEX:
+# CARNIVAL_options <- default_CARNIVAL_options(solver = "cplex")
 # CARNIVAL_options$solverPath <- "C:/Program Files/CPLEX_solver/cplex/bin/x64_win64/cplex.exe"
 # CARNIVAL_options$solver <- "cplex" #or cbc
 # CARNIVAL_options$solverPath <- "~/Documents/cplex"
@@ -76,8 +82,6 @@ CARNIVAL_options <- CARNIVAL::defaultLpSolveCarnivalOptions()
 # CARNIVAL_options$mipGAP <- 0.05
 
 CARNIVAL_options$timelimit <- 3600
-#CARNIVAL_options <- CARNIVAL::defaultCplexCarnivalOptions()
-#CARNIVAL_options$solverPath = "/Applications/CPLEX_Studio128/cplex/bin/x86-64_osx/cplex"
 
 ```
 
@@ -246,7 +250,7 @@ nodes_ORA = extract_nodes_for_ORA(
     att = att_forward)
 ```
 
-Now this forground and background set can be used with any ORA anaylsis. 
+Now this forward and backward sets can be used with any ORA analysis. 
 
 ```{r, warning=FALSE, message=FALSE}
 sessionInfo()
