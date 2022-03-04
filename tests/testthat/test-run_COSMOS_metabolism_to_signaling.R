@@ -17,14 +17,7 @@ test_that("test run COSMOS signaling to metabolism", {
                            maximum_network_depth = 15,
                            filter_tf_gene_interaction_by_optimization = FALSE)
   
-  CARNIVAL_options = cosmosR::default_CARNIVAL_options()
-  
-  
-  cplex_file <- "/Applications/CPLEX_Studio128/cplex/bin/x86-64_osx/cplex"
-  
-  skip_if(!file.exists(cplex_file),"CPLEX optimization based test skipped.")
-  
-  CARNIVAL_options$solverPath = cplex_file
+  CARNIVAL_options = CARNIVAL::defaultLpSolveCarnivalOptions()
   
   res_network = run_COSMOS_metabolism_to_signaling(data = res,
                                                    CARNIVAL_options = CARNIVAL_options)
