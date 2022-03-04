@@ -37,12 +37,17 @@ devtools::install_github("saezlab/cosmosR")
 
 If you don't have R 4.1, you can also clone the github repository on your machine, create a new R project with R studio from the cosmosR folder, change the R version to your own R version in the DESCRIPTION file and then install it with devtools:install()
 
-But 4.1 is advised in anycase.
+But 4.1 is advised in any case.
+
+### Prerequisites
+
+COSMOS is dependent on CARNIVAL for exhibiting the signalling pathway optimisation.
+CARNIVAL requires the interactive version of IBM Cplex, Gurobi or CBC-COIN solver as the network optimiser. The IBM ILOG Cplex is freely available through Academic Initiative [here](https://www.ibm.com/products/ilog-cplex-optimization-studio). Gurobi license is also free for academics, request a license [here](https://www.gurobi.com/downloads/end-user-license-agreement-academic/). The [CBC](https://projects.coin-or.org/Cbc) solver is open source and freely available for any user, but has a significantly lower performance than CPLEX or Gurobi. Alternatively for small networks, users can rely on the freely available [lpSolve R-package](https://cran.r-project.org/web/packages/lpSolve/index.html), which is automatically installed with the package.
 
 
 Small note to package dependencies:
 
-COSMOS is dependent on CARNIVAL for exhibiting the signalling pathway optimisation. CARNIVAL is currently under active development. We try to ensure the compatibility of both packages. In case the current CARNIVAL installation non the less colides with COSMOS please report and consider installing an older stable version to run COSMSOS.
+ CARNIVAL is currently under active development. We try to ensure the compatibility of both packages. In case the current CARNIVAL installation non the less colides with COSMOS please report and consider installing an older stable version to run COSMSOS.
 ```r
 # Install an older stable version of CARNIVAL (1.3.0)
 remotes::install_github("saezlab/CARNIVAL@b3a84c6ba9706547caca02644566d75ee621f568")
