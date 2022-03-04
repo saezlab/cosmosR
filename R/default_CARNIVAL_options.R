@@ -3,33 +3,38 @@
 #' Returns the default CARNIVAL options as a list.  You can modify the elements
 #' of the list and then use it as an argument in \dQuote{\code{run_COSMOS()}}.
 #' 
+#' @param solver one of `cplex` (recommended, but require 3rd party tool), `cbc` (also require 3rd party tool) or `lpSolve` (default, only for small networks) 
+#' @param verbose (default: TRUE)  notify the user to include path for CPLEX or CBC path
 #' @return returns a list with all possible options implemented in CARNIVAL.
 #' see the documentation on \code{\link[CARNIVAL]{runCARNIVAL}}.
 #' @examples 
 #' # load and change default options: 
-#' my_options = default_CARNIVAL_options()
+#' my_options = default_CARNIVAL_options(solver = "cplex")
 #' 
 #' my_options$solverPath = "/Applications/CPLEX_Studio128/cplex/bin/x86-64_osx/cplex"
 #' my_options$threads = 2
 #' my_options$timelimit = 3600*15
 #' @export
 #' 
-default_CARNIVAL_options = function(){
+default_CARNIVAL_options = function(solver = c("lpSolve","cplex","cbc"),verbose = TRUE){
     
-    opts <- list(solverPath=NULL,
-         solver=c("cplex"), 
-         timelimit=3600, 
-         mipGAP=0.05,
-         poolrelGAP=0.0001,
-         limitPop=500, 
-         poolCap=100,
-         poolIntensity=4,
-         poolReplace=2,
-         alphaWeight=1, 
-         betaWeight=0.2,
-         threads = 1,
-         dir_name=NULL
-    )
+    solver <- match.arg(solver)
+    
+    if(solver == "lpSolve"){
+        opts = CARNIVAL::defaultLpSolveCarnivalOptions()
+    }else if(solver == "cplex"){
+        opts = CARNIVAL::defaultCplexCarnivalOptions()
+        if(verbose){
+            warning("you selected CPLEX solver. Make sure to set the solverPath field to cplex executable.")
+        }
+    }else if(solver == "cbc"){
+        opts = CARNIVAL::defaultCbcSolveCarnivalOptions()
+        if(verbose){
+            warning("you selected CBC solver. Make sure to set the solverPath field to CBC executable.")
+        }
+    }
+    opts$keepLPFiles = FALSE
+    
     return(opts)
 }
 
@@ -54,8 +59,8 @@ check_CARNIVAL_options <- function(opts){
     if(!is.list(opts)) stop("CARNIVAL options should be a list")
     req_names <- c(
         # "solverPath",
-        "solver", 
-        "timelimit"
+        "solver" 
+        #"timelimit"
         # "mipGAP",
         # "poolrelGAP",
         # "limitPop", 
