@@ -3,7 +3,7 @@
 #' Returns the default CARNIVAL options as a list.  You can modify the elements
 #' of the list and then use it as an argument in \dQuote{\code{run_COSMOS()}}.
 #' 
-#' @param solver one of `cplex` (recommended, but require 3rd party tool), `cbc` (also require 3rd party tool) or `lpSolve` (default, only for small networks) 
+#' @param solver one of `cplex` (recommended, but require 3rd party tool), `cbc` (also require 3rd party tool) or `lpSolve` (only for small networks) 
 #' @param verbose (default: TRUE)  notify the user to include path for CPLEX or CBC path
 #' @return returns a list with all possible options implemented in CARNIVAL.
 #' see the documentation on \code{\link[CARNIVAL]{runCARNIVAL}}.
@@ -16,21 +16,26 @@
 #' my_options$timelimit = 3600*15
 #' @export
 #' 
-default_CARNIVAL_options = function(solver = c("lpSolve","cplex","cbc"),verbose = TRUE){
+default_CARNIVAL_options = function(solver = NULL,verbose = TRUE){
     
-    solver <- match.arg(solver)
+    if(is.null(solver)){
+        stop("please call default_CARNIVAL_options(solver = 'cplex') with a 
+        specific solver argument. Valid solvers are: 'lpSolve','cplex' or 'cbc'. ")
+    }
+    solver_options = c("lpSolve","cplex","cbc")
+    solver <- match.arg(solver,choices = solver_options)
     
     if(solver == "lpSolve"){
         opts = CARNIVAL::defaultLpSolveCarnivalOptions()
     }else if(solver == "cplex"){
         opts = CARNIVAL::defaultCplexCarnivalOptions()
         if(verbose){
-            warning("you selected CPLEX solver. Make sure to set the solverPath field to cplex executable.")
+            message("you selected CPLEX solver. Make sure to set the solverPath field to cplex executable.")
         }
     }else if(solver == "cbc"){
         opts = CARNIVAL::defaultCbcSolveCarnivalOptions()
         if(verbose){
-            warning("you selected CBC solver. Make sure to set the solverPath field to CBC executable.")
+            message("you selected CBC solver. Make sure to set the solverPath field to CBC executable.")
         }
     }
     opts$keepLPFiles = FALSE

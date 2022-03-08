@@ -4,7 +4,7 @@
 \alias{default_CARNIVAL_options}
 \title{Setting Default CARNIVAL Options}
 \usage{
-default_CARNIVAL_options(solver = c("lpSolve", "cplex", "cbc"), verbose = TRUE)
+default_CARNIVAL_options(solver = NULL, verbose = TRUE)
 }
 \arguments{
 \item{solver}{one of `cplex` (recommended, but require 3rd party tool), `cbc` (also require 3rd party tool) or `lpSolve` (default, only for small networks)}
