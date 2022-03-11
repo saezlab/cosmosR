@@ -1,7 +1,7 @@
 Package: cosmosR
 Type: Package
 Title: COSMOS (Causal Oriented Search of Multi-Omic Space)
-Version: 1.2.0
+Version: 1.3.0
 Description: COSMOS (Causal Oriented Search of Multi-Omic Space) is a method 
     that integrates phosphoproteomics, transcriptomics, and metabolomics data sets
     based on prior knowledge of signaling, metabolic, and gene regulatory
@@ -36,25 +36,19 @@ Imports:
     CARNIVAL,
     dorothea,
     dplyr,
-    ggplot2,
     GSEABase,
     igraph,
-    magrittr,
-    plyr,
+    progress,
     purrr,
-    readr,
     rlang,
-    scales,
     stringr,
-    tibble,
     utils,
     visNetwork
 Suggests: 
     testthat,
     knitr,
     rmarkdown,
-    piano
-Remotes:
-    saezlab/CARNIVAL@b3a84c6ba9706547caca02644566d75ee621f568
+    piano,
+    ggplot2,
 biocViews: CellBiology, Pathways, Network, Proteomics, Metabolomics, Transcriptomics,
     GeneSignaling

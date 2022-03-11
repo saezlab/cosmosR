@@ -21,8 +21,7 @@ Function to extract the nodes that appear in the COSMOS output network and
 the background genes (all genes present in the prior knowledge network)
 }
 \examples{
-CARNIVAL_options <- cosmosR::default_CARNIVAL_options()
-CARNIVAL_options$solver <- "lpSolve"
+CARNIVAL_options <- cosmosR::default_CARNIVAL_options("lpSolve")
 data(toy_network)
 data(toy_signaling_input)
 data(toy_metabolic_input)

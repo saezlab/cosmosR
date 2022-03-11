@@ -74,17 +74,19 @@ In this example, we will use the built-in solver lpSolve. User should be aware t
 
 ```{r, warning=FALSE, message=FALSE}
 CARNIVAL_options <- default_CARNIVAL_options(solver = "lpSolve")
+
 # To use CBC
 # CARNIVAL_options <- default_CARNIVAL_options(solver = "cbc")
+# CARNIVAL_options$solverPath <- "~/Documents/cbc"
+# CARNIVAL_options$threads <- 2
+# CARNIVAL_options$mipGAP <- 0.05
 
 # To use CPLEX:
 # CARNIVAL_options <- default_CARNIVAL_options(solver = "cplex")
 # CARNIVAL_options$solverPath <- "C:/Program Files/CPLEX_solver/cplex/bin/x64_win64/cplex.exe"
-# CARNIVAL_options$solver <- "cplex" #or cbc
-# CARNIVAL_options$solverPath <- "~/Documents/cplex"
-# CARNIVAL_options$solver <- "cplex" #or cbc
 # CARNIVAL_options$threads <- 2
 # CARNIVAL_options$mipGAP <- 0.05
+
 
 CARNIVAL_options$timelimit <- 3600
 

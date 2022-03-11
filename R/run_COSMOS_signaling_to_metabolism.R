@@ -42,7 +42,7 @@
 #' test_result_for <- run_COSMOS_signaling_to_metabolism(data = test_for,
 #'                              CARNIVAL_options = default_CARNIVAL_options("lpSolve"))
 run_COSMOS_signaling_to_metabolism <- function(data,
-                                               CARNIVAL_options = default_CARNIVAL_options()){
+                                               CARNIVAL_options = default_CARNIVAL_options("lpSolve")){
     
     ## Checking COSMOS input format
     validate_cosmos_data_signaling_to_metabolism(data)

@@ -82,7 +82,7 @@ preprocess_COSMOS_signaling_to_metabolism <- function(meta_network = meta_networ
                               expressed_genes =  NULL,
                               remove_unexpressed_nodes = TRUE,
                               filter_tf_gene_interaction_by_optimization = TRUE,
-                              CARNIVAL_options =  CARNIVAL::defaultLpSolveCarnivalOptions()){
+                              CARNIVAL_options =  default_CARNIVAL_options("lpSolve")){
     
     if(!is.null(diff_expression_data))
     {
@@ -90,7 +90,7 @@ preprocess_COSMOS_signaling_to_metabolism <- function(meta_network = meta_networ
     } else
     {
         expressed_genes <- NULL
-        remove_unexpressed_nodes <- F
+        remove_unexpressed_nodes <- FALSE
     }
     
     out_data <- preprocess_COSMOS_core(meta_network = meta_network,

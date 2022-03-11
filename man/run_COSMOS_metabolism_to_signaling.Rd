@@ -6,7 +6,7 @@
 \usage{
 run_COSMOS_metabolism_to_signaling(
   data,
-  CARNIVAL_options = default_CARNIVAL_options()
+  CARNIVAL_options = default_CARNIVAL_options("lpSolve")
 )
 }
 \arguments{

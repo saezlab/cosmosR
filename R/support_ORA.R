@@ -29,20 +29,28 @@
 #' @param gmtfile a full path name of the gmt file to be converted
 #' @return a two column data frame where the first column corresponds to omic
 #' features and the second column to associated terms (pathways).
+#' @importFrom dplyr bind_rows
+#' @importFrom progress progress_bar
 
 gmt_to_dataframe <- function(gmtfile)
 {
-    genesets = GSEABase::getGmt(con = gmtfile)
-    genesets = unlist(genesets)
-    
-    gene_to_term =plyr::ldply(genesets,function(geneset){
+  genesets = GSEABase::getGmt(con = gmtfile)
+  genesets = unlist(genesets)
+  
+  pb <- progress::progress_bar$new(total=length(genesets),
+                                   format = "[:bar] :percent eta: :eta")
+  
+  gene_to_term <- lapply(genesets,function(geneset){
+    pb$tick()
     temp <- GSEABase::geneIds(geneset)
     temp2 <- GSEABase::setName(geneset)
     temp3 <- as.data.frame(cbind(temp,rep(temp2,length(temp))))
     
-    },.progress = plyr::progress_text())
-    names(gene_to_term) <- c("gene","term")
-    return(gene_to_term[stats::complete.cases(gene_to_term),])
+  }) %>%
+  dplyr::bind_rows()
+  
+  names(gene_to_term) <- c("gene","term")
+  return(gene_to_term[stats::complete.cases(gene_to_term),])
 }
 
 
@@ -58,8 +66,7 @@ gmt_to_dataframe <- function(gmtfile)
 #' @return List with 2 objects: the success and the background genes
 #' @export
 #' @examples
-#' CARNIVAL_options <- cosmosR::default_CARNIVAL_options()
-#' CARNIVAL_options$solver <- "lpSolve"
+#' CARNIVAL_options <- cosmosR::default_CARNIVAL_options("lpSolve")
 #' data(toy_network)
 #' data(toy_signaling_input)
 #' data(toy_metabolic_input)
