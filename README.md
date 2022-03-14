@@ -38,12 +38,17 @@ devtools::install_github("saezlab/cosmosR")
 
 If you don't have R 4.1, you can also clone the github repository on your machine, create a new R project with R studio from the cosmosR folder, change the R version to your own R version in the DESCRIPTION file and then install it with devtools:install()
 
-But 4.1 is advised in anycase.
+But 4.1 is advised in any case.
+
+### Prerequisites
+
+COSMOS is dependent on CARNIVAL for exhibiting the signalling pathway optimisation.
+CARNIVAL requires the interactive version of IBM Cplex, Gurobi or CBC-COIN solver as the network optimiser. The IBM ILOG Cplex is freely available through Academic Initiative [here](https://www.ibm.com/products/ilog-cplex-optimization-studio). Gurobi license is also free for academics, request a license [here](https://www.gurobi.com/downloads/end-user-license-agreement-academic/). The [CBC](https://projects.coin-or.org/Cbc) solver is open source and freely available for any user, but has a significantly lower performance than CPLEX or Gurobi. Obtain CBC executable directly usable for cosmos [here](https://ampl.com/products/solvers/open-source/#cbc). Alternatively for small networks, users can rely on the freely available [lpSolve R-package](https://cran.r-project.org/web/packages/lpSolve/index.html), which is automatically installed with the package.
 
 
 Small note to package dependencies:
 
-COSMOS is dependent on CARNIVAL for exhibiting the signalling pathway optimisation. CARNIVAL is currently under active development. We try to ensure the compatibility of both packages. In case the current CARNIVAL installation non the less colides with COSMOS please report and consider installing an older stable version to run COSMSOS.
+ CARNIVAL is currently under active development. We try to ensure the compatibility of both packages. In case the current CARNIVAL installation non the less colides with COSMOS please report and consider installing an older stable version to run COSMSOS.
 ```r
 # Install an older stable version of CARNIVAL (1.3.0)
 remotes::install_github("saezlab/CARNIVAL@b3a84c6ba9706547caca02644566d75ee621f568")
@@ -57,8 +62,8 @@ https://embl-ebi.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=318f7091-b6bf-44e
 
 ## Tutorial (NCI60 playground)
 
-We made a repository that ocntains pre-processed inputs and an example script to use cosmos with the NCI60 RNA+metabolomic datasets.
-You can find the repository here: https://github.com/saezlab/NCI60_cosmos.git
+We made a repository that contains pre-processed inputs and an example script to use cosmos with the NCI60 RNA+metabolomic datasets.
+You can find the repository [here](https://github.com/saezlab/NCI60_cosmos).
 
 ## Access
 

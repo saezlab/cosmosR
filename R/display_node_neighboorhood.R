@@ -10,10 +10,9 @@
 #' @param n numeric; maximum number of steps in the network to look for inputs 
 #' and measurments
 #' @return a visnetwork object
-#' @importFrom magrittr %>%
+#' @importFrom dplyr %>%
 #' @examples
-#' CARNIVAL_options <- cosmosR::default_CARNIVAL_options()
-#' CARNIVAL_options$solver <- "lpSolve"
+#' CARNIVAL_options <- cosmosR::default_CARNIVAL_options("lpSolve")
 #' data(toy_network)
 #' data(toy_signaling_input)
 #' data(toy_metabolic_input)

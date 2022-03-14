@@ -2,7 +2,7 @@
 #' 
 #' Checks the format of the main data inputs for CARNIVL.  Checks the data format
 #' and coverage of nodes in the PKN and data.  Ensures that all nodes in 
-#' input_data and measured_data apper in the PKN.
+#' input_data and measured_data appear in the PKN.
 #' 
 #' @param meta_network Prior knowledge network (PKN).  \dQuote{\code{data.frame}} 
 #'   object with source, sign and target columns.  By default COSMOS uses a PKN 

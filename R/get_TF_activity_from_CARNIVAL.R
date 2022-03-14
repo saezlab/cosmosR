@@ -6,14 +6,14 @@
 #' @param TFs character vector of transcription factors using EntrezIDs
 #' @return named numerical vector with TF activity found in CARNIVAL results.
 #' @importFrom rlang .data
-#' @importFrom magrittr %>%
+#' @importFrom dplyr %>% filter select as_tibble
 #' @noRd
 get_TF_activity_from_CARNIVAL <- function(carnival_result, TFs)
 {
     
     if(!validate_CARNIVAL_results(carnival_result)) warning("we failed to validate CARNIVAL results.")
     
-    estimated_activity <- tibble::as_tibble(carnival_result$nodesAttributes) %>%
+    estimated_activity <- dplyr::as_tibble(carnival_result$nodesAttributes) %>%
         dplyr::select(.data$Node,.data$AvgAct) %>%
         dplyr::filter(.data$AvgAct!=0) %>%
         dplyr::filter(.data$Node %in% TFs) 

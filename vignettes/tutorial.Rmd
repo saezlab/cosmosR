@@ -17,19 +17,26 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Installation
+## Installation and dependency
+
+COSMOS is dependent on CARNIVAL for exhibiting the signalling pathway optimisation.
+CARNIVAL requires the interactive version of IBM Cplex or CBC-COIN solver as the network optimiser. The IBM ILOG Cplex is freely available through Academic Initiative [here](https://www.ibm.com/products/ilog-cplex-optimization-studio).  The [CBC](https://projects.coin-or.org/Cbc) solver is open source and freely available for any user, but has a significantly lower performance than CPLEX. Obtain CBC executable directly usable for cosmos [here](https://ampl.com/products/solvers/open-source/#cbc).
+Alternatively for small networks, users can rely on the freely available [lpSolve R-package](https://cran.r-project.org/web/packages/lpSolve/index.html), which is automatically installed with the package.
+
+
+
+In this tutorial we use lpSolve, but we strongly recommend to obtain a license
+for CPLEX.
+
 ```{r eval=FALSE}
 # install from bioconductor
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("cosmosR")
 
-# install the development version from GitHub
+# install the newest (development) version from GitHub
 # install.packages("remotes")
 remotes::install_github("saezlab/cosmosR")
-
-# Install an older stable version of CARNIVAL (1.3.0)
-remotes::install_github("saezlab/CARNIVAL@b3a84c6ba9706547caca02644566d75ee621f568")
 ```
 
 ## Introduction
@@ -45,7 +52,7 @@ Essentially, COSMOS has 3 main components:
 
 * The algorithm: The problem described in the data part is formulated as an integer linear optimisation problem. The PKN and the data can be abstracted as a large set of integer variables operating together in an even larger set of equations (see https://www.nature.com/articles/s41540-019-0118-z for more info). Given a set of fixed value for the variable (that is, a subset of the known deregulation), we need to find the values for the other sets of variable (corresponding to proteins and metabolites for which we have no information in our data) that can lead to a satisfying result. A satisfying results in the context of COSMOS represent a sub-network of interactions that is as small as possible while coherently explaining as many of our known deregulation as possible. Thus, the set of equation mentioned earlier needs to be solved, using an integer linear programming solver. The solvers that are currently available for COSMOS are lpsolve, cbc and cplex. In general, CPLEX is preferred over CBC for most real case applications, while lpsolve is mainly used for testing with small networks and sets of measurements.
 
-Users can obtain executable for cbc that are directly usable for cosmos here: https://ampl.com/products/solvers/open-source/#cbc
+
 
 ![Summary figure](../inst/figures/summary.png)
 
@@ -66,15 +73,23 @@ You can check the CARNIVAL_options variable to see all possible options that can
 In this example, we will use the built-in solver lpSolve. User should be aware that lpSolve should ONLY be used for TESTS. To obtain meaningful results, best solver is cplex, or cbc if not possible.
 
 ```{r, warning=FALSE, message=FALSE}
-CARNIVAL_options <- cosmosR::default_CARNIVAL_options()
+CARNIVAL_options <- default_CARNIVAL_options(solver = "lpSolve")
+
+# To use CBC
+# CARNIVAL_options <- default_CARNIVAL_options(solver = "cbc")
+# CARNIVAL_options$solverPath <- "~/Documents/cbc"
+# CARNIVAL_options$threads <- 2
+# CARNIVAL_options$mipGAP <- 0.05
+
+# To use CPLEX:
+# CARNIVAL_options <- default_CARNIVAL_options(solver = "cplex")
 # CARNIVAL_options$solverPath <- "C:/Program Files/CPLEX_solver/cplex/bin/x64_win64/cplex.exe"
-# CARNIVAL_options$solver <- "cplex" #or cbc
-# CARNIVAL_options$solverPath <- "~/Documents/cplex"
-# CARNIVAL_options$solver <- "cplex" #or cbc
-CARNIVAL_options$solver <- "lpSolve" #or cbc
+# CARNIVAL_options$threads <- 2
+# CARNIVAL_options$mipGAP <- 0.05
+
+
 CARNIVAL_options$timelimit <- 3600
-CARNIVAL_options$mipGAP <- 0.05
-CARNIVAL_options$threads <- 2
+
 ```
 
 In the next section, we prepare the input to run cosmosR.
@@ -107,8 +122,7 @@ test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_network
                                                       diff_expression_data = toy_RNA,
                                                       maximum_network_depth = 15,
                                                       remove_unexpressed_nodes = TRUE,
-                                                      CARNIVAL_options = CARNIVAL_options
-                                                      )
+                                                      CARNIVAL_options = CARNIVAL_options)
 ```
 
 In this part, we can set up the options for the actual run, such as timelimit and min gap tolerance.
@@ -177,6 +191,7 @@ Here we simply take the union of forward and backward runs to create a full netw
 
 ```{r, warning=FALSE, message=FALSE}
 full_sif <- as.data.frame(rbind(formated_result_for[[1]], formated_result_back[[1]]))
+full_sif <- full_sif[full_sif$Weight>0,]
 full_attributes <- as.data.frame(rbind(formated_result_for[[2]], formated_result_back[[2]]))
 
 full_sif <- unique(full_sif)
@@ -240,7 +255,7 @@ nodes_ORA = extract_nodes_for_ORA(
     att = att_forward)
 ```
 
-Now this forground and background set can be used with any ORA anaylsis. 
+Now this forward and backward sets can be used with any ORA analysis. 
 
 ```{r, warning=FALSE, message=FALSE}
 sessionInfo()

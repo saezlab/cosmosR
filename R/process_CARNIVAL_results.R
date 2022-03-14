@@ -17,13 +17,14 @@
 #'     network}
 #'   }
 #' @importFrom rlang .data
-#' @importFrom magrittr %>%
+#' @importFrom dplyr %>% mutate rename as_tibble
+#' @importFrom purrr map
 #' @noRd
 process_CARNIVAL_results <- function(CARNIVAL_results){
     
     network_output = list()
     
-    network_output$weightedSIF <- tibble::as_tibble(CARNIVAL_results$weightedSIF) %>%
+    network_output$weightedSIF <- dplyr::as_tibble(CARNIVAL_results$weightedSIF) %>%
         dplyr::rename(Node1 = "Node1",
                Node2 = "Node2",
                Sign = "Sign",
@@ -34,7 +35,7 @@ process_CARNIVAL_results <- function(CARNIVAL_results){
     network_output$N_networks = length(CARNIVAL_results$sifAll)
     
     network_output$nodesAttributes = 
-        tibble::as_tibble(CARNIVAL_results$nodesAttributes) %>%
+        dplyr::as_tibble(CARNIVAL_results$nodesAttributes) %>%
         dplyr::mutate(ZeroAct = as.numeric(.data$ZeroAct)/100,
                UpAct = as.numeric(.data$UpAct)/100,
                DownAct = as.numeric(.data$DownAct)/100,
@@ -43,7 +44,7 @@ process_CARNIVAL_results <- function(CARNIVAL_results){
     
     network_output$individual_networks = 
         purrr::map(CARNIVAL_results$sifAll,function(Net){
-            tibble::as_tibble(Net) %>%
+            dplyr::as_tibble(Net) %>%
                 dplyr::rename(source = "Node1",
                        target = "Node2",
                        interaction = "Sign") %>%
@@ -54,7 +55,7 @@ process_CARNIVAL_results <- function(CARNIVAL_results){
     
     network_output$individual_networks_node_attributes = 
         purrr::map(CARNIVAL_results$attributesAll,function(Net){
-            tibble::as_tibble(Net) %>%
+            dplyr::as_tibble(Net) %>%
                 dplyr::rename(node = "Nodes",
                        activity = "Activity") %>%
                 dplyr::mutate(activity = as.numeric(.data$activity))

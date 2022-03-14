@@ -7,7 +7,7 @@
 format_COSMOS_res(cosmos_res, metab_mapping = NULL)
 }
 \arguments{
-\item{cosmos_res}{results of CARNIVAL run}
+\item{cosmos_res}{results of COSMOS run}
 
 \item{metab_mapping}{a named vector with HMDB Ids as names and desired metabolite names as values.}
 }

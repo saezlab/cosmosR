@@ -14,7 +14,7 @@
 #' - `target` target gene
 #' - `sign` indicates if interaction is up (1) or down-regulation (-1). 
 #' 
-#' @importFrom magrittr %>%
+#' @importFrom dplyr %>%
 #' @export
 #' @examples 
 #' load_tf_regulon_dorothea()

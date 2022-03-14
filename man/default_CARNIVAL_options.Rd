@@ -4,7 +4,10 @@
 \alias{default_CARNIVAL_options}
 \title{Setting Default CARNIVAL Options}
 \usage{
-default_CARNIVAL_options()
+default_CARNIVAL_options(solver = NULL)
+}
+\arguments{
+\item{solver}{one of `cplex` (recommended, but require 3rd party tool), `cbc` (also require 3rd party tool) or `lpSolve` (only for small networks)}
 }
 \value{
 returns a list with all possible options implemented in CARNIVAL.
@@ -12,12 +15,30 @@ see the documentation on \code{\link[CARNIVAL]{runCARNIVAL}}.
 }
 \description{
 Returns the default CARNIVAL options as a list.  You can modify the elements
-of the list and then use it as an argument in \dQuote{\code{run_COSMOS()}}.
+of the list and then use it as an argument in \code{\link{run_COSMOS_metabolism_to_signaling}} or 
+ \code{\link{run_COSMOS_signaling_to_metabolism}}.
+If you choose CPLEX or CBC, you must modify then the solverPath field and point to 
+the CPLEX/CBC executable (See Details).
+}
+\details{
+COSMOS is dependent on CARNIVAL for exhibiting the signalling pathway optimisation.
+CARNIVAL requires the interactive version of IBM Cplex, Gurobi or CBC-COIN solver
+ as the network optimiser. The IBM ILOG Cplex is freely available through
+Academic Initiative \href{https://www.ibm.com/products/ilog-cplex-optimization-studio}{here}.
+Gurobi license is also free for academics, request a license following instructions
+\href{https://www.gurobi.com/downloads/end-user-license-agreement-academic/}{here}.
+The  \href{https://projects.coin-or.org/Cbc}{CBC} solver is open source and freely
+available for any user, but has a significantly lower performance than CPLEX or 
+Gurobi. Obtain CBC executable directly usable for cosmos
+\href{https://ampl.com/products/solvers/open-source/#cbc}{here}. Alternatively for
+small networks, users can rely on the freely available 
+ \href{https://cran.r-project.org/web/packages/lpSolve/index.html}{lpSolve R-package},
+ which is automatically installed with the package.
 }
 \examples{
 # load and change default options: 
-my_options = default_CARNIVAL_options()
-
+my_options = default_CARNIVAL_options(solver = "cplex")
+ 
 my_options$solverPath = "/Applications/CPLEX_Studio128/cplex/bin/x86-64_osx/cplex"
 my_options$threads = 2
 my_options$timelimit = 3600*15

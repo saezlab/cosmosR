@@ -60,19 +60,18 @@
 #'   \code{\link[CARNIVAL]{runCARNIVAL}}.
 #' 
 #' @examples
-#' CARNIVAL_options <- cosmosR::default_CARNIVAL_options()
-#' CARNIVAL_options$solver <- "lpSolve"
 #' data(toy_network)
 #' data(toy_signaling_input)
 #' data(toy_metabolic_input)
 #' data(toy_RNA)
-#' test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_network,
+#' test_back <- preprocess_COSMOS_metabolism_to_signaling(
+#' meta_network = toy_network,
 #' signaling_data = toy_signaling_input,
 #' metabolic_data = toy_metabolic_input,
 #' diff_expression_data = toy_RNA,
 #' maximum_network_depth = 15,
 #' remove_unexpressed_nodes = TRUE,
-#' CARNIVAL_options = CARNIVAL_options
+#' CARNIVAL_options = default_CARNIVAL_options("lpSolve")
 #' )
 preprocess_COSMOS_metabolism_to_signaling <- function(meta_network = meta_network,
                               tf_regulon = load_tf_regulon_dorothea(),
@@ -84,7 +83,7 @@ preprocess_COSMOS_metabolism_to_signaling <- function(meta_network = meta_networ
                               expressed_genes =  NULL,
                               remove_unexpressed_nodes = TRUE,
                               filter_tf_gene_interaction_by_optimization = TRUE,
-                              CARNIVAL_options = default_CARNIVAL_options()){
+                              CARNIVAL_options =  default_CARNIVAL_options("lpSolve")){
     
     if(!is.null(diff_expression_data))
     {
@@ -92,7 +91,7 @@ preprocess_COSMOS_metabolism_to_signaling <- function(meta_network = meta_networ
     } else
     {
         expressed_genes <- NULL
-        remove_unexpressed_nodes <- F
+        remove_unexpressed_nodes <- FALSE
     }
     out_data <- preprocess_COSMOS_core(meta_network = meta_network,
                            tf_regulon = tf_regulon,

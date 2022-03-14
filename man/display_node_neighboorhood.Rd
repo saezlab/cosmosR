@@ -26,8 +26,7 @@ a visnetwork object
 display input and measurements within n steps of a given set of nodes
 }
 \examples{
-CARNIVAL_options <- cosmosR::default_CARNIVAL_options()
-CARNIVAL_options$solver <- "lpSolve"
+CARNIVAL_options <- cosmosR::default_CARNIVAL_options("lpSolve")
 data(toy_network)
 data(toy_signaling_input)
 data(toy_metabolic_input)

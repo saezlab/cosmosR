@@ -20,7 +20,7 @@
 #'  \code{\link{load_tf_regulon_dorothea}} function.
 #' @return A filtered version of the network.
 #' @importFrom rlang .data
-#' @importFrom magrittr %>%
+#' @importFrom dplyr %>%
 #' @noRd
 filter_transcriptional_regulations <- function(network, 
                                                gene_expression_binarized,
