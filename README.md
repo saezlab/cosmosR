@@ -48,10 +48,10 @@ CARNIVAL requires the interactive version of IBM Cplex, Gurobi or CBC-COIN solve
 
 Small note to package dependencies:
 
- CARNIVAL is currently under active development. We try to ensure the compatibility of both packages. In case the current CARNIVAL installation non the less colides with COSMOS please report and consider installing an older stable version to run COSMSOS.
+ CARNIVAL is currently under active development. We try to ensure the compatibility of both packages, please install CARNIVAL from the our Github:
 ```r
-# Install an older stable version of CARNIVAL (1.3.0)
-remotes::install_github("saezlab/CARNIVAL@b3a84c6ba9706547caca02644566d75ee621f568")
+# Install 
+remotes::install_github("saezlab/CARNIVAL")
 ```
 
 ## Tutorial (video)
