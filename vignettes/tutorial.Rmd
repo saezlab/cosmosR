@@ -34,8 +34,11 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("cosmosR")
 
+
 # install the newest (development) version from GitHub
 # install.packages("remotes")
+# install CARNIVAL from github 
+remotes::install_github("saezlab/CARNIVAL")
 remotes::install_github("saezlab/cosmosR")
 ```
 
