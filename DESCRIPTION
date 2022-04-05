@@ -49,6 +49,6 @@ Suggests:
     knitr,
     rmarkdown,
     piano,
-    ggplot2,
+    ggplot2
 biocViews: CellBiology, Pathways, Network, Proteomics, Metabolomics, Transcriptomics,
     GeneSignaling
