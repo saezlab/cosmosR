@@ -1,7 +1,7 @@
 Package: cosmosR
 Type: Package
 Title: COSMOS (Causal Oriented Search of Multi-Omic Space)
-Version: 1.4.0
+Version: 1.5.0
 Description: COSMOS (Causal Oriented Search of Multi-Omic Space) is a method 
     that integrates phosphoproteomics, transcriptomics, and metabolomics data sets
     based on prior knowledge of signaling, metabolic, and gene regulatory
