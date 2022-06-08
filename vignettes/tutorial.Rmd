@@ -175,7 +175,7 @@ test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_networ
 
 Then we can run cosmosR to connect metabolism to signaling. The running time here usually needs to be longer, as this problem seems to be harder to solve for CPLEX.
 
-```{r, warning=FALSE, echo=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE}
 CARNIVAL_options$timelimit <- 28800
 
 test_result_back <- run_COSMOS_metabolism_to_signaling(data = test_back,

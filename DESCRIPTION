@@ -1,7 +1,7 @@
 Package: cosmosR
 Type: Package
 Title: COSMOS (Causal Oriented Search of Multi-Omic Space)
-Version: 1.99.1
+Version: 1.3.2
 Description: COSMOS (Causal Oriented Search of Multi-Omic Space) is a method 
     that integrates phosphoproteomics, transcriptomics, and metabolomics data sets
     based on prior knowledge of signaling, metabolic, and gene regulatory
@@ -16,12 +16,12 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-0714-028X")),
     person(given = "Attila",
            family = "Gabor",
-           role = c("aut"),
+           role = c("cre"),
            email = "attila.gabor@uni-heidelberg.de",
            comment = c(ORCID = "0000-0002-0776-1182")),
     person(given = "Katharina",
            family = "Zirngibl",
-           role = c("cre","aut"),
+           role = c("aut"),
            email = "katharina.zirngibl@uni-heidelberg.de",
            comment = c(ORCID = "0000-0002-7518-0339")))
 URL: https://github.com/saezlab/COSMOSR
@@ -49,6 +49,6 @@ Suggests:
     knitr,
     rmarkdown,
     piano,
-    ggplot2,
+    ggplot2
 biocViews: CellBiology, Pathways, Network, Proteomics, Metabolomics, Transcriptomics,
     GeneSignaling

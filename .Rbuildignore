@@ -5,3 +5,4 @@
 cosmos_cache
 docs
 ^\.github$
+^devel$
