@@ -10,6 +10,13 @@ navbar:
      homepage:
        icon: "fas fa-university"
        href: https://saezlab.org
+  type: dark
+  bg: primary
 template:
   params:
     ganalytics: G-PV71G2Q3SF
+    highlightcss: false
+  bootstrap: 5
+  bootswatch: cosmo
+  bslib:
+    primary: "#285FA9"
