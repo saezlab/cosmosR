@@ -1,4 +1,4 @@
-# cosmosR <img src="inst/figures/logo.png" align="right" height="139">
+# cosmosR <img src="https://raw.githubusercontent.com/saezlab/cosmosR/master/inst/figures/logo.png" align="right" height="139">
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/saezlab/cosmosr/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/saezlab/cosmosr/actions)

@@ -9,7 +9,7 @@ navbar:
        href: https://twitter.com/saezlab
      homepage:
        icon: "fas fa-university"
-       href: www.saezlab.org
+       href: https://saezlab.org
 template:
   params:
     ganalytics: G-PV71G2Q3SF
