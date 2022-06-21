@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">cosmosR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.4</span>
       </span>
     </div>
 
@@ -89,19 +89,28 @@
     <dl><dt>central_node</dt>
 <dd><p>character or character vector; node ID(s) around which a 
 network will be branched out untill meansurments and input are reached</p></dd>
+
+
 <dt>sif</dt>
 <dd><p>df; COSMOS network solution in sif format like the first list
 element returned by the format_cosmos_res function</p></dd>
+
+
 <dt>att</dt>
 <dd><p>df; attributes of the nodes of the COMSOS network solution like 
 the second list element returned by the format_cosmos_res function</p></dd>
+
+
 <dt>n</dt>
 <dd><p>numeric; maximum number of steps in the network to look for inputs 
 and measurments</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a visnetwork object</p>
+    
+
+<p>a visnetwork object</p>
     </div>
 
     <div id="ref-examples">
@@ -134,16 +143,16 @@ and measurments</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> --- Start of the CARNIVAL pipeline ---</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:24 08.06.2022 Carnival flavour: vanilla</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:24 08.06.2022 Generating variables for lp problem</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:24 08.06.2022 Done: generating variables for lp problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:17 21.06.2022 Carnival flavour: vanilla</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:17 21.06.2022 Generating variables for lp problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:18 21.06.2022 Done: generating variables for lp problem</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Saving preprocessed data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: saving parsed data: /tmp/Rtmp7GMg6Q/file825383c49ed/reference//parsedData_t11_58_24d08_06_2022n10.RData</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:24 08.06.2022 Generating formulation for LP problem</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:24 08.06.2022 Done: generating formulation for LP problem.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: saving parsed data: /tmp/RtmpFKM918/file101d13fe9348/reference//parsedData_t12_23_17d21_06_2022n66.RData</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:18 21.06.2022 Generating formulation for LP problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:18 21.06.2022 Done: generating formulation for LP problem.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Saving LP file</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: Saving LP file: /tmp/Rtmp7GMg6Q/file825383c49ed/reference//lpFile_t11_58_24d08_06_2022n10.lp</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:24 08.06.2022 Solving LP problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: Saving LP file: /tmp/RtmpFKM918/file101d13fe9348/reference//lpFile_t12_23_17d21_06_2022n66.lp</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:18 21.06.2022 Solving LP problem</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Parsing .lp file for lpSolve</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">882</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">1</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span>
@@ -153,14 +162,14 @@ and measurments</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Done: parsing .lp file for lpSolve</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:25 08.06.2022 Done: solving LP problem.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:25 08.06.2022 Getting the solution matrix</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:25 08.06.2022 Done: getting the solution matrix.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:25 08.06.2022 Exporting solution matrix</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:25 08.06.2022 Done: exporting solution matrix.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:18 21.06.2022 Done: solving LP problem.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:18 21.06.2022 Getting the solution matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:18 21.06.2022 Done: getting the solution matrix.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:18 21.06.2022 Exporting solution matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:19 21.06.2022 Done: exporting solution matrix.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Cleaning intermediate files</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Done: cleaning</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:25 08.06.2022 All tasks finished.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:19 21.06.2022 All tasks finished.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> --- End of the CARNIVAL pipeline --- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COSMOS:  0 interactions are removed from the PKN based on consistency check between TF activity and gene expression"</span>
@@ -174,16 +183,16 @@ and measurments</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Input nodes should have values from {-1, 0, 1}. We discretize your input with sign().</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> --- Start of the CARNIVAL pipeline ---</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:25 08.06.2022 Carnival flavour: vanilla</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:25 08.06.2022 Generating variables for lp problem</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:25 08.06.2022 Done: generating variables for lp problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:19 21.06.2022 Carnival flavour: vanilla</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:19 21.06.2022 Generating variables for lp problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:19 21.06.2022 Done: generating variables for lp problem</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Saving preprocessed data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: saving parsed data: /tmp/Rtmp7GMg6Q/file825383c49ed/reference//parsedData_t11_58_25d08_06_2022n2.RData</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:25 08.06.2022 Generating formulation for LP problem</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:25 08.06.2022 Done: generating formulation for LP problem.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: saving parsed data: /tmp/RtmpFKM918/file101d13fe9348/reference//parsedData_t12_23_19d21_06_2022n71.RData</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:19 21.06.2022 Generating formulation for LP problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:19 21.06.2022 Done: generating formulation for LP problem.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Saving LP file</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: Saving LP file: /tmp/Rtmp7GMg6Q/file825383c49ed/reference//lpFile_t11_58_25d08_06_2022n2.lp</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:25 08.06.2022 Solving LP problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: Saving LP file: /tmp/RtmpFKM918/file101d13fe9348/reference//lpFile_t12_23_19d21_06_2022n71.lp</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:19 21.06.2022 Solving LP problem</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Parsing .lp file for lpSolve</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">882</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">1</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span>
@@ -193,14 +202,14 @@ and measurments</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Done: parsing .lp file for lpSolve</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:26 08.06.2022 Done: solving LP problem.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:26 08.06.2022 Getting the solution matrix</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:26 08.06.2022 Done: getting the solution matrix.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:26 08.06.2022 Exporting solution matrix</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:26 08.06.2022 Done: exporting solution matrix.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:19 21.06.2022 Done: solving LP problem.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:19 21.06.2022 Getting the solution matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:19 21.06.2022 Done: getting the solution matrix.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:19 21.06.2022 Exporting solution matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:19 21.06.2022 Done: exporting solution matrix.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Cleaning intermediate files</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Done: cleaning</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:26 08.06.2022 All tasks finished.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:19 21.06.2022 All tasks finished.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> --- End of the CARNIVAL pipeline --- </span>
 <span class="r-in"><span class="va">test_result_for</span> <span class="op">&lt;-</span> <span class="fu"><a href="format_COSMOS_res.html">format_COSMOS_res</a></span><span class="op">(</span><span class="va">test_result_for</span><span class="op">)</span></span>
@@ -210,8 +219,8 @@ and measurments</p></dd>
 <span class="r-in">n <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>At core/paths/unweighted.c:368 : Couldn't reach some vertices.</span>
 <span class="r-in"><span class="va">network_plot</span></span>
-<div id="htmlwidget-c5323967078b84a1e931" style="width:153600px;height:153600px;" class="visNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c5323967078b84a1e931">{"x":{"nodes":{"id":["Enzyme1338__AKR1A1","Enzyme7338__LDHB_LDHA_reverse","Enzyme9049__SLC2A1_reverse","FGFR1","LDHA","MAPK14","MYC","Metab__D-Glucitol_c","Metab__D-Glucose_c","Metab__L-Lactic acid_c","SLC2A1"],"NodeType":["","","","","","","P","M","","M",""],"ZeroAct":[0,0,0,0,0,0,0,0,0,0,0],"UpAct":[1,1,1,1,1,1,1,1,1,1,1],"DownAct":[0,0,0,0,0,0,0,0,0,0,0],"AvgAct":[1,1,1,1,1,1,1,1,1,1,1],"measured":[0,0,0,0,0,0,1,1,0,1,0],"Activity":[1,1,1,1,1,1,1,1,1,1,1],"label":["Enzyme1338__AKR1A1","Enzyme7338__LDHB_LDHA_reverse","Enzyme9049__SLC2A1_reverse","FGFR1","LDHA","MAPK14","MYC","Metab__D-Glucitol_c","Metab__D-Glucose_c","Metab__L-Lactic acid_c","SLC2A1"],"color":["green","green","green","green","green","green","green","green","green","green","green"],"shape":["dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot"],"shadow":[false,false,false,false,false,false,true,true,false,true,false]},"edges":{"from":["MAPK14","Metab__D-Glucitol_c","FGFR1","Enzyme1338__AKR1A1","Enzyme7338__LDHB_LDHA_reverse","Enzyme9049__SLC2A1_reverse","LDHA","MAPK14","MYC","Metab__D-Glucose_c","SLC2A1"],"to":["MYC","MAPK14","LDHA","Metab__D-Glucitol_c","Metab__L-Lactic acid_c","Metab__D-Glucose_c","Enzyme7338__LDHB_LDHA_reverse","FGFR1","SLC2A1","Enzyme1338__AKR1A1","Enzyme9049__SLC2A1_reverse"],"sign":[1,1,1,1,1,1,1,-1,1,1,1],"weigth":[1,1,1,1,1,1,1,0,1,1,1],"color":["grey","grey","grey","grey","grey","grey","grey","grey","grey","grey","grey"],"arrows.to.type":["arrow","arrow","arrow","arrow","arrow","arrow","arrow","circle","arrow","arrow","arrow"],"enabled":[true,true,true,true,true,true,true,true,true,true,true],"scaleFactor":[1,1,1,1,1,1,1,1,1,1,1]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false}},"groups":null,"width":1600,"height":1600,"idselection":{"enabled":true,"style":"width: 200px; height: 26px;\n                                              background: #f8f8f8;\n                                              color: darkblue;\n                                              border:none;\n                                              outline:none;","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"}},"evals":[],"jsHooks":[]}</script></code></pre></div>
+<div id="htmlwidget-b5cf3764e0e59af1e074" style="width:1600px;height:1600px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b5cf3764e0e59af1e074">{"x":{"nodes":{"id":["Enzyme1338__AKR1A1","Enzyme7338__LDHB_LDHA_reverse","Enzyme9049__SLC2A1_reverse","FGFR1","LDHA","MAPK14","MYC","Metab__D-Glucitol_c","Metab__D-Glucose_c","Metab__L-Lactic acid_c","SLC2A1"],"NodeType":["","","","","","","P","M","","M",""],"ZeroAct":[0,0,0,0,0,0,0,0,0,0,0],"UpAct":[1,1,1,1,1,1,1,1,1,1,1],"DownAct":[0,0,0,0,0,0,0,0,0,0,0],"AvgAct":[1,1,1,1,1,1,1,1,1,1,1],"measured":[0,0,0,0,0,0,1,1,0,1,0],"Activity":[1,1,1,1,1,1,1,1,1,1,1],"label":["Enzyme1338__AKR1A1","Enzyme7338__LDHB_LDHA_reverse","Enzyme9049__SLC2A1_reverse","FGFR1","LDHA","MAPK14","MYC","Metab__D-Glucitol_c","Metab__D-Glucose_c","Metab__L-Lactic acid_c","SLC2A1"],"color":["green","green","green","green","green","green","green","green","green","green","green"],"shape":["dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot"],"shadow":[false,false,false,false,false,false,true,true,false,true,false]},"edges":{"from":["MAPK14","Metab__D-Glucitol_c","FGFR1","Enzyme1338__AKR1A1","Enzyme7338__LDHB_LDHA_reverse","Enzyme9049__SLC2A1_reverse","LDHA","MAPK14","MYC","Metab__D-Glucose_c","SLC2A1"],"to":["MYC","MAPK14","LDHA","Metab__D-Glucitol_c","Metab__L-Lactic acid_c","Metab__D-Glucose_c","Enzyme7338__LDHB_LDHA_reverse","FGFR1","SLC2A1","Enzyme1338__AKR1A1","Enzyme9049__SLC2A1_reverse"],"sign":[1,1,1,1,1,1,1,-1,1,1,1],"weigth":[1,1,1,1,1,1,1,0,1,1,1],"color":["grey","grey","grey","grey","grey","grey","grey","grey","grey","grey","grey"],"arrows.to.type":["arrow","arrow","arrow","arrow","arrow","arrow","arrow","circle","arrow","arrow","arrow"],"enabled":[true,true,true,true,true,true,true,true,true,true,true],"scaleFactor":[1,1,1,1,1,1,1,1,1,1,1]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false}},"groups":null,"width":1600,"height":1600,"idselection":{"enabled":true,"style":"width: 200px; height: 26px;\n                                              background: #f8f8f8;\n                                              color: darkblue;\n                                              border:none;\n                                              outline:none;","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"}},"evals":[],"jsHooks":[]}</script></code></pre></div>
     </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -225,7 +234,7 @@ and measurments</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

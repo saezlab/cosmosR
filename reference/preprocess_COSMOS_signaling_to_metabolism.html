@@ -29,7 +29,7 @@ CARNIVAL and the interactions between TF and genes are filtered again."><meta pr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">cosmosR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.4</span>
       </span>
     </div>
 
@@ -114,19 +114,27 @@ CARNIVAL and the interactions between TF and genes are filtered again.</p>
 <dd><p>prior knowledge network (PKN). A PKN released with COSMOS
 and derived from Omnipath, STITCHdb and Recon3D can be used. See details on 
 the data <code><a href="meta_network.html">meta_network</a></code>.</p></dd>
+
+
 <dt>tf_regulon</dt>
 <dd><p>collection of transcription factor - target interactions.
 A default collection from dorothea can be obtained by the 
 <code><a href="load_tf_regulon_dorothea.html">load_tf_regulon_dorothea</a></code> function.</p></dd>
+
+
 <dt>signaling_data</dt>
 <dd><p>numerical vector, where names are signaling nodes 
 in the PKN and values are from {1, 0, -1}. Continuous data will be 
 discretized using the <code><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></code> function.</p></dd>
+
+
 <dt>metabolic_data</dt>
 <dd><p>numerical vector, where names are metabolic nodes 
 in the PKN and values are continuous values that represents log2 fold change 
 or t-values from a differential analysis. These values are compared to 
 the simulation results (simulated nodes can take value -1, 0 or 1)</p></dd>
+
+
 <dt>diff_expression_data</dt>
 <dd><p>(optional) numerical vector that represents the 
 results of a differential gene expression analysis. Names are gene
@@ -134,32 +142,49 @@ names using gene symbole and values are log fold change or
  t-values.  We use the “<code>diff_exp_threshold</code>” parameter to decide
  which genes changed significantly.  Genes with NA values are considered none
  expressed and they will be removed from the TF-gene expression interactions.</p></dd>
+
+
 <dt>diff_exp_threshold</dt>
 <dd><p>threshold parameter (default 1) used to binarize
 the values of “<code>diff_expression_data</code>”.</p></dd>
+
+
 <dt>maximum_network_depth</dt>
 <dd><p>integer &gt; 0 (default: 8). Nodes that are further 
 than “<code>maximum_network_depth</code>” steps from the signaling nodes on 
 the directed graph of the PKN are considered non-reachable and are removed.</p></dd>
+
+
 <dt>expressed_genes</dt>
 <dd><p>character vector. Names of nodes that are expressed. By 
 default we consider all the nodes that appear in <code>diff_expression_data</code> with
 a numeric value (i.e. nodes with NA are removed)</p></dd>
+
+
 <dt>remove_unexpressed_nodes</dt>
 <dd><p>if TRUE (default) removes nodes from the PKN 
 that are not expressed, see input “<code>expressed_genes</code>”.</p></dd>
+
+
 <dt>filter_tf_gene_interaction_by_optimization</dt>
 <dd><p>(default:TRUE), if TRUE then runs 
 a network optimization that estimates TF activity not included in the inputs
 and checks the consistency between the estimated activity and change in gene 
 expression. Removes interactions where TF and gene expression are inconsistent</p></dd>
+
+
 <dt>CARNIVAL_options</dt>
 <dd><p>list that controls the options of CARNIVAL. See details 
 in <code><a href="default_CARNIVAL_options.html">default_CARNIVAL_options</a></code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>cosmos_data object with the following fields:</p><dl><dt><code>meta_network</code></dt>
+    
+
+<p>cosmos_data object with the following fields:</p>
+<p></p>
+<dl><dt><code>meta_network</code></dt>
 <dd><p>Filtered PKN</p></dd>
 
     <dt><code>tf_regulon</code></dt>
@@ -215,16 +240,16 @@ in <code><a href="default_CARNIVAL_options.html">default_CARNIVAL_options</a></c
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> --- Start of the CARNIVAL pipeline ---</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:31 08.06.2022 Carnival flavour: vanilla</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:31 08.06.2022 Generating variables for lp problem</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:31 08.06.2022 Done: generating variables for lp problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:24 21.06.2022 Carnival flavour: vanilla</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:24 21.06.2022 Generating variables for lp problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:24 21.06.2022 Done: generating variables for lp problem</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Saving preprocessed data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: saving parsed data: /tmp/Rtmp7GMg6Q/file825383c49ed/reference//parsedData_t11_58_31d08_06_2022n8.RData</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:31 08.06.2022 Generating formulation for LP problem</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:31 08.06.2022 Done: generating formulation for LP problem.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: saving parsed data: /tmp/RtmpFKM918/file101d13fe9348/reference//parsedData_t12_23_24d21_06_2022n97.RData</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:24 21.06.2022 Generating formulation for LP problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:24 21.06.2022 Done: generating formulation for LP problem.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Saving LP file</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: Saving LP file: /tmp/Rtmp7GMg6Q/file825383c49ed/reference//lpFile_t11_58_31d08_06_2022n8.lp</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:31 08.06.2022 Solving LP problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: Saving LP file: /tmp/RtmpFKM918/file101d13fe9348/reference//lpFile_t12_23_24d21_06_2022n97.lp</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:24 21.06.2022 Solving LP problem</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Parsing .lp file for lpSolve</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">882</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">1</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span>
@@ -234,14 +259,14 @@ in <code><a href="default_CARNIVAL_options.html">default_CARNIVAL_options</a></c
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Done: parsing .lp file for lpSolve</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:31 08.06.2022 Done: solving LP problem.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:31 08.06.2022 Getting the solution matrix</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:31 08.06.2022 Done: getting the solution matrix.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:31 08.06.2022 Exporting solution matrix</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:31 08.06.2022 Done: exporting solution matrix.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:25 21.06.2022 Done: solving LP problem.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:25 21.06.2022 Getting the solution matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:25 21.06.2022 Done: getting the solution matrix.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:25 21.06.2022 Exporting solution matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:25 21.06.2022 Done: exporting solution matrix.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Cleaning intermediate files</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Done: cleaning</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:31 08.06.2022 All tasks finished.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:25 21.06.2022 All tasks finished.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> --- End of the CARNIVAL pipeline --- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COSMOS:  0 interactions are removed from the PKN based on consistency check between TF activity and gene expression"</span>
@@ -263,7 +288,7 @@ in <code><a href="default_CARNIVAL_options.html">default_CARNIVAL_options</a></c
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

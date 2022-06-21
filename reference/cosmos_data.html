@@ -25,7 +25,7 @@ preprocess_COSMOS_metabolism_to_signaling to create an instance."><meta property
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">cosmosR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.4</span>
       </span>
     </div>
 
@@ -101,32 +101,45 @@ the <code><a href="preprocess_COSMOS_signaling_to_metabolism.html">preprocess_CO
 <dd><p>Prior knowledge network (PKN).  By default COSMOS use a
 PKN derived from Omnipath, STITCHdb and Recon3D.  See details on the data 
 <code><a href="meta_network.html">meta_network</a></code>.</p></dd>
+
+
 <dt>tf_regulon</dt>
 <dd><p>Collection of transcription factor - target interactions.
 A default collection from dorothea can be obtained by the 
 <code><a href="load_tf_regulon_dorothea.html">load_tf_regulon_dorothea</a></code> function.</p></dd>
+
+
 <dt>signaling_data</dt>
 <dd><p>Numerical vector, where names are signaling nodes 
 in the PKN and values are from {1, 0, -1}.  Continuous data will be 
 discretized using the <code><a href="https://rdrr.io/r/base/sign.html" class="external-link">sign</a></code> function.</p></dd>
+
+
 <dt>metabolic_data</dt>
 <dd><p>Numerical vector, where names are metabolic nodes 
 in the PKN and values are continuous values that represents log2 fold change 
 or t-values from a differential analysis.  These values are compared to 
 the simulation results (simulated nodes can take value -1, 0 or 1).</p></dd>
+
+
 <dt>expression_data</dt>
 <dd><p>Numerical vector that represents the results of a 
 differential gene expression analysis. Names are gene names using EntrezID 
 starting with an X and values are log fold change or t-values. Genes with 
 NA values are considered none expressed and they will be removed from the
 TF-gene expression interactions.</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>(default: TRUE) Reports details about the
 <code>cosmos_data</code> object.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>cosmos data</code> class instance.</p>
+    
+
+<p><code>cosmos data</code> class instance.</p>
     </div>
 
   </div>
@@ -141,7 +154,7 @@ TF-gene expression interactions.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

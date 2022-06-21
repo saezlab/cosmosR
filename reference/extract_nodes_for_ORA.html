@@ -24,7 +24,7 @@ the background genes (all genes present in the prior knowledge network)"><meta p
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">cosmosR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.4</span>
       </span>
     </div>
 
@@ -91,13 +91,18 @@ the background genes (all genes present in the prior knowledge network)</p>
     <dl><dt>sif</dt>
 <dd><p>df; COSMOS network solution in sif format like the first list
 element returned by the format_cosmos_res function</p></dd>
+
+
 <dt>att</dt>
 <dd><p>df; attributes of the nodes of the COMSOS network solution like 
 the second list element returned by the format_cosmos_res function</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>List with 2 objects: the success and the background genes</p>
+    
+
+<p>List with 2 objects: the success and the background genes</p>
     </div>
 
     <div id="ref-examples">
@@ -130,16 +135,16 @@ the second list element returned by the format_cosmos_res function</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> --- Start of the CARNIVAL pipeline ---</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:27 08.06.2022 Carnival flavour: vanilla</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:27 08.06.2022 Generating variables for lp problem</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:27 08.06.2022 Done: generating variables for lp problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:20 21.06.2022 Carnival flavour: vanilla</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:20 21.06.2022 Generating variables for lp problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:20 21.06.2022 Done: generating variables for lp problem</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Saving preprocessed data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: saving parsed data: /tmp/Rtmp7GMg6Q/file825383c49ed/reference//parsedData_t11_58_27d08_06_2022n70.RData</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:27 08.06.2022 Generating formulation for LP problem</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:27 08.06.2022 Done: generating formulation for LP problem.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: saving parsed data: /tmp/RtmpFKM918/file101d13fe9348/reference//parsedData_t12_23_20d21_06_2022n54.RData</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:20 21.06.2022 Generating formulation for LP problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:20 21.06.2022 Done: generating formulation for LP problem.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Saving LP file</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: Saving LP file: /tmp/Rtmp7GMg6Q/file825383c49ed/reference//lpFile_t11_58_27d08_06_2022n70.lp</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:27 08.06.2022 Solving LP problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: Saving LP file: /tmp/RtmpFKM918/file101d13fe9348/reference//lpFile_t12_23_20d21_06_2022n54.lp</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:20 21.06.2022 Solving LP problem</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Parsing .lp file for lpSolve</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">882</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">1</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span>
@@ -149,14 +154,14 @@ the second list element returned by the format_cosmos_res function</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Done: parsing .lp file for lpSolve</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:27 08.06.2022 Done: solving LP problem.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:27 08.06.2022 Getting the solution matrix</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:27 08.06.2022 Done: getting the solution matrix.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:27 08.06.2022 Exporting solution matrix</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:27 08.06.2022 Done: exporting solution matrix.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:21 21.06.2022 Done: solving LP problem.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:21 21.06.2022 Getting the solution matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:21 21.06.2022 Done: getting the solution matrix.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:21 21.06.2022 Exporting solution matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:21 21.06.2022 Done: exporting solution matrix.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Cleaning intermediate files</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Done: cleaning</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:27 08.06.2022 All tasks finished.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:21 21.06.2022 All tasks finished.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> --- End of the CARNIVAL pipeline --- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COSMOS:  0 interactions are removed from the PKN based on consistency check between TF activity and gene expression"</span>
@@ -170,16 +175,16 @@ the second list element returned by the format_cosmos_res function</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Input nodes should have values from {-1, 0, 1}. We discretize your input with sign().</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> --- Start of the CARNIVAL pipeline ---</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:27 08.06.2022 Carnival flavour: vanilla</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:27 08.06.2022 Generating variables for lp problem</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:27 08.06.2022 Done: generating variables for lp problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:21 21.06.2022 Carnival flavour: vanilla</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:21 21.06.2022 Generating variables for lp problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:21 21.06.2022 Done: generating variables for lp problem</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Saving preprocessed data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: saving parsed data: /tmp/Rtmp7GMg6Q/file825383c49ed/reference//parsedData_t11_58_27d08_06_2022n51.RData</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:27 08.06.2022 Generating formulation for LP problem</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:27 08.06.2022 Done: generating formulation for LP problem.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: saving parsed data: /tmp/RtmpFKM918/file101d13fe9348/reference//parsedData_t12_23_21d21_06_2022n80.RData</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:21 21.06.2022 Generating formulation for LP problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:21 21.06.2022 Done: generating formulation for LP problem.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Saving LP file</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: Saving LP file: /tmp/Rtmp7GMg6Q/file825383c49ed/reference//lpFile_t11_58_27d08_06_2022n51.lp</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:27 08.06.2022 Solving LP problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: Saving LP file: /tmp/RtmpFKM918/file101d13fe9348/reference//lpFile_t12_23_21d21_06_2022n80.lp</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:21 21.06.2022 Solving LP problem</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Parsing .lp file for lpSolve</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">882</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">1</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span>
@@ -189,14 +194,14 @@ the second list element returned by the format_cosmos_res function</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Done: parsing .lp file for lpSolve</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:28 08.06.2022 Done: solving LP problem.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:28 08.06.2022 Getting the solution matrix</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:28 08.06.2022 Done: getting the solution matrix.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:28 08.06.2022 Exporting solution matrix</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:28 08.06.2022 Done: exporting solution matrix.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:22 21.06.2022 Done: solving LP problem.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:22 21.06.2022 Getting the solution matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:22 21.06.2022 Done: getting the solution matrix.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:22 21.06.2022 Exporting solution matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:22 21.06.2022 Done: exporting solution matrix.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Cleaning intermediate files</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Done: cleaning</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 11:58:28 08.06.2022 All tasks finished.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 12:23:22 21.06.2022 All tasks finished.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> --- End of the CARNIVAL pipeline --- </span>
 <span class="r-in"><span class="va">test_result_for</span> <span class="op">&lt;-</span> <span class="fu"><a href="format_COSMOS_res.html">format_COSMOS_res</a></span><span class="op">(</span><span class="va">test_result_for</span><span class="op">)</span></span>
@@ -218,7 +223,7 @@ the second list element returned by the format_cosmos_res function</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>
