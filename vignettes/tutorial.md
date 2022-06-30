@@ -35,7 +35,7 @@ remotes::install_github("saezlab/CARNIVAL@b3a84c6ba9706547caca02644566d75ee621f5
 
 COSMOS (Causal Oriented Search of Multi-Omic Space) is a method that integrates phosphoproteomics, transcriptomics, and metabolomics data sets. COSMOS leverages extensive prior knowledge of signaling pathways, metabolic networks, and gene regulation with computational methods to estimate activities of transcription factors and kinases as well as network-level causal reasoning. This pipeline can provide mechanistic explanations for experimental observations across multiple omic data sets.
 
-![data_intro_figure](../inst/figures/intro_data.png)
+![data_intro_figure](../man/figures/intro_data.png)
 Essentially, COSMOS has 3 main components:
 
 * The prior knowledge: The goal of COSMOS is essentially to connect various deregulation events together with mechanistic hypotheses. Those mechanistic hypotheses are basically known potential interactions between molecular biology features, such as proteins and metabolites. An example of such interaction can be the activation of MTOR by AKT, in the EGFR canonical pathway. Thousands of such potential interaction can be assembled together to form a large network of interactions. Such networks are thus called prior knowledge networks (PKN), because they summarize large amounts of prior knowledge in the form of a network. In the context of COSMOS this interactions come from the Omnipath database, STICHdb and the recon3D reaction network. With respect to the example interaction between MTOR and AKT, the question that is usually asked when presented with a given experimental context is: while MTOR can activate AKT in general, is this interaction relevant in my experimental context? This brings us to the second component of COSMOS.
@@ -44,7 +44,7 @@ Essentially, COSMOS has 3 main components:
 
 * The algorithm: The problem described in the data part is formulated as an integer linear optimisation problem. The PKN and the data can be abstracted as a large set of integer variables operating together in an even larger set of equations (see https://www.nature.com/articles/s41540-019-0118-z for more info). Given a set of fixed value for the variable (that is, a subset of the known deregulation), we need to find the values for the other sets of variable (corresponding to proteins and metabolites for which we have no information in our data) that can lead to a satisfying result. A satisfying results in the context of COSMOS represent a sub-network of interactions that is as small as possible while coherently explaining as many of our known deregulation as possible. Thus, the set of equation mentioned earlier needs to be solved, using an integer linear programming solver. The solvers that are currently available for COSMOS are lpsolve, cbc and cplex. In general, CPLEX is preferred over CBC for most real case applications, while lpsolve is mainly used for testing with small networks and sets of measurements.
 
-![Summary figure](../inst/figures/summary.png)
+![Summary figure](../man/figures/summary.png)
 
 ## Tutorial section: signaling to metabolism
 
