@@ -6,3 +6,5 @@ cosmos_cache
 docs
 ^\.github$
 ^devel$
+^doc$
+^Meta$
