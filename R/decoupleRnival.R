@@ -90,7 +90,7 @@ decoupleRnival <- function(upstream_input = NULL, downstream_input, meta_network
   return(return(recursive_decoupleRnival_res))
 }
 
-#' filter_incoherent_TF_targets
+#' filter_incohrent_TF_target
 #'
 #' Filters incoherent target genes from a regulatory network based on a decoupling analysis
 #' of upstream and downstream gene expression.
@@ -130,7 +130,7 @@ decoupleRnival <- function(upstream_input = NULL, downstream_input, meta_network
 #' upstream_scores <- decoupleRnival(upstream_input, downstream_input, meta_network, n_layers = 2, n_perm = 100)
 #'
 #' # Filter incoherent TF targets based on the upstream influence scores
-#' filtered_network <- filter_incoherent_TF_targets(upstream_scores, TF_reg_net, meta_network, RNA_input)
+#' filtered_network <- filter_incohrent_TF_target(upstream_scores, TF_reg_net, meta_network, RNA_input)
 #' 
 #' # View the resulting network
 #' print(filtered_network)
