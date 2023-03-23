@@ -3,7 +3,7 @@ title: "COSMOS-tutorial"
 author: "A. Dugourd, A. Gabor and K. Zirngibl"
 date: "11/10/2020"
 output:
-  md_document
+  html_document
 vignette: >
   %\VignetteIndexEntry{cosmosR tutorial}
   %\VignetteEncoding{UTF-8}
