@@ -37,7 +37,7 @@ decoupleRnival <- function(upstream_input = NULL, downstream_input, meta_network
   names(regulons)[3] <- "mor"
   regulons <- regulons[!(regulons$source %in% names(downstream_input)),]
   
-  n_plus_one <- run_wmean(mat = data.frame(downstream_input), network = regulons, times = n_perm, minsize = 1)
+  n_plus_one <- run_wmean(mat = as.matrix(data.frame(downstream_input)), network = regulons, times = n_perm, minsize = 1)
   n_plus_one <- n_plus_one[n_plus_one$statistic == "norm_wmean",c(2,4)]
   # regulons <- regulons[!(regulons$source %in% n_plus_one$source),]
   
