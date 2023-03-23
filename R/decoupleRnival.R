@@ -110,29 +110,34 @@ decoupleRnival <- function(upstream_input = NULL, downstream_input, meta_network
 #'   install.packages("decoupleR")
 #' }
 #' library(decoupleR)
+#' if (!requireNamespace("dplyr", quietly = TRUE)) {
+#'   install.packages("dplyr")
+#' }
+#' library(dplyr)
 #'
 #' # Example input data
-#' upstream_input <- c("A" = 1, "B" = -1, "C" = 0.5)
-#' downstream_input <- c("D" = 2, "E" = -1.5)
-#' meta_network <- data.frame(
-#'   source = c("A", "A", "B", "C", "C", "D", "E"),
-#'   target = c("B", "C", "D", "E", "D", "B", "A"),
-#'   sign = c(1, -1, -1, 1, -1, -1, 1)
-#' )
+#' data("toy_RNA")
+#' data("toy_signaling_input")
+#' data("toy_metabolic_input")
+#' data("toy_network")
+#'
 #' TF_reg_net <- data.frame(
-#'   source = c("A", "B", "C"),
-#'   target = c("D", "D", "E"),
-#'   score = c(1, -1, -0.5)
+#'   source = c("MYC", "MYC"),
+#'   target = c("LDHA", "SLC2A1"),
+#'   mor = c(1, -1)
 #' )
-#' RNA_input <- c("A" = 1, "B" = -1, "C" = 0.5, "D" = 0.7, "E" = -0.3)
 #'
-#' # Run the decoupleRnival function to get the upstream influence scores
-#' upstream_scores <- decoupleRnival(upstream_input, downstream_input, meta_network, n_layers = 2, n_perm = 100)
-#'
-#' # Filter incoherent TF targets based on the upstream influence scores
-#' filtered_network <- filter_incohrent_TF_target(upstream_scores, TF_reg_net, meta_network, RNA_input)
+#' toy_network <- toy_network %>% group_by(source,target) %>% summarise_each(funs(mean(., na.rm = TRUE)))
+#' toy_network <- as.data.frame(toy_network)
+#' toy_network <- toy_network[toy_network$interaction %in% c(1,-1),]
 #' 
-#' # View the resulting network
+#' # Run the decoupleRnival function to get the upstream influence scores
+#' upstream_scores <- decoupleRnival(toy_signaling_input, toy_metabolic_input, toy_network, n_layers = 6, n_perm = 100)
+#'
+#' # Filter incoherent target genes from the regulatory network based on the upstream influence scores
+#' filtered_network <- filter_incohrent_TF_target(upstream_scores, TF_reg_net, toy_network, toy_RNA)
+#'
+#' # View the resulting filtered network
 #' print(filtered_network)
 filter_incohrent_TF_target <- function(decouplRnival_res, TF_reg_net, meta_network, RNA_input){
   recursive_decoupleRnival_res <- decouplRnival_res
@@ -188,16 +193,16 @@ filter_incohrent_TF_target <- function(decouplRnival_res, TF_reg_net, meta_netwo
 #' downstream_input <- c("D" = 2, "E" = -1.5)
 #' meta_network <- data.frame(
 #'   source = c("A", "A", "B", "C", "C", "D", "E"),
-#'   target = c("B", "C", "D", "E", "D", "B", "A"),
-#'   sign = c(1, -1, -1, 1, -1, -1, 1)
+#'   target = c("B", "D", "D", "E", "D", "B", "A"),
+#'   interaction = c(-1, 1, -1, 1, -1, -1, 1)
 #' )
-#' RNA_input <- c("A" = 1, "B" = -1, "C" = 0.5, "D" = 0.7, "E" = -0.3)
+#' RNA_input <- c("A" = 1, "B" = -1, "C" = 5, "D" = 0.7, "E" = -0.3)
 #'
 #' # Run the decoupleRnival function to get the upstream influence scores
 #' upstream_scores <- decoupleRnival(upstream_input, downstream_input, meta_network, n_layers = 2, n_perm = 100)
 #'
 #' # Reduce the solution network based on the upstream influence scores
-#' reduced_network <- reduce_solution_network(upstream_scores, meta_network, 0.5, upstream_input, RNA_input, 3)
+#' reduced_network <- reduce_solution_network(upstream_scores, meta_network, 0.4, upstream_input, RNA_input, 3)
 #'
 #' # View the resulting solution network and attribute table
 #' print(reduced_network$SIF)
