@@ -3,10 +3,7 @@ title: "COSMOS-tutorial"
 author: "A. Dugourd, A. Gabor and K. Zirngibl"
 date: "11/10/2020"
 output:
-  html_document: 
-    toc: true
-    toc_depth: 2
-    keep_md: true
+  md_document
 vignette: >
   %\VignetteIndexEntry{cosmosR tutorial}
   %\VignetteEncoding{UTF-8}
