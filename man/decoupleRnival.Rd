@@ -31,3 +31,25 @@ downstream input based on the itterative propagation
 Itterativelly propagate downstream input activity through a signed directed 
 using the weighted mean of decoupleR
 }
+\examples{
+# Load the decoupleR package if it isn't already loaded
+if (!requireNamespace("decoupleR", quietly = TRUE)) {
+  install.packages("decoupleR")
+}
+library(decoupleR)
+
+# Example input data
+upstream_input <- c("A" = 1, "B" = -1, "C" = 0.5)
+downstream_input <- c("D" = 2, "E" = -1.5)
+meta_network <- data.frame(
+  source = c("A", "A", "B", "C", "C", "D", "E"),
+  target = c("B", "C", "D", "E", "D", "B", "A"),
+  sign = c(1, -1, -1, 1, -1, -1, 1)
+)
+
+# Run the function with the example input data
+result <- decoupleRnival(upstream_input, downstream_input, meta_network, n_layers = 2, n_perm = 100)
+
+# View the results
+print(result)
+}
