@@ -32,12 +32,6 @@ Itterativelly propagate downstream input activity through a signed directed
 using the weighted mean of decoupleR
 }
 \examples{
-# Load the decoupleR package if it isn't already loaded
-if (!requireNamespace("decoupleR", quietly = TRUE)) {
-  install.packages("decoupleR")
-}
-library(decoupleR)
-
 # Example input data
 upstream_input <- c("A" = 1, "B" = -1, "C" = 0.5)
 downstream_input <- c("D" = 2, "E" = -1.5)

@@ -15,12 +15,6 @@
 #' @export
 #' 
 #' @examples
-#' # Load the decoupleR package if it isn't already loaded
-#' if (!requireNamespace("decoupleR", quietly = TRUE)) {
-#'   install.packages("decoupleR")
-#' }
-#' library(decoupleR)
-#' 
 #' # Example input data
 #' upstream_input <- c("A" = 1, "B" = -1, "C" = 0.5)
 #' downstream_input <- c("D" = 2, "E" = -1.5)
@@ -102,19 +96,14 @@ decoupleRnival <- function(upstream_input = NULL, downstream_input, meta_network
 #'
 #' @return A network data frame containing the genes that are not incoherently regulated by TFs.
 #'
+#' @import decoupleR
+#' @import dplyr
 #' @export
 #' 
 #' @examples
-#' # Load the decoupleR package if it isn't already loaded
-#' if (!requireNamespace("decoupleR", quietly = TRUE)) {
-#'   install.packages("decoupleR")
-#' }
-#' library(decoupleR)
-#' if (!requireNamespace("dplyr", quietly = TRUE)) {
-#'   install.packages("dplyr")
-#' }
+#' 
 #' library(dplyr)
-#'
+#' 
 #' # Example input data
 #' data("toy_RNA")
 #' data("toy_signaling_input")
@@ -179,15 +168,11 @@ filter_incohrent_TF_target <- function(decouplRnival_res, TF_reg_net, meta_netwo
 #'
 #' @return A list containing the solution network (SIF) and an attribute table (ATT) with gene expression data.
 #'
+#' @import decoupleR
+#'
 #' @export
 #' 
 #' @examples
-#' # Load the decoupleR package if it isn't already loaded
-#' if (!requireNamespace("decoupleR", quietly = TRUE)) {
-#'   install.packages("decoupleR")
-#' }
-#' library(decoupleR)
-#'
 #' # Example input data
 #' upstream_input <- c("A" = 1, "B" = -1, "C" = 0.5)
 #' downstream_input <- c("D" = 2, "E" = -1.5)

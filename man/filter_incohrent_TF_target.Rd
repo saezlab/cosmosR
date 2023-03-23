@@ -28,14 +28,7 @@ Filters incoherent target genes from a regulatory network based on a decoupling 
 of upstream and downstream gene expression.
 }
 \examples{
-# Load the decoupleR package if it isn't already loaded
-if (!requireNamespace("decoupleR", quietly = TRUE)) {
-  install.packages("decoupleR")
-}
-library(decoupleR)
-if (!requireNamespace("dplyr", quietly = TRUE)) {
-  install.packages("dplyr")
-}
+
 library(dplyr)
 
 # Example input data

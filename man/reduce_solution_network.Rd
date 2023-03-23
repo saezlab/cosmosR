@@ -35,12 +35,6 @@ by filtering out edges that do not meet a consistency threshold, and limiting th
 certain number of steps from upstream input nodes.
 }
 \examples{
-# Load the decoupleR package if it isn't already loaded
-if (!requireNamespace("decoupleR", quietly = TRUE)) {
-  install.packages("decoupleR")
-}
-library(decoupleR)
-
 # Example input data
 upstream_input <- c("A" = 1, "B" = -1, "C" = 0.5)
 downstream_input <- c("D" = 2, "E" = -1.5)

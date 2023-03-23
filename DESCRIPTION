@@ -43,7 +43,8 @@ Imports:
     rlang,
     stringr,
     utils,
-    visNetwork
+    visNetwork,
+    decoupleR
 Suggests: 
     testthat,
     knitr,
