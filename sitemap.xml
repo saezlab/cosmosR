@@ -28,6 +28,9 @@
     <loc>/reference/cosmos_data.html</loc>
   </url>
   <url>
+    <loc>/reference/decoupleRnival.html</loc>
+  </url>
+  <url>
     <loc>/reference/default_CARNIVAL_options.html</loc>
   </url>
   <url>
@@ -35,6 +38,9 @@
   </url>
   <url>
     <loc>/reference/extract_nodes_for_ORA.html</loc>
+  </url>
+  <url>
+    <loc>/reference/filter_incohrent_TF_target.html</loc>
   </url>
   <url>
     <loc>/reference/format_COSMOS_res.html</loc>
@@ -62,6 +68,9 @@
   </url>
   <url>
     <loc>/reference/print.cosmos_data.html</loc>
+  </url>
+  <url>
+    <loc>/reference/reduce_solution_network.html</loc>
   </url>
   <url>
     <loc>/reference/run_COSMOS_metabolism_to_signaling.html</loc>
