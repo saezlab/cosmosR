@@ -8,6 +8,7 @@
 #' @param meta_network A network data frame containing signed directed prior knowledge of molecular interactions.
 #' @param n_layers The number of layers that will be propagated upstream.
 #' @param n_perm The number of permutations to use in decoupleR's algorithm.
+#' @param downstream_cutoff If downstream measurments should be included above a given threshold
 #'
 #' @return A data frame containing the score of the nodes upstream of the 
 #' downstream input based on the iterative propagation
@@ -29,7 +30,7 @@
 #' 
 #' # View the results
 #' print(result)
-decoupleRnival <- function(upstream_input = NULL, downstream_input, meta_network, n_layers, n_perm = 1000){
+decoupleRnival <- function(upstream_input = NULL, downstream_input, meta_network, n_layers, n_perm = 1000, downstream_cutoff = 0){
   
   
   regulons <- meta_network
@@ -65,7 +66,7 @@ decoupleRnival <- function(upstream_input = NULL, downstream_input, meta_network
   downstream_names <- as.data.frame(downstream_input)
   downstream_names$source <- row.names(downstream_names)
   names(downstream_names)[1] <- "score"
-  downstream_names <- downstream_names[abs(downstream_names$score) > 2,]
+  downstream_names <- downstream_names[abs(downstream_names$score) > downstream_cutoff,]
   
   recursive_decoupleRnival_res <- as.data.frame(rbind(recursive_decoupleRnival_res,downstream_names))
   
