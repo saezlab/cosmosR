@@ -34,7 +34,7 @@ decoupleRnival <- function(upstream_input = NULL, downstream_input, meta_network
   
   regulons <- meta_network
   
-  names(regulons)[3] <- "mor"
+  names(regulons)[names(regulons) == "sign" | names(regulons) == "interaction"] <- "mor"
   regulons <- regulons[!(regulons$source %in% names(downstream_input)),]
   
   n_plus_one <- run_wmean(mat = as.matrix(data.frame(downstream_input)), network = regulons, times = n_perm, minsize = 1)
@@ -229,4 +229,41 @@ reduce_solution_network <- function(decoupleRnival_res, meta_network, cutoff, up
     ATT$RNA_input <- NA
   }
   return(list("SIF" = SIF, "ATT" = ATT))
+}
+
+#' meta_network_cleanup
+#'
+#' This function cleans up a meta network data frame by removing self-interactions,
+#' calculating the mean interaction values for duplicated source-target pairs, and
+#' keeping only interactions with values of 1 or -1.
+#'
+#' @param meta_network A data frame with columns 'source', 'interaction', and 'target'.
+#' @import dplyr
+#' @return A cleaned up meta network data frame.
+#' 
+#' @export
+#' 
+#' @examples
+#' # Create a meta network data frame
+#' example_meta_network <- data.frame(
+#' source = c("A", "B", "C", "D", "A", "B", "C", "D", "A"),
+#' interaction = c(1, 1, 1, -1, 1, -1, 1, -1, 1),
+#' target = c("B", "C", "D", "A", "C", "D", "A", "B", "B")
+#' )
+#'
+#' # Clean up the example meta network
+#' cleaned_meta_network <- meta_network_cleanup(example_meta_network)
+#' print(cleaned_meta_network)
+#'
+meta_network_cleanup <- function(meta_network)
+{
+  if(sum(meta_network$source == meta_network$target) != 0)
+  {
+    meta_network <- meta_network[-which(meta_network$source == meta_network$target),]
+  }  
+  meta_network <- unique(meta_network)
+  meta_network <- meta_network %>% group_by(source,target) %>% summarise_each(funs(mean(., na.rm = TRUE)))
+  meta_network <- as.data.frame(meta_network)
+  meta_network <- meta_network[meta_network$interaction %in% c(1,-1),]
+  return(meta_network)
 }
