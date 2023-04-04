@@ -9,7 +9,8 @@ decoupleRnival(
   downstream_input,
   meta_network,
   n_layers,
-  n_perm = 1000
+  n_perm = 1000,
+  downstream_cutoff = 0
 )
 }
 \arguments{
@@ -21,15 +22,17 @@ decoupleRnival(
 
 \item{n_layers}{The number of layers that will be propagated upstream.}
 
-\item{n_perm}{The number of permutations to use in the decoupling algorithm.}
+\item{n_perm}{The number of permutations to use in decoupleR's algorithm.}
+
+\item{downstream_cutoff}{If downstream measurments should be included above a given threshold}
 }
 \value{
 A data frame containing the score of the nodes upstream of the 
-downstream input based on the itterative propagation
+downstream input based on the iterative propagation
 }
 \description{
-Itterativelly propagate downstream input activity through a signed directed 
-using the weighted mean of decoupleR
+Iteratively propagate downstream input activity through a signed directed network
+using the weighted mean enrichment score from decoupleR package
 }
 \examples{
 # Example input data
