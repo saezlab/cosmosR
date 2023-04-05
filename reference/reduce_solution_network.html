@@ -142,16 +142,20 @@ certain number of steps from upstream input nodes.</p>
 <span class="r-in"><span><span class="co"># Reduce the solution network based on the upstream influence scores</span></span></span>
 <span class="r-in"><span><span class="va">reduced_network</span> <span class="op">&lt;-</span> <span class="fu">reduce_solution_network</span><span class="op">(</span><span class="va">upstream_scores</span>, <span class="va">meta_network</span>, <span class="fl">0.4</span>, <span class="va">upstream_input</span>, <span class="va">RNA_input</span>, <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COSMOS: removing nodes that are not reachable from inputs within 3 steps"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COSMOS: 0 from  1 interactions are removed from the PKN"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COSMOS: 0 from  4 interactions are removed from the PKN"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># View the resulting solution network and attribute table</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">reduced_network</span><span class="op">$</span><span class="va">SIF</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   source target interaction consistency</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1      A      B          -1        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      A      D           1        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      B      D          -1        TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      D      B          -1        TRUE</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">reduced_network</span><span class="op">$</span><span class="va">ATT</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   nodes    score RNA_input</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     A  1.05659         1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     B -1.05659        -1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     A  1.05659       1.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     B -1.05659      -1.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     D  2.00000       0.7</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
