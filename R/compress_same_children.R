@@ -122,7 +122,6 @@ decompress_solution_network <- function(formatted_res, meta_network, node_signat
   ATT <- formatted_res[[2]]
   
   duplicated_parents_df <- data.frame(duplicated_parents)
-  print(duplicated_parents_df)
   duplicated_parents_df$source_original <- row.names(duplicated_parents_df)
   names(duplicated_parents_df)[1] <- "Nodes"
   
@@ -207,9 +206,6 @@ decompress_solution_network <- function(formatted_res, meta_network, node_signat
   
   SIF <- SIF[SIF$source %in% ATT$Nodes & 
                SIF$target %in% ATT$Nodes,]
-  
-  print(SIF)
-  print(ATT)
   
   SIF$Weight <- apply(SIF, 1, function(x, ATT){
     source_act <- ATT[ATT$Nodes == x[1],"Activity"]
