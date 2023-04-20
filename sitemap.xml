@@ -25,7 +25,13 @@
     <loc>/reference/HMDB_mapper_vec.html</loc>
   </url>
   <url>
+    <loc>/reference/compress_same_children.html</loc>
+  </url>
+  <url>
     <loc>/reference/cosmos_data.html</loc>
+  </url>
+  <url>
+    <loc>/reference/decompress_solution_network.html</loc>
   </url>
   <url>
     <loc>/reference/decoupleRnival.html</loc>
