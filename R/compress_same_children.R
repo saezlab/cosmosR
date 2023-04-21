@@ -215,6 +215,16 @@ decompress_solution_network <- function(formatted_res, meta_network, node_signat
     return(weight)
   }, ATT = ATT)
   
+  SIF <- SIF[which(SIF$Weight != 0),]
+  ATT <- ATT[ATT$AvgAct != 0,]
+  
+  seeds <- SIF[!(SIF[,1] %in% SIF[,2]),1]
+  bad_seeds <- seeds[!(seeds %in% ATT[ATT$NodeType == "P","Nodes"])]
+  
+  ATT <- ATT[!(ATT$Nodes %in% bad_seeds),]
+  SIF <- SIF[SIF$source %in% ATT$Nodes &
+               SIF$target %in% ATT$Nodes,]
+  
   formatted_res <- list(SIF,ATT)
   
   return(formatted_res)
