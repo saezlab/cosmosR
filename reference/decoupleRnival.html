@@ -84,7 +84,8 @@ using the weighted mean enrichment score from decoupleR package</p>
 <span>  <span class="va">meta_network</span>,</span>
 <span>  <span class="va">n_layers</span>,</span>
 <span>  n_perm <span class="op">=</span> <span class="fl">1000</span>,</span>
-<span>  downstream_cutoff <span class="op">=</span> <span class="fl">0</span></span>
+<span>  downstream_cutoff <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  statistic <span class="op">=</span> <span class="st">"norm_wmean"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -112,6 +113,10 @@ using the weighted mean enrichment score from decoupleR package</p>
 
 <dt>downstream_cutoff</dt>
 <dd><p>If downstream measurments should be included above a given threshold</p></dd>
+
+
+<dt>statistic</dt>
+<dd><p>the decoupleR stat to consider: "wmean", "norm_wmean", or "ulm"</p></dd>
 
 </dl></div>
     <div class="section level2">
