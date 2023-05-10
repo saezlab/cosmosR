@@ -10,7 +10,8 @@ decoupleRnival(
   meta_network,
   n_layers,
   n_perm = 1000,
-  downstream_cutoff = 0
+  downstream_cutoff = 0,
+  statistic = "norm_wmean"
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ decoupleRnival(
 \item{n_perm}{The number of permutations to use in decoupleR's algorithm.}
 
 \item{downstream_cutoff}{If downstream measurments should be included above a given threshold}
+
+\item{statistic}{the decoupleR stat to consider: "wmean", "norm_wmean", or "ulm"}
 }
 \value{
 A data frame containing the score of the nodes upstream of the 

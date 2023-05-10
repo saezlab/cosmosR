@@ -9,6 +9,7 @@
 #' @param n_layers The number of layers that will be propagated upstream.
 #' @param n_perm The number of permutations to use in decoupleR's algorithm.
 #' @param downstream_cutoff If downstream measurments should be included above a given threshold
+#' @param statistic the decoupleR stat to consider: "wmean", "norm_wmean", or "ulm"
 #'
 #' @return A data frame containing the score of the nodes upstream of the 
 #' downstream input based on the iterative propagation
@@ -30,7 +31,7 @@
 #' 
 #' # View the results
 #' print(result)
-decoupleRnival <- function(upstream_input = NULL, downstream_input, meta_network, n_layers, n_perm = 1000, downstream_cutoff = 0){
+decoupleRnival <- function(upstream_input = NULL, downstream_input, meta_network, n_layers, n_perm = 1000, downstream_cutoff = 0, statistic = "norm_wmean"){
   
   
   regulons <- meta_network
@@ -38,8 +39,18 @@ decoupleRnival <- function(upstream_input = NULL, downstream_input, meta_network
   names(regulons)[names(regulons) == "sign" | names(regulons) == "interaction"] <- "mor"
   regulons <- regulons[!(regulons$source %in% names(downstream_input)),]
   
-  n_plus_one <- run_wmean(mat = as.matrix(data.frame(downstream_input)), network = regulons, times = n_perm, minsize = 1)
-  n_plus_one <- n_plus_one[n_plus_one$statistic == "norm_wmean",c(2,4)]
+  switch(statistic,
+         "norm_wmean" = {
+           n_plus_one <- run_wmean(mat = as.matrix(data.frame(downstream_input)), network = regulons, times = n_perm, minsize = 1)
+         },
+         "wmean" = {
+           n_plus_one <- run_wmean(mat = as.matrix(data.frame(downstream_input)), network = regulons, times = 2, minsize = 1)
+         },
+         "ulm" = {
+           n_plus_one <- run_ulm(mat = as.matrix(data.frame(downstream_input)), network = regulons, minsize = 1)
+         })
+  
+  n_plus_one <- n_plus_one[n_plus_one$statistic == statistic,c(2,4)]
   # regulons <- regulons[!(regulons$source %in% n_plus_one$source),]
   
   res_list <- list()
@@ -52,8 +63,17 @@ decoupleRnival <- function(upstream_input = NULL, downstream_input, meta_network
     previous_n_plu_one <- res_list[[i - 1]]
     row.names(previous_n_plu_one) <- previous_n_plu_one$source
     previous_n_plu_one <- previous_n_plu_one[,-1,drop = F]
-    n_plus_one <- run_wmean(mat = as.matrix(previous_n_plu_one), network = regulons, times = n_perm, minsize = 1)
-    n_plus_one <- n_plus_one[n_plus_one$statistic == "norm_wmean",c(2,4)]
+    switch(statistic,
+           "norm_wmean" = {
+             n_plus_one <- run_wmean(mat = as.matrix(previous_n_plu_one), network = regulons, times = n_perm, minsize = 1)
+           },
+           "wmean" = {
+             n_plus_one <- run_wmean(mat = as.matrix(previous_n_plu_one), network = regulons, times = 2, minsize = 1)
+           },
+           "ulm" = {
+             n_plus_one <- run_ulm(mat = as.matrix(previous_n_plu_one), network = regulons, minsize = 1)
+           })
+    n_plus_one <- n_plus_one[n_plus_one$statistic == statistic,c(2,4)]
     regulons <- regulons[!(regulons$source %in% n_plus_one$source),]
     res_list[[i]] <- as.data.frame(n_plus_one)
     i <- i +1
@@ -267,4 +287,72 @@ meta_network_cleanup <- function(meta_network)
   meta_network <- as.data.frame(meta_network)
   meta_network <- meta_network[meta_network$interaction %in% c(1,-1),]
   return(meta_network)
+}
+
+#' translate_res
+#'
+#' formats the network with readable names
+#'
+#' @param SIF  result SIF of decoupleRnival pipeline
+#' @param ATT  result ATT of decoupleRnival pipeline
+#' @param metab_mapping a named vector with HMDB Ids as names and desired metabolite names as values.
+#' @return list with network and attribute tables.
+#' @importFrom stringr str_extract
+#' @export
+#' 
+#' @examples
+#' # Create a meta network data frame
+#' example_SIF <- data.frame(
+#' source = c("GPX1", "Gene863__GPX1"),
+#' target = c("Gene863__GPX1", "Metab__HMDB0003337_c"),
+#' sign = c(1, 1)
+#' )
+#' 
+#' example_ATT <- data.frame(
+#' Nodes = c("GPX1", "Gene863__GPX1","Metab__HMDB0003337_c"),
+#' sign = c(1, 1, 1)
+#' )
+#' 
+#' example_SIF
+#' 
+#' data("HMDB_mapper_vec")
+#' 
+#' translated_res <- translate_res(example_SIF,example_ATT,HMDB_mapper_vec)
+#' 
+#' translated_res$SIF
+translate_res <- function(SIF,ATT,HMDB_mapper_vec = NULL)
+{
+  if (is.null(HMDB_mapper_vec)) {
+    data("HMDB_mapper_vec", package = "cosmosR", envir = environment())
+  }
+  colnames(ATT)[1] <- "Nodes"
+  for (i in c(1, 2)) {
+    SIF[, i] <- sapply(SIF[, i], function(x, HMDB_mapper_vec) {
+      x <- gsub("Metab__", "", x)
+      x <- gsub("^Gene", "Enzyme", x)
+      suffixe <- stringr::str_extract(x, "_[a-z]$")
+      x <- gsub("_[a-z]$", "", x)
+      if (x %in% names(HMDB_mapper_vec)) {
+        x <- HMDB_mapper_vec[x]
+        x <- paste("Metab__", paste(x, suffixe, sep = ""), 
+                   sep = "")
+      }
+      return(x)
+    }, HMDB_mapper_vec = HMDB_mapper_vec)
+  }
+  ATT[, 1] <- sapply(ATT[, 1], function(x, HMDB_mapper_vec) {
+    x <- gsub("Metab__", "", x)
+    x <- gsub("^Gene", "Enzyme", x)
+    suffixe <- stringr::str_extract(x, "_[a-z]$")
+    x <- gsub("_[a-z]$", "", x)
+    if (x %in% names(HMDB_mapper_vec)) {
+      x <- HMDB_mapper_vec[x]
+      x <- paste("Metab__", x, sep = "")
+    }
+    if (!is.na(suffixe)) {
+      x <- paste(x, suffixe, sep = "")
+    }
+    return(x)
+  }, HMDB_mapper_vec = HMDB_mapper_vec)
+  return(list("SIF" = SIF, "ATT" = ATT))
 }
