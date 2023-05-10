@@ -11,7 +11,7 @@ translate_res(SIF, ATT, HMDB_mapper_vec = NULL)
 
 \item{ATT}{result ATT of decoupleRnival pipeline}
 
-\item{metab_mapping}{a named vector with HMDB Ids as names and desired metabolite names as values.}
+\item{HMDB_mapper_vec}{a named vector with HMDB Ids as names and desired metabolite names as values.}
 }
 \value{
 list with network and attribute tables.

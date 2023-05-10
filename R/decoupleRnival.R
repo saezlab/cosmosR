@@ -295,7 +295,7 @@ meta_network_cleanup <- function(meta_network)
 #'
 #' @param SIF  result SIF of decoupleRnival pipeline
 #' @param ATT  result ATT of decoupleRnival pipeline
-#' @param metab_mapping a named vector with HMDB Ids as names and desired metabolite names as values.
+#' @param HMDB_mapper_vec a named vector with HMDB Ids as names and desired metabolite names as values.
 #' @return list with network and attribute tables.
 #' @importFrom stringr str_extract
 #' @export
