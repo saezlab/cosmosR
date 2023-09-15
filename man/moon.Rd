@@ -30,7 +30,7 @@ moon(
 
 \item{statistic}{the decoupleR stat to consider: "wmean", "norm_wmean", or "ulm"}
 
-\item{return_level}{true or false, if true the layers that the protein belongs to will be returned alongside the scores}
+\item{return_levels}{true or false, if true the layers that the protein belongs to will be returned alongside the scores}
 }
 \value{
 A data frame containing the score of the nodes upstream of the 
