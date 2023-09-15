@@ -1,3 +1,115 @@
+#' moon
+#'
+#' Iteratively propagate downstream input activity through a signed directed network
+#' using the weighted mean enrichment score from decoupleR package
+#'
+#' @param upstream_input A named vector with up_stream nodes and their corresponding activity.
+#' @param downstream_input A named vector with down_stream nodes and their corresponding activity.
+#' @param meta_network A network data frame containing signed directed prior knowledge of molecular interactions.
+#' @param n_layers The number of layers that will be propagated upstream.
+#' @param n_perm The number of permutations to use in decoupleR's algorithm.
+#' @param downstream_cutoff If downstream measurments should be included above a given threshold
+#' @param statistic the decoupleR stat to consider: "wmean", "norm_wmean", or "ulm"
+#' @param return_level true or false, if true the layers that the protein belongs to will be returned alongside the scores
+#'
+#' @return A data frame containing the score of the nodes upstream of the 
+#' downstream input based on the iterative propagation
+#'
+#' @export
+#' 
+#' @examples
+#' # Example input data
+#' upstream_input <- c("A" = 1, "B" = -1, "C" = 0.5)
+#' downstream_input <- c("D" = 2, "E" = -1.5)
+#' meta_network <- data.frame(
+#'   source = c("A", "A", "B", "C", "C", "D", "E"),
+#'   target = c("B", "C", "D", "E", "D", "B", "A"),
+#'   sign = c(1, -1, -1, 1, -1, -1, 1)
+#' )
+#' 
+#' # Run the function with the example input data
+#' result <- moon(upstream_input, downstream_input, meta_network, n_layers = 2, n_perm = 100)
+#' 
+#' # View the results
+#' print(result)
+moon <- function(upstream_input = NULL, downstream_input, meta_network, n_layers, n_perm = 1000, downstream_cutoff = 0, statistic = "ulm", return_levels = F){
+  
+  
+  regulons <- meta_network
+  
+  names(regulons)[names(regulons) == "sign" | names(regulons) == "interaction"] <- "mor"
+  regulons <- regulons[!(regulons$source %in% names(downstream_input)),]
+  
+  switch(statistic,
+         "norm_wmean" = {
+           n_plus_one <- run_wmean(mat = as.matrix(data.frame(downstream_input)), network = regulons, times = n_perm, minsize = 1)
+         },
+         "wmean" = {
+           n_plus_one <- run_wmean(mat = as.matrix(data.frame(downstream_input)), network = regulons, times = 2, minsize = 1)
+         },
+         "ulm" = {
+           n_plus_one <- run_ulm(mat = as.matrix(data.frame(downstream_input)), network = regulons, minsize = 1)
+         })
+  
+  n_plus_one <- n_plus_one[n_plus_one$statistic == statistic,c(2,4)]
+  n_plus_one$level <- 1
+  # regulons <- regulons[!(regulons$source %in% n_plus_one$source),]
+  
+  res_list <- list()
+  res_list[[1]] <- as.data.frame(n_plus_one)
+  i <- 2
+  while(length(regulons[,1]) > 1 & sum(regulons$target %in% res_list[[i - 1]]$source) > 1 & i <= n_layers)
+  {
+    print(i)
+    regulons <- regulons[!(regulons$source %in% res_list[[i - 1]]$source),]
+    previous_n_plu_one <- res_list[[i - 1]][,-3,drop = F] #remove the layer indice
+    row.names(previous_n_plu_one) <- previous_n_plu_one$source
+    previous_n_plu_one <- previous_n_plu_one[,-1,drop = F]
+    switch(statistic,
+           "norm_wmean" = {
+             n_plus_one <- run_wmean(mat = as.matrix(previous_n_plu_one), network = regulons, times = n_perm, minsize = 1)
+           },
+           "wmean" = {
+             n_plus_one <- run_wmean(mat = as.matrix(previous_n_plu_one), network = regulons, times = 2, minsize = 1)
+           },
+           "ulm" = {
+             n_plus_one <- run_ulm(mat = as.matrix(previous_n_plu_one), network = regulons, minsize = 1)
+           })
+    n_plus_one <- n_plus_one[n_plus_one$statistic == statistic,c(2,4)]
+    regulons <- regulons[!(regulons$source %in% n_plus_one$source),]
+    n_plus_one$level <- i
+    res_list[[i]] <- as.data.frame(n_plus_one)
+    i <- i +1
+  }
+  
+  recursive_decoupleRnival_res <- as.data.frame(do.call(rbind,res_list))
+  
+  
+  
+  downstream_names <- as.data.frame(downstream_input)
+  downstream_names$source <- row.names(downstream_names)
+  names(downstream_names)[1] <- "score"
+  downstream_names <- downstream_names[abs(downstream_names$score) > downstream_cutoff,]
+  downstream_names$level <- 0
+  
+  recursive_decoupleRnival_res <- as.data.frame(rbind(recursive_decoupleRnival_res,downstream_names))
+  
+  if(!is.null(upstream_input))
+  {
+    upstream_input_df <- as.data.frame(upstream_input)
+    upstream_input_df$source <- row.names(upstream_input_df)
+    names(upstream_input_df)[1] <- "score"
+    
+    upstream_input_df <- merge(upstream_input_df, recursive_decoupleRnival_res, by = "source")
+    upstream_input_df$filterout <- sign(upstream_input_df$score.x) != sign(upstream_input_df$score.y)
+    
+    recursive_decoupleRnival_res <- recursive_decoupleRnival_res[!(recursive_decoupleRnival_res$source %in% upstream_input_df[upstream_input_df$filterout,"source"]),]
+  }
+  
+  return(return(recursive_decoupleRnival_res))
+}
+
+
 #' DecoupleRnival
 #'
 #' Iteratively propagate downstream input activity through a signed directed network
@@ -33,7 +145,7 @@
 #' print(result)
 decoupleRnival <- function(upstream_input = NULL, downstream_input, meta_network, n_layers, n_perm = 1000, downstream_cutoff = 0, statistic = "norm_wmean"){
   
-  
+  print("Warning, this function is deprecated and will no longer receive futur support. Please use the 'moon' function instead")
   regulons <- meta_network
   
   names(regulons)[names(regulons) == "sign" | names(regulons) == "interaction"] <- "mor"
