@@ -51,7 +51,7 @@ meta_network <- data.frame(
 )
 
 # Run the function with the example input data
-result <- moon(upstream_input, downstream_input, meta_network, n_layers = 2, n_perm = 100)
+result <- moon(upstream_input, downstream_input, meta_network, n_layers = 2, statistic = "wmean")
 
 # View the results
 print(result)
