@@ -131,6 +131,7 @@ of upstream and downstream gene expression.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Run the decoupleRnival function to get the upstream influence scores</span></span></span>
 <span class="r-in"><span><span class="va">upstream_scores</span> <span class="op">&lt;-</span> <span class="fu"><a href="decoupleRnival.html">decoupleRnival</a></span><span class="op">(</span><span class="va">upstream_input</span>, <span class="va">downstream_input</span>, <span class="va">meta_network</span>, n_layers <span class="op">=</span> <span class="fl">2</span>, n_perm <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Warning, this function is deprecated and will no longer receive futur support. Please use the 'moon' function instead"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">filtered_network</span> <span class="op">&lt;-</span> <span class="fu">filter_incohrent_TF_target</span><span class="op">(</span><span class="va">upstream_scores</span>, <span class="va">TF_reg_net</span>, <span class="va">meta_network</span>, <span class="va">RNA_input</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
