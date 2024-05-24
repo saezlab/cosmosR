@@ -51,6 +51,7 @@ Suggests:
     rmarkdown,
     piano,
     ggplot2,
+    stringi,
     reshape2
 biocViews: CellBiology, Pathways, Network, Proteomics, Metabolomics, Transcriptomics,
     GeneSignaling
