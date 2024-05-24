@@ -44,13 +44,13 @@ Imports:
     stringr,
     utils,
     visNetwork,
-    decoupleR,
-    reshape2
+    decoupleR
 Suggests: 
     testthat,
     knitr,
     rmarkdown,
     piano,
-    ggplot2
+    ggplot2,
+    reshape2
 biocViews: CellBiology, Pathways, Network, Proteomics, Metabolomics, Transcriptomics,
     GeneSignaling
