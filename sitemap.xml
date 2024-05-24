@@ -31,6 +31,9 @@
     <loc>/reference/cosmos_data.html</loc>
   </url>
   <url>
+    <loc>/reference/decompress_moon_result.html</loc>
+  </url>
+  <url>
     <loc>/reference/decompress_solution_network.html</loc>
   </url>
   <url>
@@ -50,6 +53,9 @@
   </url>
   <url>
     <loc>/reference/format_COSMOS_res.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_moon_scoring_network.html</loc>
   </url>
   <url>
     <loc>/reference/gmt_to_dataframe.html</loc>
