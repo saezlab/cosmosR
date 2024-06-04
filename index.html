@@ -126,26 +126,21 @@
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"saezlab/cosmosR"</span><span class="op">)</span></span></code></pre></div>
 <p>If you don’t have R 4.1, you can also clone the github repository on your machine, create a new R project with R studio from the cosmosR folder, change the R version to your own R version in the DESCRIPTION file and then install it with devtools:install()</p>
 <p>But 4.1 is advised in any case.</p>
-<div class="section level3">
-<h3 id="prerequisites">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
-</h3>
-<p>COSMOS is dependent on CARNIVAL for exhibiting the signalling pathway optimisation. CARNIVAL requires the interactive version of IBM Cplex, Gurobi or CBC-COIN solver as the network optimiser. The IBM ILOG Cplex is freely available through Academic Initiative <a href="https://www.ibm.com/products/ilog-cplex-optimization-studio" class="external-link">here</a>. Gurobi license is also free for academics, request a license <a href="https://www.gurobi.com/downloads/end-user-license-agreement-academic/" class="external-link">here</a>. The <a href="https://projects.coin-or.org/Cbc" class="external-link">CBC</a> solver is open source and freely available for any user, but has a significantly lower performance than CPLEX or Gurobi. Obtain CBC executable directly usable for cosmos <a href="https://ampl.com/products/solvers/open-source/#cbc" class="external-link">here</a>. Alternatively for small networks, users can rely on the freely available <a href="https://cran.r-project.org/web/packages/lpSolve/index.html" class="external-link">lpSolve R-package</a>, which is automatically installed with the package.</p>
-<p>Small note to package dependencies:</p>
-<p>CARNIVAL is currently under active development. We try to ensure the compatibility of both packages, please install CARNIVAL from the our Github:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Install </span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"saezlab/CARNIVAL"</span><span class="op">)</span></span></code></pre></div>
 </div>
+<div class="section level2">
+<h2 id="tutorial-to-use-mofa-nad-cosmos">tutorial to use MOFA nad COSMOS<a class="anchor" aria-label="anchor" href="#tutorial-to-use-mofa-nad-cosmos"></a>
+</h2>
+<p><a href="https://github.com/saezlab/Factor_COSMOS" class="external-link">Here</a> you can find an extensive tutorial showing how to use MOFA and COSMOS with the NCI60 dataset. This is an extensive tutorial, if you wish to get a quicker plug and play introduction to COSMOS, see below.</p>
+</div>
+<div class="section level2">
+<h2 id="tutorial-nci60-playground">Tutorial (NCI60 playground)<a class="anchor" aria-label="anchor" href="#tutorial-nci60-playground"></a>
+</h2>
+<p>We made a repository that contains pre-processed inputs and an example script to use cosmos with the NCI60 RNA+metabolomic datasets. You can find the repository <a href="https://github.com/saezlab/COSMOS_basic" class="external-link">here</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="tutorial-video">Tutorial (video)<a class="anchor" aria-label="anchor" href="#tutorial-video"></a>
 </h2>
 <p>We recorded a video guide for cosmosR tutorial in the context of a course organised by EBI-EMBL. You can access the recording at this link for a step by step introduction to cosmosR : <a href="https://embl-ebi.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=318f7091-b6bf-44ee-939f-adb10121fc1b" class="external-link uri">https://embl-ebi.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=318f7091-b6bf-44ee-939f-adb10121fc1b</a></p>
-</div>
-<div class="section level2">
-<h2 id="tutorial-nci60-playground">Tutorial (NCI60 playground)<a class="anchor" aria-label="anchor" href="#tutorial-nci60-playground"></a>
-</h2>
-<p>We made a repository that contains pre-processed inputs and an example script to use cosmos with the NCI60 RNA+metabolomic datasets. You can find the repository <a href="https://github.com/saezlab/NCI60_cosmos" class="external-link">here</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="access">Access<a class="anchor" aria-label="anchor" href="#access"></a>

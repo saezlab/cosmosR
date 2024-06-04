@@ -31,6 +31,9 @@
     <loc>/reference/cosmos_data.html</loc>
   </url>
   <url>
+    <loc>/reference/createLinearColors.html</loc>
+  </url>
+  <url>
     <loc>/reference/decompress_moon_result.html</loc>
   </url>
   <url>
@@ -55,6 +58,9 @@
     <loc>/reference/format_COSMOS_res.html</loc>
   </url>
   <url>
+    <loc>/reference/format_LR_ressource.html</loc>
+  </url>
+  <url>
     <loc>/reference/get_moon_scoring_network.html</loc>
   </url>
   <url>
@@ -65,6 +71,9 @@
   </url>
   <url>
     <loc>/reference/load_tf_regulon_dorothea.html</loc>
+  </url>
+  <url>
+    <loc>/reference/make_heatmap_color_palette.html</loc>
   </url>
   <url>
     <loc>/reference/meta_network.html</loc>
@@ -109,6 +118,12 @@
     <loc>/reference/toy_signaling_input.html</loc>
   </url>
   <url>
+    <loc>/reference/translate_column_HMDB.html</loc>
+  </url>
+  <url>
     <loc>/reference/translate_res.html</loc>
+  </url>
+  <url>
+    <loc>/reference/wide_ulm_res.html</loc>
   </url>
 </urlset>
