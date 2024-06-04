@@ -40,30 +40,20 @@ If you don't have R 4.1, you can also clone the github repository on your machin
 
 But 4.1 is advised in any case.
 
-### Prerequisites
+## tutorial to use MOFA nad COSMOS
 
-COSMOS is dependent on CARNIVAL for exhibiting the signalling pathway optimisation.
-CARNIVAL requires the interactive version of IBM Cplex, Gurobi or CBC-COIN solver as the network optimiser. The IBM ILOG Cplex is freely available through Academic Initiative [here](https://www.ibm.com/products/ilog-cplex-optimization-studio). Gurobi license is also free for academics, request a license [here](https://www.gurobi.com/downloads/end-user-license-agreement-academic/). The [CBC](https://projects.coin-or.org/Cbc) solver is open source and freely available for any user, but has a significantly lower performance than CPLEX or Gurobi. Obtain CBC executable directly usable for cosmos [here](https://ampl.com/products/solvers/open-source/#cbc). Alternatively for small networks, users can rely on the freely available [lpSolve R-package](https://cran.r-project.org/web/packages/lpSolve/index.html), which is automatically installed with the package.
+[Here](https://github.com/saezlab/Factor_COSMOS) you can find an extensive tutorial showing how to use MOFA and COSMOS with the NCI60 dataset. This is an extensive tutorial, if you wish to get a quicker plug and play introduction to COSMOS, see below.
 
+## Tutorial (NCI60 playground)
 
-Small note to package dependencies:
-
- CARNIVAL is currently under active development. We try to ensure the compatibility of both packages, please install CARNIVAL from the our Github:
-```r
-# Install 
-remotes::install_github("saezlab/CARNIVAL")
-```
+We made a repository that contains pre-processed inputs and an example script to use cosmos with the NCI60 RNA+metabolomic datasets.
+You can find the repository [here](https://github.com/saezlab/COSMOS_basic).
 
 ## Tutorial (video)
 
 We recorded a video guide for cosmosR tutorial in the context of a course organised by EBI-EMBL. 
 You can access the recording at this link for a step by step introduction to cosmosR : 
 https://embl-ebi.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=318f7091-b6bf-44ee-939f-adb10121fc1b
-
-## Tutorial (NCI60 playground)
-
-We made a repository that contains pre-processed inputs and an example script to use cosmos with the NCI60 RNA+metabolomic datasets.
-You can find the repository [here](https://github.com/saezlab/NCI60_cosmos).
 
 ## Access
 
