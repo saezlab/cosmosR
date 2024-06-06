@@ -1,6 +1,5 @@
-## Tutorial with NCI60 cohort
 
-# libraries, data loading and feature selection
+## libraries, data loading and feature selection
 
     # We advise to instal from github to get the latest version of the tool.
     # if (!requireNamespace("devtools", quietly = TRUE))
@@ -71,7 +70,7 @@
     sig_input <- sig_input[abs(sig_input) > 2]
     # metab_input <- metab_input[abs(metab_input) > 2]
 
-# Filter inputs and prior knowledge network
+## Filter inputs and prior knowledge network
 
     #Remove genes that are not expressed from the meta_network
     meta_network <- cosmosR:::filter_pkn_expressed_genes(names(RNA_input), meta_pkn = meta_network)
@@ -118,7 +117,7 @@
 
     meta_network_compressed <- meta_network_cleanup(meta_network_compressed)
 
-# run MOON ot score the and contextualise the PKN
+## run MOON ot score the and contextualise the PKN
 
     load("support/dorothea_reg.RData")
 
@@ -176,7 +175,7 @@
     abline(v = 1)
     abline(v = -1)
 
-![](net_compr_MOON_files/figure-markdown_strict/extract%20subnetwork%20from%20scored%20MOON%20network-1.png)
+![](net_compr_MOON_files/figure-markdown_strict/extract_subnetwork_from_scored_MOON_network_1.png)
 
     solution_network <- reduce_solution_network(decoupleRnival_res = moon_res, 
                                                 meta_network = meta_network,
