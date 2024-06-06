@@ -103,11 +103,11 @@ this is not necessary since MOFA2 is able to impute data).
     RNA_sd <- sort(apply(RNA, 1, function(x) sd(x,na.rm = T)), decreasing = T)
     hist(RNA_sd, breaks = 100)
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/Preparing%20MOFA%20input-1.png)
+![](M2Cf/figs/Preparing%20MOFA%20input-1.png)
 
     hist(RNA_sd[1:6000], breaks = 100)
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/Preparing%20MOFA%20input-2.png)
+![](M2Cf/figs/Preparing%20MOFA%20input-2.png)
 
     RNA_sd <- RNA_sd[1:6000]
     RNA <- RNA[names(RNA_sd),]
@@ -123,11 +123,11 @@ this is not necessary since MOFA2 is able to impute data).
     proteo_sd <- sort(apply(proteo, 1, function(x) sd(x,na.rm = T)), decreasing = T)
     hist(proteo_sd, breaks = 100)
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/Preparing%20MOFA%20input-3.png)
+![](M2Cf/figs/Preparing%20MOFA%20input-3.png)
 
     hist(proteo_sd[1:round(dim(proteo)[1]*3/5)], breaks = 100)
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/Preparing%20MOFA%20input-4.png)
+![](M2Cf/figs/Preparing%20MOFA%20input-4.png)
 
     proteo_sd <- proteo_sd[1:round(dim(proteo)[1]*3/5)]
     proteo <- proteo[names(proteo_sd),]
@@ -143,7 +143,7 @@ this is not necessary since MOFA2 is able to impute data).
     metab_sd <- apply(metab, 1, function(x) sd(x,na.rm=T))
     hist(metab_sd, breaks = 100)
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/Preparing%20MOFA%20input-5.png)
+![](M2Cf/figs/Preparing%20MOFA%20input-5.png)
 
     # Create long data frame
     ## Only keep samples with each view present 
@@ -214,7 +214,7 @@ and RNA stability.
 
     hist(condition_prot_RNA_correlation, breaks = 20)
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/Supp%20figure%20condition_prot_RNA_correlation-1.png)
+![](M2Cf/figs/Supp%20figure%20condition_prot_RNA_correlation-1.png)
 
     overlap_genes <- unique(intersect(proteo$feature,RNA$feature))
     single_prot_RNA_correlation <- sapply(overlap_genes, function(gene){
@@ -226,7 +226,7 @@ and RNA stability.
 
     hist(single_prot_RNA_correlation, breaks = 100)
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/Supp%20figure%20single_prot_RNA_correlation-1.png)
+![](M2Cf/figs/Supp%20figure%20single_prot_RNA_correlation-1.png)
 
 ### MOFA run
 
@@ -280,7 +280,7 @@ consistency (here: model 7-13).
 
     compare_factors(list(model7,model8,model9,model10,model11,model12,model13), cluster_rows = F, cluster_cols = F,)
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/Compare%20MOFA%20models-1.png)
+![](M2Cf/figs/Compare%20MOFA%20models-1.png)
 
 Here, we can see that the inferred MOFA factor weights do not change
 drastically around 9. For the sake of this tutorial, we choose the
@@ -304,7 +304,7 @@ the model represents the data.
     # Investigate factors: Explained total variance per view
     plot_variance_explained(model, x="group", y="factor", plot_total = T)[[2]]
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/Total%20variance%20per%20factor-1.png)
+![](M2Cf/figs/Total%20variance%20per%20factor-1.png)
 
     calculate_variance_explained(model)
 
@@ -372,7 +372,7 @@ degratation regulatory mechanisms).
     # plot(calculate_variance_explained(model)$r2_total$single_group, c(mean(RNA_crosscor),mean(metabo_crosscor),mean(prot_crosscor)))
     plot(calculate_variance_explained(model)$r2_total$single_group, c(dim(RNA_crosscor)[1],dim(metabo_crosscor)[1],dim(prot_crosscor)[1]))
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/Chekc%20cross%20correlation%20of%20omics%20compared%20to%20variance%20epxlained-1.png)
+![](M2Cf/figs/Chekc%20cross%20correlation%20of%20omics%20compared%20to%20variance%20epxlained-1.png)
 
     df_variance_crosscor <- as.data.frame(cbind(calculate_variance_explained(model)$r2_total$single_group,
                                                c(mean(RNA_crosscor),mean(metabo_crosscor),mean(prot_crosscor)),
@@ -391,7 +391,7 @@ degratation regulatory mechanisms).
 
     mofa_solved
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/Chekc%20cross%20correlation%20of%20omics%20compared%20to%20variance%20epxlained-2.png)
+![](M2Cf/figs/Chekc%20cross%20correlation%20of%20omics%20compared%20to%20variance%20epxlained-2.png)
 
     mofa_nfeatures <- ggplot(df_variance_crosscor, aes(x = n_features, y = var_expl)) + 
       geom_point() +
@@ -403,7 +403,7 @@ degratation regulatory mechanisms).
 
     mofa_nfeatures
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/Chekc%20cross%20correlation%20of%20omics%20compared%20to%20variance%20epxlained-3.png)
+![](M2Cf/figs/Chekc%20cross%20correlation%20of%20omics%20compared%20to%20variance%20epxlained-3.png)
 
     #Get the actual coeficient signficance
     summary(lm(data= df_variance_crosscor, var_expl~prod))
@@ -454,7 +454,7 @@ the most variance across all views.
     # Investigate factors: Explained variance per view for each factor 
     pheatmap(model@cache$variance_explained$r2_per_factor[[1]], display_numbers = T, angle_col = "0", legend_labels = c("0","10", "20", "30", "40", "Variance\n\n"), legend = T, main = "", legend_breaks = c(0,10, 20, 30, 40, max(model@cache$variance_explained$r2_per_factor[[1]])), cluster_rows = F, cluster_cols = F, color = colorRampPalette(c("white","red"))(100), fontsize_number = 10)
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/Variance%20per%20view%20per%20factor-1.png)
+![](M2Cf/figs/Variance%20per%20view%20per%20factor-1.png)
 
     pheatmap(model@cache$variance_explained$r2_per_factor[[1]], display_numbers = T, angle_col = "0", legend_labels = c("0","10", "20", "30", "40", "Variance\n\n"), legend = T, main = "", legend_breaks = c(0,10, 20, 30, 40, max(model@cache$variance_explained$r2_per_factor[[1]])), cluster_rows = F, cluster_cols = F, color = colorRampPalette(c("white","red"))(100), fontsize_number = 10,filename = "results/mofa/variance_heatmap.pdf",width = 4, height = 2.5)
 
@@ -576,7 +576,7 @@ top 10 weights per factor and view.
         ggtitle("Metabolomics"), ncol =3
     )
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/Factor%20weights%20per%20view-1.png)
+![](M2Cf/figs/Factor%20weights%20per%20view-1.png)
 
 Using this visualization, features with strong association with the
 factor (large absolute values) can be easily identified and further
@@ -686,7 +686,7 @@ downstream analysis as well.
     ligrec_high_vs_low_top$source <- factor(ligrec_high_vs_low_top$source, levels = ligrec_high_vs_low_top$source)
     ggplot(ligrec_high_vs_low_top, aes(x=source, y = score)) + geom_bar(stat= "identity",position = "dodge") + theme_minimal() + theme(axis.text.x = element_text(angle = 315, vjust = 0.5, hjust=0))
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/Activity%20estimations%20for%20factor%204-1.png)
+![](M2Cf/figs/Activity%20estimations%20for%20factor%204-1.png)
 
     # Calculate regulatory activities from TF network
     TF_high_vs_low <- run_ulm(mat = as.matrix(RNA), network = dorothea_df, minsize = 10)
@@ -702,7 +702,7 @@ downstream analysis as well.
     TF_high_vs_low_top_10$source <- factor(TF_high_vs_low_top_10$source, levels = TF_high_vs_low_top_10$source)
     ggplot(TF_high_vs_low_top_10, aes(x=source, y = score)) + geom_bar(stat= "identity",position = "dodge") + theme_minimal()
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/Activity%20estimations%20for%20factor%204-2.png)
+![](M2Cf/figs/Activity%20estimations%20for%20factor%204-2.png)
 
     # Combine results
     ligrec_TF_moon_inputs <- list("ligrec" = ligrec_high_vs_low_vector,
@@ -778,7 +778,7 @@ factors.
 
     ## Saving 7 x 7 in image
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/correlation%20RNA/prot-1.png)
+![](M2Cf/figs/correlation%20RNA/prot-1.png)
 Coherently, only the factors where there is variance explained for both
 RNA and proteins are correlated.
 
@@ -796,13 +796,13 @@ the protein factor weights.
     abline(v = -0.2)
     abline(v = 0.2)}
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/Plot%20RNA%20weights%20and%20protein%20weights-1.png)
+![](M2Cf/figs/Plot%20RNA%20weights%20and%20protein%20weights-1.png)
 
     {plot(density(prot_input))
     abline(v = -0.05)
     abline(v = 0.05)}
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/Plot%20RNA%20weights%20and%20protein%20weights-2.png)
+![](M2Cf/figs/Plot%20RNA%20weights%20and%20protein%20weights-2.png)
 
 Based on the plots and indicated by the straight lines, the RNA weights
 threshold is set to -0.2 and 0.2, and the protein weights threshold to
@@ -844,7 +844,7 @@ The same procedure is repeated for the transcription factor activities.
     abline(v = -0.5)
     abline(v = 3.5)}
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/Plot%20TF%20activity%20estimates-1.png)
+![](M2Cf/figs/Plot%20TF%20activity%20estimates-1.png)
 
 The threshold is set to -0.5 and 3.5 respectively. Further, the
 TF\_to\_remove variable is later used to remove transcription factors
@@ -860,7 +860,7 @@ The same procedure is repeated for the ligand-receptor activities.
     abline(v = -0.5)
     abline(v = 2.5)}
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/Plot%20Ligand-receptor%20activity%20estimates-1.png)
+![](M2Cf/figs/Plot%20Ligand-receptor%20activity%20estimates-1.png)
 
 Here, only activities higher than 2.5 or lower than -0.5 are kept (see
 straight lines in plot). This is an arbitrary theshold aimed at keeping
@@ -887,7 +887,7 @@ weights.
     abline(v = -0.2)
     abline(v = 0.2)}
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/Plot%20Metabolite%20factor%20weights-1.png)
+![](M2Cf/figs/Plot%20Metabolite%20factor%20weights-1.png)
 
 The threshold is set to 0.2 and -0.2 respectively. Further, the
 metab\_to\_exclude variable is later used to remove metabolites with
@@ -1245,7 +1245,7 @@ generated with the reduce\_solution\_network function.
     abline(v = 1)
     abline(v = -1)
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/Run%20moon%20rec_to_TFmetab-1.png)
+![](M2Cf/figs/Run%20moon%20rec_to_TFmetab-1.png)
 
     solution_network <- reduce_solution_network(decoupleRnival_res = moon_res, 
                                                 meta_network = meta_network_filtered,
@@ -1394,7 +1394,7 @@ downstream input definition is changing.
     abline(v = 1)
     abline(v = -1)
 
-![](MOFA_to_COSMOS_files/figure-markdown_strict/run%20moon%20TF%20to%20lig-1.png)
+![](M2Cf/figs/run%20moon%20TF%20to%20lig-1.png)
 
     solution_network <- reduce_solution_network(decoupleRnival_res = moon_res, 
                                                 meta_network = as.data.frame(dorothea_PKN_filtered[,c(1,3,2)]),
