@@ -2,6 +2,8 @@ pandoc: 3.1.13
 pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
+  MOFA_to_COSMOS: MOFA_to_COSMOS.html
+  NCI60_tutorial: NCI60_tutorial.html
   tutorial: tutorial.html
-last_built: 2024-06-04T08:06Z
+last_built: 2024-06-06T13:26Z
 

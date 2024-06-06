@@ -55,6 +55,8 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/MOFA_to_COSMOS.html">MOFA to COSMOS tutorial</a>
+    <a class="dropdown-item" href="../articles/NCI60_tutorial.html">NCI60 tutorial</a>
     <a class="dropdown-item" href="../articles/tutorial.html">COSMOS-tutorial</a>
   </div>
 </li>
@@ -384,12 +386,12 @@ forward and backward run, you may optionally want to check if there are
 any node sign that are incoherent in the overlap between the two
 solutions.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">full_sif</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">formated_result_for</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">formated_result_back</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">full_sif</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">formated_result_for</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">formated_result_back</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">full_sif</span> <span class="op">&lt;-</span> <span class="va">full_sif</span><span class="op">[</span><span class="va">full_sif</span><span class="op">$</span><span class="va">Weight</span><span class="op">&gt;</span><span class="fl">0</span>,<span class="op">]</span></span>
-<span><span class="va">full_attributes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">formated_result_for</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">formated_result_back</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">full_attributes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">formated_result_for</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">formated_result_back</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">full_sif</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">full_sif</span><span class="op">)</span></span>
-<span><span class="va">full_attributes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">full_attributes</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">full_sif</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">full_sif</span><span class="op">)</span></span>
+<span><span class="va">full_attributes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">full_attributes</span><span class="op">)</span></span></code></pre></div>
 <p>This function will generate a dynamic network plot centered on a
 given node of the network solution, and connecting it to measured nodes
 in the given range (here 7 steps).</p>
@@ -496,7 +498,7 @@ analysis.</p>
 <span><span class="co">## [13] grid_4.4.0          fastmap_1.2.0       jsonlite_1.8.8     </span></span>
 <span><span class="co">## [16] Matrix_1.7-0        progress_1.2.3      purrr_1.0.2        </span></span>
 <span><span class="co">## [19] fansi_1.0.6         codetools_0.2-20    textshaping_0.4.0  </span></span>
-<span><span class="co">## [22] jquerylib_0.1.4     cli_3.6.2           rlang_1.1.3        </span></span>
+<span><span class="co">## [22] jquerylib_0.1.4     cli_3.6.2           rlang_1.1.4        </span></span>
 <span><span class="co">## [25] decoupleR_2.10.0    crayon_1.5.2        visNetwork_2.1.2   </span></span>
 <span><span class="co">## [28] parallelly_1.37.1   bit64_4.0.5         withr_3.0.0        </span></span>
 <span><span class="co">## [31] cachem_1.1.0        yaml_2.3.8          tools_4.4.0        </span></span>
