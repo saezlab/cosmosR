@@ -20,3 +20,4 @@ template:
   bootswatch: cosmo
   bslib:
     primary: "#285FA9"
+  assets: vignettes/MOFA_to_COSMOS_files, vignettes/net_compr_MOON_files

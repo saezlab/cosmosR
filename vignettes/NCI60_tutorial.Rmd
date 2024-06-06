@@ -1,0 +1,26 @@
+---
+title: "NCI60 tutorial"
+output: rmarkdown::html_vignette
+resource_files:
+  - net_compr_MOON_files
+vignette: >
+  %\VignetteIndexEntry{NCI60 tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r, results='asis',echo=FALSE}
+# htmltools::tags$iframe(
+#   src = base64enc::dataURI(file="../pkgdown/assets/NCI.html", mime="text/html; charset=UTF-8"),
+#   style="border:0; position:relative; top:0; left:0; right:0; bottom:0; width:100%; height:100vh" 
+# )
+# 
+htmltools::includeMarkdown("net_compr_MOON.md")
+```

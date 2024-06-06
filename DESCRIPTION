@@ -49,6 +49,8 @@ Suggests:
     testthat,
     knitr,
     rmarkdown,
+    htmltools,
+    markdown,
     piano,
     ggplot2,
     stringi,
