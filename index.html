@@ -106,7 +106,7 @@
 </h2>
 <p>COSMOS (Causal Oriented Search of Multi-Omic Space) is a method that integrates phosphoproteomics, transcriptomics, and metabolomics data sets. COSMOS leverages extensive prior knowledge of signaling pathways, metabolic networks, and gene regulation with computational methods to estimate activities of transcription factors and kinases as well as network-level causal reasoning. This pipeline can provide mechanistic explanations for experimental observations across multiple omic data sets.</p>
 <p><img src="reference/figures/intro_data.png" align="center" width="800"></p>
-<p>COSMOS uses <a href="https://saezlab.github.io/CARNIVAL/" class="external-link">CARNIVAL</a>’s Integer Linear Programming (ILP) optimization strategy to find the smallest coherent subnetwork causally connecting as many deregulated TFs, kinases/phosphatases and metabolites as possible. The subnetwork is extracted from a novel integrated PKN (available <a href="http://metapkn.omnipathdb.org/" class="external-link">here</a>) spanning signaling, transcriptional regulation and metabolism. Transcription factors activities are inferred from gene expression with <a href="https://saezlab.github.io/dorothea/" class="external-link">DoRothEA</a>, a meta resource of TF/target links. Kinase activities are inferred from phosphoproteomic with a kinase/substrate network of <a href="http://omnipathdb.org/" class="external-link">Omnipath</a>, a meta resource of protein-protein. <a href="https://saezlab.github.io/CARNIVAL/" class="external-link">CARNIVAL</a> was adapted to find mechanistic hypotheses connecting the TF and kinase activities with metabolites from a signaling/metabolic prior knowledge network combining <a href="http://omnipathdb.org/" class="external-link">Omnipath</a>, <a href="http://stitch.embl.de/" class="external-link">STITCHdb</a> and <a href="https://www.vmh.life/" class="external-link">Recon3D</a>. The scripts to generate the current network can be found here: <a href="https://github.com/saezlab/meta_PKN_BIGG" class="external-link uri">https://github.com/saezlab/meta_PKN_BIGG</a>.</p>
+<p>COSMOS finds coherent subnetwork causally connecting as many deregulated TFs, kinases/phosphatases and metabolites as possible. The subnetwork is extracted from a novel integrated PKN (available <a href="http://metapkn.omnipathdb.org/" class="external-link">here</a>) spanning signaling, transcriptional regulation and metabolism. Transcription factors activities are inferred from gene expression with <a href="https://saezlab.github.io/decoupleR/" class="external-link">decoupleR</a>. Kinase activities are inferred from phosphoproteomic with a kinase/substrate network of <a href="http://omnipathdb.org/" class="external-link">Omnipath</a>, a meta resource of protein-protein. The scripts to generate the current network can be found here: <a href="https://github.com/saezlab/meta_PKN_BIGG" class="external-link uri">https://github.com/saezlab/meta_PKN_BIGG</a>.</p>
 <p>You can also use COSMOS if you don’t have metabolomic data, to connect TF activities (from transcriptomic) with kinase activities (from phosphoproteomic) for exmaple !</p>
 <p><img src="reference/figures/graphical_abstract.png" align="center" width="800"></p>
 </div>
@@ -132,17 +132,12 @@
 <div class="section level2">
 <h2 id="tutorial-to-use-mofa-nad-cosmos">tutorial to use MOFA nad COSMOS<a class="anchor" aria-label="anchor" href="#tutorial-to-use-mofa-nad-cosmos"></a>
 </h2>
-<p><a href="https://github.com/saezlab/Factor_COSMOS" class="external-link">Here</a> you can find an extensive tutorial showing how to use MOFA and COSMOS with the NCI60 dataset. This is an extensive tutorial, if you wish to get a quicker plug and play introduction to COSMOS, see below.</p>
+<p>[Here](<a href="https://saezlab.github.io/cosmosR/articles/MOFA_to_COSMOS.html" class="external-link">https://github.com/saezlab/Factor_COSMOS</a> you can find an extensive tutorial showing how to use MOFA and COSMOS with the NCI60 dataset. This is an extensive tutorial, if you wish to get a quicker plug and play introduction to COSMOS, see below.</p>
 </div>
 <div class="section level2">
 <h2 id="tutorial-nci60-playground">Tutorial (NCI60 playground)<a class="anchor" aria-label="anchor" href="#tutorial-nci60-playground"></a>
 </h2>
-<p>We made a repository that contains pre-processed inputs and an example script to use cosmos with the NCI60 RNA+metabolomic datasets. You can find the repository <a href="https://github.com/saezlab/COSMOS_basic" class="external-link">here</a>.</p>
-</div>
-<div class="section level2">
-<h2 id="tutorial-video">Tutorial (video)<a class="anchor" aria-label="anchor" href="#tutorial-video"></a>
-</h2>
-<p>We recorded a video guide for cosmosR tutorial in the context of a course organised by EBI-EMBL. You can access the recording at this link for a step by step introduction to cosmosR : <a href="https://embl-ebi.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=318f7091-b6bf-44ee-939f-adb10121fc1b" class="external-link uri">https://embl-ebi.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=318f7091-b6bf-44ee-939f-adb10121fc1b</a></p>
+<p>We made a repository that contains pre-processed inputs and an example script to use cosmos with the NCI60 RNA+metabolomic datasets. You can find the repository [here](<a href="https://saezlab.github.io/cosmosR/articles/NCI60_tutorial.html" class="external-link">https://github.com/saezlab/COSMOS_basic</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="access">Access<a class="anchor" aria-label="anchor" href="#access"></a>
