@@ -11,7 +11,7 @@ COSMOS (Causal Oriented Search of Multi-Omic Space) is a method that integrates 
 
 <img src="man/figures/intro_data.png" align="center" width="800">
 
-COSMOS uses [CARNIVAL](https://saezlab.github.io/CARNIVAL/)’s Integer Linear Programming (ILP) optimization strategy to find the smallest coherent subnetwork causally connecting as many deregulated TFs, kinases/phosphatases and metabolites as possible. The subnetwork is extracted from a novel integrated PKN (available [here](http://metapkn.omnipathdb.org/)) spanning signaling, transcriptional regulation and metabolism.  Transcription factors activities are inferred from gene expression with [DoRothEA](https://saezlab.github.io/dorothea/), a meta resource of TF/target links. Kinase activities are inferred from phosphoproteomic with a kinase/substrate network of [Omnipath](http://omnipathdb.org/), a meta resource of protein-protein. [CARNIVAL](https://saezlab.github.io/CARNIVAL/) was adapted to find mechanistic hypotheses connecting the TF and kinase activities with metabolites from a signaling/metabolic prior knowledge network combining [Omnipath](http://omnipathdb.org/), [STITCHdb](http://stitch.embl.de/) and [Recon3D](https://www.vmh.life/). The scripts to generate the current network can be found here: https://github.com/saezlab/meta_PKN_BIGG.
+COSMOS finds coherent subnetwork causally connecting as many deregulated TFs, kinases/phosphatases and metabolites as possible. The subnetwork is extracted from a novel integrated PKN (available [here](http://metapkn.omnipathdb.org/)) spanning signaling, transcriptional regulation and metabolism.  Transcription factors activities are inferred from gene expression with [decoupleR](https://saezlab.github.io/decoupleR/). Kinase activities are inferred from phosphoproteomic with a kinase/substrate network of [Omnipath](http://omnipathdb.org/), a meta resource of protein-protein. The scripts to generate the current network can be found here: https://github.com/saezlab/meta_PKN_BIGG.
 
 
 You can also use COSMOS if you don't have metabolomic data, to connect TF activities (from transcriptomic) with kinase activities (from phosphoproteomic) for exmaple !
@@ -42,18 +42,12 @@ But 4.1 is advised in any case.
 
 ## tutorial to use MOFA nad COSMOS
 
-[Here](https://github.com/saezlab/Factor_COSMOS) you can find an extensive tutorial showing how to use MOFA and COSMOS with the NCI60 dataset. This is an extensive tutorial, if you wish to get a quicker plug and play introduction to COSMOS, see below.
+[Here]([https://github.com/saezlab/Factor_COSMOS](https://saezlab.github.io/cosmosR/articles/MOFA_to_COSMOS.html) you can find an extensive tutorial showing how to use MOFA and COSMOS with the NCI60 dataset. This is an extensive tutorial, if you wish to get a quicker plug and play introduction to COSMOS, see below.
 
 ## Tutorial (NCI60 playground)
 
 We made a repository that contains pre-processed inputs and an example script to use cosmos with the NCI60 RNA+metabolomic datasets.
-You can find the repository [here](https://github.com/saezlab/COSMOS_basic).
-
-## Tutorial (video)
-
-We recorded a video guide for cosmosR tutorial in the context of a course organised by EBI-EMBL. 
-You can access the recording at this link for a step by step introduction to cosmosR : 
-https://embl-ebi.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=318f7091-b6bf-44ee-939f-adb10121fc1b
+You can find the repository [here]([https://github.com/saezlab/COSMOS_basic](https://saezlab.github.io/cosmosR/articles/NCI60_tutorial.html).
 
 ## Access
 
