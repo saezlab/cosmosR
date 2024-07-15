@@ -42,20 +42,20 @@ But 4.1 is advised in any case.
 
 ## tutorial to use MOFA nad COSMOS
 
-[Here](https://saezlab.github.io/cosmosR/articles/MOFA_to_COSMOS.html) you can find an extensive tutorial showing how to use MOFA and COSMOS with the NCI60 dataset. This is an extensive tutorial, if you wish to get a quicker plug and play introduction to COSMOS, see below.
+[Here](https://github.com/saezlab/Factor_COSMOS/) you can find an extensive tutorial showing how to use MOFA and COSMOS with the NCI60 dataset. This is an extensive tutorial, if you wish to get a quicker plug and play introduction to COSMOS, see below.
 
 !!! THIS is were you can find the input data and the pre-processing scripts that corespond to the featured vignette !!!
 
 ## Tutorial (NCI60 playground)
 
 We made a repository that contains pre-processed inputs and an example script to use cosmos with the NCI60 RNA+metabolomic datasets.
-You can find the repository [here](https://saezlab.github.io/cosmosR/articles/NCI60_tutorial.html).
+You can find the repository [here](https://github.com/saezlab/COSMOS_basic).
 
 !!! THIS is were you can find the input data and the pre-processing scripts that corespond to the featured vignette !!!
 
 ## Access
 
-The meta PKN used with the biorXiv version of COSMOS is available [here](http://metapkn.omnipathdb.org/).
+The meta PKN used with the older biorXiv version of COSMOS (2021) is available [here](http://metapkn.omnipathdb.org/).
 
 An updated meta PKN is available with the package (using data(meta_network) in R)
 
