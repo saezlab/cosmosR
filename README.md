@@ -42,12 +42,12 @@ But 4.1 is advised in any case.
 
 ## tutorial to use MOFA nad COSMOS
 
-[Here]([https://github.com/saezlab/Factor_COSMOS](https://saezlab.github.io/cosmosR/articles/MOFA_to_COSMOS.html) you can find an extensive tutorial showing how to use MOFA and COSMOS with the NCI60 dataset. This is an extensive tutorial, if you wish to get a quicker plug and play introduction to COSMOS, see below.
+[Here](https://saezlab.github.io/cosmosR/articles/MOFA_to_COSMOS.html) you can find an extensive tutorial showing how to use MOFA and COSMOS with the NCI60 dataset. This is an extensive tutorial, if you wish to get a quicker plug and play introduction to COSMOS, see below.
 
 ## Tutorial (NCI60 playground)
 
 We made a repository that contains pre-processed inputs and an example script to use cosmos with the NCI60 RNA+metabolomic datasets.
-You can find the repository [here]([https://github.com/saezlab/COSMOS_basic](https://saezlab.github.io/cosmosR/articles/NCI60_tutorial.html).
+You can find the repository [here](https://saezlab.github.io/cosmosR/articles/NCI60_tutorial.html).
 
 ## Access
 
