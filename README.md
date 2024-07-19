@@ -40,7 +40,7 @@ If you don't have R 4.1, you can also clone the github repository on your machin
 
 But 4.1 is advised in any case.
 
-## tutorial to use MOFA nad COSMOS
+## tutorial to use MOFA and COSMOS
 
 [Here](https://github.com/saezlab/Factor_COSMOS/) you can find an extensive tutorial showing how to use MOFA and COSMOS with the NCI60 dataset. This is an extensive tutorial, if you wish to get a quicker plug and play introduction to COSMOS, see below.
 
