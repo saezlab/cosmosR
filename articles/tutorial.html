@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="COSMOS-tutorial">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-PV71G2Q3SF"></script><script>
@@ -269,8 +269,8 @@ expressions.</p>
 <span><span class="co">## [1] "COSMOS: 2 input/measured nodes are not in PKN any more: USF1, SRF and 0 more."</span></span>
 <span><span class="co">## [1] "COSMOS:  0 interactions are removed from the PKN based on consistency check between TF activity and gene expression"</span></span>
 <span><span class="co">## [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span></span>
-<span><span class="co">## [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span></span>
-<span><span class="co">## [1] "COSMOS:  0 interactions are removed from the PKN based on consistency check between TF activity and gene expression"</span></span>
+<span><span class="co">## [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "COSMOS:  0 interactions are removed from the PKN based on consistency check between TF activity and gene expression"</span></span>
 <span><span class="co">## [1] "COSMOS: all 1 signaling nodes from data were found in the meta PKN"</span></span>
 <span><span class="co">## [1] "COSMOS: all 2 metabolic nodes from data were found in the meta PKN"</span></span>
 <span><span class="co">## [1] "COSMOS: 2975 of the 9300 genes in expression data were found as transcription factor target"</span></span>
@@ -280,19 +280,19 @@ timelimit and min gap tolerance.</p>
 <p>The running time should be much higher here than in pre-optimisation.
 You can increase the number of threads to use if you have many available
 CPUs.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">CARNIVAL_options</span><span class="op">$</span><span class="va">timelimit</span> <span class="op">&lt;-</span> <span class="fl">14400</span></span>
 <span><span class="va">CARNIVAL_options</span><span class="op">$</span><span class="va">mipGAP</span> <span class="op">&lt;-</span> <span class="fl">0.05</span></span>
 <span><span class="va">CARNIVAL_options</span><span class="op">$</span><span class="va">threads</span> <span class="op">&lt;-</span> <span class="fl">2</span></span></code></pre></div>
 <p>This is where cosmosR run.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">test_result_for</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_COSMOS_signaling_to_metabolism.html">run_COSMOS_signaling_to_metabolism</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">test_for</span>,</span>
 <span>                                                      CARNIVAL_options <span class="op">=</span> <span class="va">CARNIVAL_options</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span></span>
-<span><span class="co">## [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span></span></code></pre>
 <p>Finally, we process the results of the first cosmosR run, to
 translate gene names and metabolites name.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">formated_result_for</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/format_COSMOS_res.html">format_COSMOS_res</a></span><span class="op">(</span><span class="va">test_result_for</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -300,13 +300,13 @@ translate gene names and metabolites name.</p>
 </h2>
 <p>Before we run the metabolism to signaling part, we need to prepare
 again the inputs.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">CARNIVAL_options</span><span class="op">$</span><span class="va">timelimit</span> <span class="op">&lt;-</span> <span class="fl">3600</span></span>
 <span><span class="va">CARNIVAL_options</span><span class="op">$</span><span class="va">mipGAP</span> <span class="op">&lt;-</span> <span class="fl">0.05</span></span>
 <span><span class="va">CARNIVAL_options</span><span class="op">$</span><span class="va">threads</span> <span class="op">&lt;-</span> <span class="fl">2</span></span></code></pre></div>
 <p>Now that the correct time is set up for the pre-optimisation run, we
 can prepare the inputs.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">test_back</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/preprocess_COSMOS_metabolism_to_signaling.html">preprocess_COSMOS_metabolism_to_signaling</a></span><span class="op">(</span>meta_network <span class="op">=</span> <span class="va">toy_network</span>,</span>
 <span>                                        signaling_data <span class="op">=</span> <span class="va">toy_signaling_input</span>,</span>
 <span>                                        metabolic_data <span class="op">=</span> <span class="va">toy_metabolic_input</span>,</span>
@@ -325,8 +325,8 @@ can prepare the inputs.</p>
 <span><span class="co">## [1] "COSMOS: 1 input/measured nodes are not in PKN any more: Metab__HMDB0000190_c and 0 more."</span></span>
 <span><span class="co">## [1] "COSMOS:  0 interactions are removed from the PKN based on consistency check between TF activity and gene expression"</span></span>
 <span><span class="co">## [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span></span>
-<span><span class="co">## [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span></span>
-<span><span class="co">## [1] "COSMOS:  0 interactions are removed from the PKN based on consistency check between TF activity and gene expression"</span></span>
+<span><span class="co">## [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "COSMOS:  0 interactions are removed from the PKN based on consistency check between TF activity and gene expression"</span></span>
 <span><span class="co">## [1] "COSMOS: all 3 signaling nodes from data were found in the meta PKN"</span></span>
 <span><span class="co">## [1] "COSMOS: all 1 metabolic nodes from data were found in the meta PKN"</span></span>
 <span><span class="co">## [1] "COSMOS: 2975 of the 9300 genes in expression data were found as transcription factor target"</span></span>
@@ -334,16 +334,16 @@ can prepare the inputs.</p>
 <p>Then we can run cosmosR to connect metabolism to signaling. The
 running time here usually needs to be longer, as this problem seems to
 be harder to solve for CPLEX.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">CARNIVAL_options</span><span class="op">$</span><span class="va">timelimit</span> <span class="op">&lt;-</span> <span class="fl">28800</span></span>
 <span></span>
 <span><span class="va">test_result_back</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_COSMOS_metabolism_to_signaling.html">run_COSMOS_metabolism_to_signaling</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">test_back</span>,</span>
 <span>                                                       CARNIVAL_options <span class="op">=</span> <span class="va">CARNIVAL_options</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span></span>
-<span><span class="co">## [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span></span></code></pre>
 <p>Finally we can format the result of the backward run as well (same as
 for forward run)</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">formated_result_back</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/format_COSMOS_res.html">format_COSMOS_res</a></span><span class="op">(</span><span class="va">test_result_back</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -356,7 +356,7 @@ metabolism. Since there is an overlap between the result network of
 forward and backward run, you may optionally want to check if there are
 any node sign that are incoherent in the overlap between the two
 solutions.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">full_sif</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">formated_result_for</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">formated_result_back</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">full_sif</span> <span class="op">&lt;-</span> <span class="va">full_sif</span><span class="op">[</span><span class="va">full_sif</span><span class="op">$</span><span class="va">Weight</span><span class="op">&gt;</span><span class="fl">0</span>,<span class="op">]</span></span>
 <span><span class="va">full_attributes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">formated_result_for</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">formated_result_back</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
@@ -366,7 +366,7 @@ solutions.</p>
 <p>This function will generate a dynamic network plot centered on a
 given node of the network solution, and connecting it to measured nodes
 in the given range (here 7 steps).</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">network_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/display_node_neighboorhood.html">display_node_neighboorhood</a></span><span class="op">(</span>central_node <span class="op">=</span> <span class="st">'Metab__D-Glucitol_c'</span>, </span>
 <span>                                           sif <span class="op">=</span> <span class="va">full_sif</span>, </span>
 <span>                                           att <span class="op">=</span> <span class="va">full_attributes</span>, </span>
@@ -426,7 +426,7 @@ in the prior-knowledge network (which are used as the background in our
 analysis)</p>
 <p>In this section we will show how to obtain these two lists from a
 formated COSMOS result object.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sif_forward</span> <span class="op">=</span> <span class="va">formated_result_for</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">att_forward</span> <span class="op">=</span> <span class="va">formated_result_for</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">nodes_ORA</span> <span class="op">=</span> <span class="fu"><a href="../reference/extract_nodes_for_ORA.html">extract_nodes_for_ORA</a></span><span class="op">(</span></span>
@@ -434,7 +434,7 @@ formated COSMOS result object.</p>
 <span>    att <span class="op">=</span> <span class="va">att_forward</span><span class="op">)</span></span></code></pre></div>
 <p>Now this forward and backward sets can be used with any ORA
 analysis.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## R version 4.4.1 (2024-06-14)</span></span>
 <span><span class="co">## Platform: x86_64-pc-linux-gnu</span></span>
@@ -462,28 +462,28 @@ analysis.</p>
 <span><span class="co">## [1] cosmosR_1.9.1</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
-<span><span class="co">##  [1] bcellViper_1.40.0   sass_0.4.9          utf8_1.2.4         </span></span>
-<span><span class="co">##  [4] generics_0.1.3      tidyr_1.3.1         lpSolve_5.6.20     </span></span>
-<span><span class="co">##  [7] stringi_1.8.4       lattice_0.22-6      hms_1.1.3          </span></span>
-<span><span class="co">## [10] digest_0.6.36       magrittr_2.0.3      evaluate_0.24.0    </span></span>
-<span><span class="co">## [13] grid_4.4.1          fastmap_1.2.0       jsonlite_1.8.8     </span></span>
-<span><span class="co">## [16] Matrix_1.7-0        progress_1.2.3      purrr_1.0.2        </span></span>
-<span><span class="co">## [19] fansi_1.0.6         codetools_0.2-20    textshaping_0.4.0  </span></span>
-<span><span class="co">## [22] jquerylib_0.1.4     cli_3.6.3           rlang_1.1.4        </span></span>
-<span><span class="co">## [25] decoupleR_2.10.0    crayon_1.5.3        visNetwork_2.1.2   </span></span>
-<span><span class="co">## [28] parallelly_1.37.1   bit64_4.0.5         withr_3.0.0        </span></span>
-<span><span class="co">## [31] cachem_1.1.0        yaml_2.3.9          tools_4.4.1        </span></span>
-<span><span class="co">## [34] parallel_4.4.1      tzdb_0.4.0          BiocParallel_1.38.0</span></span>
-<span><span class="co">## [37] dplyr_1.1.4         vctrs_0.6.5         R6_2.5.1           </span></span>
-<span><span class="co">## [40] lifecycle_1.0.4     stringr_1.5.1       bit_4.0.5          </span></span>
-<span><span class="co">## [43] fs_1.6.4            htmlwidgets_1.6.4   vroom_1.6.5        </span></span>
-<span><span class="co">## [46] ragg_1.3.2          pkgconfig_2.0.3     desc_1.4.3         </span></span>
-<span><span class="co">## [49] pkgdown_2.1.0       pillar_1.9.0        bslib_0.7.0        </span></span>
-<span><span class="co">## [52] glue_1.7.0          systemfonts_1.1.0   xfun_0.46          </span></span>
-<span><span class="co">## [55] tibble_3.2.1        tidyselect_1.2.1    knitr_1.48         </span></span>
-<span><span class="co">## [58] CARNIVAL_2.14.0     dorothea_1.16.0     rjson_0.2.21       </span></span>
-<span><span class="co">## [61] igraph_2.0.3        htmltools_0.5.8.1   rmarkdown_2.27     </span></span>
-<span><span class="co">## [64] readr_2.1.5         compiler_4.4.1      prettyunits_1.2.0</span></span></code></pre>
+<span><span class="co">##  [1] bcellViper_1.40.0   sass_0.4.9          generics_0.1.3     </span></span>
+<span><span class="co">##  [4] tidyr_1.3.1         lpSolve_5.6.23      stringi_1.8.4      </span></span>
+<span><span class="co">##  [7] lattice_0.22-6      hms_1.1.3           digest_0.6.37      </span></span>
+<span><span class="co">## [10] magrittr_2.0.3      evaluate_1.0.3      grid_4.4.1         </span></span>
+<span><span class="co">## [13] fastmap_1.2.0       jsonlite_1.9.1      Matrix_1.7-2       </span></span>
+<span><span class="co">## [16] progress_1.2.3      purrr_1.0.4         codetools_0.2-20   </span></span>
+<span><span class="co">## [19] textshaping_1.0.0   jquerylib_0.1.4     cli_3.6.4          </span></span>
+<span><span class="co">## [22] rlang_1.1.5         decoupleR_2.10.0    crayon_1.5.3       </span></span>
+<span><span class="co">## [25] visNetwork_2.1.2    parallelly_1.42.0   bit64_4.6.0-1      </span></span>
+<span><span class="co">## [28] withr_3.0.2         cachem_1.1.0        yaml_2.3.10        </span></span>
+<span><span class="co">## [31] tools_4.4.1         parallel_4.4.1      tzdb_0.4.0         </span></span>
+<span><span class="co">## [34] BiocParallel_1.38.0 dplyr_1.1.4         vctrs_0.6.5        </span></span>
+<span><span class="co">## [37] R6_2.6.1            lifecycle_1.0.4     stringr_1.5.1      </span></span>
+<span><span class="co">## [40] bit_4.6.0           fs_1.6.5            htmlwidgets_1.6.4  </span></span>
+<span><span class="co">## [43] vroom_1.6.5         ragg_1.3.3          pkgconfig_2.0.3    </span></span>
+<span><span class="co">## [46] desc_1.4.3          pkgdown_2.1.1       pillar_1.10.1      </span></span>
+<span><span class="co">## [49] bslib_0.9.0         glue_1.8.0          systemfonts_1.2.1  </span></span>
+<span><span class="co">## [52] xfun_0.51           tibble_3.2.1        tidyselect_1.2.1   </span></span>
+<span><span class="co">## [55] knitr_1.49          CARNIVAL_2.14.0     dorothea_1.16.0    </span></span>
+<span><span class="co">## [58] rjson_0.2.23        htmltools_0.5.8.1   igraph_2.1.4       </span></span>
+<span><span class="co">## [61] rmarkdown_2.29      readr_2.1.5         compiler_4.4.1     </span></span>
+<span><span class="co">## [64] prettyunits_1.2.0</span></span></code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
@@ -496,7 +496,7 @@ analysis.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
