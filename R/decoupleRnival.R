@@ -624,3 +624,114 @@ get_moon_scoring_network <- function(upstream_node,
   # Return a list containing the filtered network (SIF) and the updated moon scores (ATT).
   return(list("SIF" = meta_network_filtered, "ATT" = moon_scores))
 }
+
+#' reduce_solution_network_double_thresh
+#'
+#' Extracts a subnetwork using a two-tier absolute-score threshold, then restricts
+#' to only paths connecting upstream_input seeds to level 0 nodes, with recursive
+#' consistency filtering to ensure edge signs match node activities.
+#'
+#' @param decoupleRnival_res A data.frame with columns `source`, numeric `score`, and integer `level`.
+#' @param meta_network A data.frame with columns `source`, `target`, and `interaction`.
+#' @param primary_thresh Numeric. Absolute score cutoff for primary node selection.
+#' @param secondary_thresh Numeric. Absolute score cutoff for secondary node restriction.
+#' @param upstream_input A named numeric vector of upstream seed nodes.
+#' @param RNA_input Optional named numeric vector of differential expression values; merged into ATT.
+#'
+#' @return A list with:
+#'   - SIF: data.frame of filtered edges (`source`,`target`,`interaction`).
+#'   - ATT: data.frame of node attributes (`source`,`score`,`level`,`type`,`RNA_input`).
+#'
+#' @examples
+#' dec_res <- data.frame(
+#'   source = paste0("G", 1:6),
+#'   score  = c(2.5, 1.2, 0.8, -2.2, 1.5, -0.5),
+#'   level  = c(0, 0, 1, 0, 1, 1)
+#' )
+#' meta_net <- data.frame(
+#'   source      = c("G1","G1","G2","G3","G4","G5"),
+#'   target      = c("G2","G3","G4","G5","G2","G6"),
+#'   interaction = c(1, -1, 1, 1, -1, 1)
+#' )
+#' upstream_input <- c(G1 = 1, G4 = -1)
+#' RNA_input <- c(G1 = 0.5, G2 = -0.2, G4 = 1.1)
+#' dbl_net <- reduce_solution_network_double_thresh(
+#'   decoupleRnival_res = dec_res,
+#'   meta_network       = meta_net,
+#'   primary_thresh     = 2,
+#'   secondary_thresh   = 1,
+#'   upstream_input     = upstream_input,
+#'   RNA_input          = RNA_input
+#' )
+#' print(dbl_net$SIF)
+#' print(dbl_net$ATT)
+#'
+#' @import igraph
+#' @export
+reduce_solution_network_double_thresh <- function(
+    decoupleRnival_res,
+    meta_network,
+    primary_thresh,
+    secondary_thresh,
+    upstream_input,
+    RNA_input = NULL
+) {
+  stopifnot(all(c("source","score","level") %in% names(decoupleRnival_res)))
+  stopifnot(all(c("source","target","interaction") %in% names(meta_network)))
+  
+  # 1. Primary nodes
+  prim_nodes <- decoupleRnival_res$source[abs(decoupleRnival_res$score) > primary_thresh]
+  
+  # 2. Sub-network touching primary nodes
+  sub_net <- subset(meta_network,
+                    source %in% prim_nodes | target %in% prim_nodes)
+  # keep edges where both ends are primary or serve as intermediary
+  cond_pp  <- sub_net$source %in% prim_nodes & sub_net$target %in% prim_nodes
+  cond_int <- (sub_net$source %in% prim_nodes & sub_net$target %in% prim_nodes)
+  sub_net <- sub_net[cond_pp | cond_int, ]
+  
+  # 3. Secondary filter
+  sec_nodes <- decoupleRnival_res$source[abs(decoupleRnival_res$score) > secondary_thresh]
+  sub_net <- subset(sub_net, source %in% sec_nodes & target %in% sec_nodes)
+  
+  # 4. Recursive consistency pruning
+  score_map <- setNames(decoupleRnival_res$score, decoupleRnival_res$source)
+  repeat {
+    valid_edges <- with(sub_net,
+                        sign(score_map[source] * score_map[target]) == interaction
+    )
+    if (all(valid_edges)) break
+    sub_net <- sub_net[valid_edges, ]
+    # rebuild graph and enforce seed->level0 connectivity
+    g <- graph_from_data_frame(sub_net[,c("source","target")],
+                               directed = TRUE,
+                               vertices = unique(c(sub_net$source, sub_net$target)))
+    seeds  <- intersect(names(upstream_input), V(g)$name)
+    level0 <- intersect(decoupleRnival_res$source[decoupleRnival_res$level == 0], V(g)$name)
+    from   <- unlist(neighborhood(g, order = vcount(g), nodes = seeds, mode = "out"))
+    to     <- unlist(neighborhood(g, order = vcount(g), nodes = level0, mode = "in"))
+    keep   <- intersect(V(g)$name[from], V(g)$name[to])
+    sub_net <- subset(sub_net, source %in% keep & target %in% keep)
+  }
+  
+  # 5. Final path restriction
+  final_edges <- sub_net
+  
+  # 6. Build ATT
+  final_nodes <- unique(c(final_edges$source, final_edges$target))
+  att <- subset(decoupleRnival_res, source %in% final_nodes,
+                select = c(source, score, level))
+  att$type <- ifelse(att$source %in% names(upstream_input),
+                     "upstream_input",
+                     ifelse(att$level == 0, "level0", "other"))
+  if (!is.null(RNA_input)) {
+    rna_df <- data.frame(source = names(RNA_input),
+                         RNA_input = as.numeric(RNA_input),
+                         stringsAsFactors = FALSE)
+    att <- merge(att, rna_df, by = "source", all.x = TRUE)
+  } else {
+    att$RNA_input <- NA_real_
+  }
+  
+  return(list(SIF = final_edges, ATT = att))
+}
