@@ -283,23 +283,26 @@ filter_incohrent_TF_target <- function(decouplRnival_res, TF_reg_net, meta_netwo
 
 #' reduce_solution_network
 #'
-#' Reduces a solution network based on a decoupling analysis of upstream and downstream gene expression,
-#' by filtering out edges that do not meet a consistency threshold, and limiting the network to a
-#' certain number of steps from upstream input nodes.
+#' Extracts a subnetwork from a decoupleRnival result and a prior knowledge network,
+#' enforcing score thresholds, neighbourhood distance, and structural constraints:
+#' - Pure children (no outgoing edges) must be level 0 in decoupleRnival_res.
+#' - Pure parents (no incoming edges) must be among the provided upstream_input nodes.
+#' - All nodes must have |score| > cutoff.
 #'
-#' @param decoupleRnival_res A data frame resulting from the decoupleRnival function.
-#' @param meta_network A network data frame containing signed directed prior knowledge of molecular interactions.
-#' @param cutoff The consistency threshold for filtering edges from the solution network.
-#' @param upstream_input A named vector with up_stream nodes and their corresponding activity.
-#' @param RNA_input A named vector containing differential gene expression data.
-#' @param n_steps The maximum number of steps from upstream input nodes to include in the solution network.
+#' @param decoupleRnival_res A data.frame with columns `source`, `score`, and `level` from decoupleRnival().
+#' @param meta_network A data.frame with columns `source`, `target`, `interaction` for signed directed edges.
+#' @param cutoff Numeric. Absolute score threshold for node filtering.
+#' @param upstream_input A named numeric vector of upstream seed nodes and their activity values.
+#' @param RNA_input Optional named numeric vector of differential expression values; merged into ATT.
+#' @param n_steps Integer. Maximum number of steps away from any upstream_input node.
 #'
-#' @return A list containing the solution network (SIF) and an attribute table (ATT) with gene expression data.
+#' @return A list with:
+#'   - SIF: data.frame of filtered edges (`source`, `target`, `interaction`, `consistency`).
+#'   - ATT: data.frame of node attributes (`nodes`, `score`, `level`, `RNA_input`).
 #'
-#' @import decoupleR
-#'
+#' @import igraph
 #' @export
-#' 
+#'
 #' @examples
 #' # Example input data
 #' upstream_input <- c("A" = 1, "B" = -1, "C" = 0.5)
@@ -310,58 +313,86 @@ filter_incohrent_TF_target <- function(decouplRnival_res, TF_reg_net, meta_netwo
 #'   interaction = c(-1, 1, -1, 1, -1, -1, 1)
 #' )
 #' RNA_input <- c("A" = 1, "B" = -1, "C" = 5, "D" = 0.7, "E" = -0.3)
-#'
-#' # Run the decoupleRnival function to get the upstream influence scores
-#' upstream_scores <- decoupleRnival(upstream_input, downstream_input, meta_network, n_layers = 2, n_perm = 100)
-#'
-#' # Reduce the solution network based on the upstream influence scores
-#' reduced_network <- reduce_solution_network(upstream_scores, meta_network, 0.4, upstream_input, RNA_input, 3)
-#'
-#' # View the resulting solution network and attribute table
-#' print(reduced_network$SIF)
-#' print(reduced_network$ATT)
-reduce_solution_network <- function(decoupleRnival_res, meta_network, cutoff, upstream_input, RNA_input = NULL, n_steps = 10)
-{
-  recursive_decoupleRnival_res <- decoupleRnival_res
+#' # Run decoupleRnival to generate scores
+#' dec_res <- decoupleRnival(upstream_input, downstream_input, meta_network,
+#'                          n_layers = 2, n_perm = 100)
+#' # Extract solution network
+#' sol_net <- reduce_solution_network(dec_res, meta_network,
+#'                                   cutoff = 0.4, upstream_input,
+#'                                   RNA_input, n_steps = 3)
+#' # View outputs
+#' print(sol_net$SIF)
+#' print(sol_net$ATT)
+reduce_solution_network <- function(decoupleRnival_res, meta_network, cutoff,
+                                    upstream_input, RNA_input = NULL, n_steps = 10) {
+  # Ensure required columns
+  stopifnot(all(c("source", "score", "level") %in% colnames(decoupleRnival_res)))
+  stopifnot(all(c("source", "target", "interaction") %in% colnames(meta_network)))
   
-  recursive_decoupleRnival_res <- recursive_decoupleRnival_res[abs(recursive_decoupleRnival_res$score) > cutoff,]
-  consistency_vec <- recursive_decoupleRnival_res$score
-  names(consistency_vec) <- recursive_decoupleRnival_res$source
+  # 1. Filter nodes by absolute score
+  nodes_df <- decoupleRnival_res[abs(decoupleRnival_res$score) > cutoff, ]
+  score_map <- setNames(nodes_df$score, nodes_df$source)
+  valid_nodes <- nodes_df$source
   
-  res_network <- meta_network[meta_network$source %in% recursive_decoupleRnival_res$source & meta_network$target %in% recursive_decoupleRnival_res$source,]
-  res_network$consistency <- sign(consistency_vec[res_network$source] * consistency_vec[res_network$target]) == res_network$interaction
-  res_network <- res_network[res_network$consistency,]
+  # 2. Build initial edge set and enforce consistency
+  net <- meta_network[meta_network$source %in% valid_nodes &
+                        meta_network$target %in% valid_nodes, ]
+  net$consistency <- sign(score_map[net$source] * score_map[net$target]) == net$interaction
+  net <- net[net$consistency, ]
   
-  names(recursive_decoupleRnival_res)[1] <- "nodes"
+  # 3. Create igraph
+  g <- graph_from_data_frame(net[, c("source", "target")], directed = TRUE,
+                             vertices = data.frame(name = valid_nodes, stringsAsFactors = FALSE))
   
-  names(res_network)[3] <- "interaction"
-  
-  upstream_input_df <- as.data.frame(upstream_input)
-  upstream_input_df$source <- row.names(upstream_input_df)
-  names(upstream_input_df) <- c("score","nodes")
-  
-  upstream_input_df <- merge(upstream_input_df, recursive_decoupleRnival_res, by = "nodes")
-  upstream_input_df$filterout <- sign(upstream_input_df$score.x) != sign(upstream_input_df$score.y)
-  
-  upstream_nodes <- upstream_input_df[!(upstream_input_df$filterout), "nodes"]
-  upstream_nodes <- upstream_nodes[upstream_nodes %in% res_network$source | upstream_nodes %in% res_network$target]
-  
-  res_network <- cosmosR:::keep_controllable_neighbours(res_network, n_steps, upstream_nodes)
-  
-  SIF <- res_network
-  ATT <- recursive_decoupleRnival_res[recursive_decoupleRnival_res$nodes %in% SIF$source | recursive_decoupleRnival_res$nodes %in% SIF$target,]
-  
-  if(!is.null(RNA_input))
-  {
-    RNA_df <- data.frame(RNA_input)
-    RNA_df$nodes <- row.names(RNA_df)
-    
-    ATT <- merge(ATT, RNA_df, all.x = T)
-  } else
-  {
-    ATT$RNA_input <- NA
+  # 4. Restrict to n_steps from upstream seeds
+  seeds <- intersect(names(upstream_input), V(g)$name)
+  if (length(seeds) == 0) {
+    warning("No upstream_input nodes found in network; returning empty network.")
+    return(list(SIF = data.frame(), ATT = data.frame()))
   }
-  return(list("SIF" = SIF, "ATT" = ATT))
+  dists <- distances(g, v = seeds, to = V(g), mode = "out")
+  keep_nodes <- names(which(apply(dists, 2, min) <= n_steps))
+  g <- induced_subgraph(g, vids = keep_nodes)
+  
+  # 5. Prune pure children/parents by level/upstream rules
+  repeat {
+    deg_out <- degree(g, mode = "out")
+    deg_in  <- degree(g, mode = "in")
+    # identify pure children not at level 0
+    pure_children <- names(deg_out)[deg_out == 0]
+    bad_children <- pure_children[ nodes_df$level[match(pure_children, nodes_df$source)] != 0 ]
+    # identify pure parents not in upstream_input
+    pure_parents <- names(deg_in)[deg_in == 0]
+    bad_parents <- setdiff(pure_parents, names(upstream_input))
+    to_drop <- unique(c(bad_children, bad_parents))
+    if (length(to_drop) == 0) break
+    g <- delete_vertices(g, to_drop)
+  }
+  
+  # 6. Prepare outputs. Prepare outputs
+  # SIF
+  sif <- as_data_frame(g, what = "edges")
+  # rename for consistency
+  colnames(sif)[colnames(sif) == "from"] <- "source"
+  colnames(sif)[colnames(sif) == "to"]   <- "target"
+  # merge interaction and consistency
+  sif <- merge(sif, meta_network, by = c("source", "target"))
+  sif$consistency <- sign(score_map[sif$source] * score_map[sif$target]) == sif$interaction
+  sif <- sif[, c("source", "target", "interaction", "consistency")]
+  
+  # ATT
+  final_nodes <- V(g)$name
+  att <- nodes_df[nodes_df$source %in% final_nodes, c("source", "score", "level")]
+  names(att)[names(att) == "source"] <- "nodes"
+  if (!is.null(RNA_input)) {
+    rna_df <- data.frame(nodes = names(RNA_input), RNA_input = as.numeric(RNA_input),
+                         stringsAsFactors = FALSE)
+    att <- merge(att, rna_df, by = "nodes", all.x = TRUE)
+  } else {
+    att$RNA_input <- NA_real_
+  }
+  
+  return(list(SIF = sif, ATT = att))
 }
 
 #' meta_network_cleanup
