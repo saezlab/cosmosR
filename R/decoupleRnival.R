@@ -314,7 +314,7 @@ filter_incohrent_TF_target <- function(decouplRnival_res, TF_reg_net, meta_netwo
 #' )
 #' RNA_input <- c("A" = 1, "B" = -1, "C" = 5, "D" = 0.7, "E" = -0.3)
 #' # Run decoupleRnival to generate scores
-#' dec_res <- decoupleRnival(upstream_input, downstream_input, meta_network,
+#' dec_res <- moon(upstream_input, downstream_input, meta_network,
 #'                          n_layers = 2, n_perm = 100)
 #' # Extract solution network
 #' sol_net <- reduce_solution_network(dec_res, meta_network,
