@@ -14,25 +14,29 @@ reduce_solution_network(
 )
 }
 \arguments{
-\item{decoupleRnival_res}{A data frame resulting from the decoupleRnival function.}
+\item{decoupleRnival_res}{A data.frame with columns `source`, `score`, and `level` from decoupleRnival().}
 
-\item{meta_network}{A network data frame containing signed directed prior knowledge of molecular interactions.}
+\item{meta_network}{A data.frame with columns `source`, `target`, `interaction` for signed directed edges.}
 
-\item{cutoff}{The consistency threshold for filtering edges from the solution network.}
+\item{cutoff}{Numeric. Absolute score threshold for node filtering.}
 
-\item{upstream_input}{A named vector with up_stream nodes and their corresponding activity.}
+\item{upstream_input}{A named numeric vector of upstream seed nodes and their activity values.}
 
-\item{RNA_input}{A named vector containing differential gene expression data.}
+\item{RNA_input}{Optional named numeric vector of differential expression values; merged into ATT.}
 
-\item{n_steps}{The maximum number of steps from upstream input nodes to include in the solution network.}
+\item{n_steps}{Integer. Maximum number of steps away from any upstream_input node.}
 }
 \value{
-A list containing the solution network (SIF) and an attribute table (ATT) with gene expression data.
+A list with:
+  - SIF: data.frame of filtered edges (`source`, `target`, `interaction`, `consistency`).
+  - ATT: data.frame of node attributes (`nodes`, `score`, `level`, `RNA_input`).
 }
 \description{
-Reduces a solution network based on a decoupling analysis of upstream and downstream gene expression,
-by filtering out edges that do not meet a consistency threshold, and limiting the network to a
-certain number of steps from upstream input nodes.
+Extracts a subnetwork from a decoupleRnival result and a prior knowledge network,
+enforcing score thresholds, neighbourhood distance, and structural constraints:
+- Pure children (no outgoing edges) must be level 0 in decoupleRnival_res.
+- Pure parents (no incoming edges) must be among the provided upstream_input nodes.
+- All nodes must have |score| > cutoff.
 }
 \examples{
 # Example input data
@@ -44,14 +48,14 @@ meta_network <- data.frame(
   interaction = c(-1, 1, -1, 1, -1, -1, 1)
 )
 RNA_input <- c("A" = 1, "B" = -1, "C" = 5, "D" = 0.7, "E" = -0.3)
-
-# Run the decoupleRnival function to get the upstream influence scores
-upstream_scores <- decoupleRnival(upstream_input, downstream_input, meta_network, n_layers = 2, n_perm = 100)
-
-# Reduce the solution network based on the upstream influence scores
-reduced_network <- reduce_solution_network(upstream_scores, meta_network, 0.4, upstream_input, RNA_input, 3)
-
-# View the resulting solution network and attribute table
-print(reduced_network$SIF)
-print(reduced_network$ATT)
+# Run decoupleRnival to generate scores
+dec_res <- moon(upstream_input, downstream_input, meta_network,
+                         n_layers = 2, n_perm = 100)
+# Extract solution network
+sol_net <- reduce_solution_network(dec_res, meta_network,
+                                  cutoff = 0.4, upstream_input,
+                                  RNA_input, n_steps = 3)
+# View outputs
+print(sol_net$SIF)
+print(sol_net$ATT)
 }
