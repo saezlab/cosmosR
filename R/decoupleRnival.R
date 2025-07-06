@@ -300,7 +300,8 @@ filter_incohrent_TF_target <- function(decouplRnival_res, TF_reg_net, meta_netwo
 #'   - SIF: data.frame of filtered edges (`source`, `target`, `interaction`, `consistency`).
 #'   - ATT: data.frame of node attributes (`nodes`, `score`, `level`, `RNA_input`).
 #'
-#' @import igraph
+#' @importFrom igraph graph_from_data_frame distances induced_subgraph 
+#' @importFrom igraph delete_vertices degree V get.data.frame
 #' @export
 #'
 #' @examples
@@ -341,23 +342,23 @@ reduce_solution_network <- function(decoupleRnival_res, meta_network, cutoff,
   net <- net[net$consistency, ]
   
   # 3. Create igraph
-  g <- graph_from_data_frame(net[, c("source", "target")], directed = TRUE,
-                             vertices = data.frame(name = valid_nodes, stringsAsFactors = FALSE))
+  g <- igraph::graph_from_data_frame(net[, c("source", "target")], directed = TRUE,
+                                     vertices = data.frame(name = valid_nodes, stringsAsFactors = FALSE))
   
   # 4. Restrict to n_steps from upstream seeds
-  seeds <- intersect(names(upstream_input), V(g)$name)
+  seeds <- intersect(names(upstream_input), igraph::V(g)$name)
   if (length(seeds) == 0) {
     warning("No upstream_input nodes found in network; returning empty network.")
     return(list(SIF = data.frame(), ATT = data.frame()))
   }
-  dists <- distances(g, v = seeds, to = V(g), mode = "out")
+  dists <- igraph::distances(g, v = seeds, to = igraph::V(g), mode = "out")
   keep_nodes <- names(which(apply(dists, 2, min) <= n_steps))
-  g <- induced_subgraph(g, vids = keep_nodes)
+  g <- igraph::induced_subgraph(g, vids = keep_nodes)
   
   # 5. Prune pure children/parents by level/upstream rules
   repeat {
-    deg_out <- degree(g, mode = "out")
-    deg_in  <- degree(g, mode = "in")
+    deg_out <- igraph::degree(g, mode = "out")
+    deg_in  <- igraph::degree(g, mode = "in")
     # identify pure children not at level 0
     pure_children <- names(deg_out)[deg_out == 0]
     bad_children <- pure_children[ nodes_df$level[match(pure_children, nodes_df$source)] != 0 ]
@@ -366,12 +367,12 @@ reduce_solution_network <- function(decoupleRnival_res, meta_network, cutoff,
     bad_parents <- setdiff(pure_parents, names(upstream_input))
     to_drop <- unique(c(bad_children, bad_parents))
     if (length(to_drop) == 0) break
-    g <- delete_vertices(g, to_drop)
+    g <- igraph::delete_vertices(g, to_drop)
   }
   
-  # 6. Prepare outputs. Prepare outputs
+  # 6. Prepare outputs
   # SIF
-  sif <- as_data_frame(g, what = "edges")
+  sif <- igraph::get.data.frame(g, what = "edges")
   # rename for consistency
   colnames(sif)[colnames(sif) == "from"] <- "source"
   colnames(sif)[colnames(sif) == "to"]   <- "target"
@@ -381,7 +382,7 @@ reduce_solution_network <- function(decoupleRnival_res, meta_network, cutoff,
   sif <- sif[, c("source", "target", "interaction", "consistency")]
   
   # ATT
-  final_nodes <- V(g)$name
+  final_nodes <- igraph::V(g)$name
   att <- nodes_df[nodes_df$source %in% final_nodes, c("source", "score", "level")]
   names(att)[names(att) == "source"] <- "nodes"
   if (!is.null(RNA_input)) {
@@ -394,6 +395,7 @@ reduce_solution_network <- function(decoupleRnival_res, meta_network, cutoff,
   
   return(list(SIF = sif, ATT = att))
 }
+
 
 #' meta_network_cleanup
 #'
@@ -666,7 +668,7 @@ get_moon_scoring_network <- function(upstream_node,
 #' print(dbl_net$SIF)
 #' print(dbl_net$ATT)
 #'
-#' @import igraph
+#' @importFrom igraph graph_from_data_frame neighborhood V vcount
 #' @export
 reduce_solution_network_double_thresh <- function(
     decoupleRnival_res,
@@ -703,14 +705,14 @@ reduce_solution_network_double_thresh <- function(
     if (all(valid_edges)) break
     sub_net <- sub_net[valid_edges, ]
     # rebuild graph and enforce seed->level0 connectivity
-    g <- graph_from_data_frame(sub_net[,c("source","target")],
-                               directed = TRUE,
-                               vertices = unique(c(sub_net$source, sub_net$target)))
-    seeds  <- intersect(names(upstream_input), V(g)$name)
-    level0 <- intersect(decoupleRnival_res$source[decoupleRnival_res$level == 0], V(g)$name)
-    from   <- unlist(neighborhood(g, order = vcount(g), nodes = seeds, mode = "out"))
-    to     <- unlist(neighborhood(g, order = vcount(g), nodes = level0, mode = "in"))
-    keep   <- intersect(V(g)$name[from], V(g)$name[to])
+    g <- igraph::graph_from_data_frame(sub_net[,c("source","target")],
+                                       directed = TRUE,
+                                       vertices = unique(c(sub_net$source, sub_net$target)))
+    seeds  <- intersect(names(upstream_input), igraph::V(g)$name)
+    level0 <- intersect(decoupleRnival_res$source[decoupleRnival_res$level == 0], igraph::V(g)$name)
+    from   <- unlist(igraph::neighborhood(g, order = igraph::vcount(g), nodes = seeds, mode = "out"))
+    to     <- unlist(igraph::neighborhood(g, order = igraph::vcount(g), nodes = level0, mode = "in"))
+    keep   <- intersect(igraph::V(g)$name[from], igraph::V(g)$name[to])
     sub_net <- subset(sub_net, source %in% keep & target %in% keep)
   }
   
@@ -735,3 +737,4 @@ reduce_solution_network_double_thresh <- function(
   
   return(list(SIF = final_edges, ATT = att))
 }
+
