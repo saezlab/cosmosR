@@ -349,7 +349,20 @@ reduce_solution_network <- function(decoupleRnival_res, meta_network, cutoff,
   seeds <- intersect(names(upstream_input), igraph::V(g)$name)
   if (length(seeds) == 0) {
     warning("No upstream_input nodes found in network; returning empty network.")
-    return(list(SIF = data.frame(), ATT = data.frame()))
+    return(list(
+      SIF = data.frame(
+        source = character(),
+        target = character(),
+        interaction = numeric(),
+        consistency = logical()
+      ),
+      ATT = data.frame(
+        nodes = character(),
+        score = numeric(),
+        level = numeric(),
+        RNA_input = numeric()
+      )
+    ))
   }
   dists <- igraph::distances(g, v = seeds, to = igraph::V(g), mode = "out")
   keep_nodes <- names(which(apply(dists, 2, min) <= n_steps))
