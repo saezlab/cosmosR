@@ -166,16 +166,16 @@ CARNIVAL_options = default_CARNIVAL_options("lpSolve")
 #> [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."
 #> [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."
 #> --- Start of the CARNIVAL pipeline ---
-#> 13:33:25 10.12.2025 Carnival flavour: vanilla
-#> 13:33:25 10.12.2025 Generating variables for lp problem
-#> 13:33:25 10.12.2025 Done: generating variables for lp problem
+#> 14:25:33 10.12.2025 Carnival flavour: vanilla
+#> 14:25:33 10.12.2025 Generating variables for lp problem
+#> 14:25:33 10.12.2025 Done: generating variables for lp problem
 #> Saving preprocessed data.
-#> Done: saving parsed data: /__w/cosmosR/cosmosR/docs/reference//parsedData_t13_33_25d10_12_2025n32.RData
-#> 13:33:25 10.12.2025 Generating formulation for LP problem
-#> 13:33:25 10.12.2025 Done: generating formulation for LP problem.
+#> Done: saving parsed data: /__w/cosmosR/cosmosR/docs/reference//parsedData_t14_25_33d10_12_2025n32.RData
+#> 14:25:33 10.12.2025 Generating formulation for LP problem
+#> 14:25:33 10.12.2025 Done: generating formulation for LP problem.
 #> Saving LP file
-#> Done: Saving LP file: /__w/cosmosR/cosmosR/docs/reference//lpFile_t13_33_25d10_12_2025n32.lp
-#> 13:33:25 10.12.2025 Solving LP problem
+#> Done: Saving LP file: /__w/cosmosR/cosmosR/docs/reference//lpFile_t14_25_33d10_12_2025n32.lp
+#> 14:25:33 10.12.2025 Solving LP problem
 #> Parsing .lp file for lpSolve
 #> Rows: 842 Columns: 1
 #> ── Column specification ────────────────────────────────────────────────────────
@@ -185,14 +185,14 @@ CARNIVAL_options = default_CARNIVAL_options("lpSolve")
 #> ℹ Use `spec()` to retrieve the full column specification for this data.
 #> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 #> Done: parsing .lp file for lpSolve
-#> 13:33:26 10.12.2025 Done: solving LP problem.
-#> 13:33:26 10.12.2025 Getting the solution matrix
-#> 13:33:26 10.12.2025 Done: getting the solution matrix.
-#> 13:33:26 10.12.2025 Exporting solution matrix
-#> 13:33:26 10.12.2025 Done: exporting solution matrix.
+#> 14:25:33 10.12.2025 Done: solving LP problem.
+#> 14:25:33 10.12.2025 Getting the solution matrix
+#> 14:25:33 10.12.2025 Done: getting the solution matrix.
+#> 14:25:33 10.12.2025 Exporting solution matrix
+#> 14:25:34 10.12.2025 Done: exporting solution matrix.
 #> Cleaning intermediate files
 #> Done: cleaning
-#> 13:33:26 10.12.2025 All tasks finished.
+#> 14:25:34 10.12.2025 All tasks finished.
 #> 
 #> --- End of the CARNIVAL pipeline --- 
 #> [1] "COSMOS:  0 interactions are removed from the PKN based on consistency check between TF activity and gene expression"

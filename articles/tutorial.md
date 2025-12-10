@@ -443,7 +443,7 @@ sessionInfo()
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ## [1] cosmosR_1.9.1
+    ## [1] cosmosR_1.19.0
     ## 
     ## loaded via a namespace (and not attached):
     ##  [1] bcellViper_1.40.0   sass_0.4.10         generics_0.1.4     
