@@ -1,0 +1,87 @@
+# reduce_solution_network
+
+Extracts a subnetwork from a decoupleRnival result and a prior knowledge
+network, enforcing score thresholds, neighbourhood distance, and
+structural constraints: - Pure children (no outgoing edges) must be
+level 0 in decoupleRnival_res. - Pure parents (no incoming edges) must
+be among the provided upstream_input nodes. - All nodes must have
+\|score\| \> cutoff.
+
+## Usage
+
+``` r
+reduce_solution_network(
+  decoupleRnival_res,
+  meta_network,
+  cutoff,
+  upstream_input,
+  RNA_input = NULL,
+  n_steps = 10
+)
+```
+
+## Arguments
+
+- decoupleRnival_res:
+
+  A data.frame with columns \`source\`, \`score\`, and \`level\` from
+  decoupleRnival().
+
+- meta_network:
+
+  A data.frame with columns \`source\`, \`target\`, \`interaction\` for
+  signed directed edges.
+
+- cutoff:
+
+  Numeric. Absolute score threshold for node filtering.
+
+- upstream_input:
+
+  A named numeric vector of upstream seed nodes and their activity
+  values.
+
+- RNA_input:
+
+  Optional named numeric vector of differential expression values;
+  merged into ATT.
+
+- n_steps:
+
+  Integer. Maximum number of steps away from any upstream_input node.
+
+## Value
+
+A list with: - SIF: data.frame of filtered edges (\`source\`,
+\`target\`, \`interaction\`, \`consistency\`). - ATT: data.frame of node
+attributes (\`nodes\`, \`score\`, \`level\`, \`RNA_input\`).
+
+## Examples
+
+``` r
+# Example input data
+upstream_input <- c("A" = 1, "B" = -1, "C" = 0.5)
+downstream_input <- c("D" = 2, "E" = -1.5)
+meta_network <- data.frame(
+  source = c("A", "A", "B", "C", "C", "D", "E"),
+  target = c("B", "D", "D", "E", "D", "B", "A"),
+  interaction = c(-1, 1, -1, 1, -1, -1, 1)
+)
+RNA_input <- c("A" = 1, "B" = -1, "C" = 5, "D" = 0.7, "E" = -0.3)
+# Run decoupleRnival to generate scores
+dec_res <- moon(upstream_input, downstream_input, meta_network,
+                         n_layers = 2, n_perm = 100)
+#> Warning: NaNs produced
+# Extract solution network
+sol_net <- reduce_solution_network(dec_res, meta_network,
+                                  cutoff = 0.4, upstream_input,
+                                  RNA_input, n_steps = 3)
+#> Warning: No upstream_input nodes found in network; returning empty network.
+# View outputs
+print(sol_net$SIF)
+#> [1] source      target      interaction consistency
+#> <0 rows> (or 0-length row.names)
+print(sol_net$ATT)
+#> [1] nodes     score     level     RNA_input
+#> <0 rows> (or 0-length row.names)
+```

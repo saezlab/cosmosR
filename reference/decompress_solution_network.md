@@ -1,0 +1,83 @@
+# Decompress Solution Network
+
+This function decompresses a solution network by mapping node signatures
+back to their original identifiers. The input is a formatted solution
+network, a meta network, node signatures, and duplicated parents. The
+function returns a list containing the decompressed solution network and
+attribute table.
+
+## Usage
+
+``` r
+decompress_solution_network(
+  formatted_res,
+  meta_network,
+  node_signatures,
+  duplicated_parents
+)
+```
+
+## Arguments
+
+- formatted_res:
+
+  A list containing the solution network and attribute table.
+
+- meta_network:
+
+  A data frame representing the meta network.
+
+- node_signatures:
+
+  A list of node signatures.
+
+- duplicated_parents:
+
+  A list of duplicated parents from the compression process.
+
+## Value
+
+A list containing the following elements:
+
+- SIF:
+
+  A data frame representing the decompressed solution network.
+
+- ATT:
+
+  A data frame containing the attributes of the decompressed solution
+  network.
+
+## Examples
+
+``` r
+# Create a sample formatted_res
+formatted_res <- list(
+  SIF = data.frame(source = c("parent_of_D1", "D"),
+                   target = c("D", "F"),
+                   interaction = c(1, 1),
+                   Weight = c(1, 1)),
+  ATT = data.frame(Nodes = c("parent_of_D1", "D", "F"),
+                   NodeType = c("","",""),
+                   ZeroAct = c(0,0,0),
+                   UpAct = c(1,1,1),
+                   DownAct = c(0,0,0),
+                   AvgAct = c(1,1,1),
+                   measured = c(0,0,0),
+                   Activity = c(1,1,1))
+)
+
+# Create a sample meta_network
+meta_network <- data.frame(source = c("A", "B", "D"),
+                           target = c("D", "D", "F"),
+                           interaction_type = c(1, 1, 1))
+
+# Define node_signatures and duplicated_parents
+node_signatures <- list("A" = "parent_of_D1","B" = "parent_of_D1","D" = "parent_F1")
+duplicated_parents <- c("A" = "parent_of_D1","B" = "parent_of_D1")
+
+# Decompress the solution network
+result <- decompress_solution_network(formatted_res, meta_network, node_signatures, duplicated_parents)
+decompressed_network <- result[[1]]
+attribute_table <- result[[2]]
+```
