@@ -23,12 +23,6 @@ You can also use COSMOS if you don't have metabolomic data, to connect TF activi
 
 R >= 4.1 is required
 ```r
-# install from bioconductor
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-
-BiocManager::install("cosmosR")
-
 # We advise to instal from github to get the latest version of the tool.
 if (!requireNamespace("devtools", quietly = TRUE))
     install.packages("devtools")
