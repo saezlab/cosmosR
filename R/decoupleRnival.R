@@ -697,17 +697,14 @@ reduce_solution_network_double_thresh <- function(
   # 1. Primary nodes
   prim_nodes <- decoupleRnival_res$source[abs(decoupleRnival_res$score) > primary_thresh]
   
-  # 2. Sub-network touching primary nodes
-  sub_net <- subset(meta_network,
-                    source %in% prim_nodes | target %in% prim_nodes)
-  # keep edges where both ends are primary or serve as intermediary
-  cond_pp  <- sub_net$source %in% prim_nodes & sub_net$target %in% prim_nodes
-  cond_int <- (sub_net$source %in% prim_nodes & sub_net$target %in% prim_nodes)
-  sub_net <- sub_net[cond_pp | cond_int, ]
-  
-  # 3. Secondary filter
+  # 2. Secondary nodes
   sec_nodes <- decoupleRnival_res$source[abs(decoupleRnival_res$score) > secondary_thresh]
-  sub_net <- subset(sub_net, source %in% sec_nodes & target %in% sec_nodes)
+
+  # 3. Keep edges incident to at least one primary node, where both endpoints
+  #    pass the secondary threshold
+  sub_net <- subset(meta_network,
+                    (source %in% prim_nodes | target %in% prim_nodes) &
+                      source %in% sec_nodes & target %in% sec_nodes)
   
   # 4. Recursive consistency pruning
   score_map <- setNames(decoupleRnival_res$score, decoupleRnival_res$source)
