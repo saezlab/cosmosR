@@ -76,9 +76,12 @@ dbl_net <- reduce_solution_network_double_thresh(
   RNA_input          = RNA_input
 )
 print(dbl_net$SIF)
-#> [1] source      target      interaction
-#> <0 rows> (or 0-length row.names)
+#>   source target interaction
+#> 1     G1     G2           1
+#> 5     G4     G2          -1
 print(dbl_net$ATT)
-#> [1] source    score     level     type      RNA_input
-#> <0 rows> (or 0-length row.names)
+#>   source score level           type RNA_input
+#> 1     G1   2.5     0 upstream_input       0.5
+#> 2     G2   1.2     0         level0      -0.2
+#> 3     G4  -2.2     0 upstream_input       1.1
 ```

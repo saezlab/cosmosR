@@ -443,28 +443,28 @@ sessionInfo()
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ## [1] cosmosR_1.19.0
+    ## [1] cosmosR_1.19.1
     ## 
     ## loaded via a namespace (and not attached):
     ##  [1] bcellViper_1.40.0   sass_0.4.10         generics_0.1.4     
-    ##  [4] tidyr_1.3.1         lpSolve_5.6.23      stringi_1.8.7      
-    ##  [7] lattice_0.22-7      hms_1.1.4           digest_0.6.39      
+    ##  [4] tidyr_1.3.2         lpSolve_5.6.23      stringi_1.8.7      
+    ##  [7] lattice_0.22-9      hms_1.1.4           digest_0.6.39      
     ## [10] magrittr_2.0.4      evaluate_1.0.5      grid_4.4.1         
     ## [13] fastmap_1.2.0       jsonlite_2.0.0      Matrix_1.7-4       
-    ## [16] progress_1.2.3      purrr_1.2.0         codetools_0.2-20   
+    ## [16] progress_1.2.3      purrr_1.2.1         codetools_0.2-20   
     ## [19] textshaping_1.0.4   jquerylib_0.1.4     cli_3.6.5          
-    ## [22] rlang_1.1.6         decoupleR_2.10.0    crayon_1.5.3       
-    ## [25] visNetwork_2.1.4    parallelly_1.45.1   bit64_4.6.0-1      
-    ## [28] withr_3.0.2         cachem_1.1.0        yaml_2.3.11        
-    ## [31] tools_4.4.1         parallel_4.4.1      tzdb_0.5.0         
-    ## [34] BiocParallel_1.38.0 dplyr_1.1.4         vctrs_0.6.5        
-    ## [37] R6_2.6.1            lifecycle_1.0.4     stringr_1.6.0      
-    ## [40] bit_4.6.0           fs_1.6.6            htmlwidgets_1.6.4  
-    ## [43] vroom_1.6.7         ragg_1.5.0          pkgconfig_2.0.3    
-    ## [46] desc_1.4.3          pkgdown_2.2.0       pillar_1.11.1      
-    ## [49] bslib_0.9.0         glue_1.8.0          systemfonts_1.3.1  
-    ## [52] xfun_0.54           tibble_3.3.0        tidyselect_1.2.1   
-    ## [55] knitr_1.50          CARNIVAL_2.14.0     dorothea_1.16.0    
-    ## [58] rjson_0.2.23        htmltools_0.5.9     igraph_2.2.1       
-    ## [61] rmarkdown_2.30      readr_2.1.6         compiler_4.4.1     
-    ## [64] prettyunits_1.2.0
+    ## [22] rlang_1.1.7         decoupleR_2.10.0    crayon_1.5.3       
+    ## [25] visNetwork_2.1.4    parallelly_1.46.1   bit64_4.6.0-1      
+    ## [28] withr_3.0.2         cachem_1.1.0        yaml_2.3.12        
+    ## [31] otel_0.2.0          tools_4.4.1         parallel_4.4.1     
+    ## [34] tzdb_0.5.0          BiocParallel_1.38.0 dplyr_1.2.0        
+    ## [37] vctrs_0.7.1         R6_2.6.1            lifecycle_1.0.5    
+    ## [40] stringr_1.6.0       bit_4.6.0           fs_1.6.6           
+    ## [43] htmlwidgets_1.6.4   vroom_1.7.0         ragg_1.5.0         
+    ## [46] pkgconfig_2.0.3     desc_1.4.3          pkgdown_2.2.0      
+    ## [49] pillar_1.11.1       bslib_0.10.0        glue_1.8.0         
+    ## [52] systemfonts_1.3.1   xfun_0.56           tibble_3.3.1       
+    ## [55] tidyselect_1.2.1    knitr_1.51          CARNIVAL_2.14.0    
+    ## [58] dorothea_1.16.0     rjson_0.2.23        htmltools_0.5.9    
+    ## [61] igraph_2.2.1        rmarkdown_2.30      readr_2.1.6        
+    ## [64] compiler_4.4.1      prettyunits_1.2.0

@@ -33,20 +33,6 @@ target = c("B", "C", "D", "A", "C", "D", "A", "B", "B")
 
 # Clean up the example meta network
 cleaned_meta_network <- meta_network_cleanup(example_meta_network)
-#> Warning: `summarise_each()` was deprecated in dplyr 0.7.0.
-#> ℹ Please use `across()` instead.
-#> ℹ The deprecated feature was likely used in the cosmosR package.
-#>   Please report the issue at <https://github.com/saezlab/COSMOSR/issues>.
-#> Warning: `funs()` was deprecated in dplyr 0.8.0.
-#> ℹ Please use a list of either functions or lambdas:
-#> 
-#> # Simple named list: list(mean = mean, median = median)
-#> 
-#> # Auto named with `tibble::lst()`: tibble::lst(mean, median)
-#> 
-#> # Using lambdas list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
-#> ℹ The deprecated feature was likely used in the cosmosR package.
-#>   Please report the issue at <https://github.com/saezlab/COSMOSR/issues>.
 print(cleaned_meta_network)
 #>   source target interaction
 #> 1      A      B           1
