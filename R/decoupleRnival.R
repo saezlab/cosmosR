@@ -441,7 +441,7 @@ meta_network_cleanup <- function(meta_network)
     meta_network <- meta_network[-which(meta_network$source == meta_network$target),]
   }  
   meta_network <- unique(meta_network)
-  meta_network <- meta_network %>% group_by(source,target) %>% summarise_each(funs(mean(., na.rm = TRUE)))
+  meta_network <- meta_network %>% group_by(source,target) %>% summarise(across(everything(), ~mean(.x, na.rm = TRUE)))
   meta_network <- as.data.frame(meta_network)
   meta_network <- meta_network[meta_network$interaction %in% c(1,-1),]
   return(meta_network)
@@ -605,13 +605,13 @@ get_moon_scoring_network <- function(upstream_node,
   }
   
   # Filter the meta network to keep only controllable neighbours of the upstream node.
-  meta_network_filtered <- cosmosR:::keep_controllable_neighbours(network = meta_network, n_steps = n_steps,input_nodes = upstream_node)
+  meta_network_filtered <- keep_controllable_neighbours(network = meta_network, n_steps = n_steps,input_nodes = upstream_node)
   
   # Identify downstream inputs from the moon scores.
   downstream_inputs <- moon_scores[which(moon_scores$level == 0 & moon_scores$source %in% meta_network_filtered$target),"source"]
   
   # Further filter the network to keep only observable neighbours.
-  meta_network_filtered <- cosmosR:::keep_observable_neighbours(network = meta_network_filtered, n_steps = n_steps,observed_nodes = downstream_inputs)
+  meta_network_filtered <- keep_observable_neighbours(network = meta_network_filtered, n_steps = n_steps,observed_nodes = downstream_inputs)
   
   # Update moon scores to include only those present in the filtered network.
   moon_scores <- moon_scores[moon_scores$source %in% meta_network_filtered$source |
