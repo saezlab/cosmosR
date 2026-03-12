@@ -51,7 +51,6 @@ Suggests:
     rmarkdown,
     htmltools,
     markdown,
-    piano,
     ggplot2,
     stringi,
     reshape2
