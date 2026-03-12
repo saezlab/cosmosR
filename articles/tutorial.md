@@ -452,19 +452,19 @@ sessionInfo()
     ## [10] magrittr_2.0.4      evaluate_1.0.5      grid_4.4.1         
     ## [13] fastmap_1.2.0       jsonlite_2.0.0      Matrix_1.7-4       
     ## [16] progress_1.2.3      purrr_1.2.1         codetools_0.2-20   
-    ## [19] textshaping_1.0.4   jquerylib_0.1.4     cli_3.6.5          
+    ## [19] textshaping_1.0.5   jquerylib_0.1.4     cli_3.6.5          
     ## [22] rlang_1.1.7         decoupleR_2.10.0    crayon_1.5.3       
     ## [25] visNetwork_2.1.4    parallelly_1.46.1   bit64_4.6.0-1      
     ## [28] withr_3.0.2         cachem_1.1.0        yaml_2.3.12        
     ## [31] otel_0.2.0          tools_4.4.1         parallel_4.4.1     
     ## [34] tzdb_0.5.0          BiocParallel_1.38.0 dplyr_1.2.0        
     ## [37] vctrs_0.7.1         R6_2.6.1            lifecycle_1.0.5    
-    ## [40] stringr_1.6.0       bit_4.6.0           fs_1.6.6           
-    ## [43] htmlwidgets_1.6.4   vroom_1.7.0         ragg_1.5.0         
+    ## [40] stringr_1.6.0       bit_4.6.0           fs_1.6.7           
+    ## [43] htmlwidgets_1.6.4   vroom_1.7.0         ragg_1.5.1         
     ## [46] pkgconfig_2.0.3     desc_1.4.3          pkgdown_2.2.0      
     ## [49] pillar_1.11.1       bslib_0.10.0        glue_1.8.0         
-    ## [52] systemfonts_1.3.1   xfun_0.56           tibble_3.3.1       
+    ## [52] systemfonts_1.3.2   xfun_0.56           tibble_3.3.1       
     ## [55] tidyselect_1.2.1    knitr_1.51          CARNIVAL_2.14.0    
     ## [58] dorothea_1.16.0     rjson_0.2.23        htmltools_0.5.9    
-    ## [61] igraph_2.2.1        rmarkdown_2.30      readr_2.1.6        
+    ## [61] igraph_2.2.2        rmarkdown_2.30      readr_2.2.0        
     ## [64] compiler_4.4.1      prettyunits_1.2.0
