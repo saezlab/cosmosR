@@ -2,7 +2,8 @@
 title: "MOFA to COSMOS tutorial"
 output: rmarkdown::html_vignette
 resource_files:
-  - MOFA_to_COSMOS_files
+  - M2Cf
+  - MOFA_to_COSMOS.md
 vignette: >
   %\VignetteIndexEntry{MOFA to COSMOS tutorial}
   %\VignetteEngine{knitr::rmarkdown}

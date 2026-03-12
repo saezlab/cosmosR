@@ -127,7 +127,7 @@ this is not necessary since MOFA2 is able to impute data).
 
     hist(proteo_sd[1:round(dim(proteo)[1]*3/5)], breaks = 100)
 
-![](M2Cf/figs/Preparing_MOFA_input-4.png)
+![](M2Cf/figs/Preparing_MOFA_input_4.png)
 
     proteo_sd <- proteo_sd[1:round(dim(proteo)[1]*3/5)]
     proteo <- proteo[names(proteo_sd),]
@@ -143,7 +143,7 @@ this is not necessary since MOFA2 is able to impute data).
     metab_sd <- apply(metab, 1, function(x) sd(x,na.rm=T))
     hist(metab_sd, breaks = 100)
 
-![](M2Cf/figs/Preparing_MOFA_input-5.png)
+![](M2Cf/figs/Preparing_MOFA_input_5.png)
 
     # Create long data frame
     ## Only keep samples with each view present 
@@ -778,7 +778,7 @@ factors.
 
     ## Saving 7 x 7 in image
 
-![](M2Cf/figs/correlation_RNA/prot_1.png)
+![](M2Cf/figs/correlation_RNA/prot-1.png)
 Coherently, only the factors where there is variance explained for both
 RNA and proteins are correlated.
 
@@ -860,7 +860,7 @@ The same procedure is repeated for the ligand-receptor activities.
     abline(v = -0.5)
     abline(v = 2.5)}
 
-![](M2Cf/figs/Plot_Ligand-receptor_activity_estimates_1.png)
+![](M2Cf/figs/Plot_Ligand_receptor_activity_estimates_1.png)
 
 Here, only activities higher than 2.5 or lower than -0.5 are kept (see
 straight lines in plot). This is an arbitrary theshold aimed at keeping
