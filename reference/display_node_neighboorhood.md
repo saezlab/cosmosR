@@ -65,16 +65,16 @@ CARNIVAL_options = CARNIVAL_options
 #> [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."
 #> [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."
 #> --- Start of the CARNIVAL pipeline ---
-#> 16:58:14 17.03.2026 Carnival flavour: vanilla
-#> 16:58:14 17.03.2026 Generating variables for lp problem
-#> 16:58:14 17.03.2026 Done: generating variables for lp problem
+#> 16:14:06 03.06.2026 Carnival flavour: vanilla
+#> 16:14:06 03.06.2026 Generating variables for lp problem
+#> 16:14:06 03.06.2026 Done: generating variables for lp problem
 #> Saving preprocessed data.
-#> Done: saving parsed data: /__w/cosmosR/cosmosR/docs/reference//parsedData_t16_58_14d17_03_2026n45.RData
-#> 16:58:14 17.03.2026 Generating formulation for LP problem
-#> 16:58:14 17.03.2026 Done: generating formulation for LP problem.
+#> Done: saving parsed data: /__w/cosmosR/cosmosR/docs/reference//parsedData_t16_14_06d03_06_2026n45.RData
+#> 16:14:06 03.06.2026 Generating formulation for LP problem
+#> 16:14:06 03.06.2026 Done: generating formulation for LP problem.
 #> Saving LP file
-#> Done: Saving LP file: /__w/cosmosR/cosmosR/docs/reference//lpFile_t16_58_14d17_03_2026n45.lp
-#> 16:58:14 17.03.2026 Solving LP problem
+#> Done: Saving LP file: /__w/cosmosR/cosmosR/docs/reference//lpFile_t16_14_06d03_06_2026n45.lp
+#> 16:14:06 03.06.2026 Solving LP problem
 #> Parsing .lp file for lpSolve
 #> Rows: 882 Columns: 1
 #> ── Column specification ────────────────────────────────────────────────────────
@@ -84,14 +84,14 @@ CARNIVAL_options = CARNIVAL_options
 #> ℹ Use `spec()` to retrieve the full column specification for this data.
 #> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 #> Done: parsing .lp file for lpSolve
-#> 16:58:15 17.03.2026 Done: solving LP problem.
-#> 16:58:15 17.03.2026 Getting the solution matrix
-#> 16:58:15 17.03.2026 Done: getting the solution matrix.
-#> 16:58:15 17.03.2026 Exporting solution matrix
-#> 16:58:15 17.03.2026 Done: exporting solution matrix.
+#> 16:14:07 03.06.2026 Done: solving LP problem.
+#> 16:14:07 03.06.2026 Getting the solution matrix
+#> 16:14:07 03.06.2026 Done: getting the solution matrix.
+#> 16:14:07 03.06.2026 Exporting solution matrix
+#> 16:14:07 03.06.2026 Done: exporting solution matrix.
 #> Cleaning intermediate files
 #> Done: cleaning
-#> 16:58:15 17.03.2026 All tasks finished.
+#> 16:14:07 03.06.2026 All tasks finished.
 #> 
 #> --- End of the CARNIVAL pipeline --- 
 #> [1] "COSMOS:  0 interactions are removed from the PKN based on consistency check between TF activity and gene expression"
@@ -105,16 +105,16 @@ CARNIVAL_options = CARNIVAL_options)
 #> Input nodes should have values from {-1, 0, 1}. We discretize your input with sign().
 #> [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."
 #> --- Start of the CARNIVAL pipeline ---
-#> 16:58:15 17.03.2026 Carnival flavour: vanilla
-#> 16:58:15 17.03.2026 Generating variables for lp problem
-#> 16:58:15 17.03.2026 Done: generating variables for lp problem
+#> 16:14:07 03.06.2026 Carnival flavour: vanilla
+#> 16:14:07 03.06.2026 Generating variables for lp problem
+#> 16:14:07 03.06.2026 Done: generating variables for lp problem
 #> Saving preprocessed data.
-#> Done: saving parsed data: /__w/cosmosR/cosmosR/docs/reference//parsedData_t16_58_15d17_03_2026n23.RData
-#> 16:58:15 17.03.2026 Generating formulation for LP problem
-#> 16:58:15 17.03.2026 Done: generating formulation for LP problem.
+#> Done: saving parsed data: /__w/cosmosR/cosmosR/docs/reference//parsedData_t16_14_07d03_06_2026n23.RData
+#> 16:14:07 03.06.2026 Generating formulation for LP problem
+#> 16:14:07 03.06.2026 Done: generating formulation for LP problem.
 #> Saving LP file
-#> Done: Saving LP file: /__w/cosmosR/cosmosR/docs/reference//lpFile_t16_58_15d17_03_2026n23.lp
-#> 16:58:15 17.03.2026 Solving LP problem
+#> Done: Saving LP file: /__w/cosmosR/cosmosR/docs/reference//lpFile_t16_14_07d03_06_2026n23.lp
+#> 16:14:07 03.06.2026 Solving LP problem
 #> Parsing .lp file for lpSolve
 #> Rows: 882 Columns: 1
 #> ── Column specification ────────────────────────────────────────────────────────
@@ -124,14 +124,14 @@ CARNIVAL_options = CARNIVAL_options)
 #> ℹ Use `spec()` to retrieve the full column specification for this data.
 #> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 #> Done: parsing .lp file for lpSolve
-#> 16:58:16 17.03.2026 Done: solving LP problem.
-#> 16:58:16 17.03.2026 Getting the solution matrix
-#> 16:58:16 17.03.2026 Done: getting the solution matrix.
-#> 16:58:16 17.03.2026 Exporting solution matrix
-#> 16:58:16 17.03.2026 Done: exporting solution matrix.
+#> 16:14:08 03.06.2026 Done: solving LP problem.
+#> 16:14:08 03.06.2026 Getting the solution matrix
+#> 16:14:08 03.06.2026 Done: getting the solution matrix.
+#> 16:14:08 03.06.2026 Exporting solution matrix
+#> 16:14:08 03.06.2026 Done: exporting solution matrix.
 #> Cleaning intermediate files
 #> Done: cleaning
-#> 16:58:16 17.03.2026 All tasks finished.
+#> 16:14:08 03.06.2026 All tasks finished.
 #> 
 #> --- End of the CARNIVAL pipeline --- 
 test_result_for <- format_COSMOS_res(test_result_for)
@@ -139,7 +139,8 @@ network_plot <- display_node_neighboorhood(central_node = 'MYC',
 sif = test_result_for[[1]],
 att = test_result_for[[2]],
 n = 7)
-#> Warning: At vendor/cigraph/src/paths/unweighted.c:444 : Couldn't reach some vertices.
+#> Warning: Couldn't reach some vertices.
+#> Source: paths/unweighted.c:444
 network_plot
 
 {"x":{"nodes":{"id":["Enzyme1338__AKR1A1","Enzyme7338__LDHB_LDHA_reverse","Enzyme9049__SLC2A1_reverse","FGFR1","LDHA","MAPK14","MYC","Metab__D-Glucitol_c","Metab__D-Glucose_c","Metab__L-Lactic acid_c","SLC2A1"],"NodeType":["","","","","","","P","M","","M",""],"ZeroAct":[0,0,0,0,0,0,0,0,0,0,0],"UpAct":[1,1,1,1,1,1,1,1,1,1,1],"DownAct":[0,0,0,0,0,0,0,0,0,0,0],"AvgAct":[1,1,1,1,1,1,1,1,1,1,1],"measured":[0,0,0,0,0,0,1,1,0,1,0],"Activity":[1,1,1,1,1,1,1,1,1,1,1],"label":["Enzyme1338__AKR1A1","Enzyme7338__LDHB_LDHA_reverse","Enzyme9049__SLC2A1_reverse","FGFR1","LDHA","MAPK14","MYC","Metab__D-Glucitol_c","Metab__D-Glucose_c","Metab__L-Lactic acid_c","SLC2A1"],"color":["green","green","green","green","green","green","green","green","green","green","green"],"shape":["dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot"],"shadow":[false,false,false,false,false,false,true,true,false,true,false]},"edges":{"from":["MAPK14","Metab__D-Glucitol_c","FGFR1","Enzyme1338__AKR1A1","Enzyme7338__LDHB_LDHA_reverse","Enzyme9049__SLC2A1_reverse","LDHA","MAPK14","MYC","Metab__D-Glucose_c","SLC2A1"],"to":["MYC","MAPK14","LDHA","Metab__D-Glucitol_c","Metab__L-Lactic acid_c","Metab__D-Glucose_c","Enzyme7338__LDHB_LDHA_reverse","FGFR1","SLC2A1","Enzyme1338__AKR1A1","Enzyme9049__SLC2A1_reverse"],"sign":[1,1,1,1,1,1,1,-1,1,1,1],"weigth":[1,1,1,1,1,1,1,0,1,1,1],"color":["grey","grey","grey","grey","grey","grey","grey","grey","grey","grey","grey"],"arrows.to.type":["arrow","arrow","arrow","arrow","arrow","arrow","arrow","circle","arrow","arrow","arrow"],"enabled":[true,true,true,true,true,true,true,true,true,true,true],"scaleFactor":[1,1,1,1,1,1,1,1,1,1,1]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false}},"groups":null,"width":1600,"height":1600,"idselection":{"enabled":true,"style":"width: 200px; height: 26px;\n                                              background: #f8f8f8;\n                                              color: darkblue;\n                                              border:none;\n                                              outline:none;","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"}},"evals":[],"jsHooks":[]}
