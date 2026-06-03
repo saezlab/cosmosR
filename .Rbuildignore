@@ -1,5 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^AGENTS\.md$
+^agent-docs$
 ^.git$
 ^pkgdown$
 cosmos_cache
