@@ -9,14 +9,14 @@
 COSMOS (Causal Oriented Search of Multi-Omic Space) is a method that integrates phosphoproteomics, transcriptomics, and metabolomics data sets. COSMOS leverages extensive prior knowledge of signaling pathways, metabolic networks, and gene regulation  with computational methods to estimate activities of transcription factors and kinases as well as network-level causal reasoning. This pipeline can provide mechanistic explanations for experimental observations across multiple omic data sets. 
 
 
-<img src="man/figures/intro_data.png" align="center" width="800">
+<img src="man/figures/intro_data.png" alt="COSMOS multi-omics input overview" align="center" width="800">
 
 COSMOS finds coherent subnetwork causally connecting as many deregulated TFs, kinases/phosphatases and metabolites as possible. The subnetwork is extracted from a novel integrated PKN (available [here](http://metapkn.omnipathdb.org/)) spanning signaling, transcriptional regulation and metabolism.  Transcription factors activities are inferred from gene expression with [decoupleR](https://saezlab.github.io/decoupleR/). Kinase activities are inferred from phosphoproteomic with a kinase/substrate network of [Omnipath](http://omnipathdb.org/), a meta resource of protein-protein. The scripts to generate the current network can be found here: https://github.com/saezlab/meta_PKN_BIGG.
 
 
 You can also use COSMOS if you don't have metabolomic data, to connect TF activities (from transcriptomic) with kinase activities (from phosphoproteomic) for exmaple !
 
-<img src="man/figures/graphical_abstract.png" align="center" width="800">
+<img src="man/figures/graphical_abstract.png" alt="COSMOS workflow graphical abstract" align="center" width="800">
 
 
 ## Installation
@@ -46,6 +46,17 @@ We made a repository that contains pre-processed inputs and an example script to
 You can find the repository [here](https://github.com/saezlab/COSMOS_basic).
 
 !!! THIS is were you can find the input data and the pre-processing scripts that corespond to the featured vignette !!!
+
+## MOON data-to-PKN mapping principles
+
+For MOON analyses, the most important design choice is how each data type should
+enter the prior knowledge network: as a direct input, footprint-derived
+activity, consistency check, functional-readout gate, filter, or annotation.
+
+See the [MOON data-to-PKN mapping principles](https://saezlab.github.io/cosmosR/articles/moon_data_pkn_mapping_principles.html)
+article ([source](vignettes/moon_data_pkn_mapping_principles.Rmd)) for practical
+guidance on RNA, proteomics, phosphoproteomics, metabolomics, DNA alterations,
+perturbations, and multi-timepoint alignment.
 
 ## Access
 

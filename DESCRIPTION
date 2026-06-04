@@ -24,7 +24,7 @@ Authors@R: c(
            role = c("aut"),
            email = "katharina.zirngibl@uni-heidelberg.de",
            comment = c(ORCID = "0000-0002-7518-0339")))
-URL: https://github.com/saezlab/COSMOSR
+URL: https://github.com/saezlab/COSMOSR, https://saezlab.github.io/cosmosR/
 BugReports: https://github.com/saezlab/COSMOSR/issues
 Depends: R (>= 4.1)
 License: GPL-3

@@ -49,13 +49,18 @@ latent-factor/MOFA selection details separate in
   meta network.
 - `vignettes/`: user-facing examples. `tutorial.Rmd` covers the CARNIVAL
   workflow; `net_compr_MOON.md` and `NCI60_tutorial.Rmd` cover the NCI-60 MOON
-  workflow.
+  workflow. `moon_data_pkn_mapping_principles.Rmd` is the package-facing
+  version of the MOON data-to-PKN mapping guidance.
 - `tests/testthat/`: testthat coverage, mostly toy-data tests for preprocessing,
   package data, and CARNIVAL wrappers.
 - `README.md`, `DESCRIPTION`, `inst/CITATION`: package-level metadata and
   scientific framing.
-- `pkgdown/`: website configuration and static assets.
+- `_pkgdown.yml`: pkgdown site configuration, including article grouping.
+- `pkgdown/`: pkgdown static assets.
 - `agent-docs/`: deeper agent-facing references for advanced workflows.
+  Keep these more operational than vignettes; when changing broadly useful
+  MOON mapping principles, decide whether the user-facing vignette should be
+  updated as well.
 
 ## External Context
 

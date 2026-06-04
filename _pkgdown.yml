@@ -1,3 +1,4 @@
+url: https://saezlab.github.io/cosmosR/
 destination: docs
 navbar:
   structure:
@@ -7,9 +8,11 @@ navbar:
      twitter:
        icon: "fab fa-twitter fa-lg"
        href: https://twitter.com/saezlab
+       aria-label: Twitter
      homepage:
        icon: "fas fa-university"
        href: https://saezlab.org
+       aria-label: Saez Lab
   type: dark
   bg: primary
 template:
@@ -21,3 +24,12 @@ template:
   bslib:
     primary: "#285FA9"
   assets: vignettes/MOFA_to_COSMOS_files, vignettes/net_compr_MOON_files
+articles:
+- title: Tutorials
+  contents:
+  - tutorial
+  - NCI60_tutorial
+  - MOFA_to_COSMOS
+- title: Analysis design
+  contents:
+  - moon_data_pkn_mapping_principles
