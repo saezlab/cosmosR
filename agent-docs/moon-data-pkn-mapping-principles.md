@@ -220,9 +220,13 @@ For a PKN edge `A -> B`, where `B` has a likely functional early stop codon:
 - Incoming `A -> B` edges should usually not be used to explain loss of B
   activity. The loss is genetically imposed, not necessarily caused by upstream
   regulation.
-- Outgoing `B -> C` edges should usually be disabled when B is required as a
-  functional mediator, because truncated or absent B may not transmit signal
-  downstream.
+- Outgoing `B -> C` edges should usually be retained by default and interpreted
+  under a forced negative activity for B. In a signed activity-propagation
+  network, loss of B function is itself a causal state that should affect
+  downstream targets according to the sign of B's outgoing edges.
+- Disable outgoing `B -> C` edges only when the edge semantics require a
+  retained molecular function that the lesion clearly destroys and this cannot
+  be represented as decreased B activity.
 - B may itself become a negative upstream perturbation or candidate driver if
   loss of B function is directionally meaningful for the question.
 
@@ -243,7 +247,8 @@ Default reasoning:
 ```text
 early stop in B -> likely loss of functional B protein
 incoming A -> B -> disable as an explanation for B loss
-outgoing B -> C -> disable unless retained function is justified
+force B activity negative -> retain outgoing B -> C edges by default
+outgoing B -> C -> disable only if the edge requires retained function not captured by activity loss
 B itself -> possible negative genetic perturbation/candidate driver
 ```
 
@@ -444,10 +449,11 @@ Important checks:
 - RNA/protein support: if total protein data is available, use it to assess
   whether RNA-level feature weights are also supported at protein level before
   emphasizing the node in interpretation.
-- DNA lesion support: for likely loss-of-function events, decide whether the
-  altered node should disable incoming edges, outgoing edges, or both. Keep
-  ambiguous lesions as annotations until their direction and retained function
-  are clear enough for network pruning.
+- DNA lesion support: for likely loss-of-function events, treat the altered node
+  as a forced negative activity by default and propagate that state through its
+  outgoing edges. Disable incoming edges as explanations for the lesion. Disable
+  outgoing edges only when the specific edge mechanism requires retained
+  function that cannot be modeled as activity loss.
 - Edge sign coherence: when reducing a MOON network, keep edges whose signs are
   consistent with the signs of the connected node scores.
 - Reachability/observability: prune the PKN to nodes reachable from upstream
