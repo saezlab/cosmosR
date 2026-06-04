@@ -257,6 +257,57 @@ and to measure downstream consequences. The DNA event supplies a candidate
 perturbation; RNA-derived TF activities and TF-target consistency provide the
 functional readouts.
 
+### Knockdowns, knockouts, and imposed node perturbations
+
+Treat a knockdown, knockout, or other imposed perturbation of a node `B` as an
+intervention on `B`, not as an ordinary observed consequence of the upstream
+network.
+
+Default reasoning:
+
+- Incoming `A -> B` edges should usually be disabled as explanations for the
+  state of `B`. The experiment imposed low or inactive `B`; MOON should not
+  spend causal paths explaining why `B` changed through upstream regulators.
+- `B` should usually become an upstream input or candidate driver with a forced
+  sign, for example `B = -1` for an effective knockdown, knockout, or
+  loss-of-function perturbation.
+- Outgoing `B -> C` edges should usually be retained so that the forced state of
+  `B` can propagate through the signed PKN. If `B` positively regulates `C`,
+  inactive `B` supports lower `C`; if `B` negatively regulates `C`, inactive
+  `B` supports release or higher `C`.
+- Disable outgoing `B -> C` edges only when the edge requires a molecular
+  function that cannot be represented as reduced `B` activity, or when the
+  evidence shows that the perturbation does not reduce the relevant functional
+  state of `B`.
+
+This is the same causal distinction as an early stop codon, but with an
+experimental rather than genomic cause. The upstream side of `B` is
+disconnected because the perturbation fixes or constrains `B`; the downstream
+side is kept because the analysis is often asking what consequences follow from
+that forced state.
+
+For RNA-seq after a gene knockdown:
+
+- Use the measured decrease of the targeted transcript as evidence that the
+  perturbation was effective, not as an endogenous downstream readout to be
+  explained by upstream PKN edges.
+- Use RNA-derived TF activities, pathway footprints, or target-gene responses as
+  downstream readouts of the perturbation.
+- If total protein, phosphoprotein, or activity evidence shows that `B` did not
+  decrease at the functional level, do not automatically force `B = -1`; mark
+  the perturbation as partial, delayed, or unsupported for the relevant node
+  state.
+
+Important caveats:
+
+- RNAi, CRISPR knockout, CRISPR interference, degron systems, and drug
+  perturbations have different kinetics and off-target risks.
+- Transcript knockdown does not guarantee immediate protein or activity loss.
+- Partial knockdown may require a weaker score, sensitivity analysis, or
+  exclusion of `B` as a hard constraint.
+- Timepoint matters: an early RNA decrease may precede protein turnover, while
+  later downstream changes may include compensation and feedback.
+
 ## Metabolomics
 
 Metabolite measurements can often be used more directly as downstream MOON
@@ -389,6 +440,9 @@ phosphoproteomics -> modified peptide/site abundance -> signaling modification
 DNA-seq -> genomic alteration -> genetic perturbation of gene/protein function
     -> upstream candidate, lesion-based edge pruning, or annotation depending on direction/evidence
 
+perturbation metadata -> imposed node state -> experimental boundary condition
+    -> upstream forced state; disconnect incoming explanations; retain downstream propagation by default
+
 metabolomics -> metabolite abundance/weight -> metabolite node state
     -> often direct downstream input after identifier and compartment mapping
 ```
@@ -400,10 +454,81 @@ For a new omic layer, repeat the same reasoning before coding:
 3. Is the measurement a direct proxy for propagated activity, a footprint
    substrate, a functional-readout gate, an expression/presence filter, or only
    an annotation?
-4. What value means "unsupported" and should remove or ignore an edge?
-5. What value means "unknown" and should not be treated as negative evidence?
-6. Does the current helper function distinguish unsupported from unknown? If
+4. Is the feature an observed consequence to be explained, or an imposed
+   intervention that should become an upstream boundary condition?
+5. What value means "unsupported" and should remove or ignore an edge?
+6. What value means "unknown" and should not be treated as negative evidence?
+7. Does the current helper function distinguish unsupported from unknown? If
    not, add that distinction before using the data in a filtering loop.
+
+## Timepoint Alignment Across Omics
+
+Timepoint matching is a biological modeling choice, not bookkeeping. The agent
+should decide whether measurements are meant to represent the same network state
+or different stages of a causal trajectory.
+
+Two common alignment assumptions:
+
+- Synchronous alignment: compare omics measured at the same or closest
+  timepoint. This assumes the upstream and downstream readouts are compatible
+  views of a shared quasi-steady state.
+- Asynchronous or lagged alignment: compare an earlier upstream-like readout
+  with a later downstream-like readout. This assumes causal delay, for example
+  early phosphoproteomic signaling, later TF/RNA response, and later still
+  protein or metabolite consequences.
+
+The COSMOS+ section 2.3 multi-omic example is a useful warning: when RNA and
+phosphoproteomic timepoints did not map unambiguously, there was no neutral rule
+that automatically made a 24 h RNA profile belong with either early or 24 h
+phosphoproteomics. Such choices should be analyzed as assumptions and, when
+possible, compared explicitly.
+
+Recommended workflow:
+
+1. Define contrasts within each omic and timepoint, for example
+   `treated_t - control_t`, before combining layers.
+2. Convert each omic to its PKN-compatible role at that timepoint: RNA to TF
+   activity and TF-target consistency, phosphoproteomics to kinase or
+   phosphatase activities, total proteomics to abundance support or gating,
+   metabolomics to metabolite states, and DNA or perturbation metadata to
+   imposed upstream states.
+3. Enumerate plausible alignments instead of silently choosing one:
+   same-time, nearest-time, upstream-earlier/downstream-later, or a small set of
+   biologically motivated lag windows.
+4. Run MOON separately for each plausible alignment when the choice could
+   change the interpretation.
+5. Compare alignments by sign coherence, recovery of known perturbation
+   controls, stability of high-scoring nodes, pathway plausibility, and whether
+   inferred paths respect the expected response order.
+6. If alignments disagree and there is no decisive external evidence, keep the
+   results separate or report them as sensitivity analyses rather than merging
+   them into one network.
+
+Layer-specific timing intuition:
+
+- DNA lesions and designed perturbations are usually upstream boundary
+  conditions. They can be paired with later omic readouts, but their functional
+  effect may still depend on expression, protein turnover, and pathway context.
+- Phosphoproteomic signaling can change quickly and may be a better upstream
+  layer for later RNA-derived TF activity than for much later adaptive states.
+- RNA is often a downstream transcriptional response to signaling, but it can
+  also serve as an expression or TF-target consistency gate for another layer.
+- Total proteomics often lags RNA and can be affected by protein half-life; use
+  it cautiously as a time-matched functional-readout gate.
+- Metabolomics may respond rapidly or slowly depending on pathway flux,
+  transport, and compartment context.
+
+Limits to state explicitly:
+
+- Static PKN edges do not encode kinetic delays, feedback loops, or
+  pathway-specific response times.
+- Sparse sampling can make a nearest-time match biologically worse than a
+  lagged match.
+- Late timepoints may reflect adaptation rather than the primary mechanism.
+- Bulk profiles average over asynchronous cell states and heterogeneous
+  responses.
+- Missing matched controls can turn time alignment into an additional
+  confounder.
 
 ## Network Direction Choices
 
@@ -425,6 +550,14 @@ Examples:
 - DNA-seq plus RNA: upstream candidates = signed, directionally interpretable
   genomic perturbations; downstream = TF activities inferred from RNA, with RNA
   expression used to support or reject DNA-derived lesion assumptions.
+- Knockdown plus RNA: upstream = forced negative activity for the perturbed
+  gene when the knockdown is functionally supported; disable incoming edges to
+  the target gene as explanations; downstream = RNA-derived TF activities or
+  transcript/pathway footprints.
+- Multi-timepoint phosphoproteomics plus RNA: upstream may be earlier
+  kinase/phosphatase activity and downstream may be later TF activity, but
+  same-time and lagged alignments should be compared when the response timing is
+  uncertain.
 
 When in doubt, write down:
 
@@ -432,6 +565,7 @@ When in doubt, write down:
 2. Which measurements support that state directly?
 3. Which measurements only support consistency, expression, or annotation?
 4. Which PKN edge types connect the selected layers?
+5. Are the selected timepoints assumed to be synchronous states or causal lags?
 
 ## Consistency Checks
 
@@ -454,6 +588,13 @@ Important checks:
   outgoing edges. Disable incoming edges as explanations for the lesion. Disable
   outgoing edges only when the specific edge mechanism requires retained
   function that cannot be modeled as activity loss.
+- Perturbation support: for knockdown or knockout targets, disconnect incoming
+  upstream explanations for the perturbed node, retain outgoing edges by
+  default, and check whether the measured omics support the assumed functional
+  sign and timing of the perturbation.
+- Temporal support: when multiple omics have multiple timepoints, verify that
+  the selected alignment is compatible with the assumed causal order and repeat
+  the analysis under plausible alternative alignments when timing is ambiguous.
 - Edge sign coherence: when reducing a MOON network, keep edges whose signs are
   consistent with the signs of the connected node scores.
 - Reachability/observability: prune the PKN to nodes reachable from upstream
@@ -501,6 +642,12 @@ Before wiring data into `moon()`:
 5. For proteomics, distinguish total proteomics from phosphoproteomics.
 6. For DNA-seq, classify each alteration by likely functional direction before
    using it as an upstream candidate or edge-pruning rule.
-7. For metabolites, map identifiers and compartments explicitly.
-8. Define upstream/downstream layers in terms of PKN semantics.
-9. Keep output interpretation at the level of mechanistic hypotheses.
+7. For knockdowns, knockouts, and other imposed perturbations, decide whether
+   the perturbed node is functionally forced, disconnect incoming explanations,
+   and retain downstream propagation by default.
+8. For metabolites, map identifiers and compartments explicitly.
+9. For multi-timepoint data, state whether each omic alignment is synchronous or
+   lagged and run sensitivity analyses for plausible alternatives.
+10. Define upstream/downstream layers in terms of PKN semantics and timepoint
+    assumptions.
+11. Keep output interpretation at the level of mechanistic hypotheses.
