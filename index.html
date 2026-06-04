@@ -19,7 +19,7 @@
 <meta property="og:title" content="COSMOS (Causal Oriented Search of Multi-Omic Space)">
 <meta name="description" content="COSMOS (Causal Oriented Search of Multi-Omic Space) is a method that integrates phosphoproteomics, transcriptomics, and metabolomics data sets based on prior knowledge of signaling, metabolic, and gene regulatory networks. It estimated the activities of transcrption factors and kinases and finds a network-level causal reasoning. Thereby, COSMOS provides mechanistic hypotheses for experimental observations across mulit-omics datasets.">
 <meta property="og:description" content="COSMOS (Causal Oriented Search of Multi-Omic Space) is a method that integrates phosphoproteomics, transcriptomics, and metabolomics data sets based on prior knowledge of signaling, metabolic, and gene regulatory networks. It estimated the activities of transcrption factors and kinases and finds a network-level causal reasoning. Thereby, COSMOS provides mechanistic hypotheses for experimental observations across mulit-omics datasets.">
-<meta property="og:image" content="/logo.png">
+<meta property="og:image" content="https://saezlab.github.io/cosmosR/logo.png">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-PV71G2Q3SF"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -46,20 +46,13 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/MOFA_to_COSMOS.html">MOFA to COSMOS tutorial</a></li>
-    <li><a class="dropdown-item" href="articles/NCI60_tutorial.html">NCI60 tutorial</a></li>
-    <li><a class="dropdown-item" href="articles/tutorial.html">COSMOS-tutorial</a></li>
-  </ul>
-</li>
+<li class="nav-item"><a class="nav-link" href="articles/index.html">Articles</a></li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/saezlab/COSMOSR/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://twitter.com/saezlab"><span class="fa fab fa-twitter fa-lg"></span></a></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://saezlab.org"><span class="fa fas fa-university"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://twitter.com/saezlab" aria-label="Twitter"><span class="fa fab fa-twitter fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://saezlab.org" aria-label="Saez Lab"><span class="fa fas fa-university"></span></a></li>
       </ul>
 </div>
 
@@ -78,10 +71,10 @@
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
 <p>COSMOS (Causal Oriented Search of Multi-Omic Space) is a method that integrates phosphoproteomics, transcriptomics, and metabolomics data sets. COSMOS leverages extensive prior knowledge of signaling pathways, metabolic networks, and gene regulation with computational methods to estimate activities of transcription factors and kinases as well as network-level causal reasoning. This pipeline can provide mechanistic explanations for experimental observations across multiple omic data sets.</p>
-<p><img src="reference/figures/intro_data.png" align="center" width="800"></p>
+<p><img src="reference/figures/intro_data.png" alt="COSMOS multi-omics input overview" align="center" width="800"></p>
 <p>COSMOS finds coherent subnetwork causally connecting as many deregulated TFs, kinases/phosphatases and metabolites as possible. The subnetwork is extracted from a novel integrated PKN (available <a href="http://metapkn.omnipathdb.org/" class="external-link">here</a>) spanning signaling, transcriptional regulation and metabolism. Transcription factors activities are inferred from gene expression with <a href="https://saezlab.github.io/decoupleR/" class="external-link">decoupleR</a>. Kinase activities are inferred from phosphoproteomic with a kinase/substrate network of <a href="http://omnipathdb.org/" class="external-link">Omnipath</a>, a meta resource of protein-protein. The scripts to generate the current network can be found here: <a href="https://github.com/saezlab/meta_PKN_BIGG" class="external-link uri">https://github.com/saezlab/meta_PKN_BIGG</a>.</p>
 <p>You can also use COSMOS if you don’t have metabolomic data, to connect TF activities (from transcriptomic) with kinase activities (from phosphoproteomic) for exmaple !</p>
-<p><img src="reference/figures/graphical_abstract.png" align="center" width="800"></p>
+<p><img src="reference/figures/graphical_abstract.png" alt="COSMOS workflow graphical abstract" align="center" width="800"></p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -107,6 +100,12 @@
 </h2>
 <p>We made a repository that contains pre-processed inputs and an example script to use cosmos with the NCI60 RNA+metabolomic datasets. You can find the repository <a href="https://github.com/saezlab/COSMOS_basic" class="external-link">here</a>.</p>
 <p>!!! THIS is were you can find the input data and the pre-processing scripts that corespond to the featured vignette !!!</p>
+</div>
+<div class="section level2">
+<h2 id="moon-data-to-pkn-mapping-principles">MOON data-to-PKN mapping principles<a class="anchor" aria-label="anchor" href="#moon-data-to-pkn-mapping-principles"></a>
+</h2>
+<p>For MOON analyses, the most important design choice is how each data type should enter the prior knowledge network: as a direct input, footprint-derived activity, consistency check, functional-readout gate, filter, or annotation.</p>
+<p>See the <a href="https://saezlab.github.io/cosmosR/articles/moon_data_pkn_mapping_principles.html">MOON data-to-PKN mapping principles</a> article (<a href="vignettes/moon_data_pkn_mapping_principles.Rmd">source</a>) for practical guidance on RNA, proteomics, phosphoproteomics, metabolomics, DNA alterations, perturbations, and multi-timepoint alignment.</p>
 </div>
 <div class="section level2">
 <h2 id="access">Access<a class="anchor" aria-label="anchor" href="#access"></a>

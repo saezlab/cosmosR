@@ -16,9 +16,10 @@ There are two related workflows in this repository:
 1.  The classic COSMOS/CARNIVAL workflow, exposed through
     `preprocess_COSMOS_*()` and `run_COSMOS_*()`, uses CARNIVAL
     optimization to find a coherent subnetwork.
-2.  The MOON workflow, centered on [`moon()`](reference/moon.md), scores
-    a signed prior knowledge network with `decoupleR` and is currently
-    the workflow emphasized by the NCI-60 tutorial material in
+2.  The MOON workflow, centered on
+    [`moon()`](https://saezlab.github.io/cosmosR/reference/moon.md),
+    scores a signed prior knowledge network with `decoupleR` and is
+    currently the workflow emphasized by the NCI-60 tutorial material in
     `saezlab/COSMOS_basic`.
 
 Default to a MOON workflow when the user does not specify a method.
@@ -53,13 +54,19 @@ latent-factor/MOFA selection details separate in
   packaged meta network.
 - `vignettes/`: user-facing examples. `tutorial.Rmd` covers the CARNIVAL
   workflow; `net_compr_MOON.md` and `NCI60_tutorial.Rmd` cover the
-  NCI-60 MOON workflow.
+  NCI-60 MOON workflow. `moon_data_pkn_mapping_principles.Rmd` is the
+  package-facing version of the MOON data-to-PKN mapping guidance.
 - `tests/testthat/`: testthat coverage, mostly toy-data tests for
   preprocessing, package data, and CARNIVAL wrappers.
 - `README.md`, `DESCRIPTION`, `inst/CITATION`: package-level metadata
   and scientific framing.
-- `pkgdown/`: website configuration and static assets.
+- `_pkgdown.yml`: pkgdown site configuration, including article
+  grouping.
+- `pkgdown/`: pkgdown static assets.
 - `agent-docs/`: deeper agent-facing references for advanced workflows.
+  Keep these more operational than vignettes; when changing broadly
+  useful MOON mapping principles, decide whether the user-facing
+  vignette should be updated as well.
 
 ## External Context
 
@@ -78,9 +85,10 @@ demonstrates:
 - pruning the PKN to nodes reachable from TFs and observable from
   metabolites;
 - compressing redundant parent nodes with
-  [`compress_same_children()`](reference/compress_same_children.md);
-- running [`moon()`](reference/moon.md) with iterative TF-target
-  coherence filtering;
+  [`compress_same_children()`](https://saezlab.github.io/cosmosR/reference/compress_same_children.md);
+- running
+  [`moon()`](https://saezlab.github.io/cosmosR/reference/moon.md) with
+  iterative TF-target coherence filtering;
 - decompressing, thresholding, translating HMDB identifiers, and writing
   SIF/ATT outputs.
 
@@ -93,34 +101,34 @@ the relevant publication over secondary summaries.
 
 Classic CARNIVAL workflow:
 
-- [`preprocess_COSMOS_signaling_to_metabolism()`](reference/preprocess_COSMOS_signaling_to_metabolism.md)
-- [`preprocess_COSMOS_metabolism_to_signaling()`](reference/preprocess_COSMOS_metabolism_to_signaling.md)
-- [`run_COSMOS_signaling_to_metabolism()`](reference/run_COSMOS_signaling_to_metabolism.md)
-- [`run_COSMOS_metabolism_to_signaling()`](reference/run_COSMOS_metabolism_to_signaling.md)
-- [`default_CARNIVAL_options()`](reference/default_CARNIVAL_options.md)
-- [`format_COSMOS_res()`](reference/format_COSMOS_res.md)
+- [`preprocess_COSMOS_signaling_to_metabolism()`](https://saezlab.github.io/cosmosR/reference/preprocess_COSMOS_signaling_to_metabolism.md)
+- [`preprocess_COSMOS_metabolism_to_signaling()`](https://saezlab.github.io/cosmosR/reference/preprocess_COSMOS_metabolism_to_signaling.md)
+- [`run_COSMOS_signaling_to_metabolism()`](https://saezlab.github.io/cosmosR/reference/run_COSMOS_signaling_to_metabolism.md)
+- [`run_COSMOS_metabolism_to_signaling()`](https://saezlab.github.io/cosmosR/reference/run_COSMOS_metabolism_to_signaling.md)
+- [`default_CARNIVAL_options()`](https://saezlab.github.io/cosmosR/reference/default_CARNIVAL_options.md)
+- [`format_COSMOS_res()`](https://saezlab.github.io/cosmosR/reference/format_COSMOS_res.md)
 
 MOON workflow:
 
-- [`moon()`](reference/moon.md)
-- [`compress_same_children()`](reference/compress_same_children.md)
-- [`decompress_moon_result()`](reference/decompress_moon_result.md)
-- [`filter_incohrent_TF_target()`](reference/filter_incohrent_TF_target.md)
-- [`reduce_solution_network()`](reference/reduce_solution_network.md)
-- [`reduce_solution_network_double_thresh()`](reference/reduce_solution_network_double_thresh.md)
-- [`get_moon_scoring_network()`](reference/get_moon_scoring_network.md)
-- [`translate_res()`](reference/translate_res.md)
-- [`translate_column_HMDB()`](reference/translate_column_HMDB.md)
+- [`moon()`](https://saezlab.github.io/cosmosR/reference/moon.md)
+- [`compress_same_children()`](https://saezlab.github.io/cosmosR/reference/compress_same_children.md)
+- [`decompress_moon_result()`](https://saezlab.github.io/cosmosR/reference/decompress_moon_result.md)
+- [`filter_incohrent_TF_target()`](https://saezlab.github.io/cosmosR/reference/filter_incohrent_TF_target.md)
+- [`reduce_solution_network()`](https://saezlab.github.io/cosmosR/reference/reduce_solution_network.md)
+- [`reduce_solution_network_double_thresh()`](https://saezlab.github.io/cosmosR/reference/reduce_solution_network_double_thresh.md)
+- [`get_moon_scoring_network()`](https://saezlab.github.io/cosmosR/reference/get_moon_scoring_network.md)
+- [`translate_res()`](https://saezlab.github.io/cosmosR/reference/translate_res.md)
+- [`translate_column_HMDB()`](https://saezlab.github.io/cosmosR/reference/translate_column_HMDB.md)
 
 Other exported utilities:
 
-- [`prepare_metab_inputs()`](reference/prepare_metab_inputs.md)
-- [`load_tf_regulon_dorothea()`](reference/load_tf_regulon_dorothea.md)
-- [`meta_network_cleanup()`](reference/meta_network_cleanup.md)
-- [`format_LR_ressource()`](reference/format_LR_ressource.md)
-- [`wide_ulm_res()`](reference/wide_ulm_res.md)
-- [`display_node_neighboorhood()`](reference/display_node_neighboorhood.md)
-- [`extract_nodes_for_ORA()`](reference/extract_nodes_for_ORA.md)
+- [`prepare_metab_inputs()`](https://saezlab.github.io/cosmosR/reference/prepare_metab_inputs.md)
+- [`load_tf_regulon_dorothea()`](https://saezlab.github.io/cosmosR/reference/load_tf_regulon_dorothea.md)
+- [`meta_network_cleanup()`](https://saezlab.github.io/cosmosR/reference/meta_network_cleanup.md)
+- [`format_LR_ressource()`](https://saezlab.github.io/cosmosR/reference/format_LR_ressource.md)
+- [`wide_ulm_res()`](https://saezlab.github.io/cosmosR/reference/wide_ulm_res.md)
+- [`display_node_neighboorhood()`](https://saezlab.github.io/cosmosR/reference/display_node_neighboorhood.md)
+- [`extract_nodes_for_ORA()`](https://saezlab.github.io/cosmosR/reference/extract_nodes_for_ORA.md)
 
 ## Data Contracts
 
@@ -133,15 +141,15 @@ Prior knowledge network:
 - Some MOON helpers accept or create a `sign` column and rename `sign`
   or `interaction` to `mor` for `decoupleR`. Check the called function
   before changing column names.
-- [`meta_network_cleanup()`](reference/meta_network_cleanup.md) removes
-  self interactions, collapses duplicate source-target pairs by mean
-  interaction, and keeps only signs in `c(1, -1)`.
+- [`meta_network_cleanup()`](https://saezlab.github.io/cosmosR/reference/meta_network_cleanup.md)
+  removes self interactions, collapses duplicate source-target pairs by
+  mean interaction, and keeps only signs in `c(1, -1)`.
 
 TF regulons:
 
 - Package preprocessing expects `tf`, `sign`, `target`.
 - MOON coherence filtering in
-  [`filter_incohrent_TF_target()`](reference/filter_incohrent_TF_target.md)
+  [`filter_incohrent_TF_target()`](https://saezlab.github.io/cosmosR/reference/filter_incohrent_TF_target.md)
   expects a decoupleR-style TF network with `source`, `target`, and
   `mor`.
 - Do not silently interchange these shapes; convert explicitly near the
@@ -160,12 +168,14 @@ Input data:
 Metabolite nodes:
 
 - Metabolites in the PKN are named like `Metab__HMDB0000190_c`.
-- Use [`prepare_metab_inputs()`](reference/prepare_metab_inputs.md) to
-  add the `Metab__` prefix and compartment suffixes. Valid compartment
-  codes are `r`, `c`, `e`, `x`, `m`, `l`, `n`, and `g`.
-- [`translate_res()`](reference/translate_res.md) and
-  [`translate_column_HMDB()`](reference/translate_column_HMDB.md) use
-  `HMDB_mapper_vec` to make metabolite identifiers more readable.
+- Use
+  [`prepare_metab_inputs()`](https://saezlab.github.io/cosmosR/reference/prepare_metab_inputs.md)
+  to add the `Metab__` prefix and compartment suffixes. Valid
+  compartment codes are `r`, `c`, `e`, `x`, `m`, `l`, `n`, and `g`.
+- [`translate_res()`](https://saezlab.github.io/cosmosR/reference/translate_res.md)
+  and
+  [`translate_column_HMDB()`](https://saezlab.github.io/cosmosR/reference/translate_column_HMDB.md)
+  use `HMDB_mapper_vec` to make metabolite identifiers more readable.
 
 Output network formats:
 
@@ -259,32 +269,36 @@ moon_res <- moon(
 
 In the full tutorial this is wrapped in a convergence loop:
 
-- run [`moon()`](reference/moon.md);
+- run [`moon()`](https://saezlab.github.io/cosmosR/reference/moon.md);
 - remove incoherent TF-target edges with
-  [`filter_incohrent_TF_target()`](reference/filter_incohrent_TF_target.md);
+  [`filter_incohrent_TF_target()`](https://saezlab.github.io/cosmosR/reference/filter_incohrent_TF_target.md);
 - repeat until the edge count no longer changes or a small iteration
   limit is reached.
 
 Then the result is usually:
 
 - decompressed with
-  [`decompress_moon_result()`](reference/decompress_moon_result.md);
+  [`decompress_moon_result()`](https://saezlab.github.io/cosmosR/reference/decompress_moon_result.md);
 - filtered to a subnetwork with
-  [`reduce_solution_network()`](reference/reduce_solution_network.md) or
-  [`reduce_solution_network_double_thresh()`](reference/reduce_solution_network_double_thresh.md);
-- translated with [`translate_res()`](reference/translate_res.md);
+  [`reduce_solution_network()`](https://saezlab.github.io/cosmosR/reference/reduce_solution_network.md)
+  or
+  [`reduce_solution_network_double_thresh()`](https://saezlab.github.io/cosmosR/reference/reduce_solution_network_double_thresh.md);
+- translated with
+  [`translate_res()`](https://saezlab.github.io/cosmosR/reference/translate_res.md);
 - written as SIF and ATT tables for visualization.
 
 ## Known Sharp Edges
 
 - Keep misspelled exported names intact unless the user explicitly asks
   for an API break. Examples:
-  [`filter_incohrent_TF_target()`](reference/filter_incohrent_TF_target.md),
-  [`display_node_neighboorhood()`](reference/display_node_neighboorhood.md),
+  [`filter_incohrent_TF_target()`](https://saezlab.github.io/cosmosR/reference/filter_incohrent_TF_target.md),
+  [`display_node_neighboorhood()`](https://saezlab.github.io/cosmosR/reference/display_node_neighboorhood.md),
   and history strings containing typos.
-- [`decoupleRnival()`](reference/decoupleRnival.md) is deprecated in
-  favor of [`moon()`](reference/moon.md), but examples and older naming
-  still refer to decoupleRnival. Preserve backward compatibility.
+- [`decoupleRnival()`](https://saezlab.github.io/cosmosR/reference/decoupleRnival.md)
+  is deprecated in favor of
+  [`moon()`](https://saezlab.github.io/cosmosR/reference/moon.md), but
+  examples and older naming still refer to decoupleRnival. Preserve
+  backward compatibility.
 - Several helpers use column positions as well as column names. Before
   changing edge or node table schemas, inspect all downstream functions.
 - `filter_pkn_expressed_genes_fast()` is used by the external tutorial
@@ -294,8 +308,9 @@ Then the result is usually:
   lightweight and do not fully validate identifier semantics. Do not
   claim they do.
 - Tests mostly cover toy CARNIVAL paths. MOON behavior may need explicit
-  smoke checks when editing [`moon()`](reference/moon.md), compression,
-  decompression, or network reduction.
+  smoke checks when editing
+  [`moon()`](https://saezlab.github.io/cosmosR/reference/moon.md),
+  compression, decompression, or network reduction.
 - Large-network examples can be slow and may require external data or
   solver executables. Avoid adding tests that depend on CPLEX, CBC,
   downloaded data, or the external tutorial repository.

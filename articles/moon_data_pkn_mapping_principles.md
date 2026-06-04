@@ -1,0 +1,289 @@
+# MOON data-to-PKN mapping principles
+
+## Scope
+
+This article describes how to decide which measurements should be used
+as MOON inputs, consistency checks, filters, or annotations when scoring
+a COSMOS prior knowledge network (PKN).
+
+The central question is:
+
+> What biological quantity does this measurement represent, and does
+> that match the type of causal interaction encoded by the PKN?
+
+MOON scores signed mechanistic paths in a PKN. A feature should
+therefore not be mapped to a node only because the gene, protein, or
+metabolite identifier matches. The measured quantity must also match the
+biological state represented by the node and its edges.
+
+This article focuses on MOON workflows. Classic COSMOS/CARNIVAL
+workflows remain available, but they have heavier solver and setup
+requirements and are best used when specifically needed.
+
+## The basic MOON cases
+
+When no method is specified, a MOON workflow is usually the practical
+default. Two common entry points are:
+
+- RNA only: infer transcription factor (TF) activities from RNA, then
+  use those TF activities as downstream observations to infer plausible
+  upstream regulators. The upstream layer may be unspecified, or defined
+  by receptors, ligands, drugs, perturbations, or another relevant
+  source layer.
+- RNA plus metabolomics: infer TF activities from RNA and use them as
+  upstream activity inputs; use mapped metabolite measurements as
+  downstream inputs. This is the compact workflow illustrated by the
+  COSMOS_basic material.
+
+More advanced datasets require a more explicit mapping step. The rest of
+this article gives practical rules for that decision.
+
+## Direct inputs, footprints, gates, and annotations
+
+Different omics can enter the analysis in different roles:
+
+| Role | Meaning | Example |
+|----|----|----|
+| Direct MOON input | The measurement directly represents the node state scored by MOON. | A mapped metabolite abundance used as a metabolite node state. |
+| Footprint-derived activity | The measurement is transformed into an inferred activity. | RNA to TF activity; phosphosites to kinase activity. |
+| Consistency check | The measurement tests whether an inferred edge is compatible with the data. | RNA target expression used to check TF-target sign consistency. |
+| Functional-readout gate | The measurement asks whether an observed signal reaches a downstream functional layer. | Total protein support used to gate transcript-supported TF-target readouts. |
+| Filter | The measurement controls whether a node or edge is considered available. | RNA expression used to remove unexpressed genes from the PKN. |
+| Annotation | The measurement helps interpret a scored node but is not used as an activity constraint. | Total protein abundance shown next to a scored kinase. |
+
+The important distinction is that these roles are not interchangeable. A
+total protein abundance value can be useful, but it does not
+automatically become a protein activity score. RNA can be essential for
+TF activity inference, but the RNA abundance of a kinase is not usually
+evidence for kinase activity.
+
+## RNA
+
+RNA abundance is best matched to transcriptional regulation.
+
+Preferred uses:
+
+- Infer TF activities from RNA with a TF-target regulon, for example
+  using CollecTRI or DoRothEA with decoupleR.
+- Use RNA target expression as a TF-target consistency check after MOON
+  scores TFs.
+- Use RNA to decide which genes are expressed and can reasonably remain
+  in a context-specific PKN.
+- Keep RNA abundance or RNA factor weights as annotations when
+  interpreting scored protein nodes.
+
+Avoid treating RNA abundance of a receptor, kinase, enzyme, or TF as
+direct protein activity unless the analysis explicitly justifies that
+assumption.
+
+For TF-target consistency, keep the RNA vector separate from TF activity
+scores. TF activity is a derived upstream or downstream activity
+variable; target RNA is the observed transcript-level readout used to
+check whether TF-target edges have the expected sign.
+
+## Total proteomics
+
+Total proteomics measures protein abundance, not protein activity.
+
+Preferred uses:
+
+- Use total protein abundance as evidence that a protein is present or
+  associated with the signal being interpreted.
+- Use matched total proteomics to gate transcript-supported TF-target
+  regulation when the question requires a downstream protein-level
+  readout.
+- Use total proteomics as an annotation for scored nodes.
+
+A useful pattern is protein-gated RNA for TF-target filtering:
+
+1.  RNA asks whether the TF-target transcript changes in a direction
+    compatible with the upstream TF activity and TF-target sign.
+2.  Matched total proteomics asks whether this transcript-level signal
+    plausibly translates into protein-level downstream support.
+3.  If RNA is coherent but the matched protein abundance is weak or
+    contradictory, the TF-target edge can be treated as unsupported for
+    a functional downstream readout.
+
+This does not mean that total proteomics proves a TF-target edge. It
+only makes the retained edge more compatible with the chosen multi-omic
+assumptions.
+
+## Phosphoproteomics
+
+Phosphoproteomics is usually better matched to signaling activity than
+total proteomics, but it still often needs a footprint step.
+
+Preferred uses:
+
+- Infer kinase or phosphatase activities from phosphosite data and a
+  kinase-substrate or phosphatase-substrate prior.
+- Use these inferred activities as MOON inputs when they match the
+  signaling layer being scored.
+- Use a measured phosphosite directly only when the PKN explicitly
+  represents that modified site or a node whose state is defined by that
+  modification.
+
+Avoid collapsing phosphoproteomics into total protein abundance
+semantics. A phosphosite measurement is a modification-specific signal
+and should be mapped accordingly.
+
+## Metabolomics
+
+Metabolite measurements can often be used more directly as downstream
+inputs because metabolite nodes in the COSMOS PKN represent metabolite
+states.
+
+Preferred uses:
+
+- Map metabolite identifiers and compartments explicitly, for example
+  with
+  [`prepare_metab_inputs()`](https://saezlab.github.io/cosmosR/reference/prepare_metab_inputs.md).
+- Use metabolite abundances, differential statistics, or factor weights
+  as downstream inputs when inferring upstream regulators.
+- Keep compartment assumptions visible. Mapping the same measured
+  metabolite to multiple compartments is an analysis choice, not a
+  neutral default.
+
+## DNA sequencing and genetic lesions
+
+DNA sequencing identifies candidate causal alterations. These are
+usually perturbations or annotations, not direct activity measurements.
+
+Preferred uses:
+
+- Use high-confidence, directionally interpretable alterations as
+  upstream perturbation candidates. Examples include known activating
+  mutations, homozygous deletions, truncating loss-of-function events,
+  amplifications with expression support, or fusions with known
+  direction.
+- Use ambiguous alterations as annotations unless their functional
+  direction is clear enough for the analysis.
+- Use RNA-seq to check whether the altered gene is expressed and to
+  infer downstream TF activities or pathway footprints.
+
+For an early stop codon or other likely loss-of-function lesion in node
+`B`:
+
+- Disable incoming `A -> B` edges as explanations for the loss of `B`
+  activity. The loss is genetically imposed, not necessarily caused by
+  upstream regulation.
+- Retain outgoing `B -> C` edges by default and represent `B` as a
+  forced negative activity. The inactive state of `B` should propagate
+  to downstream targets according to the sign of `B`’s outgoing edges.
+- Disable outgoing edges only when the specific edge mechanism requires
+  a molecular function that the lesion destroys and this cannot be
+  represented as lower `B` activity.
+
+Check allele status, loss of heterozygosity, clonal fraction, RNA
+expression, domain position, protein stability, and whether the mutation
+could be dominant-negative or gain-of-function before making a hard
+rule.
+
+## Knockdowns, knockouts, and imposed perturbations
+
+A designed perturbation is an intervention on a node, not an ordinary
+observed consequence of the network.
+
+For a knockdown, knockout, or other imposed perturbation of node `B`:
+
+- Disable incoming `A -> B` edges as explanations for the state of `B`.
+- Treat `B` as an upstream input or candidate driver with a forced sign
+  when the perturbation is effective, for example `B = -1` for a
+  functional knockdown or loss-of-function perturbation.
+- Retain outgoing `B -> C` edges by default so the forced state of `B`
+  can propagate through the signed PKN.
+
+The reasoning is causal: the perturbation fixes or constrains `B`, so
+upstream regulators should not be used to explain the state of `B`; the
+downstream side is kept because the analysis asks what follows from that
+imposed state.
+
+Important caveats:
+
+- Transcript knockdown does not guarantee immediate protein or activity
+  loss.
+- RNAi, CRISPR knockout, CRISPR interference, degron systems, and drugs
+  have different kinetics and off-target risks.
+- Partial knockdown may require a weaker score, sensitivity analysis, or
+  exclusion of the target as a hard constraint.
+- Timepoint matters, especially when RNA decreases before protein
+  turnover or when later readouts include compensation and feedback.
+
+## Timepoint alignment across omics
+
+Timepoint matching is a modeling choice. It asks whether measurements
+are treated as the same network state or as different stages of a causal
+trajectory.
+
+Two common assumptions are:
+
+- Synchronous alignment: measurements at the same or nearest timepoint
+  are treated as compatible views of a shared quasi-steady state.
+- Lagged alignment: an earlier upstream-like layer is paired with a
+  later downstream-like layer, for example early phosphoproteomic
+  signaling followed by later RNA-derived TF activity.
+
+There is no universal rule that a 24 h RNA profile should always be
+matched to 24 h phosphoproteomics, or always to an earlier
+phosphoproteomic timepoint. The right choice depends on the
+perturbation, pathway kinetics, sampling design, and question being
+asked.
+
+Recommended workflow:
+
+1.  Define contrasts within each omic and timepoint, such as treated
+    minus control at the same timepoint.
+2.  Convert each omic to its PKN-compatible role at that timepoint.
+3.  Enumerate plausible alignments, including same-time, nearest-time,
+    and biologically motivated lagged alignments.
+4.  Run MOON separately for alignments that could change the
+    interpretation.
+5.  Compare sign coherence, recovery of known controls, stability of
+    high-scoring nodes, pathway plausibility, and whether inferred paths
+    respect the expected response order.
+6.  If alignments disagree and no external evidence resolves the choice,
+    keep the results separate or report them as sensitivity analyses.
+
+Limits to state explicitly:
+
+- Static PKN edges do not encode kinetic delays, feedback loops, or
+  pathway-specific response times.
+- Sparse sampling can make nearest-time matching misleading.
+- Late timepoints may reflect adaptation rather than the primary
+  mechanism.
+- Bulk profiles can average over asynchronous cell states.
+- Missing matched controls can make time alignment an additional
+  confounder.
+
+## A practical checklist
+
+Before running MOON, write down:
+
+1.  What each data type measures: abundance, activity, modification,
+    perturbation, or latent weight.
+2.  Which PKN edge types are involved in the planned analysis.
+3.  Which measurements become direct inputs, footprints, consistency
+    checks, functional-readout gates, filters, or annotations.
+4.  For RNA, how TF activity is derived and how target RNA is kept
+    separately for TF-target coherence.
+5.  For proteomics, whether the data are total proteomics or
+    phosphoproteomics.
+6.  For DNA-seq and designed perturbations, which node states are
+    imposed and which incoming edges should stop being used as
+    explanations.
+7.  For metabolites, which identifiers and compartments are used.
+8.  For time-course data, whether each omic alignment is synchronous or
+    lagged.
+9.  What assumptions should be tested by sensitivity analyses.
+
+The final network should be interpreted as a coherent mechanistic
+hypothesis under these assumptions, not as experimental proof that every
+retained edge is active in the studied context.
+
+## Further implementation notes
+
+The package-facing article is intentionally concise. Coding agents and
+developers can find more operational detail in
+`agent-docs/moon-data-pkn-mapping-principles.md`, including
+implementation notes for TF-target filtering, protein-gated RNA, and
+edge-pruning defaults.

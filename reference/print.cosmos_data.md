@@ -13,10 +13,11 @@ print(x, ...)
 
 - x:
 
-  [`cosmos_data`](cosmos_data.md) object. Use the
-  [`preprocess_COSMOS_signaling_to_metabolism`](preprocess_COSMOS_signaling_to_metabolism.md)
+  [`cosmos_data`](https://saezlab.github.io/cosmosR/reference/cosmos_data.md)
+  object. Use the
+  [`preprocess_COSMOS_signaling_to_metabolism`](https://saezlab.github.io/cosmosR/reference/preprocess_COSMOS_signaling_to_metabolism.md)
   or
-  [`preprocess_COSMOS_metabolism_to_signaling`](preprocess_COSMOS_metabolism_to_signaling.md)
+  [`preprocess_COSMOS_metabolism_to_signaling`](https://saezlab.github.io/cosmosR/reference/preprocess_COSMOS_metabolism_to_signaling.md)
   functions to create one.
 
 - ...:
@@ -30,4 +31,4 @@ input (invisible)
 ## See also
 
 [`print`](https://rdrr.io/r/base/print.html),
-[`cosmos_data`](cosmos_data.md)
+[`cosmos_data`](https://saezlab.github.io/cosmosR/reference/cosmos_data.md)

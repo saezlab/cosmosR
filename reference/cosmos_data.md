@@ -2,9 +2,9 @@
 
 An S3 class that combines the required data into a comprehensive list.
 Use the
-[`preprocess_COSMOS_signaling_to_metabolism`](preprocess_COSMOS_signaling_to_metabolism.md)
+[`preprocess_COSMOS_signaling_to_metabolism`](https://saezlab.github.io/cosmosR/reference/preprocess_COSMOS_signaling_to_metabolism.md)
 or
-[`preprocess_COSMOS_metabolism_to_signaling`](preprocess_COSMOS_metabolism_to_signaling.md)
+[`preprocess_COSMOS_metabolism_to_signaling`](https://saezlab.github.io/cosmosR/reference/preprocess_COSMOS_metabolism_to_signaling.md)
 to create an instance.
 
 ## Usage
@@ -26,13 +26,14 @@ cosmos_data(
 
   Prior knowledge network (PKN). By default COSMOS use a PKN derived
   from Omnipath, STITCHdb and Recon3D. See details on the data
-  [`meta_network`](meta_network.md).
+  [`meta_network`](https://saezlab.github.io/cosmosR/reference/meta_network.md).
 
 - tf_regulon:
 
   Collection of transcription factor - target interactions. A default
   collection from dorothea can be obtained by the
-  [`load_tf_regulon_dorothea`](load_tf_regulon_dorothea.md) function.
+  [`load_tf_regulon_dorothea`](https://saezlab.github.io/cosmosR/reference/load_tf_regulon_dorothea.md)
+  function.
 
 - signaling_data:
 

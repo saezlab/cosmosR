@@ -2,9 +2,9 @@
 
 Returns the default CARNIVAL options as a list. You can modify the
 elements of the list and then use it as an argument in
-[`run_COSMOS_metabolism_to_signaling`](run_COSMOS_metabolism_to_signaling.md)
+[`run_COSMOS_metabolism_to_signaling`](https://saezlab.github.io/cosmosR/reference/run_COSMOS_metabolism_to_signaling.md)
 or
-[`run_COSMOS_signaling_to_metabolism`](run_COSMOS_signaling_to_metabolism.md).
+[`run_COSMOS_signaling_to_metabolism`](https://saezlab.github.io/cosmosR/reference/run_COSMOS_signaling_to_metabolism.md).
 If you choose CPLEX or CBC, you must modify then the solverPath field
 and point to the CPLEX/CBC executable (See Details).
 

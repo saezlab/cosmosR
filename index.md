@@ -11,7 +11,7 @@ network-level causal reasoning. This pipeline can provide mechanistic
 explanations for experimental observations across multiple omic data
 sets.
 
-![](reference/figures/intro_data.png)
+![COSMOS multi-omics input overview](reference/figures/intro_data.png)
 
 COSMOS finds coherent subnetwork causally connecting as many deregulated
 TFs, kinases/phosphatases and metabolites as possible. The subnetwork is
@@ -29,7 +29,8 @@ You can also use COSMOS if you don’t have metabolomic data, to connect
 TF activities (from transcriptomic) with kinase activities (from
 phosphoproteomic) for exmaple !
 
-![](reference/figures/graphical_abstract.png)
+![COSMOS workflow graphical
+abstract](reference/figures/graphical_abstract.png)
 
 ## Installation
 
@@ -68,6 +69,21 @@ find the repository [here](https://github.com/saezlab/COSMOS_basic).
 
 !!! THIS is were you can find the input data and the pre-processing
 scripts that corespond to the featured vignette !!!
+
+## MOON data-to-PKN mapping principles
+
+For MOON analyses, the most important design choice is how each data
+type should enter the prior knowledge network: as a direct input,
+footprint-derived activity, consistency check, functional-readout gate,
+filter, or annotation.
+
+See the [MOON data-to-PKN mapping
+principles](https://saezlab.github.io/cosmosR/articles/moon_data_pkn_mapping_principles.html)
+article
+([source](https://saezlab.github.io/cosmosR/vignettes/moon_data_pkn_mapping_principles.Rmd))
+for practical guidance on RNA, proteomics, phosphoproteomics,
+metabolomics, DNA alterations, perturbations, and multi-timepoint
+alignment.
 
 ## Access
 
