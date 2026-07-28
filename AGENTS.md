@@ -47,26 +47,41 @@ latent-factor/MOFA selection details separate in
 
 - `R/`: package source. Edit roxygen comments here, then regenerate docs
   when needed.
+
 - `man/`: generated Rd files. Do not hand-edit unless the user
   specifically asks for an emergency documentation patch and you explain
   why roxygen was not run.
+
 - `data/`: exported package data files, including toy inputs and the
   packaged meta network.
+
 - `vignettes/`: user-facing examples. `tutorial.Rmd` covers the CARNIVAL
   workflow; `net_compr_MOON.md` and `NCI60_tutorial.Rmd` cover the
   NCI-60 MOON workflow. `moon_data_pkn_mapping_principles.Rmd` is the
   package-facing version of the MOON data-to-PKN mapping guidance.
+
 - `tests/testthat/`: testthat coverage, mostly toy-data tests for
   preprocessing, package data, and CARNIVAL wrappers.
+
 - `README.md`, `DESCRIPTION`, `inst/CITATION`: package-level metadata
   and scientific framing.
+
 - `_pkgdown.yml`: pkgdown site configuration, including article
   grouping.
+
 - `pkgdown/`: pkgdown static assets.
+
 - `agent-docs/`: deeper agent-facing references for advanced workflows.
   Keep these more operational than vignettes; when changing broadly
   useful MOON mapping principles, decide whether the user-facing
   vignette should be updated as well.
+
+- skills/cosmos-moon-pipeline/: versioned Codex skill for the
+  operational MOON workflow. It routes upstream/downstream decisions
+  through the agent-facing semantic guidance and then covers PKN
+  preparation, scoring, extraction, translation, and pathway-control
+  analysis. Keep this tracked source in sync with the installed personal
+  skill.
 
 ## External Context
 

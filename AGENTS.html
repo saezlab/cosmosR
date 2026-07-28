@@ -55,24 +55,16 @@
 </div>
 <div class="section level2">
 <h2 id="repo-map">Repo Map<a class="anchor" aria-label="anchor" href="#repo-map"></a></h2>
-<ul><li>
-<code>R/</code>: package source. Edit roxygen comments here, then regenerate docs when needed.</li>
-<li>
-<code>man/</code>: generated Rd files. Do not hand-edit unless the user specifically asks for an emergency documentation patch and you explain why roxygen was not run.</li>
-<li>
-<code>data/</code>: exported package data files, including toy inputs and the packaged meta network.</li>
-<li>
-<code>vignettes/</code>: user-facing examples. <code>tutorial.Rmd</code> covers the CARNIVAL workflow; <code>net_compr_MOON.md</code> and <code>NCI60_tutorial.Rmd</code> cover the NCI-60 MOON workflow. <code>moon_data_pkn_mapping_principles.Rmd</code> is the package-facing version of the MOON data-to-PKN mapping guidance.</li>
-<li>
-<code>tests/testthat/</code>: testthat coverage, mostly toy-data tests for preprocessing, package data, and CARNIVAL wrappers.</li>
-<li>
-<code>README.md</code>, <code>DESCRIPTION</code>, <code>inst/CITATION</code>: package-level metadata and scientific framing.</li>
-<li>
-<code>_pkgdown.yml</code>: pkgdown site configuration, including article grouping.</li>
-<li>
-<code>pkgdown/</code>: pkgdown static assets.</li>
-<li>
-<code>agent-docs/</code>: deeper agent-facing references for advanced workflows. Keep these more operational than vignettes; when changing broadly useful MOON mapping principles, decide whether the user-facing vignette should be updated as well.</li>
+<ul><li><p><code>R/</code>: package source. Edit roxygen comments here, then regenerate docs when needed.</p></li>
+<li><p><code>man/</code>: generated Rd files. Do not hand-edit unless the user specifically asks for an emergency documentation patch and you explain why roxygen was not run.</p></li>
+<li><p><code>data/</code>: exported package data files, including toy inputs and the packaged meta network.</p></li>
+<li><p><code>vignettes/</code>: user-facing examples. <code>tutorial.Rmd</code> covers the CARNIVAL workflow; <code>net_compr_MOON.md</code> and <code>NCI60_tutorial.Rmd</code> cover the NCI-60 MOON workflow. <code>moon_data_pkn_mapping_principles.Rmd</code> is the package-facing version of the MOON data-to-PKN mapping guidance.</p></li>
+<li><p><code>tests/testthat/</code>: testthat coverage, mostly toy-data tests for preprocessing, package data, and CARNIVAL wrappers.</p></li>
+<li><p><code>README.md</code>, <code>DESCRIPTION</code>, <code>inst/CITATION</code>: package-level metadata and scientific framing.</p></li>
+<li><p><code>_pkgdown.yml</code>: pkgdown site configuration, including article grouping.</p></li>
+<li><p><code>pkgdown/</code>: pkgdown static assets.</p></li>
+<li><p><code>agent-docs/</code>: deeper agent-facing references for advanced workflows. Keep these more operational than vignettes; when changing broadly useful MOON mapping principles, decide whether the user-facing vignette should be updated as well.</p></li>
+<li><p>skills/cosmos-moon-pipeline/: versioned Codex skill for the operational MOON workflow. It routes upstream/downstream decisions through the agent-facing semantic guidance and then covers PKN preparation, scoring, extraction, translation, and pathway-control analysis. Keep this tracked source in sync with the installed personal skill.</p></li>
 </ul></div>
 <div class="section level2">
 <h2 id="external-context">External Context<a class="anchor" aria-label="anchor" href="#external-context"></a></h2>
@@ -270,7 +262,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>
