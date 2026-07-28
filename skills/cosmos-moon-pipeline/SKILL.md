@@ -9,7 +9,7 @@ Start with the decision gate below, then run the operational workflow. Treat eve
 
 ## Decide and confirm the input mapping
 
-Before choosing MOON directionality, read the package checkout's `AGENTS.md` and `agent-docs/moon-data-pkn-mapping-principles.md`. Also read `agent-docs/moon-latent-factor-principles.md` when input scores derive from latent factors. Use these guides to distinguish an activity-compatible PKN input from a measurement that belongs only in a consistency check or annotation.
+Before choosing MOON directionality, read the package checkout's `AGENTS.md` and `agent-docs/moon-data-pkn-mapping-principles.md`. Also read `agent-docs/moon-latent-factor-principles.md` when input scores derive from latent factors. If no checkout is available, obtain the same current files from `saezlab/cosmosR` before finalizing the mapping. Use these guides to distinguish an activity-compatible PKN input from a measurement that belongs only in a consistency check or annotation.
 
 Propose, in concrete terms:
 
