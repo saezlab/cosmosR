@@ -2,6 +2,7 @@
 ^\.Rproj\.user$
 ^AGENTS\.md$
 ^agent-docs$
+^skills$
 ^.git$
 ^pkgdown$
 cosmos_cache

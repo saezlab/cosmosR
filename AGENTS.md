@@ -62,6 +62,12 @@ latent-factor/MOFA selection details separate in
   MOON mapping principles, decide whether the user-facing vignette should be
   updated as well.
 
+- skills/cosmos-moon-pipeline/: versioned Codex skill for the operational
+  MOON workflow. It routes upstream/downstream decisions through the
+  agent-facing semantic guidance and then covers PKN preparation, scoring,
+  extraction, translation, and pathway-control analysis. Keep this tracked
+  source in sync with the installed personal skill.
+
 ## External Context
 
 The compact NCI-60 tutorial repository is:

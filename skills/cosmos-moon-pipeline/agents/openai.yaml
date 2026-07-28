@@ -1,0 +1,4 @@
+interface:
+  display_name: "COSMOS+ MOON Pipeline"
+  short_description: "Run the operational COSMOS+ MOON workflow"
+  default_prompt: "Use $cosmos-moon-pipeline to prepare, score, and interpret a COSMOS+ MOON analysis."
