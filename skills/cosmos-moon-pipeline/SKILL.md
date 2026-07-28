@@ -1,6 +1,6 @@
 ---
 name: cosmos-moon-pipeline
-description: Run, troubleshoot, and interpret the operational COSMOS+ MOON workflow in cosmosR. Use for high-level upstream/downstream input decisions via the repository PKN-semantic guide, cleaning and pruning signed PKNs, safe same-children compression, MOON scoring and TF-target coherence loops, score decompression, solution-network extraction, node-name translation, node-specific score explanations, and manuscript-style pathway-control analysis. Confirm a proposed input mapping with the user before finalizing it unless they explicitly request autonomous completion. Do not use for classic CARNIVAL optimization.
+description: Run, troubleshoot, and interpret the operational COSMOS+ MOON workflow in cosmosR. Use for high-level upstream/downstream input decisions via bundled PKN-semantic and latent-factor guides, cleaning and pruning signed PKNs, safe same-children compression, MOON scoring and TF-target coherence loops, score decompression, solution-network extraction, node-name translation, node-specific score explanations, and manuscript-style pathway-control analysis. Confirm a proposed input mapping with the user before finalizing it unless they explicitly request autonomous completion. Do not use for classic CARNIVAL optimization.
 ---
 
 # COSMOS+ MOON Pipeline
@@ -9,12 +9,15 @@ Start with the decision gate below, then run the operational workflow. Treat eve
 
 ## Decide and confirm the input mapping
 
-Before choosing MOON directionality, read the package checkout's `AGENTS.md` and `agent-docs/moon-data-pkn-mapping-principles.md`. Also read `agent-docs/moon-latent-factor-principles.md` when input scores derive from latent factors. If no checkout is available, obtain the same current files from `saezlab/cosmosR` before finalizing the mapping. Use these guides to distinguish an activity-compatible PKN input from a measurement that belongs only in a consistency check or annotation.
+Before choosing MOON directionality, read [the data-to-PKN mapping guide](references/moon-data-pkn-mapping-principles.md). Also read [the latent-factor guide](references/moon-latent-factor-principles.md) when input scores derive from MOFA or another factor model. These are portable snapshots of the corresponding `cosmosR/agent-docs` guides. When a `cosmosR` checkout is available, read its `AGENTS.md` and current `agent-docs` equivalents too; the current checkout takes precedence. If only this skill is available and package behavior matters, retrieve the current guides from `saezlab/cosmosR` before finalizing the mapping. Use these guides to distinguish an activity-compatible PKN input from a measurement that belongs only in a consistency check or annotation.
 
 Propose, in concrete terms:
 
 - the upstream and downstream input vectors, their node semantics, and their identifier domain;
 - the network direction and the biological question it answers;
+- for factor-derived inputs: the factor ID, the distinction between sample coordinates and view-specific feature weights, the factor-sign convention and metadata orientation, relevant-view variance, and available stability evidence;
+- for multi-timepoint data: whether each layer is treated as synchronous or lagged, which plausible alignments will be compared, and why;
+- for DNA lesions or imposed perturbations: the evidence for the functional sign, which incoming explanations and outgoing mechanisms are affected, and whether the current `moon()` implementation can represent the intended constraint rather than merely sign-filtering an overlapping scored node;
 - each measurement retained as a consistency check or annotation rather than a MOON input;
 - material assumptions, ambiguities, and alternative valid directions.
 
@@ -22,7 +25,7 @@ Unless the user explicitly asks for autonomous completion, ask for confirmation 
 
 ## Use the workflow in this order
 
-1. Define one identifier domain and make named, unique, finite numeric input vectors. Keep raw measurements, derived TF/kinase activities, and RNA evidence separate.
+1. Classify every measurement by its PKN semantics before creating inputs. Define one identifier domain and make named, unique, finite numeric input vectors. Keep raw measurements, derived TF/kinase activities, perturbation boundary conditions, RNA evidence, and annotations separate. For latent-factor inputs, establish factor stability, view relevance, factor-sign orientation, and the distinction between factor coordinates and feature weights first.
 2. Build a minimal working PKN with exactly `source`, `interaction`, and `target`; clean it, expression-filter it if justified, and record edge/node/input coverage after every filter. Read [PKN preparation](references/pkn-preparation.md).
 3. Prune for reachability from upstream inputs and observability from downstream inputs. Re-filter inputs after each prune. Treat the two radii as a permissive search space, not proof that every retained node lies on a seed-to-observation path.
 4. Compress only after the uncompressed PKN and input coverage are stable. Preserve the compression mapping and validate that no protected input or TF-regulon node was renamed. Skip compression if that invariant fails.
@@ -33,7 +36,7 @@ Unless the user explicitly asks for autonomous completion, ask for confirmation 
 
 ## Establish a run ledger
 
-Create a small machine-readable record for each run. Include package commit/version, input construction, PKN source and cleanup counts, lost input IDs, `n_steps`, `n_layers`, statistic, thresholds, compression decision, coherence-loop iterations, and all output filenames. Retain both internal-ID and display-label SIF/ATT tables.
+Create a small machine-readable record for each run. Include package commit/version, input construction, PKN source and cleanup counts, lost input IDs, `n_steps`, `n_layers`, statistic, thresholds, compression decision, coherence-loop iterations, timepoint-alignment assumptions, and all output filenames. Retain both internal-ID and display-label SIF/ATT tables. For latent-factor work, also record the factor-model/tool version, factor ID, factor-sign convention and metadata orientation, selected views and variance explained, stability evidence (or its absence), feature-weight transformations, and TF/LR resources and thresholds.
 
 ## Apply non-negotiable checks
 
@@ -43,11 +46,15 @@ Create a small machine-readable record for each run. Include package commit/vers
 - Use the PKN actually supplied to the last successful `moon()` call for score-level explanation. Use a coherently filtered, identifier-matched PKN for extraction; never fall back to the global raw PKN.
 - Check reduced edges explicitly: `sign(score[source] * score[target]) == interaction`. Also check that every retained component has an intended upstream-to-level-0 path; neither reducer guarantees this in all cases.
 - Treat score cutoffs as analysis choices, not universal biological significance cutoffs. Inspect distributions and perform sensitivity checks when a result matters.
+- For multi-timepoint inputs, do not silently pair layers. Declare synchronous or lagged alignment and retain separate sensitivity runs when plausible alignments disagree.
+- For factor-derived inputs, do not equate a positive feature weight with higher abundance in a named group until the factor sign has been oriented. A high TF, LR, or MOON score shows prior-knowledge alignment, not causal validation.
 
 ## Resolve common requests
 
 | Request | Read first | Required outcome |
 | --- | --- | --- |
+| “Which layer should be upstream or downstream?” | [data-to-PKN mapping](references/moon-data-pkn-mapping-principles.md) | A user-confirmed semantic mapping, timepoint assumptions, and alternative directions where relevant |
+| “Interpret a MOFA or other latent factor with MOON” | [latent-factor guide](references/moon-latent-factor-principles.md) | A stable, sign-oriented factor signature and its PKN-compatible inputs |
 | “Prepare my PKN for MOON” | [PKN preparation](references/pkn-preparation.md) | A cleaned, coverage-audited, pruned PKN and matching inputs |
 | “Run or debug MOON” | [MOON scoring](references/moon-scoring.md) | A scored table with level, convergence, and coverage checks |
 | “Show why this node scored highly” | [network interpretation](references/network-interpretation.md) | A node-specific scoring subnetwork, not an unsupported causal claim |
