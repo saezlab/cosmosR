@@ -64,7 +64,7 @@ RNA abundance is best matched to transcriptional regulation.
 Preferred uses:
 
 - Infer TF activities from RNA with a TF-target regulon, for example
-  using CollecTRI or DoRothEA with decoupleR.
+  using CollecTRI with decoupleR.
 - Use RNA target expression as a TF-target consistency check after MOON
   scores TFs.
 - Use RNA to decide which genes are expressed and can reasonably remain

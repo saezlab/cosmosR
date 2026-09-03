@@ -180,6 +180,14 @@ as a reference to define which genes are expressed or not (all genes in
 the diff_expression_data are considered expressed, and genes that are no
 in diff_expression_data are removed from the network).
 
+The legacy CARNIVAL workflow now requires an explicit TF-target regulon
+with `tf`, `sign`, and `target` columns. The small one-edge regulon
+below is only for the packaged toy example. For a new analysis, prepare
+a CollecTRI regulon before calling the preprocessing function. A cached
+`decoupleR` CollecTRI table uses `source`, `target`, and `mor`, so
+convert it with
+`data.frame(tf = collectri_regulon$source, sign = collectri_regulon$mor, target = collectri_regulon$target)`.
+
 Here, the CARNIVAL_options\$timelimit is set for the pre-optimisation.
 Indeed, if the “filter_tf_gene_interaction_by_optimization” parameter of
 the “preprocess_COSMOS_signaling_to_metabolism” function is set to TRUE,
@@ -192,7 +200,9 @@ data(toy_network)
 data(toy_signaling_input)
 data(toy_metabolic_input)
 data(toy_RNA)
+tf_regulon <- data.frame(tf = "MYC", sign = 1, target = "SLC2A1")
 test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_network,
+                                        tf_regulon = tf_regulon,
                                         signaling_data = toy_signaling_input,
                                         metabolic_data = toy_metabolic_input,
                                                       diff_expression_data = toy_RNA,
@@ -203,8 +213,8 @@ test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_network
 
     ## [1] "COSMOS: all 3 signaling nodes from data were found in the meta PKN"
     ## [1] "COSMOS: all 2 metabolic nodes from data were found in the meta PKN"
-    ## [1] "COSMOS: 2975 of the 9300 genes in expression data were found as transcription factor target"
-    ## [1] "COSMOS: 2975 of the 5321 transcription factor targets were found in expression data"
+    ## [1] "COSMOS: 1 of the 9300 genes in expression data were found as transcription factor target"
+    ## [1] "COSMOS: 1 of the 1 transcription factor targets were found in expression data"
     ## [1] "COSMOS: removing unexpressed nodes from PKN..."
     ## [1] "COSMOS: 0 interactions removed"
     ## [1] "COSMOS: removing nodes that are not reachable from inputs within 15 steps"
@@ -219,8 +229,8 @@ test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_network
     ## [1] "COSMOS:  0 interactions are removed from the PKN based on consistency check between TF activity and gene expression"
     ## [1] "COSMOS: all 1 signaling nodes from data were found in the meta PKN"
     ## [1] "COSMOS: all 2 metabolic nodes from data were found in the meta PKN"
-    ## [1] "COSMOS: 2975 of the 9300 genes in expression data were found as transcription factor target"
-    ## [1] "COSMOS: 2975 of the 5321 transcription factor targets were found in expression data"
+    ## [1] "COSMOS: 1 of the 9300 genes in expression data were found as transcription factor target"
+    ## [1] "COSMOS: 1 of the 1 transcription factor targets were found in expression data"
 
 In this part, we can set up the options for the actual run, such as
 timelimit and min gap tolerance.
@@ -269,6 +279,7 @@ prepare the inputs.
 
 ``` r
 test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_network,
+                                        tf_regulon = tf_regulon,
                                         signaling_data = toy_signaling_input,
                                         metabolic_data = toy_metabolic_input,
                                                        diff_expression_data = toy_RNA,
@@ -279,8 +290,8 @@ test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_networ
 
     ## [1] "COSMOS: all 3 signaling nodes from data were found in the meta PKN"
     ## [1] "COSMOS: all 2 metabolic nodes from data were found in the meta PKN"
-    ## [1] "COSMOS: 2975 of the 9300 genes in expression data were found as transcription factor target"
-    ## [1] "COSMOS: 2975 of the 5321 transcription factor targets were found in expression data"
+    ## [1] "COSMOS: 1 of the 9300 genes in expression data were found as transcription factor target"
+    ## [1] "COSMOS: 1 of the 1 transcription factor targets were found in expression data"
     ## [1] "COSMOS: removing nodes that are not reachable from inputs within 15 steps"
     ## [1] "COSMOS: 0 from  101 interactions are removed from the PKN"
     ## [1] "COSMOS: removing nodes that are not observable by measurements within 15 steps"
@@ -293,8 +304,8 @@ test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_networ
     ## [1] "COSMOS:  0 interactions are removed from the PKN based on consistency check between TF activity and gene expression"
     ## [1] "COSMOS: all 3 signaling nodes from data were found in the meta PKN"
     ## [1] "COSMOS: all 1 metabolic nodes from data were found in the meta PKN"
-    ## [1] "COSMOS: 2975 of the 9300 genes in expression data were found as transcription factor target"
-    ## [1] "COSMOS: 2975 of the 5321 transcription factor targets were found in expression data"
+    ## [1] "COSMOS: 1 of the 9300 genes in expression data were found as transcription factor target"
+    ## [1] "COSMOS: 1 of the 1 transcription factor targets were found in expression data"
 
 Then we can run cosmosR to connect metabolism to signaling. The running
 time here usually needs to be longer, as this problem seems to be harder
@@ -443,28 +454,27 @@ sessionInfo()
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ## [1] cosmosR_1.21.1
+    ## [1] cosmosR_1.21.2
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] bcellViper_1.40.0   sass_0.4.10         generics_0.1.4     
-    ##  [4] tidyr_1.3.2         lpSolve_5.6.23      stringi_1.8.9      
-    ##  [7] lattice_0.23-1      hms_1.1.4           digest_0.6.39      
-    ## [10] magrittr_2.0.5      evaluate_1.0.5      grid_4.4.1         
-    ## [13] fastmap_1.2.0       jsonlite_2.0.0      Matrix_1.7-6       
-    ## [16] progress_1.2.3      purrr_1.2.2         codetools_0.2-20   
-    ## [19] textshaping_1.0.5   jquerylib_0.1.4     cli_3.6.6          
-    ## [22] rlang_1.3.0         decoupleR_2.10.0    crayon_1.5.3       
-    ## [25] visNetwork_2.1.4    parallelly_1.48.0   bit64_4.8.6        
-    ## [28] withr_3.0.3         cachem_1.1.0        yaml_2.3.12        
-    ## [31] otel_0.2.0          tools_4.4.1         parallel_4.4.1     
-    ## [34] tzdb_0.5.0          BiocParallel_1.38.0 dplyr_1.2.1        
-    ## [37] vctrs_0.7.3         R6_2.6.1            lifecycle_1.0.5    
-    ## [40] stringr_1.6.0       bit_4.6.0           fs_2.1.0           
-    ## [43] htmlwidgets_1.6.4   vroom_1.7.1         ragg_1.5.2         
-    ## [46] pkgconfig_2.0.3     desc_1.4.3          pkgdown_2.2.1      
-    ## [49] pillar_1.11.1       bslib_0.12.0        glue_1.8.1         
-    ## [52] systemfonts_1.3.2   xfun_0.60           tibble_3.3.1       
-    ## [55] tidyselect_1.2.1    knitr_1.51          CARNIVAL_2.14.0    
-    ## [58] dorothea_1.16.0     rjson_0.2.23        htmltools_0.5.9    
-    ## [61] igraph_2.3.3        rmarkdown_2.32      readr_2.2.0        
-    ## [64] compiler_4.4.1      prettyunits_1.2.0
+    ##  [1] sass_0.4.10         generics_0.1.4      tidyr_1.3.2        
+    ##  [4] lpSolve_5.6.23      stringi_1.8.9       lattice_0.23-1     
+    ##  [7] hms_1.1.4           digest_0.6.39       magrittr_2.0.5     
+    ## [10] evaluate_1.0.5      grid_4.4.1          fastmap_1.2.0      
+    ## [13] jsonlite_2.0.0      Matrix_1.7-6        progress_1.2.3     
+    ## [16] purrr_1.2.2         codetools_0.2-20    textshaping_1.0.5  
+    ## [19] jquerylib_0.1.4     cli_3.6.6           rlang_1.3.0        
+    ## [22] decoupleR_2.10.0    crayon_1.5.3        visNetwork_2.1.4   
+    ## [25] parallelly_1.48.0   bit64_4.8.6         withr_3.0.3        
+    ## [28] cachem_1.1.0        yaml_2.3.12         otel_0.2.0         
+    ## [31] tools_4.4.1         parallel_4.4.1      tzdb_0.5.0         
+    ## [34] BiocParallel_1.38.0 dplyr_1.2.1         vctrs_0.7.3        
+    ## [37] R6_2.6.1            lifecycle_1.0.5     stringr_1.6.0      
+    ## [40] bit_4.6.0           fs_2.1.0            htmlwidgets_1.6.4  
+    ## [43] vroom_1.7.1         ragg_1.5.2          pkgconfig_2.0.3    
+    ## [46] desc_1.4.3          pkgdown_2.2.1       pillar_1.11.1      
+    ## [49] bslib_0.12.0        glue_1.8.1          systemfonts_1.3.2  
+    ## [52] xfun_0.60           tibble_3.3.1        tidyselect_1.2.1   
+    ## [55] knitr_1.51          CARNIVAL_2.14.0     rjson_0.2.23       
+    ## [58] htmltools_0.5.9     igraph_2.3.3        rmarkdown_2.32     
+    ## [61] readr_2.2.0         compiler_4.4.1      prettyunits_1.2.0

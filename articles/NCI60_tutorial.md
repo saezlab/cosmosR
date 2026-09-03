@@ -120,7 +120,11 @@
 
 ## run MOON ot score the and contextualise the PKN
 
-    load("support/dorothea_reg.RData")
+    # Cached CollecTRI TF-target regulon. Create this cache outside vignette
+    # rendering if needed:
+    # collectri_regulon <- decoupleR::get_collectri()
+    # save(collectri_regulon, file = "support/collectri_regulon.RData")
+    load("support/collectri_regulon.RData")
 
     meta_network_TF_to_metab <- meta_network_compressed
 
@@ -135,7 +139,7 @@
                                                      n_layers = n_steps, 
                                                      statistic = "ulm") 
       
-      meta_network_TF_to_metab <- filter_incohrent_TF_target(moon_res, dorothea_reg, meta_network_TF_to_metab, RNA_input)
+      meta_network_TF_to_metab <- filter_incohrent_TF_target(moon_res, collectri_regulon, meta_network_TF_to_metab, RNA_input)
       after <- length(meta_network_TF_to_metab[,1])
       i <- i + 1
     }

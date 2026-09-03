@@ -139,6 +139,7 @@ Other exported utilities:
 
 - [`prepare_metab_inputs()`](https://saezlab.github.io/cosmosR/reference/prepare_metab_inputs.md)
 - [`load_tf_regulon_dorothea()`](https://saezlab.github.io/cosmosR/reference/load_tf_regulon_dorothea.md)
+  (retired compatibility stub; it errors with migration guidance)
 - [`meta_network_cleanup()`](https://saezlab.github.io/cosmosR/reference/meta_network_cleanup.md)
 - [`format_LR_ressource()`](https://saezlab.github.io/cosmosR/reference/format_LR_ressource.md)
 - [`wide_ulm_res()`](https://saezlab.github.io/cosmosR/reference/wide_ulm_res.md)
@@ -213,9 +214,11 @@ data(toy_metabolic_input)
 data(toy_RNA)
 
 opts <- default_CARNIVAL_options("lpSolve")
+tf_regulon <- data.frame(tf = "MYC", sign = 1, target = "SLC2A1")
 
 prepared <- preprocess_COSMOS_signaling_to_metabolism(
   meta_network = toy_network,
+  tf_regulon = tf_regulon,
   signaling_data = toy_signaling_input,
   metabolic_data = toy_metabolic_input,
   diff_expression_data = toy_RNA,
@@ -231,6 +234,12 @@ formatted <- format_COSMOS_res(result)
 
 Important details:
 
+- Classic CARNIVAL preprocessing requires an explicit regulon with `tf`,
+  `sign`, and `target` columns. For new analyses, prepare a CollecTRI
+  regulon before calling the preprocessing wrapper; a cached decoupleR
+  CollecTRI table uses `source`, `target`, and `mor`, so construct it as
+  `data.frame(tf = collectri_regulon$source, sign = collectri_regulon$mor, target = collectri_regulon$target)`.
+  Do not use the retired DoRothEA loader.
 - `lpSolve` is for tests and small toy networks only. Real analyses
   should use CPLEX or CBC with `solverPath` set.
 - Preprocessing may run an initial optimization when

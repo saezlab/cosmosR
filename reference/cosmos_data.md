@@ -30,10 +30,8 @@ cosmos_data(
 
 - tf_regulon:
 
-  Collection of transcription factor - target interactions. A default
-  collection from dorothea can be obtained by the
-  [`load_tf_regulon_dorothea`](https://saezlab.github.io/cosmosR/reference/load_tf_regulon_dorothea.md)
-  function.
+  Optional collection of transcription factor-target interactions with
+  columns \`tf\`, \`sign\`, and \`target\`.
 
 - signaling_data:
 

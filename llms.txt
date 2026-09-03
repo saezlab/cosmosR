@@ -146,7 +146,7 @@ International (CC-BY-NC 4.0) License.
 - [`gmt_to_dataframe()`](https://saezlab.github.io/cosmosR/reference/gmt_to_dataframe.md)
   : Convert gmt file to data frame
 - [`load_tf_regulon_dorothea()`](https://saezlab.github.io/cosmosR/reference/load_tf_regulon_dorothea.md)
-  : load transcription factor regulon
+  : Retired DoRothEA regulon loader
 - [`make_heatmap_color_palette()`](https://saezlab.github.io/cosmosR/reference/make_heatmap_color_palette.md)
   : Create Heatmap Color Palette
 - [`meta_network`](https://saezlab.github.io/cosmosR/reference/meta_network.md)

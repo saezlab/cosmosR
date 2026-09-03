@@ -25,7 +25,7 @@ CARNIVAL and the interactions between TF and genes are filtered again."><meta pr
 
     <a class="navbar-brand me-2" href="../index.html">cosmosR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.21.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.21.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +65,7 @@ CARNIVAL and the interactions between TF and genes are filtered again.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">preprocess_COSMOS_metabolism_to_signaling</span><span class="op">(</span></span>
 <span>  meta_network <span class="op">=</span> <span class="va">meta_network</span>,</span>
-<span>  tf_regulon <span class="op">=</span> <span class="fu"><a href="load_tf_regulon_dorothea.html">load_tf_regulon_dorothea</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  tf_regulon <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">signaling_data</span>,</span>
 <span>  <span class="va">metabolic_data</span>,</span>
 <span>  diff_expression_data <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -89,9 +89,10 @@ the data <code><a href="meta_network.html">meta_network</a></code>.</p></dd>
 
 
 <dt id="arg-tf-regulon">tf_regulon<a class="anchor" aria-label="anchor" href="#arg-tf-regulon"></a></dt>
-<dd><p>collection of transcription factor - target interactions.
-A default collection from dorothea can be obtained by the
-<code><a href="load_tf_regulon_dorothea.html">load_tf_regulon_dorothea</a></code> function.</p></dd>
+<dd><p>Required data frame of transcription factor-target
+interactions with columns `tf`, `sign`, and `target`. Prepare this from a
+CollecTRI regulon for new work. A cached `decoupleR` CollecTRI regulon uses
+`source`, `target`, and `mor`; convert it with `data.frame(tf = collectri_regulon$source, sign = collectri_regulon$mor, target = collectri_regulon$target)` before passing it here.</p></dd>
 
 
 <dt id="arg-signaling-data">signaling_data<a class="anchor" aria-label="anchor" href="#arg-signaling-data"></a></dt>
@@ -175,8 +176,7 @@ in <code><a href="default_CARNIVAL_options.html">default_CARNIVAL_options</a></c
 </dl></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="meta_network.html">meta_network</a></code> for meta PKN,
-  <code><a href="load_tf_regulon_dorothea.html">load_tf_regulon_dorothea</a></code> for tf regulon,
+    <div class="dont-index"><p><code><a href="meta_network.html">meta_network</a></code> for meta PKN and
   <code><a href="https://rdrr.io/pkg/CARNIVAL/man/runCARNIVAL.html" class="external-link">runCARNIVAL</a></code>.</p></div>
     </div>
 
@@ -186,8 +186,10 @@ in <code><a href="default_CARNIVAL_options.html">default_CARNIVAL_options</a></c
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">toy_signaling_input</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">toy_metabolic_input</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">toy_RNA</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tf_regulon</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>tf <span class="op">=</span> <span class="st">"MYC"</span>, sign <span class="op">=</span> <span class="fl">1</span>, target <span class="op">=</span> <span class="st">"SLC2A1"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">test_back</span> <span class="op">&lt;-</span> <span class="fu">preprocess_COSMOS_metabolism_to_signaling</span><span class="op">(</span></span></span>
 <span class="r-in"><span>meta_network <span class="op">=</span> <span class="va">toy_network</span>,</span></span>
+<span class="r-in"><span>tf_regulon <span class="op">=</span> <span class="va">tf_regulon</span>,</span></span>
 <span class="r-in"><span>signaling_data <span class="op">=</span> <span class="va">toy_signaling_input</span>,</span></span>
 <span class="r-in"><span>metabolic_data <span class="op">=</span> <span class="va">toy_metabolic_input</span>,</span></span>
 <span class="r-in"><span>diff_expression_data <span class="op">=</span> <span class="va">toy_RNA</span>,</span></span>
@@ -197,8 +199,8 @@ in <code><a href="default_CARNIVAL_options.html">default_CARNIVAL_options</a></c
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COSMOS: all 3 signaling nodes from data were found in the meta PKN"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COSMOS: all 2 metabolic nodes from data were found in the meta PKN"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COSMOS: 2975 of the 9300 genes in expression data were found as transcription factor target"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COSMOS: 2975 of the 5321 transcription factor targets were found in expression data"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COSMOS: 1 of the 9300 genes in expression data were found as transcription factor target"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COSMOS: 1 of the 1 transcription factor targets were found in expression data"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COSMOS: removing unexpressed nodes from PKN..."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COSMOS: 0 interactions removed"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COSMOS: removing nodes that are not reachable from inputs within 15 steps"</span>
@@ -210,16 +212,16 @@ in <code><a href="default_CARNIVAL_options.html">default_CARNIVAL_options</a></c
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> --- Start of the CARNIVAL pipeline ---</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 08:46:46 03.09.2026 Carnival flavour: vanilla</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 08:46:46 03.09.2026 Generating variables for lp problem</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 08:46:46 03.09.2026 Done: generating variables for lp problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 09:38:13 03.09.2026 Carnival flavour: vanilla</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 09:38:13 03.09.2026 Generating variables for lp problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 09:38:13 03.09.2026 Done: generating variables for lp problem</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Saving preprocessed data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: saving parsed data: /__w/cosmosR/cosmosR/docs/reference//parsedData_t08_46_46d03_09_2026n47.RData</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 08:46:46 03.09.2026 Generating formulation for LP problem</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 08:46:46 03.09.2026 Done: generating formulation for LP problem.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: saving parsed data: /__w/cosmosR/cosmosR/docs/reference//parsedData_t09_38_13d03_09_2026n47.RData</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 09:38:13 03.09.2026 Generating formulation for LP problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 09:38:13 03.09.2026 Done: generating formulation for LP problem.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Saving LP file</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: Saving LP file: /__w/cosmosR/cosmosR/docs/reference//lpFile_t08_46_46d03_09_2026n47.lp</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 08:46:46 03.09.2026 Solving LP problem</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Done: Saving LP file: /__w/cosmosR/cosmosR/docs/reference//lpFile_t09_38_13d03_09_2026n47.lp</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 09:38:13 03.09.2026 Solving LP problem</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Parsing .lp file for lpSolve</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">842</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">1</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span>
@@ -229,21 +231,21 @@ in <code><a href="default_CARNIVAL_options.html">default_CARNIVAL_options</a></c
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Done: parsing .lp file for lpSolve</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 08:46:46 03.09.2026 Done: solving LP problem.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 08:46:46 03.09.2026 Getting the solution matrix</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 08:46:46 03.09.2026 Done: getting the solution matrix.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 08:46:46 03.09.2026 Exporting solution matrix</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 08:46:46 03.09.2026 Done: exporting solution matrix.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 09:38:13 03.09.2026 Done: solving LP problem.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 09:38:13 03.09.2026 Getting the solution matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 09:38:13 03.09.2026 Done: getting the solution matrix.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 09:38:13 03.09.2026 Exporting solution matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 09:38:13 03.09.2026 Done: exporting solution matrix.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Cleaning intermediate files</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Done: cleaning</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 08:46:46 03.09.2026 All tasks finished.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 09:38:13 03.09.2026 All tasks finished.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> --- End of the CARNIVAL pipeline --- </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COSMOS:  0 interactions are removed from the PKN based on consistency check between TF activity and gene expression"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COSMOS: all 3 signaling nodes from data were found in the meta PKN"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COSMOS: all 1 metabolic nodes from data were found in the meta PKN"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COSMOS: 2975 of the 9300 genes in expression data were found as transcription factor target"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COSMOS: 2975 of the 5321 transcription factor targets were found in expression data"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COSMOS: 1 of the 9300 genes in expression data were found as transcription factor target"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "COSMOS: 1 of the 1 transcription factor targets were found in expression data"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -14,7 +14,7 @@ between TF and genes are filtered again.
 ``` r
 preprocess_COSMOS_metabolism_to_signaling(
   meta_network = meta_network,
-  tf_regulon = load_tf_regulon_dorothea(),
+  tf_regulon = NULL,
   signaling_data,
   metabolic_data,
   diff_expression_data = NULL,
@@ -38,10 +38,13 @@ preprocess_COSMOS_metabolism_to_signaling(
 
 - tf_regulon:
 
-  collection of transcription factor - target interactions. A default
-  collection from dorothea can be obtained by the
-  [`load_tf_regulon_dorothea`](https://saezlab.github.io/cosmosR/reference/load_tf_regulon_dorothea.md)
-  function.
+  Required data frame of transcription factor-target interactions with
+  columns \`tf\`, \`sign\`, and \`target\`. Prepare this from a
+  CollecTRI regulon for new work. A cached \`decoupleR\` CollecTRI
+  regulon uses \`source\`, \`target\`, and \`mor\`; convert it with
+  \`data.frame(tf = collectri_regulon\$source, sign =
+  collectri_regulon\$mor, target = collectri_regulon\$target)\` before
+  passing it here.
 
 - signaling_data:
 
@@ -133,9 +136,7 @@ cosmos_data object with the following fields:
 ## See also
 
 [`meta_network`](https://saezlab.github.io/cosmosR/reference/meta_network.md)
-for meta PKN,
-[`load_tf_regulon_dorothea`](https://saezlab.github.io/cosmosR/reference/load_tf_regulon_dorothea.md)
-for tf regulon,
+for meta PKN and
 [`runCARNIVAL`](https://rdrr.io/pkg/CARNIVAL/man/runCARNIVAL.html).
 
 ## Examples
@@ -145,8 +146,10 @@ data(toy_network)
 data(toy_signaling_input)
 data(toy_metabolic_input)
 data(toy_RNA)
+tf_regulon <- data.frame(tf = "MYC", sign = 1, target = "SLC2A1")
 test_back <- preprocess_COSMOS_metabolism_to_signaling(
 meta_network = toy_network,
+tf_regulon = tf_regulon,
 signaling_data = toy_signaling_input,
 metabolic_data = toy_metabolic_input,
 diff_expression_data = toy_RNA,
@@ -156,8 +159,8 @@ CARNIVAL_options = default_CARNIVAL_options("lpSolve")
 )
 #> [1] "COSMOS: all 3 signaling nodes from data were found in the meta PKN"
 #> [1] "COSMOS: all 2 metabolic nodes from data were found in the meta PKN"
-#> [1] "COSMOS: 2975 of the 9300 genes in expression data were found as transcription factor target"
-#> [1] "COSMOS: 2975 of the 5321 transcription factor targets were found in expression data"
+#> [1] "COSMOS: 1 of the 9300 genes in expression data were found as transcription factor target"
+#> [1] "COSMOS: 1 of the 1 transcription factor targets were found in expression data"
 #> [1] "COSMOS: removing unexpressed nodes from PKN..."
 #> [1] "COSMOS: 0 interactions removed"
 #> [1] "COSMOS: removing nodes that are not reachable from inputs within 15 steps"
@@ -169,16 +172,16 @@ CARNIVAL_options = default_CARNIVAL_options("lpSolve")
 #> [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."
 #> [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."
 #> --- Start of the CARNIVAL pipeline ---
-#> 08:46:46 03.09.2026 Carnival flavour: vanilla
-#> 08:46:46 03.09.2026 Generating variables for lp problem
-#> 08:46:46 03.09.2026 Done: generating variables for lp problem
+#> 09:38:13 03.09.2026 Carnival flavour: vanilla
+#> 09:38:13 03.09.2026 Generating variables for lp problem
+#> 09:38:13 03.09.2026 Done: generating variables for lp problem
 #> Saving preprocessed data.
-#> Done: saving parsed data: /__w/cosmosR/cosmosR/docs/reference//parsedData_t08_46_46d03_09_2026n47.RData
-#> 08:46:46 03.09.2026 Generating formulation for LP problem
-#> 08:46:46 03.09.2026 Done: generating formulation for LP problem.
+#> Done: saving parsed data: /__w/cosmosR/cosmosR/docs/reference//parsedData_t09_38_13d03_09_2026n47.RData
+#> 09:38:13 03.09.2026 Generating formulation for LP problem
+#> 09:38:13 03.09.2026 Done: generating formulation for LP problem.
 #> Saving LP file
-#> Done: Saving LP file: /__w/cosmosR/cosmosR/docs/reference//lpFile_t08_46_46d03_09_2026n47.lp
-#> 08:46:46 03.09.2026 Solving LP problem
+#> Done: Saving LP file: /__w/cosmosR/cosmosR/docs/reference//lpFile_t09_38_13d03_09_2026n47.lp
+#> 09:38:13 03.09.2026 Solving LP problem
 #> Parsing .lp file for lpSolve
 #> Rows: 842 Columns: 1
 #> ── Column specification ────────────────────────────────────────────────────────
@@ -188,19 +191,19 @@ CARNIVAL_options = default_CARNIVAL_options("lpSolve")
 #> ℹ Use `spec()` to retrieve the full column specification for this data.
 #> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 #> Done: parsing .lp file for lpSolve
-#> 08:46:46 03.09.2026 Done: solving LP problem.
-#> 08:46:46 03.09.2026 Getting the solution matrix
-#> 08:46:46 03.09.2026 Done: getting the solution matrix.
-#> 08:46:46 03.09.2026 Exporting solution matrix
-#> 08:46:46 03.09.2026 Done: exporting solution matrix.
+#> 09:38:13 03.09.2026 Done: solving LP problem.
+#> 09:38:13 03.09.2026 Getting the solution matrix
+#> 09:38:13 03.09.2026 Done: getting the solution matrix.
+#> 09:38:13 03.09.2026 Exporting solution matrix
+#> 09:38:13 03.09.2026 Done: exporting solution matrix.
 #> Cleaning intermediate files
 #> Done: cleaning
-#> 08:46:46 03.09.2026 All tasks finished.
+#> 09:38:13 03.09.2026 All tasks finished.
 #> 
 #> --- End of the CARNIVAL pipeline --- 
 #> [1] "COSMOS:  0 interactions are removed from the PKN based on consistency check between TF activity and gene expression"
 #> [1] "COSMOS: all 3 signaling nodes from data were found in the meta PKN"
 #> [1] "COSMOS: all 1 metabolic nodes from data were found in the meta PKN"
-#> [1] "COSMOS: 2975 of the 9300 genes in expression data were found as transcription factor target"
-#> [1] "COSMOS: 2975 of the 5321 transcription factor targets were found in expression data"
+#> [1] "COSMOS: 1 of the 9300 genes in expression data were found as transcription factor target"
+#> [1] "COSMOS: 1 of the 1 transcription factor targets were found in expression data"
 ```

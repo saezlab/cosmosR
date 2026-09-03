@@ -68,7 +68,9 @@ data(toy_network)
 data(toy_signaling_input)
 data(toy_metabolic_input)
 data(toy_RNA)
+tf_regulon <- data.frame(tf = "MYC", sign = 1, target = "SLC2A1")
 test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_network,
+                        tf_regulon = tf_regulon,
                         signaling_data = toy_signaling_input,
                         metabolic_data = toy_metabolic_input,
                         diff_expression_data = toy_RNA,
@@ -77,8 +79,8 @@ test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_networ
                         CARNIVAL_options = default_CARNIVAL_options("lpSolve"))
 #> [1] "COSMOS: all 3 signaling nodes from data were found in the meta PKN"
 #> [1] "COSMOS: all 2 metabolic nodes from data were found in the meta PKN"
-#> [1] "COSMOS: 2975 of the 9300 genes in expression data were found as transcription factor target"
-#> [1] "COSMOS: 2975 of the 5321 transcription factor targets were found in expression data"
+#> [1] "COSMOS: 1 of the 9300 genes in expression data were found as transcription factor target"
+#> [1] "COSMOS: 1 of the 1 transcription factor targets were found in expression data"
 #> [1] "COSMOS: removing unexpressed nodes from PKN..."
 #> [1] "COSMOS: 0 interactions removed"
 #> [1] "COSMOS: removing nodes that are not reachable from inputs within 15 steps"
@@ -90,16 +92,16 @@ test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_networ
 #> [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."
 #> [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."
 #> --- Start of the CARNIVAL pipeline ---
-#> 08:46:48 03.09.2026 Carnival flavour: vanilla
-#> 08:46:48 03.09.2026 Generating variables for lp problem
-#> 08:46:48 03.09.2026 Done: generating variables for lp problem
+#> 09:38:15 03.09.2026 Carnival flavour: vanilla
+#> 09:38:15 03.09.2026 Generating variables for lp problem
+#> 09:38:15 03.09.2026 Done: generating variables for lp problem
 #> Saving preprocessed data.
-#> Done: saving parsed data: /__w/cosmosR/cosmosR/docs/reference//parsedData_t08_46_48d03_09_2026n68.RData
-#> 08:46:48 03.09.2026 Generating formulation for LP problem
-#> 08:46:48 03.09.2026 Done: generating formulation for LP problem.
+#> Done: saving parsed data: /__w/cosmosR/cosmosR/docs/reference//parsedData_t09_38_15d03_09_2026n68.RData
+#> 09:38:15 03.09.2026 Generating formulation for LP problem
+#> 09:38:15 03.09.2026 Done: generating formulation for LP problem.
 #> Saving LP file
-#> Done: Saving LP file: /__w/cosmosR/cosmosR/docs/reference//lpFile_t08_46_48d03_09_2026n68.lp
-#> 08:46:48 03.09.2026 Solving LP problem
+#> Done: Saving LP file: /__w/cosmosR/cosmosR/docs/reference//lpFile_t09_38_15d03_09_2026n68.lp
+#> 09:38:15 03.09.2026 Solving LP problem
 #> Parsing .lp file for lpSolve
 #> Rows: 842 Columns: 1
 #> ── Column specification ────────────────────────────────────────────────────────
@@ -109,21 +111,21 @@ test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_networ
 #> ℹ Use `spec()` to retrieve the full column specification for this data.
 #> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 #> Done: parsing .lp file for lpSolve
-#> 08:46:48 03.09.2026 Done: solving LP problem.
-#> 08:46:48 03.09.2026 Getting the solution matrix
-#> 08:46:48 03.09.2026 Done: getting the solution matrix.
-#> 08:46:48 03.09.2026 Exporting solution matrix
-#> 08:46:48 03.09.2026 Done: exporting solution matrix.
+#> 09:38:15 03.09.2026 Done: solving LP problem.
+#> 09:38:15 03.09.2026 Getting the solution matrix
+#> 09:38:15 03.09.2026 Done: getting the solution matrix.
+#> 09:38:15 03.09.2026 Exporting solution matrix
+#> 09:38:15 03.09.2026 Done: exporting solution matrix.
 #> Cleaning intermediate files
 #> Done: cleaning
-#> 08:46:48 03.09.2026 All tasks finished.
+#> 09:38:15 03.09.2026 All tasks finished.
 #> 
 #> --- End of the CARNIVAL pipeline --- 
 #> [1] "COSMOS:  0 interactions are removed from the PKN based on consistency check between TF activity and gene expression"
 #> [1] "COSMOS: all 3 signaling nodes from data were found in the meta PKN"
 #> [1] "COSMOS: all 1 metabolic nodes from data were found in the meta PKN"
-#> [1] "COSMOS: 2975 of the 9300 genes in expression data were found as transcription factor target"
-#> [1] "COSMOS: 2975 of the 5321 transcription factor targets were found in expression data"
+#> [1] "COSMOS: 1 of the 9300 genes in expression data were found as transcription factor target"
+#> [1] "COSMOS: 1 of the 1 transcription factor targets were found in expression data"
 
 test_result_back <- run_COSMOS_metabolism_to_signaling(data = test_back,
                        CARNIVAL_options = default_CARNIVAL_options("lpSolve"))
@@ -131,16 +133,16 @@ test_result_back <- run_COSMOS_metabolism_to_signaling(data = test_back,
 #> Input nodes should have values from {-1, 0, 1}. We discretize your input with sign().
 #> [1] "lpSolve does not scale well with large PKNs. This solver is mainly for testing purposes. To run COSMSO, we recommend using cplex, or cbc solvers."
 #> --- Start of the CARNIVAL pipeline ---
-#> 08:46:48 03.09.2026 Carnival flavour: vanilla
-#> 08:46:48 03.09.2026 Generating variables for lp problem
-#> 08:46:48 03.09.2026 Done: generating variables for lp problem
+#> 09:38:15 03.09.2026 Carnival flavour: vanilla
+#> 09:38:15 03.09.2026 Generating variables for lp problem
+#> 09:38:15 03.09.2026 Done: generating variables for lp problem
 #> Saving preprocessed data.
-#> Done: saving parsed data: /__w/cosmosR/cosmosR/docs/reference//parsedData_t08_46_48d03_09_2026n73.RData
-#> 08:46:48 03.09.2026 Generating formulation for LP problem
-#> 08:46:48 03.09.2026 Done: generating formulation for LP problem.
+#> Done: saving parsed data: /__w/cosmosR/cosmosR/docs/reference//parsedData_t09_38_15d03_09_2026n73.RData
+#> 09:38:15 03.09.2026 Generating formulation for LP problem
+#> 09:38:15 03.09.2026 Done: generating formulation for LP problem.
 #> Saving LP file
-#> Done: Saving LP file: /__w/cosmosR/cosmosR/docs/reference//lpFile_t08_46_48d03_09_2026n73.lp
-#> 08:46:48 03.09.2026 Solving LP problem
+#> Done: Saving LP file: /__w/cosmosR/cosmosR/docs/reference//lpFile_t09_38_15d03_09_2026n73.lp
+#> 09:38:15 03.09.2026 Solving LP problem
 #> Parsing .lp file for lpSolve
 #> Rows: 842 Columns: 1
 #> ── Column specification ────────────────────────────────────────────────────────
@@ -150,14 +152,14 @@ test_result_back <- run_COSMOS_metabolism_to_signaling(data = test_back,
 #> ℹ Use `spec()` to retrieve the full column specification for this data.
 #> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 #> Done: parsing .lp file for lpSolve
-#> 08:46:48 03.09.2026 Done: solving LP problem.
-#> 08:46:48 03.09.2026 Getting the solution matrix
-#> 08:46:48 03.09.2026 Done: getting the solution matrix.
-#> 08:46:48 03.09.2026 Exporting solution matrix
-#> 08:46:48 03.09.2026 Done: exporting solution matrix.
+#> 09:38:15 03.09.2026 Done: solving LP problem.
+#> 09:38:15 03.09.2026 Getting the solution matrix
+#> 09:38:15 03.09.2026 Done: getting the solution matrix.
+#> 09:38:15 03.09.2026 Exporting solution matrix
+#> 09:38:15 03.09.2026 Done: exporting solution matrix.
 #> Cleaning intermediate files
 #> Done: cleaning
-#> 08:46:48 03.09.2026 All tasks finished.
+#> 09:38:15 03.09.2026 All tasks finished.
 #> 
 #> --- End of the CARNIVAL pipeline --- 
 ```
