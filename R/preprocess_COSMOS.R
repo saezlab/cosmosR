@@ -1,3 +1,21 @@
+check_required_tf_regulon <- function(tf_regulon){
+    required_columns <- c("tf", "sign", "target")
+
+    if(is.null(tf_regulon) ||
+       !is.data.frame(tf_regulon) ||
+       !all(required_columns %in% names(tf_regulon))){
+        stop(
+            "`tf_regulon` must be supplied for the legacy CARNIVAL workflow ",
+            "as a data frame with columns `tf`, `sign`, and `target`. ",
+            "For new work, prepare a CollecTRI regulon explicitly before ",
+            "calling `preprocess_COSMOS_*()`.",
+            call. = FALSE
+        )
+    }
+
+    invisible(TRUE)
+}
+
 #' preprocess_COSMOS
 #' 
 #' core function for preprocessing. 
@@ -12,9 +30,8 @@
 #' @param meta_network prior knowledge network. By default COSMOS use a PKN 
 #' derived from Omnipath, STITCHdb and Recon3D. See details on the data 
 #' \code{\link{meta_network}}.
-#' @param tf_regulon collection of transcription factor - target interactions.
-#' A default collection from dorothea can be obtained by the 
-#' \code{\link{load_tf_regulon_dorothea}} function.
+#' @param tf_regulon Required collection of transcription factor-target
+#' interactions with columns `tf`, `sign`, and `target`.
 #' @param signaling_data numerical vector, where names are signaling nodes 
 #' in the PKN and values are from \{1, 0, -1\}. Continuous data will be 
 #' discretized using the \code{\link{sign}} function.  
@@ -58,9 +75,7 @@
 #'     \item{\code{optimized_network}}{Initial optimized network if 
 #'     \code{filter_tf_gene_interaction_by_optimization is TRUE}}
 #'   }
-#' @seealso \code{\link{meta_network}} for meta PKN,
-#' \code{\link{load_tf_regulon_dorothea}} for tf regulon,
-#' \code{\link{convert_genesymbols_to_entrezid}} for gene conversion,
+#' @seealso \code{\link{meta_network}} for meta PKN and
 #' \code{\link[CARNIVAL]{runCARNIVAL}}.
 #' @noRd
 preprocess_COSMOS_core <- function(meta_network,

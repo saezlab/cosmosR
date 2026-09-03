@@ -589,9 +589,9 @@ R)](https://raw.githack.com/bioFAM/MOFA2_tutorials/master/R_tutorials/downstream
 ### From MOFA output to TF activity, ligand-receptor activity
 
 In the next step, using the weights of Factor 4 (highest shared
-*R*<sup>2</sup> across views), different databases (liana and dorothea)
-and decoupleR, the transcription factor activities, ligand-receptor
-scores are estimated.
+*R*<sup>2</sup> across views), the LIANA consensus resource, the CollecTRI
+TF-target regulon, and decoupleR, the transcription factor activities and
+ligand-receptor scores are estimated.
 
 First, we have to extract the weights from our MOFA model and keep the
 weights from Factor 4 in the RNA view.
@@ -603,8 +603,8 @@ weights from Factor 4 in the RNA view.
     RNA <- data.frame(weights$RNA[,4]) 
     row.names(RNA) <- gsub("_RNA","",row.names(RNA))
 
-Then we load the consensus networks from our databases, as well as the
-TF-targets regulons from collectri.
+Then we load the LIANA consensus resource and a cached CollecTRI TF-target
+regulon.
 
     # Load LIANA (receptor and ligand) consensus network
     # ligrec_ressource <- distinct(liana::decomplexify(liana::select_resource("Consensus")[[1]]))
@@ -614,10 +614,11 @@ TF-targets regulons from collectri.
     load(file = "support/ligrec_ressource.RData")
     ligrec_geneset <- format_LR_ressource(ligrec_ressource)
 
-    # Load Dorothea (TF) network
-    # dorothea_df <- decoupleR::get_collectri()
-    # save(dorothea_df, file = "support/dorothea_df.RData")
-    load(file = "support/dorothea_df.RData")
+    # Cached CollecTRI TF-target regulon. Retrieve and cache it outside
+    # vignette rendering if a refresh is needed:
+    # collectri_regulon <- decoupleR::get_collectri()
+    # save(collectri_regulon, file = "support/collectri_regulon.RData")
+    load(file = "support/collectri_regulon.RData")
 
 We can display what are the top weights of the model and to which factor
 they are associated.
@@ -664,7 +665,7 @@ ligand-receptor interactions). Here can display them as heatmaps.
     pheatmap(ligrec_factors_df, show_rownames = T, cluster_cols = F, cluster_rows = F,color = palette, angle_col = 315)
 
     # Calculate regulatory activities from TF network
-    TF_factors <- run_ulm(mat = as.matrix(RNA_all), network = dorothea_df, minsize = 10)
+    TF_factors <- run_ulm(mat = as.matrix(RNA_all), network = collectri_regulon, minsize = 10)
     TF_factors <- wide_ulm_res(TF_factors)
     TF_factors <- TF_factors[order(apply(TF_factors,1,function(x){max(abs(x))}), decreasing = T)[1:25],]
 
@@ -689,7 +690,7 @@ downstream analysis as well.
 ![](M2Cf/figs/Activity_estimations_for_factor_4_1.png)
 
     # Calculate regulatory activities from TF network
-    TF_high_vs_low <- run_ulm(mat = as.matrix(RNA), network = dorothea_df, minsize = 10)
+    TF_high_vs_low <- run_ulm(mat = as.matrix(RNA), network = collectri_regulon, minsize = 10)
     TF_high_vs_low <- TF_high_vs_low[TF_high_vs_low$statistic == "ulm",]
     TF_high_vs_low_vector <- TF_high_vs_low$score
     names(TF_high_vs_low_vector) <- TF_high_vs_low$source
@@ -1062,7 +1063,7 @@ measurements.
 
     meta_network_compressed <- meta_network_cleanup(meta_network_compressed)
 
-    load(file = "support/dorothea_df.RData")
+    load(file = "support/collectri_regulon.RData")
 
     # RNA_input <- as.numeric(weights$RNA[,4])
     # names(RNA_input) <- gsub("_RNA$","",row.names(weights$RNA))
@@ -1198,7 +1199,7 @@ generated with the reduce\_solution\_network function.
                                                      n_layers = n_steps, 
                                                      statistic = "ulm") 
       
-      meta_network_rec_to_TFmetab <- filter_incohrent_TF_target(moon_res, dorothea_df, meta_network_rec_to_TFmetab, RNA_input)
+      meta_network_rec_to_TFmetab <- filter_incohrent_TF_target(moon_res, collectri_regulon, meta_network_rec_to_TFmetab, RNA_input)
       end_time <- Sys.time()
       
       print(end_time - start_time)
@@ -1275,7 +1276,7 @@ generated with the reduce\_solution\_network function.
 
     ATT_rec_to_TFmetab$NodeType <- ifelse(ATT_rec_to_TFmetab$Nodes %in% levels_translated[levels_translated$level == 0,1],1,0)
 
-    ATT_rec_to_TFmetab$NodeType <- ifelse(ATT_rec_to_TFmetab$Nodes %in% ligrec_df$Node1, 2, ifelse(ATT_rec_to_TFmetab$Nodes %in% ligrec_df$Node2, 3, ifelse(ATT_rec_to_TFmetab$Nodes %in% dorothea_df$source, 4, ATT_rec_to_TFmetab$NodeType))) 
+    ATT_rec_to_TFmetab$NodeType <- ifelse(ATT_rec_to_TFmetab$Nodes %in% ligrec_df$Node1, 2, ifelse(ATT_rec_to_TFmetab$Nodes %in% ligrec_df$Node2, 3, ifelse(ATT_rec_to_TFmetab$Nodes %in% collectri_regulon$source, 4, ATT_rec_to_TFmetab$NodeType)))
 
     names(SIF_rec_to_TFmetab)[4] <- "Weight"
 
@@ -1287,10 +1288,10 @@ The procedure is the same as the previous section, only the upstream and
 downstream input definition is changing.
 
     ##filter expressed genes from PKN
-    dorothea_PKN <- dorothea_df[,c(1,3,2)]
-    names(dorothea_PKN)[2] <- "interaction"
+    collectri_pkn <- collectri_regulon[,c(1,3,2)]
+    names(collectri_pkn)[2] <- "interaction"
 
-    dorothea_PKN_filtered <- cosmosR:::filter_pkn_expressed_genes(names(expressed_genes), meta_pkn = dorothea_PKN)
+    collectri_pkn_filtered <- cosmosR:::filter_pkn_expressed_genes(names(expressed_genes), meta_pkn = collectri_pkn)
 
     ## [1] "COSMOS: removing unexpressed nodes from PKN..."
     ## [1] "COSMOS: 12053 interactions removed"
@@ -1313,11 +1314,11 @@ downstream input definition is changing.
 
     downstream_inputs <- lig_inputs #the downstream input should be complete
 
-    upstream_inputs_filtered <- cosmosR:::filter_input_nodes_not_in_pkn(upstream_inputs, dorothea_PKN_filtered)
+    upstream_inputs_filtered <- cosmosR:::filter_input_nodes_not_in_pkn(upstream_inputs, collectri_pkn_filtered)
 
     ## [1] "COSMOS: 22 input/measured nodes are not in PKN any more: SPI1, NR0B2, ESR1, AR, NKX2-5, RARB and 16 more."
 
-    downstream_inputs_filtered <- cosmosR:::filter_input_nodes_not_in_pkn(downstream_inputs, dorothea_PKN_filtered)
+    downstream_inputs_filtered <- cosmosR:::filter_input_nodes_not_in_pkn(downstream_inputs, collectri_pkn_filtered)
 
     ## [1] "COSMOS: 19 input/measured nodes are not in PKN any more: ACTR2, ADAM9, AGRN, ARPC5, EFNA3, EFNB1 and 13 more."
 
@@ -1327,32 +1328,32 @@ downstream input definition is changing.
     n_steps <- 1
 
     # in this step we prune the network to keep only the relevant part between upstream and downstream nodes
-    dorothea_PKN_filtered <- cosmosR:::keep_controllable_neighbours(dorothea_PKN_filtered
+    collectri_pkn_filtered <- cosmosR:::keep_controllable_neighbours(collectri_pkn_filtered
                                                            , n_steps, 
                                                            names(upstream_inputs_filtered))
 
     ## [1] "COSMOS: removing nodes that are not reachable from inputs within 1 steps"
     ## [1] "COSMOS: 1896 from  17542 interactions are removed from the PKN"
 
-    downstream_inputs_filtered <- cosmosR:::filter_input_nodes_not_in_pkn(downstream_inputs_filtered, dorothea_PKN_filtered)
+    downstream_inputs_filtered <- cosmosR:::filter_input_nodes_not_in_pkn(downstream_inputs_filtered, collectri_pkn_filtered)
 
     ## [1] "COSMOS: 9 input/measured nodes are not in PKN any more: BMP1, ETV5, GAS6, GDF11, ITGB3BP, MAML2 and 3 more."
 
-    dorothea_PKN_filtered <- cosmosR:::keep_observable_neighbours(dorothea_PKN_filtered, n_steps, names(downstream_inputs_filtered))
+    collectri_pkn_filtered <- cosmosR:::keep_observable_neighbours(collectri_pkn_filtered, n_steps, names(downstream_inputs_filtered))
 
     ## [1] "COSMOS: removing nodes that are not observable by measurements within 1 steps"
     ## [1] "COSMOS: 12699 from  15646 interactions are removed from the PKN"
 
-    upstream_inputs_filtered <- cosmosR:::filter_input_nodes_not_in_pkn(upstream_inputs_filtered, dorothea_PKN_filtered)
+    upstream_inputs_filtered <- cosmosR:::filter_input_nodes_not_in_pkn(upstream_inputs_filtered, collectri_pkn_filtered)
 
     ## [1] "COSMOS: 7 input/measured nodes are not in PKN any more: MTF1, NR2C2, RBPJ, SRF, NCOA2, E2F2 and 1 more."
 
-    # load(file = "support/dorothea_df.RData")
+    # load(file = "support/collectri_regulon.RData")
 
     # RNA_input <- as.numeric(weights$RNA[,4])
     # names(RNA_input) <- gsub("_RNA$","",row.names(weights$RNA))
 
-    meta_network_TF_lig <- dorothea_PKN_filtered
+    meta_network_TF_lig <- collectri_pkn_filtered
 
     write_csv(meta_network_TF_lig, file = "results/cosmos/moon/meta_network_TF_lig.csv")
 
@@ -1367,7 +1368,7 @@ downstream input definition is changing.
                                                      n_layers = n_steps, 
                                                      statistic = "ulm") 
       
-      meta_network_TF_lig <- filter_incohrent_TF_target(moon_res, dorothea_df, meta_network_TF_lig, RNA_input)
+      meta_network_TF_lig <- filter_incohrent_TF_target(moon_res, collectri_regulon, meta_network_TF_lig, RNA_input)
       after <- length(meta_network_TF_lig[,1])
       i <- i + 1
     }
@@ -1397,7 +1398,7 @@ downstream input definition is changing.
 ![](M2Cf/figs/run_moon_TF_to_lig_1.png)
 
     solution_network <- reduce_solution_network(decoupleRnival_res = moon_res, 
-                                                meta_network = as.data.frame(dorothea_PKN_filtered[,c(1,3,2)]),
+                                                meta_network = as.data.frame(collectri_pkn_filtered[,c(1,3,2)]),
                                                 cutoff = 1.5, 
                                                 upstream_input = upstream_inputs_filtered, 
                                                 RNA_input = RNA_input, 
@@ -1425,7 +1426,7 @@ downstream input definition is changing.
 
     ATT_TF_lig$NodeType <- ifelse(ATT_TF_lig$Nodes %in% levels_translated[levels_translated$level == 0,1],1,0)
 
-    ATT_TF_lig$NodeType <- ifelse(ATT_TF_lig$Nodes %in% ligrec_df$Node1, 2, ifelse(ATT_TF_lig$Nodes %in% ligrec_df$Node2, 3, ifelse(ATT_TF_lig$Nodes %in% dorothea_df$source, 4, ATT_TF_lig$NodeType))) 
+    ATT_TF_lig$NodeType <- ifelse(ATT_TF_lig$Nodes %in% ligrec_df$Node1, 2, ifelse(ATT_TF_lig$Nodes %in% ligrec_df$Node2, 3, ifelse(ATT_TF_lig$Nodes %in% collectri_regulon$source, 4, ATT_TF_lig$NodeType)))
 
     names(SIF_TF_lig)[4] <- "Weight"
 

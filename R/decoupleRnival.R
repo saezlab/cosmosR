@@ -258,13 +258,13 @@ decoupleRnival <- function(upstream_input = NULL, downstream_input, meta_network
 #'print(filtered_network)
 filter_incohrent_TF_target <- function(decouplRnival_res, TF_reg_net, meta_network, RNA_input){
   recursive_decoupleRnival_res <- decouplRnival_res
-  dorothea_reg <- TF_reg_net
+  tf_regulon <- TF_reg_net
   
   RNA_df <- data.frame(RNA_input)
   RNA_df$node <- row.names(RNA_df)
   
-  reg_meta <- recursive_decoupleRnival_res[recursive_decoupleRnival_res$source %in% dorothea_reg$source,]
-  reg_meta <- merge(reg_meta,dorothea_reg, by.x = "source", by.y = "source")
+  reg_meta <- recursive_decoupleRnival_res[recursive_decoupleRnival_res$source %in% tf_regulon$source,]
+  reg_meta <- merge(reg_meta, tf_regulon, by.x = "source", by.y = "source")
   names(reg_meta)[2] <- "TF_score"
   # print(names(RNA_df))
   reg_meta <- merge(reg_meta, RNA_df, by.x = "target", by.y = "node")
@@ -747,4 +747,3 @@ reduce_solution_network_double_thresh <- function(
   
   return(list(SIF = final_edges, ATT = att))
 }
-

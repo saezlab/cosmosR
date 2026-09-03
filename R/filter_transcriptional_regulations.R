@@ -15,9 +15,8 @@
 #'   genes changed.
 #' @param signaling_data Named vector containing known activity of signaling
 #'   nodes (kinases, TFs).
-#' @param tf_regulon Collection of transcription factor - target interactions.
-#'  A default collection from dorothea can be obtained by the 
-#'  \code{\link{load_tf_regulon_dorothea}} function.
+#' @param tf_regulon Collection of transcription factor-target interactions with
+#'  columns `tf`, `sign`, and `target`.
 #' @return A filtered version of the network.
 #' @importFrom rlang .data
 #' @importFrom dplyr %>%
@@ -78,5 +77,4 @@ filter_transcriptional_regulations <- function(network,
     out_pkn <- kept_interactions %>% dplyr::select(.data$source,.data$interaction,.data$target)    
     return(out_pkn)
 }
-
 

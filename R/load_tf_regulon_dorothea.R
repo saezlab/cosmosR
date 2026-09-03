@@ -1,36 +1,21 @@
-#' load transcription factor regulon
-#' 
-#' load the transcription factors from \code{DOROTHEA} package and converts 
-#' gene symbols to EntrezID using org.Hs.eg.db
-#' 
-#' @param confidence strong vector (by default: c("A","B","C")). Subset of \{A, B,
-#'  C, D, E\}. See the `dorothea` for the meaning of confidence levels. 
-#' package for further details. 
-#' @return returns a PKN of a form of a data table. Each row is an interaction.
-#' Columns names are:
-#' 
-#' - `tf` transcription factor
-#' - `confidence` class of confidence
-#' - `target` target gene
-#' - `sign` indicates if interaction is up (1) or down-regulation (-1). 
-#' 
-#' @importFrom dplyr %>%
+#' Retired DoRothEA regulon loader
+#'
+#' `load_tf_regulon_dorothea()` is retained only to give a clear migration
+#' message. DoRothEA is no longer a cosmosR dependency. For the legacy
+#' CARNIVAL workflow, supply a prepared CollecTRI regulon explicitly through
+#' the `tf_regulon` argument of `preprocess_COSMOS_*()`. It must contain the
+#' columns `tf`, `sign`, and `target`. A cached `decoupleR` CollecTRI table
+#' has `source`, `target`, and `mor` columns; convert it with
+#' `data.frame(tf = collectri_regulon$source, sign = collectri_regulon$mor, target = collectri_regulon$target)`.
+#'
+#' @param confidence Deprecated and ignored.
+#' @return No value. This defunct compatibility function always errors.
 #' @export
-#' @examples 
-#' load_tf_regulon_dorothea()
 load_tf_regulon_dorothea <- function(confidence = c("A","B","C")){
-    . <- NULL
-    
-    # load regulon from dorothea:
-    regulon = dorothea::dorothea_hs
-    regulon <- regulon %>% dplyr::rename(sign = "mor")
-    
-    conf = confidence
-    regulon <- regulon %>% dplyr::filter(.data$confidence %in% conf)
-    regulon <- regulon[,-which(names(regulon) == "confidence")]
-    
-    return(regulon)
+    stop(
+        "`load_tf_regulon_dorothea()` was retired in cosmosR 1.21.2. ",
+        "Supply a prepared CollecTRI regulon to the legacy CARNIVAL ",
+        "preprocessing functions using columns `tf`, `sign`, and `target`.",
+        call. = FALSE
+    )
 }
-
-
-

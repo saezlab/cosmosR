@@ -18,9 +18,8 @@ cosmos_data(
 PKN derived from Omnipath, STITCHdb and Recon3D.  See details on the data 
 \code{\link{meta_network}}.}
 
-\item{tf_regulon}{Collection of transcription factor - target interactions.
-A default collection from dorothea can be obtained by the 
-\code{\link{load_tf_regulon_dorothea}} function.}
+\item{tf_regulon}{Optional collection of transcription factor-target
+interactions with columns `tf`, `sign`, and `target`.}
 
 \item{signaling_data}{Numerical vector, where names are signaling nodes 
 in the PKN and values are from \{1, 0, -1\}.  Continuous data will be 

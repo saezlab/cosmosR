@@ -11,6 +11,7 @@ test_that("test run COSMOS signaling to metabolism", {
   
   res <- preprocess_COSMOS_metabolism_to_signaling(signaling_data = signaling_data,
                            meta_network = meta_network,
+                           tf_regulon = test_tf_regulon(),
                            metabolic_data = metabolic_data,
                            diff_expression_data = expression_data,
                            remove_unexpressed_nodes = FALSE,

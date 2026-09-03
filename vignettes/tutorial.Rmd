@@ -108,6 +108,13 @@ The differential experession data is used to filter out wrong TF-target interact
 
 The list of genes in the differential expression data will also be used as a reference to define which genes are expressed or not (all genes in the diff_expression_data are considered expressed, and genes that are no in diff_expression_data are removed from the network).
 
+The legacy CARNIVAL workflow now requires an explicit TF-target regulon with
+`tf`, `sign`, and `target` columns. The small one-edge regulon below is only
+for the packaged toy example. For a new analysis, prepare a CollecTRI regulon
+before calling the preprocessing function. A cached `decoupleR` CollecTRI
+table uses `source`, `target`, and `mor`, so convert it with
+`data.frame(tf = collectri_regulon$source, sign = collectri_regulon$mor, target = collectri_regulon$target)`.
+
 Here, the CARNIVAL_options$timelimit is set for the pre-optimisation. Indeed, if the "filter_tf_gene_interaction_by_optimization" parameter of the "preprocess_COSMOS_signaling_to_metabolism" function is set to TRUE, COSMOS can perform a first optimisation run in order to generate a preliminary solution network that can be used for filtering out incoherences between TF activities and downstream target expressions.
 
 ```{r, warning=FALSE, message=FALSE}
@@ -115,7 +122,9 @@ data(toy_network)
 data(toy_signaling_input)
 data(toy_metabolic_input)
 data(toy_RNA)
+tf_regulon <- data.frame(tf = "MYC", sign = 1, target = "SLC2A1")
 test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_network,
+                                        tf_regulon = tf_regulon,
                                         signaling_data = toy_signaling_input,
                                         metabolic_data = toy_metabolic_input,
                                                       diff_expression_data = toy_RNA,
@@ -160,6 +169,7 @@ Now that the correct time is set up for the pre-optimisation run, we can prepare
 
 ```{r, warning=FALSE, message=FALSE}
 test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_network,
+                                        tf_regulon = tf_regulon,
                                         signaling_data = toy_signaling_input,
                                         metabolic_data = toy_metabolic_input,
                                                        diff_expression_data = toy_RNA,

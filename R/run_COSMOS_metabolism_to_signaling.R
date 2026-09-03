@@ -31,7 +31,9 @@
 #' data(toy_signaling_input)
 #' data(toy_metabolic_input)
 #' data(toy_RNA)
+#' tf_regulon <- data.frame(tf = "MYC", sign = 1, target = "SLC2A1")
 #' test_back <- preprocess_COSMOS_metabolism_to_signaling(meta_network = toy_network,
+#'                         tf_regulon = tf_regulon,
 #'                         signaling_data = toy_signaling_input,
 #'                         metabolic_data = toy_metabolic_input,
 #'                         diff_expression_data = toy_RNA,

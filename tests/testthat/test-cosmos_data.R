@@ -9,7 +9,7 @@ test_that("construct cosmos_data", {
     metabolic_data_test <- cosmosR:::metabolic_data_test
     
     cos <- new_cosmos_data(meta_network = meta_network_test,
-                           tf_regulon = load_tf_regulon_dorothea(),
+                           tf_regulon = test_tf_regulon(),
                            signaling_data = signaling_input_test,
                            expression_data = expression_data_test,
                            metabolic_data = metabolic_data_test)
@@ -19,9 +19,14 @@ test_that("construct cosmos_data", {
 
 
 test_that("validate cosmos_data", {
+
+    meta_network_test <- cosmosR:::meta_network_test
+    signaling_input_test <- cosmosR:::signaling_input_test
+    expression_data_test <- cosmosR:::expression_data_test
+    metabolic_data_test <- cosmosR:::metabolic_data_test
     
     cos <- new_cosmos_data(meta_network = meta_network_test,
-                           tf_regulon = load_tf_regulon_dorothea(),
+                           tf_regulon = test_tf_regulon(),
                            signaling_data = signaling_input_test,
                            expression_data = expression_data_test,
                            metabolic_data = metabolic_data_test)
@@ -30,7 +35,5 @@ test_that("validate cosmos_data", {
         TRUE
     })
 })
-
-
 
 

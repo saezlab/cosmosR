@@ -11,9 +11,10 @@
 #' @param meta_network prior knowledge network (PKN). A PKN released with COSMOS
 #' and derived from Omnipath, STITCHdb and Recon3D can be used. See details on 
 #' the data \code{\link{meta_network}}.
-#' @param tf_regulon collection of transcription factor - target interactions.
-#' A default collection from dorothea can be obtained by the 
-#' \code{\link{load_tf_regulon_dorothea}} function.
+#' @param tf_regulon Required data frame of transcription factor-target
+#' interactions with columns `tf`, `sign`, and `target`. Prepare this from a
+#' CollecTRI regulon for new work. A cached `decoupleR` CollecTRI regulon uses
+#' `source`, `target`, and `mor`; convert it with `data.frame(tf = collectri_regulon$source, sign = collectri_regulon$mor, target = collectri_regulon$target)` before passing it here.
 #' @param signaling_data numerical vector, where names are signaling nodes 
 #' in the PKN and values are from \{1, 0, -1\}. Continuous data will be 
 #' discretized using the \code{\link{sign}} function.  
@@ -55,8 +56,7 @@
 #'     \item{\code{optimized_network}}{Initial optimized network if 
 #'     \code{filter_tf_gene_interaction_by_optimization is TRUE}}
 #'   }
-#' @seealso \code{\link{meta_network}} for meta PKN,
-#' \code{\link{load_tf_regulon_dorothea}} for tf regulon,
+#' @seealso \code{\link{meta_network}} for meta PKN and
 #' \code{\link[CARNIVAL]{runCARNIVAL}}.
 #' 
 #' @examples
@@ -64,7 +64,9 @@
 #' data(toy_signaling_input)
 #' data(toy_metabolic_input)
 #' data(toy_RNA)
+#' tf_regulon <- data.frame(tf = "MYC", sign = 1, target = "SLC2A1")
 #' test_for <- preprocess_COSMOS_signaling_to_metabolism(meta_network = toy_network,
+#'      tf_regulon = tf_regulon,
 #'      signaling_data = toy_signaling_input,
 #'      metabolic_data = toy_metabolic_input,
 #'      diff_expression_data = toy_RNA,
@@ -73,7 +75,7 @@
 #'      CARNIVAL_options = default_CARNIVAL_options("lpSolve"))
 
 preprocess_COSMOS_signaling_to_metabolism <- function(meta_network = meta_network,
-                              tf_regulon = load_tf_regulon_dorothea(),
+                              tf_regulon = NULL,
                               signaling_data,
                               metabolic_data,
                               diff_expression_data = NULL, 
@@ -83,6 +85,8 @@ preprocess_COSMOS_signaling_to_metabolism <- function(meta_network = meta_networ
                               remove_unexpressed_nodes = TRUE,
                               filter_tf_gene_interaction_by_optimization = TRUE,
                               CARNIVAL_options =  default_CARNIVAL_options("lpSolve")){
+
+    check_required_tf_regulon(tf_regulon)
     
     if(!is.null(diff_expression_data))
     {

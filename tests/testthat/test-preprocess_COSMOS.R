@@ -7,6 +7,7 @@ test_that("test cosmos preprocessing (signaling to metabolism)", {
     metabolic_data_test <- cosmosR:::metabolic_data_test
     
     res <- preprocess_COSMOS_signaling_to_metabolism(meta_network = meta_network_test,
+                             tf_regulon = test_tf_regulon(),
                              signaling_data = signaling_input_test,
                              metabolic_data =  metabolic_data_test,
                              diff_expression_data = expression_data_test,
@@ -51,7 +52,7 @@ test_that("test cosmos preprocessing (signaling to metabolism)", {
 })
 
 
-test_that("test cosmos preprocessing (signaling to metabolism)", {
+test_that("test cosmos preprocessing (metabolism to signaling)", {
     
     
     meta_network_test <- cosmosR:::meta_network_test
@@ -60,6 +61,7 @@ test_that("test cosmos preprocessing (signaling to metabolism)", {
     metabolic_data_test <- cosmosR:::metabolic_data_test
     
     res <- preprocess_COSMOS_metabolism_to_signaling(meta_network = meta_network_test,
+                                                     tf_regulon = test_tf_regulon(),
                                                      signaling_data = signaling_input_test,
                                                      metabolic_data =  metabolic_data_test,
                                                      diff_expression_data = expression_data_test,
@@ -101,4 +103,15 @@ test_that("test cosmos preprocessing (signaling to metabolism)", {
     #expect_equal(length(res$diff_expression_data_bin),15919)
     #expect_equal(sum(grepl("^X",names(res$diff_expression_data_bin))),15919)
     expect_true(all(res$diff_expression_data_bin %in% c(-1,0,1)))
+})
+
+test_that("classic CARNIVAL preprocessing requires an explicit TF regulon", {
+    expect_error(
+        preprocess_COSMOS_signaling_to_metabolism(),
+        "tf_regulon"
+    )
+    expect_error(
+        preprocess_COSMOS_metabolism_to_signaling(),
+        "tf_regulon"
+    )
 })

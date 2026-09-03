@@ -23,5 +23,8 @@ test_that("test regulon network", {
     
     test_data = dplyr::tibble(tf = c("A","B"),sign = c(-1,1), target = c("C","D"))
     expect_true(check_COSMOS_inputs(tf_regulon = test_data))
+
+    test_data$resource <- "CollecTRI"
+    expect_true(check_COSMOS_inputs(tf_regulon = test_data))
     
 })
