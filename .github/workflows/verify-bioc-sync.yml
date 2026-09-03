@@ -1,0 +1,38 @@
+name: Verify Bioconductor synchronization
+
+on:
+  push:
+    branches:
+      - master
+      - devel
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compare:
+    name: GitHub branch matches Bioconductor devel
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compare commit IDs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags https://git.bioconductor.org/packages/cosmosR.git \
+            +refs/heads/devel:refs/remotes/bioconductor/devel
+
+          github_commit="$(git rev-parse HEAD)"
+          bioconductor_commit="$(git rev-parse bioconductor/devel)"
+
+          printf 'GitHub branch commit: %s\n' "$github_commit"
+          printf 'Bioconductor devel:  %s\n' "$bioconductor_commit"
+
+          if [ "$github_commit" != "$bioconductor_commit" ]; then
+            echo "::error title=Repositories are out of sync::Publish the same tested commit to GitHub and Bioconductor; see .github/bioc-sync.md."
+            exit 1
+          fi
